@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './app.css';
 import Search from './components/search';
-const API_KEY = "RGAPI-98f0d6f7-7788-48f1-87d3-c5961203efbf";
 
 class App extends Component {
   constructor(props) {
@@ -11,11 +10,7 @@ class App extends Component {
   }
 
   sumSearch(sumName) {
-      // console.log("Summoner name: ", sumName);
-      // fetch(`https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/${sumName}?api_key=${API_KEY}`).then(results => {
-      fetch("https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + sumName + "?api_key=" + API_KEY).then(results => {
-          console.log(results);
-      });
+      console.log("Summoner name: ", sumName);
   }
 
   render() {
