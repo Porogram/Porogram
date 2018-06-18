@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './search.css';
+import './search.css';
 
 class Search extends Component {
   constructor(props) {
@@ -9,9 +9,9 @@ class Search extends Component {
 
   render() {
     return (
-      <div className="search">
-        <input type="search" value={this.state.sumName} onChange={event => this.onInputChange(event.target.value)} />
-        <button onClick={() => this.onClick(this.state.sumName)}>Search</button>
+      <div className="search col-6 offset-3 form-group">
+        <input className="search-bar form-control form-control-lg" type="search" value={this.state.sumName} onChange={event => this.onInputChange(event.target.value)} />
+        <button className="btn btn-ghost" onClick={() => this.onClick(this.state.sumName)}>Search</button>
       </div>
     );
   }

@@ -1,0 +1,36 @@
+.search {
+  text-align: center;
+}
+
+.search-bar {
+    margin: 20px 0;
+    border-radius: 15px;
+}
+
+.btn,
+.btn:visited {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: transparent;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.btn:hover,
+.btn:active {
+    background-color: #967100;
+}
+
+.btn-ghost,
+.btn-ghost:visited {
+    border: 1px solid #C99700;
+    color: #967100;
+}
+
+.btn-ghost:hover,
+.btn-ghost:active {
+    border: 1px solid #967100;
+    color: #fff;
+}
