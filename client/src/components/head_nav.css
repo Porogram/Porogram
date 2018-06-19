@@ -1,0 +1,26 @@
+nav {
+    background-color: #260F30;
+    border-bottom: 2px solid #C99700;
+    border-top: 2px solid #C99700;
+}
+
+nav a img {
+    width: 60px;
+    padding-right: 10px;
+}
+
+nav a:link,
+nav a:visited {
+    color: #fff;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 5px;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s;
+}
+
+nav a:hover,
+nav a:active {
+    border-bottom: 2px solid #C99700;
+}
