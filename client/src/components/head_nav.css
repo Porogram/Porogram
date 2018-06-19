@@ -1,21 +1,23 @@
 nav {
-    background-color: #260F30;
+    background-color: rgba(38, 15, 48, 0.85);
     border-bottom: 2px solid #C99700;
     border-top: 2px solid #C99700;
 }
 
 nav a img {
-    width: 60px;
+    width: 50px;
     padding-right: 10px;
 }
 
 nav a:link,
 nav a:visited {
-    color: #fff;
+    color: #C0D9F9;
     font-weight: 400;
     text-decoration: none;
     font-size: 30px;
-    margin: 5px;
+    letter-spacing: 1px;
+    margin: 2px;
+    padding-bottom: 5px;
     border-bottom: 2px solid transparent;
     transition: border-bottom 0.2s;
 }
