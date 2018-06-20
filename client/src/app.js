@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './app.css';
 import Search from './components/search';
+import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class App extends Component {
 
   sumSearch(sumName) {
       console.log("Summoner name: ", sumName);
+      axios.get("/api/search").then(res => console.log(res));
   }
 
   render() {
