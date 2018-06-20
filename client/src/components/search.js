@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
-// import './search.css';
+import './search.css';
 
 class Search extends Component {
   constructor(props) {
       super(props);
-      this.state = { sumName: "" };
+      this.state = { summonerId: "" };
   }
 
   render() {
     return (
-      <div className="search">
-        <input type="search" value={this.state.sumName} onChange={event => this.onInputChange(event.target.value)} />
-        <button onClick={() => this.onClick(this.state.sumName)}>Search</button>
+      <div className="search col-6 offset-3 form-group">
+        <input className="search-bar form-control form-control-lg" type="search" value={this.state.summonerId} onChange={event => this.onInputChange(event.target.value)} />
+        <button className="btn btn-ghost" onClick={() => this.onClick(this.state.summonerId)}>Search</button>
       </div>
     );
   }
 
-  onInputChange(sumName) {
-      this.setState({ sumName });
+  onInputChange(summonerId) {
+      this.setState({ summonerId });
   }
 
-  onClick(sumName) {
-      // console.log(sumName);
-      this.props.onInputChange(sumName);
+  onClick(summonerId) {
+      // console.log(summonerId);
+      this.props.onInputChange(summonerId);
   }
 
 }

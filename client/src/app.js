@@ -3,28 +3,24 @@ import logo from './logo.svg';
 import './app.css';
 import Search from './components/search';
 import axios from 'axios'
+import HeadNav from './components/head_nav';
 
 class App extends Component {
   constructor(props) {
       super(props);
-      this.state = { sumName: "" };
+      this.state = { summonerId: "" };
   }
 
-  sumSearch(sumName) {
-      console.log("Summoner name: ", sumName);
-      axios.get("/api/search").then(res => console.log(res));
+  sumSearch(summonerId) {
+      console.log("Summoner name: ", summonerId);
+      var url = "/api/search/" + summonerId
+      axios.get(url).then(res => console.log(res.data));
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <HeadNav/>
         <Search onInputChange={this.sumSearch}/>
       </div>
     );
