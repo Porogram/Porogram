@@ -7,6 +7,7 @@ import HeadNav from './components/head_nav';
 
 
 class App extends Component {
+
   // constructor(props) {
   //     super(props);
   //     this.state = { summonerName: "" };
@@ -17,6 +18,7 @@ class App extends Component {
   //     var url = "/api/search/" + summonerName
   //     axios.get(url).then(res => console.log(res.data));
   // }
+
 
   // <Route path={"/"} component=HeadNav>
   // <Route path={"/search"} component=Search>
