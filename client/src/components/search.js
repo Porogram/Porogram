@@ -19,7 +19,7 @@ class Search extends Component {
     return (
       <div className="search col-6 offset-3 form-group">
         <input className="search-bar form-control form-control-lg" type="search" value={this.state.summonerName} onChange={event => this.onInputChange(event.target.value)} />
-        <button className="btn btn-ghost" onClick={() => this.onClick(this.state.summonerName)}>Search</button>
+        <button className="btn btn-ghost" href="/" onClick={() => this.onClick(this.state.summonerName)}>Search</button>
       </div>
     );
   }

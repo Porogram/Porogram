@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './app.css';
 import Search from './components/search';
-import axios from 'axios'
 import HeadNav from './components/head_nav';
-import { BrowserRouter, Route } from 'react-router-dom';
+import User from './components/user';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
 
@@ -16,10 +16,13 @@ class App extends Component {
   render() {
     return (
         <BrowserRouter>
-            <div className="App">
-                <Route path="/" component={HeadNav} />
-                <Route path="/search" component={Search} />
-            </div>
+            <Switch>
+                <div className="App">
+                    <HeadNav />
+                    <Route exact path="/" component={Search} />
+                    <Route path="/user" component={User} />
+                </div>
+            </Switch>
         </BrowserRouter>
     );
   }
