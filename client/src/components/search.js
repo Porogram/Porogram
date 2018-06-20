@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import './search.css';
+import axios from 'axios'
+
 
 class Search extends Component {
   constructor(props) {
       super(props);
       this.state = { summonerName: "" };
+  }
+
+  sumSearch(summonerName) {
+      console.log("Summoner name: ", summonerName);
+      var url = "/api/search/" + summonerName
+      axios.get(url).then(res => console.log(res.data));
   }
 
   render() {
