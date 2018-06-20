@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './app.css';
 import Search from './components/search';
 import HeadNav from './components/head_nav';
+import {Router, Route, browserHistory} from 'react-router';
+
 
 class App extends Component {
   constructor(props) {
@@ -16,10 +18,18 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <HeadNav/>
-        <Search onInputChange={this.sumSearch}/>
-      </div>
+      <Router>
+      <Route>
+        <div className="App">
+          <Route path={"/"}>
+        </Route>
+          <Route path={"app"} component=>
+        </Route>
+          <HeadNav/>
+          <Search onInputChange={this.sumSearch}/>
+        </div>
+        </Route>
+      </Router>
     );
   }
 }
