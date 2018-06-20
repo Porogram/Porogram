@@ -8,14 +8,7 @@ const HeadNav = function () {
         <a href="#"><img src="./favicon.png"/>LOL Stats</a>
     </nav>
 
-
   );
 }
 
 export default HeadNav;
-
-// <div>
-//   <div>
-//     {this.props.children}
-//   </div>
-// </div>

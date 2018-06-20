@@ -4,31 +4,23 @@ import './app.css';
 import Search from './components/search';
 import axios from 'axios'
 import HeadNav from './components/head_nav';
-
+import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
 
-  // constructor(props) {
-  //     super(props);
-  //     this.state = { summonerName: "" };
-  // }
-  //
-  // sumSearch(summonerName) {
-  //     console.log("Summoner name: ", summonerName);
-  //     var url = "/api/search/" + summonerName
-  //     axios.get(url).then(res => console.log(res.data));
-  // }
+  // <div className="App">
+  // <HeadNav/>
+  // <Search onInputChange={this.sumSearch}/>
 
-
-  // <Route path={"/"} component=HeadNav>
-  // <Route path={"/search"} component=Search>
+  // </div>
   render() {
     return (
-        <div className="App">
-          <HeadNav/>
-          <Search onInputChange={this.sumSearch}/>
-
-      </div>
+        <BrowserRouter>
+            <div className="App">
+                <Route path="/" component={HeadNav} />
+                <Route path="/search" component={Search} />
+            </div>
+        </BrowserRouter>
     );
   }
 }
