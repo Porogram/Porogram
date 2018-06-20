@@ -13,7 +13,7 @@ class App extends Component {
 
   sumSearch(summonerName) {
       console.log("Summoner name: ", summonerName);
-      var url = "/api/search/" + summonerName
+      var url = `/api/search/${summonerName}`;
       axios.get(url).then(res => console.log(res.data[0]));
   }
 
