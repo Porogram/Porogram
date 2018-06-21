@@ -7,8 +7,6 @@ import HeadNav from './components/head_nav';
 import User from './components/user';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-
-
 class App extends Component {
   constructor(props) {
       super(props);
@@ -17,9 +15,10 @@ class App extends Component {
 
   sumSearch(summonerName) {
       console.log("Summoner name: ", summonerName);
-      var url = "/api/search/" + summonerName
-      axios.get(url).then(res => console.log(res.data));
+      var url = `/api/search/${summonerName}`
+      axios.get(url).then(res => console.log(res.data[0]));
   }
+
   render() {
     return (
       <div className="App">
