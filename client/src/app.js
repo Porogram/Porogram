@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './app.css';
 import axios from 'axios';
 import Search from './components/search';
 import HeadNav from './components/head_nav';
 import User from './components/user';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
@@ -27,21 +26,6 @@ class App extends Component {
       </div>
     )
   }
-
-
-  // render() {
-  //   return (
-  //       <BrowserRouter>
-  //           <Switch>
-  //               <div className="App">
-  //                   <HeadNav />
-  //                   <Route exact path="/" component={Search} />
-  //                   <Route path="/user" component={User} />
-  //               </div>
-  //           </Switch>
-  //       </BrowserRouter>
-  //   );
-  // }
 }
 
 export default App;
