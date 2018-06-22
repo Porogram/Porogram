@@ -17,7 +17,7 @@ class Home extends Component {
     render() {
         return (
             <div className="Home">
-                <Search onInputChange = {this.sumSearch} />
+                <Search onInputChange={this.sumSearch} />
             </div>
         );
     }
