@@ -11,7 +11,7 @@ const App = () => {
                 <HeadNav />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/:summonerName" component={User} />
+                    <Route path="/summoner/:summonerName" component={User} />
                 </Switch>
             </div>
         </BrowserRouter>
