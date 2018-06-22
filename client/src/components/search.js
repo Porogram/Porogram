@@ -19,7 +19,7 @@ class Search extends Component {
         this.setState({ summonerName });
     }
     onClick(summonerName) {
-        this.props.onInputChange(summonerName);
+        this.props.onSearch(summonerName);
     }
 }
 

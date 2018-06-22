@@ -5,9 +5,7 @@ import Search from './search';
 class Home extends Component {
     constructor() {
         super();
-        this.state = {
-            summonerName: ""
-        };
+        this.state = { summonerName: "" };
     }
     sumSearch(summonerName) {
         console.log("Summoner name: ", summonerName);
@@ -17,7 +15,7 @@ class Home extends Component {
     render() {
         return (
             <div className="Home">
-                <Search onInputChange={this.sumSearch} />
+                <Search onSearch={this.sumSearch} />
             </div>
         );
     }
