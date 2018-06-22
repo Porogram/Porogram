@@ -10,9 +10,9 @@ class Sidebar extends Component {
 
           <div className="options">
               <ul>
-                  <li><a href="">Performance</a></li>
-                  <li><a href="">Match History</a></li>
-                  <li><a href="">Champion Mastery</a></li>
+                  <li>Performance</li>
+                  <li>Match History</li>
+                  <li>Champion Mastery</li>
               </ul>
           </div>
       </div>
