@@ -1,7 +1,7 @@
 import React from 'react';
 import HeadNav from './components/head_nav';
 import Home from './components/home';
-import User from './components/user';
+import Summoner from './components/summoner';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
                 <HeadNav />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/summoner/:summonerName" component={User} />
+                    <Route path="/summoner/:summonerName" component={Summoner} />
                 </Switch>
             </div>
         </BrowserRouter>

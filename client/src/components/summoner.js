@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Sidebar from './sidebar';
-import './user.css';
+import './summoner.css';
 
 
-class User extends Component {
+class Summoner extends Component {
   render() {
     return (
-      <div className="user">
+      <div className="summoner">
           <Sidebar />
       </div>
     );
   }
 }
 
-export default User;
+export default Summoner;
