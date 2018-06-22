@@ -1,31 +1,21 @@
-import React, { Component } from 'react';
-import './app.css';
-import axios from 'axios';
-import Search from './components/search';
+import React from 'react';
 import HeadNav from './components/head_nav';
+import Home from './components/home';
 import User from './components/user';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
-class App extends Component {
-  constructor() {
-      super();
-      this.state = { summonerName: "" };
-  }
-
-  sumSearch(summonerName) {
-      console.log("Summoner name: ", summonerName);
-      var url = `/api/search/${summonerName}`
-      axios.get(url).then(res => console.log(res.data[0]));
-  }
-
-  render() {
+const App = () => {
     return (
-      <div className="App">
-        <HeadNav/>
-        <Search onInputChange={this.sumSearch}/>
-      </div>
-    )
-  }
+        <BrowserRouter>
+            <div className="App">
+                <HeadNav />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route path="/:summonerName" component={User} />
+                </Switch>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;

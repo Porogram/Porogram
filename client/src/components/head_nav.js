@@ -1,13 +1,12 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom';
 import './head_nav.css';
 
-const HeadNav = function () {
-// class HeadNav extends Component {
+const HeadNav = () => {
   return (
     <nav className="navbar navbar-light">
-        <a href="#"><img src="./favicon.png"/>LOL Stats</a>
+        <Link to='/'><img src="./favicon.png"/>LOL Stats</Link>
     </nav>
-
   );
 }
 
