@@ -7,8 +7,8 @@ import User from './components/user';
 import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
-  constructor(props) {
-      super(props);
+  constructor() {
+      super();
       this.state = { summonerName: "" };
   }
 

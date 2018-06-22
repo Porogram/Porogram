@@ -3,7 +3,7 @@ import requests
 
 app = Flask(__name__)
 
-API_KEY = 'RGAPI-b862f98f-95c0-4cca-a1a9-529da484b6fa'
+API_KEY = 'RGAPI-a410df34-8b0a-476e-8fc1-5e1a78e1858e'
 
 @app.route('/api/search/<string:summonerName>', methods=['GET'])
 def search(summonerName):
