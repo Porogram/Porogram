@@ -11,8 +11,8 @@ class Summoner extends Component {
     componentDidMount() {
         const url = `/api/search/${this.props.match.params.summonerName}`;
         axios.get(url).then(res => {
-            console.log(res.data[0]);
-            this.setState({ summonerData: res.data[0] });
+            console.log(res.data);
+            this.setState({ summonerData: res.data });
         });
     }
     render() {
@@ -23,6 +23,7 @@ class Summoner extends Component {
                     <li>{this.state.summonerData.playerOrTeamName}</li>
                     <li>{this.state.summonerData.tier} {this.state.summonerData.rank}</li>
                 </ul>
+                <img src={`http://ddragon.leagueoflegends.com/cdn/${this.state.summonerData.profileIconVersion}/img/profileicon/${this.state.summonerData.profileIconId}.png`} />
             </div>
         );
     }
