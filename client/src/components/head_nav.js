@@ -5,7 +5,7 @@ import './head_nav.css';
 const HeadNav = () => {
     return (
         <nav className="navbar navbar-light">
-        <Link to="/"><img src="./favicon.png" />LOL Stats</Link>
+        <Link to="/"><img src="./favicon.png" alt="logo" />LOL Stats</Link>
         </nav>
     );
 }

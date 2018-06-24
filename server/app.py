@@ -14,8 +14,10 @@ def search(summonerName):
     # get profile icon
     id = response['id']
     profileIconId = response['profileIconId']
-    url = 'https://na1.api.riotgames.com/lol/static-data/v3/realms?api_key=' + API_KEY
-    profileIconVersion = requests.get(url).json()['n']['profileicon']
+    # url = 'https://na1.api.riotgames.com/lol/static-data/v3/realms?api_key=' + API_KEY
+    # profileIconVersion = requests.get(url).json()['n']['profileicon']
+    url = 'https://na1.api.riotgames.com/lol/static-data/v3/versions?api_key=' + API_KEY
+    profileIconVersion = requests.get(url).json()[0]
 
     # get summoner info
     url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/' + str(id) + '?api_key=' + API_KEY
