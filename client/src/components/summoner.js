@@ -8,7 +8,7 @@ class Summoner extends Component {
         super(props);
         this.state = { summonerData: {} };
     }
-    componentDidMount() {
+    componentWillMount() {
         const url = `/api/search/${this.props.match.params.summonerName}`;
         axios.get(url).then(res => {
             console.log(res.data);

@@ -15,15 +15,13 @@ def createUrl(apiPath, apiParams = None, apiQueryParams = None):
     for query, value in apiQueryParams.items():
         url += query + '=' + value
     return url
-
-def getJson(url):
-    return requests.get(url).json()
-
+    
 def getSummoner(apiPath, summonerName):
     return requests.get(createUrl(apiPath, summonerName)).json()
 
 def getVersion(apiPath):
-    return requests.get(createUrl(apiPath)).json()[0]
+    # return requests.get(createUrl(, apiPath)).json()[0]
+    return requests.get('https://ddragon.leagueoflegends.com/api/versions.json').json()[0]
 
 def getPositions(apiPath):
     return requests.get(createUrl(apiPath)).json()[0]
