@@ -18,12 +18,7 @@ class Summoner extends Component {
     render() {
         return (
             <div className="summoner">
-                <Sidebar />
-                <ul>
-                    <li>{this.state.summonerData.playerOrTeamName}</li>
-                    <li>{this.state.summonerData.tier} {this.state.summonerData.rank}</li>
-                </ul>
-                <img src={`http://ddragon.leagueoflegends.com/cdn/${this.state.summonerData.profileIconVersion}/img/profileicon/${this.state.summonerData.profileIconId}.png`} alt="profile icon"/>
+                <Sidebar summonerData={this.state.summonerData}/>
             </div>
         );
     }

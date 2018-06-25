@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import HeadNav from './components/head_nav';
+import Navbar from './components/navbar';
 import Home from './components/home';
 import Summoner from './components/summoner';
 
@@ -8,7 +8,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="App">
-                <HeadNav />
+                <Navbar />
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/summoner/:summonerName" component={Summoner} />

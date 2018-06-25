@@ -3,24 +3,38 @@ import requests
 
 app = Flask(__name__)
 
-API_KEY = 'RGAPI-f19f07c9-18f4-411c-bd23-a7862f106af4'
+API_KEY = 'RGAPI-bff227e1-ecfa-4c93-97d9-a4670f19d316'
+API_PREFIX = 'lol/'
+
+BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
+
+def createUrl(apiPath, apiParams = None, apiQueryParams = None):
+    if apiQueryParams is None:
+        apiQueryParams = {}
+    apiQueryParams['api_key'] = API_KEY
+    url = BASE_URL + apiPath
+    if apiParams:
+        url += '/' + apiParams
+    url += '?'
+    for query, value in apiQueryParams.items():
+        url += query + '=' + value
+    return url
 
 @app.route('/api/search/<string:summonerName>', methods=['GET'])
 def search(summonerName):
     # get summoner ids
-    url = 'https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + summonerName + '?api_key=' + API_KEY
+    url = createUrl('summoner/v3/summoners/by-name', summonerName)
     response = requests.get(url).json()
 
     # get profile icon
     id = response['id']
     profileIconId = response['profileIconId']
-    # url = 'https://na1.api.riotgames.com/lol/static-data/v3/realms?api_key=' + API_KEY
-    # profileIconVersion = requests.get(url).json()['n']['profileicon']
-    url = 'https://na1.api.riotgames.com/lol/static-data/v3/versions?api_key=' + API_KEY
+
+    url = createUrl('static-data/v3/versions')
     profileIconVersion = requests.get(url).json()[0]
 
     # get summoner info
-    url = 'https://na1.api.riotgames.com/lol/league/v3/positions/by-summoner/' + str(id) + '?api_key=' + API_KEY
+    url = createUrl('league/v3/positions/by-summoner/' + str(id))
     response = requests.get(url).json()[0]
     response['profileIconId'] = profileIconId
     response['profileIconVersion'] = profileIconVersion
