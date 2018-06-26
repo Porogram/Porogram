@@ -8,21 +8,17 @@ class Summoner extends Component {
         super(props);
         this.state = { summonerData: {} };
     }
-    componentDidMount() {
+    componentWillMount() {
         const url = `/api/search/${this.props.match.params.summonerName}`;
         axios.get(url).then(res => {
-            console.log(res.data[0]);
-            this.setState({ summonerData: res.data[0] });
+            console.log(res.data);
+            this.setState({ summonerData: res.data });
         });
     }
     render() {
         return (
             <div className="summoner">
-                <Sidebar />
-                <ul>
-                    <li>{this.state.summonerData.playerOrTeamName}</li>
-                    <li>{this.state.summonerData.tier} {this.state.summonerData.rank}</li>
-                </ul>
+                <Sidebar summonerData={this.state.summonerData}/>
             </div>
         );
     }
