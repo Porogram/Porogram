@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = 'RGAPI-bff227e1-ecfa-4c93-97d9-a4670f19d316'
+API_KEY = 'RGAPI-ee854956-0c43-4a2c-925a-cdc47611f9da'
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
 
@@ -15,7 +15,7 @@ def createUrl(apiPath, apiParams = None, apiQueryParams = None):
     for query, value in apiQueryParams.items():
         url += query + '=' + value
     return url
-    
+
 def getSummoner(apiPath, summonerName):
     return requests.get(createUrl(apiPath, summonerName)).json()
 
