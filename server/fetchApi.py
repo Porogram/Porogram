@@ -25,7 +25,7 @@ def getPositions(summonerId):
     return requests.get(createUrl('league/v3/positions/by-summoner', summonerId)).json()[0]
 
 def getMatchlist(accountId):
-    return requests.get(createUrl('match/v3/matchlists/by-account', accountId, { 'beginIndex': 0, 'endIndex': 9 })).json()
+    return requests.get(createUrl('match/v3/matchlists/by-account', accountId, { 'beginIndex': 0, 'endIndex': 5 })).json()
 
 def getMatches(matches):
     return [requests.get(createUrl('match/v3/matches', str(match['gameId']))).json() for match in matches]
