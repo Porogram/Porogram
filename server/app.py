@@ -15,6 +15,8 @@ def search(summonerName):
     summoner['positions'] = fetchApi.getPositions(str(summoner['summoner']['id']))
     # get match list
     summoner['matchlist'] = fetchApi.getMatchlist(str(summoner['summoner']['accountId']))
+    # get match info
+    summoner['matches'] = fetchApi.getMatches(summoner['matchlist']['matches'])
 
     return jsonify(summoner)
 
