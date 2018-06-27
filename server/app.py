@@ -8,11 +8,14 @@ app = Flask(__name__)
 def search(summonerName):
     summoner = {}
     # get summoner ids
-    summoner['summoner'] = fetchApi.getSummoner('summoner/v3/summoners/by-name', summonerName)
+    summoner['summoner'] = fetchApi.getSummoner(summonerName)
     # get profile icon (change to realms if rate limit exceeded)
-    summoner['version'] = fetchApi.getVersion('static-data/v3/versions')
+    summoner['version'] = fetchApi.getVersion()
     # get summoner info
-    summoner['positions'] = fetchApi.getPositions('league/v3/positions/by-summoner/' + str(summoner['summoner']['id']))
+    summoner['positions'] = fetchApi.getPositions(str(summoner['summoner']['id']))
+    # get match list
+    summoner['matchlist'] = fetchApi.getMatchlist(str(summoner['summoner']['accountId']))
+
     return jsonify(summoner)
 
 if __name__ == '__main__':

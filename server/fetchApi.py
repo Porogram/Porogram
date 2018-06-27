@@ -1,6 +1,7 @@
 import requests
+from urllib.parse import urlencode
 
-API_KEY = 'RGAPI-ee854956-0c43-4a2c-925a-cdc47611f9da'
+API_KEY = 'RGAPI-3a66fad5-18c1-4872-b1bd-fb2df2a818ba'
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
 
@@ -11,17 +12,17 @@ def createUrl(apiPath, apiParams = None, apiQueryParams = None):
     url = BASE_URL + apiPath
     if apiParams:
         url += '/' + apiParams
-    url += '?'
-    for query, value in apiQueryParams.items():
-        url += query + '=' + value
+    url += '?' + urlencode(apiQueryParams, doseq=True)
     return url
 
-def getSummoner(apiPath, summonerName):
-    return requests.get(createUrl(apiPath, summonerName)).json()
+def getSummoner(summonerName):
+    return requests.get(createUrl('summoner/v3/summoners/by-name', summonerName)).json()
 
-def getVersion(apiPath):
-    # return requests.get(createUrl(, apiPath)).json()[0]
+def getVersion():
     return requests.get('https://ddragon.leagueoflegends.com/api/versions.json').json()[0]
 
-def getPositions(apiPath):
-    return requests.get(createUrl(apiPath)).json()[0]
+def getPositions(summonerId):
+    return requests.get(createUrl('league/v3/positions/by-summoner', summonerId)).json()[0]
+
+def getMatchlist(accountId):
+    return requests.get(createUrl('match/v3/matchlists/by-account', accountId, { 'beginIndex': 0, 'endIndex': 9 })).json()
