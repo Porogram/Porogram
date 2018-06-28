@@ -7,16 +7,14 @@ import './navbar.css';
 
 const Navbar = () => {
     return (
-        <div>
-            <AppBar position="static">
-                <Toolbar>
-                    <Link to="/"><img src="./favicon.png" alt="logo" /></Link>
-                    <Typography variant="title" color="inherit">
-                        LOL Stats
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
+        <AppBar position="absolute">
+            <Toolbar>
+                <Link to="/"><img src="./favicon.png" alt="logo" /></Link>
+                <Typography variant="title" color="inherit">
+                    LOL Stats
+                </Typography>
+            </Toolbar>
+        </AppBar>
     );
 }
 
