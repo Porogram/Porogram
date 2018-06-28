@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from "@material-ui/core/Button"
-import './search.css';
+import '../css/search.css';
 
 class Search extends Component {
     constructor() {

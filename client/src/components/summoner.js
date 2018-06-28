@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Sidebar from './sidebar';
-import './summoner.css';
+import '../css/summoner.css';
 
 class Summoner extends Component {
     constructor(props) {
