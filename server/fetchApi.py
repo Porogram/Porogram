@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = 'RGAPI-ee854956-0c43-4a2c-925a-cdc47611f9da'
+API_KEY = 'RGAPI-55ecdbfb-9bf9-4e8f-b60b-9a5fd54f56d2'
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
 
