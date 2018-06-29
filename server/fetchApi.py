@@ -18,7 +18,9 @@ def createUrl(apiPath, apiParams = None, apiQueryParams = None):
     return url
 
 def getSummoner(summonerName):
-    return requests.get(createUrl('summoner/v3/summoners/by-name', summonerName)).json()
+    r = requests.get(createUrl('summoner/v3/summoners/by-name', summonerName))
+    if r.status_code is 200:
+        return r.json()
 
 def getVersion():
     return requests.get('https://ddragon.leagueoflegends.com/api/versions.json').json()[0]
