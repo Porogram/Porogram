@@ -1,8 +1,7 @@
 import requests
 from urllib.parse import urlencode
 
-
-API_KEY = 'RGAPI-998d246c-0d79-4b7e-a142-3e4038e40bbb'
+API_KEY = 'RGAPI-34d2c5aa-0375-4d47-9ea7-544821c5d613'
 
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
@@ -18,7 +17,9 @@ def createUrl(apiPath, apiParams = None, apiQueryParams = None):
     return url
 
 def getSummoner(summonerName):
-    return requests.get(createUrl('summoner/v3/summoners/by-name', summonerName)).json()
+    r = requests.get(createUrl('summoner/v3/summoners/by-name', summonerName))
+    if r.status_code is 200:
+        return r.json()
 
 def getVersion():
     return requests.get('https://ddragon.leagueoflegends.com/api/versions.json').json()[0]

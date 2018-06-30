@@ -9,7 +9,7 @@ def search(summonerName):
     summoner = {}
     # get summoner ids
     summoner['summoner'] = fetchApi.getSummoner(summonerName)
-    # get profile icon (change to realms if rate limit exceeded)
+    # get profile icon
     summoner['version'] = fetchApi.getVersion()
     # get summoner info
     summoner['positions'] = fetchApi.getPositions(str(summoner['summoner']['id']))
@@ -19,6 +19,14 @@ def search(summonerName):
     summoner['matches'] = fetchApi.getMatches(summoner['matchlist']['matches'])
 
     return jsonify(summoner)
+
+@app.route('/test', methods=['GET'])
+def test():
+    r = requests.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/jewaffle?api_key=RGAPI-998d246c-0d79-4b7e-a142-3e4038e40bbb')
+    if r.status_code is 200:
+        return 'success!'
+    else:
+        return 'failure!'
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)

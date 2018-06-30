@@ -7,7 +7,7 @@ import '../css/navbar.css';
 
 const Navbar = () => {
     return (
-        <AppBar position="absolute">
+        <AppBar position="static">
             <Toolbar>
                 <Link to="/"><img src="./favicon.png" alt="logo" /></Link>
                 <Typography variant="title" color="inherit">
