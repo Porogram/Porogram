@@ -9,7 +9,7 @@ def search(summonerName):
     summoner = {}
     # get summoner ids
     summoner['summoner'] = fetchApi.getSummoner(summonerName)
-    # get profile icon (change to realms if rate limit exceeded)
+    # get profile icon
     summoner['version'] = fetchApi.getVersion()
     # get summoner info
     summoner['positions'] = fetchApi.getPositions(str(summoner['summoner']['id']))

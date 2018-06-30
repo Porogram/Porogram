@@ -22,7 +22,10 @@ class Summoner extends Component {
             <div className="summoner">
                 <Sidebar summonerData={this.state.summonerData} />
                 <Switch>
-                    <Route path={`${this.props.match.path}/matches`} component={Matches} />
+                    <Route
+                        path={`${this.props.match.path}/matches`}
+                        render={props => <Matches {...props} summonerData={this.state.summonerData} />}
+                    />
                 </Switch>
             </div>
         );
