@@ -30,7 +30,7 @@ const styles = theme => ({
 
 });
 
-function Sidebar(props) {
+const Sidebar = props => {
     const { classes } = props;
 
     if (Object.keys(props.summonerData).length === 0)
@@ -48,10 +48,10 @@ function Sidebar(props) {
             <div className="options">
                 <ul>
                     <ListItem button>
-                        <ListItemText primary="Performance" classes={{primary: classes.listText}}/>
+                        <ListItemText primary="Match History" classes={{primary: classes.listText}}/>
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary="Match History" classes={{primary: classes.listText}}/>
+                        <ListItemText primary="Performance" classes={{primary: classes.listText}}/>
                     </ListItem>
                     <ListItem button>
                         <ListItemText primary="Champions" classes={{primary: classes.listText}}/>

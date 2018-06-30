@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './sidebar';
+import Matches from './matches';
 import '../css/summoner.css';
 
 class Summoner extends Component {
@@ -18,7 +20,10 @@ class Summoner extends Component {
     render() {
         return (
             <div className="summoner">
-                <Sidebar summonerData={this.state.summonerData}/>
+                <Sidebar summonerData={this.state.summonerData} />
+                <Switch>
+                    <Route path={`${this.props.match.path}/matches`} component={Matches} />
+                </Switch>
             </div>
         );
     }

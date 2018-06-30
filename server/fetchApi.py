@@ -2,7 +2,7 @@ import requests
 from urllib.parse import urlencode
 
 
-API_KEY = 'RGAPI-998d246c-0d79-4b7e-a142-3e4038e40bbb'
+API_KEY = 'RGAPI-7dd1f5f8-7a27-446b-9844-963d64de3456'
 
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
