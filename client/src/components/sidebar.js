@@ -32,17 +32,15 @@ const styles = theme => ({
 
 const Sidebar = props => {
     const { classes } = props;
-
-    if (Object.keys(props.summonerData).length === 0)
+    if (props.positions == null || props.summoner == null || props.version == null) 
         return null;
-
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
         <div className="sidebar">
             <div className="profile">
-                <h1>{props.summonerData.positions.playerOrTeamName}</h1>
-                <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${props.summonerData.version}/img/profileicon/${props.summonerData.summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
-                <h2><div className="tier">{props.summonerData.positions.tier}</div> {props.summonerData.positions.rank}</h2>
+                <h1>{props.positions.playerOrTeamName}</h1>
+                <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${props.version}/img/profileicon/${props.summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
+                <h2><div className="tier">{props.positions.tier}</div> {props.positions.rank}</h2>
             </div>
             <Divider />
             <div className="options">

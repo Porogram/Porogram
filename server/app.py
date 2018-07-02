@@ -6,24 +6,13 @@ app = Flask(__name__)
 
 @app.route('/api/search/<string:summonerName>', methods=['GET'])
 def search(summonerName):
-    summoner = {}
-    # get summoner ids
-    summoner['summoner'] = fetchApi.getSummoner(summonerName)
-    # get profile icon
-    summoner['version'] = fetchApi.getVersion()
-    # get summoner info
-    summoner['positions'] = fetchApi.getPositions(str(summoner['summoner']['id']))
-    # get match list
-    summoner['matchlist'] = fetchApi.getMatchlist(str(summoner['summoner']['accountId']))
-    # get match info
-    summoner['matches'] = fetchApi.getMatches(summoner['matchlist']['matches'])
-
-    return jsonify(summoner)
+    summoner = fetchApi.Summoner(summonerName)
+    return jsonify(summoner.summoner)
 
 @app.route('/test', methods=['GET'])
 def test():
     r = requests.get('https://na1.api.riotgames.com/lol/summoner/v3/summoners/by-name/jewaffle?api_key=RGAPI-998d246c-0d79-4b7e-a142-3e4038e40bbb')
-    if r.status_code is 200:
+    if r.status_code == 200:
         return 'success!'
     else:
         return 'failure!'
