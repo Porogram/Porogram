@@ -9,7 +9,11 @@ BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
 class Summoner:
     def __init__(self, summonerName):
         self.summoner = {}
-        self.summonerName = summonerName
+        self.getSummoner(summonerName)
+        self.getVersion()
+        self.getPositions()
+        self.getMatchlist()
+        self.getMatches()
 
     def createUrl(self, apiPath, apiParams = None, apiQueryParams = {}):
         url = BASE_URL + apiPath
@@ -48,8 +52,8 @@ class Summoner:
                 status['message'] = 'Unknown Error'
             return status
 
-    def getSummoner(self):
-        self.summoner['summoner'] = self.makeRequest(self.createUrl('summoner/v3/summoners/by-name', self.summonerName))
+    def getSummoner(self, summonerName):
+        self.summoner['summoner'] = self.makeRequest(self.createUrl('summoner/v3/summoners/by-name', summonerName))
 
     def getVersion(self):
         r = self.makeRequest('https://ddragon.leagueoflegends.com/api/versions.json')
