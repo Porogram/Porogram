@@ -9,10 +9,7 @@ class Summoner extends Component {
     constructor(props) {
         super(props);
         this.state = { summonerData: {} };
-    }
-    componentWillMount() {      // TODO move this to constructor
-        const url = `/api/search/${this.props.match.params.summonerName}`;
-        axios.get(url).then(res => {
+        axios.get(`/api/search/${props.match.params.summonerName}`).then(res => {
             console.log(res.data);
             this.setState({ summonerData: res.data });
         });
@@ -20,11 +17,15 @@ class Summoner extends Component {
     render() {
         return (
             <div className="summoner">
-                <Sidebar summonerData={this.state.summonerData} />
+                <Sidebar
+                    positions={this.state.summonerData.positions}
+                    summoner={this.state.summonerData.summoner}
+                    version={this.state.summonerData.version}
+                />
                 <Switch>
                     <Route
                         path={`${this.props.match.path}/matches`}
-                        render={props => <Matches {...props} summonerData={this.state.summonerData} />}
+                        render={props => <Matches {...props} matches={this.state.summonerData.matches} />}
                     />
                 </Switch>
             </div>
