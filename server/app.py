@@ -6,22 +6,18 @@ app = Flask(__name__)
 
 @app.route('/api/search/<string:summonerName>', methods=['GET'])
 def search(summonerName):
-    summoner = {}
+    summoner = fetchApi.Summoner(summonerName)
     # get summoner ids
-    summoner['summoner'] = fetchApi.getSummoner(summonerName)
+    summoner.getSummoner()
     # get profile icon
-    summoner['version'] = fetchApi.getVersion()
+    summoner.getVersion()
     # get summoner info
-    if 'id' in summoner['summoner']:
-        summoner['positions'] = fetchApi.getPositions(str(summoner['summoner']['id']))
+    summoner.getPositions()
     # get match list
-    if 'id' in summoner['summoner']:
-        summoner['matchlist'] = fetchApi.getMatchlist(str(summoner['summoner']['accountId']))
+    summoner.getMatchlist()
     # get match info
-    if 'matchlist' in summoner and 'matches' in summoner['matchlist']:
-        summoner['matches'] = fetchApi.getMatches(summoner['matchlist']['matches'])
-
-    return jsonify(summoner)
+    summoner.getMatches()
+    return jsonify(summoner.summoner)
 
 @app.route('/test', methods=['GET'])
 def test():
