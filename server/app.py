@@ -6,8 +6,18 @@ app = Flask(__name__)
 
 @app.route('/api/search/<string:summonerName>', methods=['GET'])
 def search(summonerName):
-    summoner = fetchApi.Summoner(summonerName)
-    return jsonify(summoner.summoner)
+    res = {}
+    res['summoner'] = fetchApi.getSummoner(summonerName)
+    res['version'] = fetchApi.getVersion()
+    if 'id' in res['summoner']:
+        res['positions'] = fetchApi.getPositions(res['summoner']['id'])
+    if 'accountId' in res['summoner']:
+        res['matchlist'] = fetchApi.getMatchlist(res['summoner']['accountId'])
+    if 'matchlist' in res and 'matches' in res['matchlist']:
+        res['matches'] = fetchApi.getMatches(res['matchlist']['matches'])
+    return jsonify(res)
+
+# TODO make a matches route that takes accountId, beginIndex, and endIndex to show additional matches
 
 @app.route('/test', methods=['GET'])
 def test():

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Home from './components/home';
 import Summoner from './components/summoner';
+import Failure from './components/failure';
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/summoner/:summonerName" component={Summoner} />
+                    <Route path="/failure" component={Failure} />
                 </Switch>
             </div>
         </BrowserRouter>
