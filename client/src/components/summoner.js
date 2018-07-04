@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './sidebar';
 import Matches from './matches';
@@ -12,6 +12,22 @@ class Summoner extends Component {
         axios.get(`/api/search/${props.match.params.summonerName}`).then(res => {
             console.log(res.data);
             this.setState({ summonerData: res.data });
+            if ('status_code' in res.data.summoner)
+                this.props.history.push({
+                    pathname: '/failure',
+                    state: { error: res.data.summoner }
+                });
+        }).catch(error => {
+            console.log(error);
+            this.props.history.push({
+                pathname: '/failure',
+                state: {
+                    error: {
+                        status_code: 'Not available',
+                        message: 'Failed to complete request'
+                    }
+                }
+            });
         });
     }
     render() {
@@ -33,4 +49,4 @@ class Summoner extends Component {
     }
 }
 
-export default Summoner;
+export default withRouter(Summoner);

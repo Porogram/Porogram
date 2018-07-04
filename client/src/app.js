@@ -13,7 +13,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route path="/summoner/:summonerName" component={Summoner} />
-                    <Route path="/failure" component={Failure} />
+                    <Route exact path="/failure" component={Failure} />
                 </Switch>
             </div>
         </BrowserRouter>
