@@ -6,6 +6,21 @@ API_KEY = 'RGAPI-67293355-e668-498a-afdd-2a0ed988b156'
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
 
+errors = {
+    400: 'Bad request',
+    401: 'Unauthorized',
+    403: 'Forbidden',
+    404: 'Data not found',
+    405: 'Method not allowed',
+    415: 'Unsupported media type',
+    422: 'Player exists, but hasn\'t played since match history collection began',
+    429: 'Rate limit exceeded',
+    500: 'Internal server error',
+    502: 'Bad gateway',
+    503: 'Service unavailable',
+    504: 'Gateway timeout'
+}
+
 def createUrl(apiPath, apiParams = None, apiQueryParams = {}):
     url = BASE_URL + apiPath
     if apiParams:
@@ -18,29 +33,14 @@ def makeRequest(url):
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
-    status = {}
-    status['status_code'] = r.status_code
-    if r.status_code == 400:
-        status['message'] = 'Bad Request'
-    elif r.status_code == 401:
-        status['message']: 'Unauthorized'
-    elif r.status_code == 404:
-        status['message'] = 'Forbidden'
-    elif r.status_code == 415:
-        status['message'] = 'Unsupported Media Type'
-    elif r.status_code == 429:
-        status['message'] = 'Rate Limit Exceeded'
-    elif r.status_code == 500:
-        status['message'] = 'Internal Server Error'
-    elif r.status_code == 503:
-        status['message'] = 'Service Unavailable'
-    elif r.status_code >= 400 and r.status_code < 500:
-        status['message'] = 'Invalid Request'
-    elif r.status_code >= 500 and r.status_code < 600:
-        status['message'] = 'Server Error'
+    if r.status_code in errors:
+        message = errors[r.status_code]
     else:
-        status['message'] = 'Unknown Error'
-    return status
+        message = 'Unknown error'
+    return {
+        'status_code': r.status_code,
+        'message': message
+    }
 
 def getSummoner(summonerName):
     return makeRequest(createUrl('summoner/v3/summoners/by-name', summonerName))
