@@ -1,33 +1,64 @@
 import requests
 from urllib.parse import urlencode
 
-
-API_KEY = 'RGAPI-998d246c-0d79-4b7e-a142-3e4038e40bbb'
+API_KEY = 'RGAPI-67293355-e668-498a-afdd-2a0ed988b156'
 
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
 
-def createUrl(apiPath, apiParams = None, apiQueryParams = None):
-    if apiQueryParams is None:
-        apiQueryParams = {}
-    apiQueryParams['api_key'] = API_KEY
+def createUrl(apiPath, apiParams = None, apiQueryParams = {}):
     url = BASE_URL + apiPath
     if apiParams:
         url += '/' + apiParams
+    apiQueryParams['api_key'] = API_KEY
     url += '?' + urlencode(apiQueryParams, doseq=True)
     return url
 
+def makeRequest(url):
+    r = requests.get(url)
+    if r.status_code == 200:
+        return r.json()
+    status = {}
+    status['status_code'] = r.status_code
+    if r.status_code == 400:
+        status['message'] = 'Bad Request'
+    elif r.status_code == 401:
+        status['message']: 'Unauthorized'
+    elif r.status_code == 404:
+        status['message'] = 'Forbidden'
+    elif r.status_code == 415:
+        status['message'] = 'Unsupported Media Type'
+    elif r.status_code == 429:
+        status['message'] = 'Rate Limit Exceeded'
+    elif r.status_code == 500:
+        status['message'] = 'Internal Server Error'
+    elif r.status_code == 503:
+        status['message'] = 'Service Unavailable'
+    elif r.status_code >= 400 and r.status_code < 500:
+        status['message'] = 'Invalid Request'
+    elif r.status_code >= 500 and r.status_code < 600:
+        status['message'] = 'Server Error'
+    else:
+        status['message'] = 'Unknown Error'
+    return status
+
 def getSummoner(summonerName):
-    return requests.get(createUrl('summoner/v3/summoners/by-name', summonerName)).json()
+    return makeRequest(createUrl('summoner/v3/summoners/by-name', summonerName))
 
 def getVersion():
-    return requests.get('https://ddragon.leagueoflegends.com/api/versions.json').json()[0]
+    r = makeRequest('https://ddragon.leagueoflegends.com/api/versions.json')
+    if 'status_code' not in r:
+        return r[0]
+    return r
 
 def getPositions(summonerId):
-    return requests.get(createUrl('league/v3/positions/by-summoner', summonerId)).json()[0]
+    r = makeRequest(createUrl('league/v3/positions/by-summoner', str(summonerId)))
+    if 'status_code' not in r:
+        return r[0]
+    return r
 
 def getMatchlist(accountId):
-    return requests.get(createUrl('match/v3/matchlists/by-account', accountId, { 'beginIndex': 0, 'endIndex': 5 })).json()
+    return makeRequest(createUrl('match/v3/matchlists/by-account', str(accountId), { 'beginIndex': 0, 'endIndex': 5 }))
 
 def getMatches(matches):
-    return [requests.get(createUrl('match/v3/matches', str(match['gameId']))).json() for match in matches]
+    return [makeRequest(createUrl('match/v3/matches', str(match['gameId']))) for match in matches]

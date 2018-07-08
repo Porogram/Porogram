@@ -13,7 +13,7 @@ class Search extends Component {
         return (
             <div className="search col-6 offset-3 form-group">
                 <Input type="text" value={this.state.summonerName} placeholder="Summoner Name" onChange={event => this.setState({ summonerName: event.target.value })}/>
-                <Button><Link to={`/summoner/${this.state.summonerName}`}>Search</Link></Button>
+                <Button><Link to={`/summoner/${this.state.summonerName}/matches`}>Search</Link></Button>
             </div>
         );
     }
