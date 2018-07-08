@@ -14,13 +14,13 @@ class Summoner extends Component {
             this.setState({ summonerData: res.data });
             if ('status_code' in res.data.summoner)
                 this.props.history.push({
-                    pathname: '/failure',
+                    pathname: '/',
                     state: { error: res.data.summoner }
                 });
         }).catch(error => {
             console.log(error);
             this.props.history.push({
-                pathname: '/failure',
+                pathname: '/',
                 state: {
                     error: {
                         status_code: 'Not available',
