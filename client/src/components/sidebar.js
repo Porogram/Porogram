@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
 import Drawer from '@material-ui/core/Drawer';
-// import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -32,7 +30,7 @@ const styles = theme => ({
 
 const Sidebar = props => {
     const { classes } = props;
-    if (props.positions == null || props.summoner == null || props.version == null) 
+    if (props.positions == null || props.summoner == null || props.version == null)
         return null;
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
