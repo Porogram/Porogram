@@ -76,10 +76,10 @@ const Matches = props => {
 
     const { classes } = props;
 
-    if (Object.keys(props.summonerData).length === 0)
+    if (props.summonerData.matches == null || props.summonerData.summoner == null)
         return null;
 
-    function matchData(index, account) {
+    const matchData = (index, account) => {
         let summoner = props.summonerData.matches[index].participantIdentities.filter(part => {
             return part.player.accountId == account;
         });
@@ -141,7 +141,7 @@ const Matches = props => {
 }
 
 Matches.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Matches);
