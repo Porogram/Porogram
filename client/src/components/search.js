@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import XRegExp from 'xregexp';
 import '../css/search.css';
 
 class Search extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { summonerName: '' };
     }
     onSearch = () => {
-        let re = XRegExp('^[0-9\\p{L} _\\.]+$');
-        if (re.test(this.state.summonerName)) {
-            console.log(this.state.summonerName, 'valid summoner name');
-            return (<Link to={`/summoner/${this.state.summonerName}/matches`} />);
+        if (XRegExp('^[0-9\\p{L} _\\.]+$').test(this.state.summonerName)) {
+            return this.props.history.push(`/summoner/${this.state.summonerName}/matches`);
         }
-        console.log(this.state.summonerName, 'invalid summoner name');
-        return null;
+        return this.props.history.push({
+            pathname: '/',
+            state: { error: { message: 'Invalid summoner name' } }
+        });
     }
     render() {
         return (
@@ -29,4 +29,4 @@ class Search extends Component {
     }
 }
 
-export default Search;
+export default withRouter(Search);
