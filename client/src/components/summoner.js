@@ -21,12 +21,7 @@ class Summoner extends Component {
             console.log(error);
             this.props.history.push({
                 pathname: '/',
-                state: {
-                    error: {
-                        status_code: 'Not available',
-                        message: 'Failed to complete request'
-                    }
-                }
+                state: { error: { message: 'Failed to complete request' } }
             });
         });
     }
