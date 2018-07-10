@@ -33,10 +33,7 @@ def makeRequest(url):
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
-    if r.status_code in errors:
-        message = errors[r.status_code]
-    else:
-        message = 'Unknown error'
+    message = errors[r.status_code] if r.status_code in errors else 'Unknown error'
     return {
         'status_code': r.status_code,
         'message': message
