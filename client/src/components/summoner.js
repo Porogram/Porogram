@@ -8,7 +8,10 @@ import '../css/summoner.css';
 class Summoner extends Component {
     constructor(props) {
         super(props);
-        this.state = { summonerData: {} };
+        this.state = {
+            summonerData: {},
+            champData: {}
+        };
         axios.get(`/api/search/${props.match.params.summonerName}`).then(res => {
             console.log(res.data);
             this.setState({ summonerData: res.data });
@@ -29,6 +32,10 @@ class Summoner extends Component {
                 }
             });
         });
+        axios.get('http://ddragon.leagueoflegends.com/cdn/8.13.1/data/en_US/champion.json').then(res => {
+            console.log(res.data.data);
+            this.setState({ champData: res.data.data});
+        });
     }
     render() {
         return (
@@ -41,7 +48,7 @@ class Summoner extends Component {
                 <Switch>
                     <Route
                         path={`${this.props.match.path}/matches`}
-                        render={props => <Matches {...props} matches={this.state.summonerData.matches} />}
+                        render={props => <Matches {...props} summonerData={this.state.summonerData} champData={this.state.champData}/>}
                     />
                 </Switch>
             </div>
