@@ -24,12 +24,7 @@ class Summoner extends Component {
             console.log(error);
             this.props.history.push({
                 pathname: '/',
-                state: {
-                    error: {
-                        status_code: 'Not available',
-                        message: 'Failed to complete request'
-                    }
-                }
+                state: { error: { message: 'Failed to complete request' } }
             });
         });
         axios.get('http://ddragon.leagueoflegends.com/cdn/8.13.1/data/en_US/champion.json').then(res => {
