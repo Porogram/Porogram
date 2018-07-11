@@ -1,7 +1,8 @@
 import requests
+import os
 from urllib.parse import urlencode
 
-API_KEY = 'RGAPI-2c233d6d-e4a6-4dcd-9d1b-88e957b4b5f0'
+API_KEY = os.environ['API_KEY']
 
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
@@ -54,7 +55,7 @@ def getPositions(summonerId):
         return r[0]
     return r
 
-def getMatchlist(accountId, beginIndex, endIndex):
+def getMatchlist(accountId, beginIndex = 0, endIndex = 5):
     return makeRequest(createUrl('match/v3/matchlists/by-account', str(accountId), { 'beginIndex': beginIndex, 'endIndex': endIndex }))
 
 def getMatches(matches):
