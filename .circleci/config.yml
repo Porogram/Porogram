@@ -38,7 +38,7 @@ jobs:
       # https://nose.readthedocs.io
   test:
     docker:
-      image: circleci/python:3.6.1-browsers
+      - image: circleci/python:3.6.1-browsers
     steps:
       - run:
           name: run tests
