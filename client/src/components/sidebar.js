@@ -24,8 +24,7 @@ const styles = theme => ({
         fontFamily: 'Lato',
         fontSize: 25,
         fontWeight: 300,
-    },
-
+    }
 });
 
 const Sidebar = props => {
@@ -59,7 +58,7 @@ const Sidebar = props => {
     );
 }
 Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Sidebar);
