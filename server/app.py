@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import requests
 import fetchApi
 
 app = Flask(__name__)
@@ -12,12 +11,20 @@ def search(summonerName):
     if 'id' in res['summoner']:
         res['positions'] = fetchApi.getPositions(res['summoner']['id'])
     if 'accountId' in res['summoner']:
-        res['matchlist'] = fetchApi.getMatchlist(res['summoner']['accountId'])
+        res['matchlist'] = fetchApi.getMatchlist(res['summoner']['accountId'], 0, 5)
     if 'matchlist' in res and 'matches' in res['matchlist']:
         res['matches'] = fetchApi.getMatches(res['matchlist']['matches'])
     return jsonify(res)
 
-# TODO make a matches route that takes accountId, beginIndex, and endIndex to show additional matches
+@app.route('/api/matches', methods=['POST'])
+def matches():
+    if not request.json or 'accountId' not in request.json or 'beginIndex' not in request.json or 'endIndex' not in request.json:
+        return jsonify({ 'status_code': 400, 'message': 'Bad request' })
+    res = {}
+    res['matchlist'] = fetchApi.getMatchlist(request.json['accountId'], request.json['beginIndex'], request.json['endIndex'])
+    if 'matchlist' in res and 'matches' in res['matchlist']:
+        res['matches'] = fetchApi.getMatches(res['matchlist']['matches'])
+    return jsonify(res)
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
