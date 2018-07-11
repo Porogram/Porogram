@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/lolstats/server
+    working_directory: ~/lolstats
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
@@ -18,15 +18,15 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "requirements.txt" }}
+          key: dependency-cache-{{ checksum "server/requirements.txt" }}
       - run:
           name: install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
+            pip install -U pip setuptools virtualenv
       - save_cache:
-          key: dependency-cache-{{ checksum "requirements.txt" }}
+          key: dependency-cache-{{ checksum "server/requirements.txt" }}
           paths:
             - ./venv
           
