@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-
 const styles = theme => ({
     main: {
         marginLeft: 230,
@@ -69,8 +68,6 @@ const styles = theme => ({
         marginBottom: 'auto',
     }
 });
-
-
 
 const Matches = props => {
 
