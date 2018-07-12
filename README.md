@@ -10,7 +10,7 @@ $ cd server
 $ npm install
 $ python3 -m venv venv
 $ source venv/bin/activate
-$ pip install -r requirements.txt
+$ python3 -m pip install -r requirements.txt
 ```
 make `.env` file inside `server` to store your Riot API key
 
