@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './sidebar';
-import Matches from './matches';
+import MatchList from './matchlist';
 import '../css/summoner.css';
 
 class Summoner extends Component {
@@ -43,7 +43,7 @@ class Summoner extends Component {
                 <Switch>
                     <Route
                         path={`${this.props.match.path}/matches`}
-                        render={props => <Matches {...props} summonerData={this.state.summonerData} champData={this.state.champData}/>}
+                        render={props => <MatchList {...props} summonerData={this.state.summonerData} champData={this.state.champData}/>}
                     />
                 </Switch>
             </div>
