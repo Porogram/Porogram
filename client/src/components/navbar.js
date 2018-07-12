@@ -18,7 +18,7 @@ const styles = theme => ({
 const Navbar = props => {
     const { classes } = props;
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Toolbar>
                 <Link to="/"><img className={classes.img} src="./favicon.png" alt="logo" /></Link>
                 <Typography variant="title" color="inherit">
