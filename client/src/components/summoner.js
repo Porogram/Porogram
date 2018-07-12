@@ -3,7 +3,6 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './sidebar';
 import Matches from './matches';
-import '../css/summoner.css';
 
 class Summoner extends Component {
     constructor(props) {

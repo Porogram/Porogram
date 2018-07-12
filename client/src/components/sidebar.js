@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import '../css/sidebar.css';
 
 const styles = theme => ({
     Drawer: {
@@ -25,24 +24,48 @@ const styles = theme => ({
         fontSize: 25,
         fontWeight: 300,
     },
-
+    sidebar: {
+        textAlign: 'center',
+        fontFamily: 'Lato'
+    },
+    h1: {
+        fontFamily: 'Lato',
+        fontWeight: 400
+    },
+    h2: {
+        fontSize: 20,
+        fontWeight: 400
+    },
+    li: {
+        listStyle: 'none'
+    },
+    ul: {
+        padding: 0
+    },
+    profile: {
+        marginBottom: 25
+    },
+    tier: {
+        display: 'inline-block',
+        textTransform: 'uppercase'
+    }
 });
 
 const Sidebar = props => {
     const { classes } = props;
-    if (props.positions == null || props.summoner == null || props.version == null)
+    if (!props.positions || !props.summoner || !props.version)
         return null;
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
-        <div className="sidebar">
-            <div className="profile">
-                <h1>{props.positions.playerOrTeamName}</h1>
+        <div className={classes.sidebar}>
+            <div className={classes.profile}>
+                <h1 className={classes.h1}>{props.positions.playerOrTeamName}</h1>
                 <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${props.version}/img/profileicon/${props.summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
-                <h2><div className="tier">{props.positions.tier}</div> {props.positions.rank}</h2>
+                <h2 className={classes.h2}><div className={classes.tier}>{props.positions.tier}</div> {props.positions.rank}</h2>
             </div>
             <Divider />
             <div className="options">
-                <ul>
+                <ul className={classes.ul}>
                     <ListItem button>
                         <ListItemText primary="Match History" classes={{primary: classes.listText}}/>
                     </ListItem>
@@ -59,7 +82,7 @@ const Sidebar = props => {
     );
 }
 Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Sidebar);

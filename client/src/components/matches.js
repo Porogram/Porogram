@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
-
 const styles = theme => ({
     main: {
         marginLeft: 230,
@@ -70,13 +69,11 @@ const styles = theme => ({
     }
 });
 
-
-
 const Matches = props => {
 
     const { classes } = props;
 
-    if (props.summonerData.matches == null || props.summonerData.summoner == null)
+    if (!props.summonerData.matches || !props.summonerData.summoner)
         return null;
 
     const matchData = (index, account) => {
