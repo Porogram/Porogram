@@ -73,7 +73,7 @@ const Matches = props => {
 
     const { classes } = props;
 
-    if (props.summonerData.matches == null || props.summonerData.summoner == null)
+    if (!props.summonerData.matches || !props.summonerData.summoner)
         return null;
 
     const matchData = (index, account) => {
