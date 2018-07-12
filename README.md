@@ -4,8 +4,7 @@ Statistics interface for League of Legends
 ```
 $ git clone git@github.com:lolstats/lolstats.git
 ```
-### Installation
-#### Server
+### Server
 ```
 $ cd server
 $ npm install
@@ -13,18 +12,18 @@ $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
-#### Client
-```
-$ cd ../client
-$ npm install
-```
 make `.env` file inside `server` to store your Riot API key
 
 **.env**
 ```
 export API_KEY="<YOUR API_KEY>"
 ```
-### Usage
+### Client
+```
+$ cd ../client
+$ npm install
+```
+## Usage
 ```
 $ ./startup.sh
 ```
