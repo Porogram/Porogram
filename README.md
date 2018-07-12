@@ -13,14 +13,16 @@ $ python3 -m venv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
-make `.env` file inside `server` to store your Riot API key
-```
-export API_KEY="<YOUR API_KEY>"
-```
 #### Client
 ```
 $ cd ../client
 $ npm install
+```
+make `.env` file inside `server` to store your Riot API key
+
+**.env**
+```
+export API_KEY="<YOUR API_KEY>"
 ```
 ### Usage
 ```
