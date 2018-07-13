@@ -11,19 +11,19 @@ import axios from 'axios';
 
 const styles = theme => ({
     main: {
-        marginLeft: 230,
-        marginTop: 90,
+        marginLeft: 60,
+        marginRight: 60,
     },
     paper: {
-        margin: '30px 100px',
-        padding: '25px 40px',
+        padding: '25px 30px',
+        position: 'static',
     },
     title: {
+        position: 'static',
+        margin: '30px 0',
         textAlign: 'center',
-    }
-
+    },
 });
-
 
 
 class MatchList extends Component {
@@ -47,10 +47,9 @@ class MatchList extends Component {
         return (
             <div className={classes.main}>
                 <Typography variant="display2" className={classes.title}>Match History</Typography>
-
                 <Paper className={classes.paper}>
                     {this.props.summonerData.matches.map((object, i) =>
-                        <Match
+                        <Match className={classes.match}
                             key={i}
                             match={this.props.summonerData.matches[i]}
                             version={this.props.summonerData.version}
