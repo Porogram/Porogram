@@ -3,13 +3,14 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from './sidebar';
 import MatchList from './matchlist';
+import Grid from '@material-ui/core/Grid';
+
 
 class Summoner extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            summonerData: {},
-            champData: {}
+            summonerData: {}
         };
         axios.get(`/api/search/${props.match.params.summonerName}`).then(res => {
             console.log(res.data);
@@ -26,25 +27,27 @@ class Summoner extends Component {
                 state: { error: { message: 'Failed to complete request' } }
             });
         });
-        axios.get('http://ddragon.leagueoflegends.com/cdn/8.13.1/data/en_US/champion.json').then(res => {
-            console.log(res.data.data);
-            this.setState({ champData: res.data.data});
-        });
     }
     render() {
         return (
             <div className="summoner">
-                <Sidebar
-                    positions={this.state.summonerData.positions}
-                    summoner={this.state.summonerData.summoner}
-                    version={this.state.summonerData.version}
-                />
-                <Switch>
-                    <Route
-                        path={`${this.props.match.path}/matches`}
-                        render={props => <MatchList {...props} summonerData={this.state.summonerData} champData={this.state.champData}/>}
-                    />
-                </Switch>
+                <Grid container>
+                    <Grid item xs={2}>
+                        <Sidebar
+                            positions={this.state.summonerData.positions}
+                            summoner={this.state.summonerData.summoner}
+                            version={this.state.summonerData.version}
+                        />
+                    </Grid>
+                    <Grid item xs={10}>
+                        <Switch>
+                            <Route
+                                path={`${this.props.match.path}/matches`}
+                                render={props => <MatchList {...props} summonerData={this.state.summonerData}/>}
+                            />
+                        </Switch>
+                    </Grid>
+                </Grid>
             </div>
         );
     }

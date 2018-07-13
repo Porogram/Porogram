@@ -6,49 +6,30 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+
 
 const styles = theme => ({
     Drawer: {
-        width: 240,
-        marginTop: 75,
+        position: 'static',
     },
     Avatar: {
         width: 100,
         height: 100,
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        marginBottom: 10,
+        margin: '10px auto',
     },
     listText: {
-        fontFamily: 'Lato',
-        fontSize: 25,
+        fontSize: 22,
         fontWeight: 300,
     },
     sidebar: {
         textAlign: 'center',
         fontFamily: 'Lato'
     },
-    h1: {
-        fontFamily: 'Lato',
-        fontWeight: 400
-    },
-    h2: {
-        fontSize: 20,
-        fontWeight: 400
-    },
-    li: {
-        listStyle: 'none'
-    },
-    ul: {
-        padding: 0
-    },
     profile: {
-        marginBottom: 25
+        marginBottom: 25,
+        marginTop: 15,
     },
-    tier: {
-        display: 'inline-block',
-        textTransform: 'uppercase'
-    }
 });
 
 const Sidebar = props => {
@@ -57,15 +38,14 @@ const Sidebar = props => {
         return null;
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
-        <div className={classes.sidebar}>
-            <div className={classes.profile}>
-                <h1 className={classes.h1}>{props.positions.playerOrTeamName}</h1>
-                <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${props.version}/img/profileicon/${props.summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
-                <h2 className={classes.h2}><div className={classes.tier}>{props.positions.tier}</div> {props.positions.rank}</h2>
-            </div>
-            <Divider />
-            <div className="options">
-                <ul className={classes.ul}>
+            <div className={classes.sidebar}>
+                <div className={classes.profile}>
+                    <Typography variant='display1'>{props.positions.playerOrTeamName}</Typography>
+                    <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${props.version}/img/profileicon/${props.summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
+                    <Typography variant='subheading'>{props.positions.tier + ' ' + props.positions.rank}</Typography>
+                </div>
+                <Divider />
+                <div>
                     <ListItem button>
                         <ListItemText primary="Match History" classes={{primary: classes.listText}}/>
                     </ListItem>
@@ -75,9 +55,8 @@ const Sidebar = props => {
                     <ListItem button>
                         <ListItemText primary="Champions" classes={{primary: classes.listText}}/>
                     </ListItem>
-                </ul>
+                </div>
             </div>
-        </div>
         </Drawer>
     );
 }
