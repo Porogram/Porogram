@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import logo from '../images/logo.png';
 
 const styles = theme => ({
     img: {
@@ -18,9 +19,9 @@ const styles = theme => ({
 const Navbar = props => {
     const { classes } = props;
     return (
-        <AppBar position="fixed">
+        <AppBar position="static">
             <Toolbar>
-                <Link to="/"><img className={classes.img} src="./favicon.png" alt="logo" /></Link>
+                <Link to="/"><img className={classes.img} src={logo} alt="logo" /></Link>
                 <Typography variant="title" color="inherit">
                     LOL Stats
                 </Typography>
