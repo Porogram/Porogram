@@ -25,7 +25,7 @@ $ npm install
 ```
 ## Usage
 ```
-$ ./startup.sh
+$ ./startup
 ```
 ## Built With
 * React - front end
