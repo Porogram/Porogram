@@ -1,20 +1,18 @@
-import React from 'react';
-import Search from './search';
+import React, { Fragment } from 'react';
+import Search from '../search';
 import Failure from './failure';
 
 const showError = props => {
     if (props.location.state && 'error' in props.location.state) {
-        return <Failure error={props.location.state.error}/>;
+        return <Failure error={props.location.state.error} />;
     }
 }
 
-const Home = props => {
+export default props => {
     return (
-        <div className="Home">
+        <Fragment>
             <Search />
             {showError(props)}
-        </div>
+        </Fragment>
     );
 }
-
-export default Home;
