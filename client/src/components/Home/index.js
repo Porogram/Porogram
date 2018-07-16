@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Search from '../search';
-import Failure from './failure';
+import Failure from '../Errors/failure';
 
 const showError = props => {
     if (props.location.state && 'error' in props.location.state) {

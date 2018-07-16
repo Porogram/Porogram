@@ -10,7 +10,7 @@ const showMessage = error => {
         return <h2>MESSAGE: {error.message}</h2>;
 }
 
-const Failure = props => {
+export default props => {
     return (
         <div>
             <h1>ERROR</h1>
@@ -19,5 +19,3 @@ const Failure = props => {
         </div>
     );
 }
-
-export default Failure;
