@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Navbar from './components/navbar';
-import Home from './components/home';
-import Summoner from './components/summoner';
+import Navbar from './navbar';
+import Home from './home';
+import Summoner from './summoner';
 
-const App = () => {
+export default () => {
     return (
         <Fragment>
             <CssBaseline />
@@ -17,5 +17,3 @@ const App = () => {
         </Fragment>
     );
 }
-
-export default App;
