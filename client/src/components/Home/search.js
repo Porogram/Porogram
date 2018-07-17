@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import Input from '@material-ui/core/Input'
-import Button from '@material-ui/core/Button'
+import { Input, Button } from '@material-ui/core'
 import XRegExp from 'xregexp'
 
 const styles = theme => ({

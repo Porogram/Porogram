@@ -1,11 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import Divider from '@material-ui/core/Divider'
-import Avatar from '@material-ui/core/Avatar'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Typography from '@material-ui/core/Typography'
+import { Drawer, Divider, Avatar, ListItem, ListItemText, Typography } from '@material-ui/core'
 
 const styles = theme => ({
     Drawer: {

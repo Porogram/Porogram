@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { CssBaseline } from '@material-ui/core'
 import Navbar from './navbar'
 import Home from './Home'
 import Summoner from './Summoner'

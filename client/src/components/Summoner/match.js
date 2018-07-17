@@ -1,12 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
+import { Paper, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
+    Typography, List, ListItem } from '@material-ui/core'
 
 const styles = theme => ({
     avatar: {

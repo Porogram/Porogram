@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
+import { Grid } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
 import MatchList from './matchlist'
-import Grid from '@material-ui/core/Grid'
 
 export default withRouter(class extends Component {
     constructor(props) {
