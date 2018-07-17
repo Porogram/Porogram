@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import XRegExp from 'xregexp';
@@ -13,7 +12,7 @@ const styles = theme => ({
     }
 });
 
-class Search extends Component {
+export default withStyles(styles)(withRouter(class extends Component {
     constructor(props) {
         super(props);
         this.state = { summonerName: '' };
@@ -29,11 +28,12 @@ class Search extends Component {
     }
     render() {
         const { classes } = this.props;
+        const { summonerName } = this.state;
         return (
             <div className={classes.search}>
                 <Input
                     type="text"
-                    value={this.state.summonerName}
+                    value={summonerName}
                     placeholder="Summoner Name"
                     onChange={event => this.setState({ summonerName: event.target.value })}
                 />
@@ -41,10 +41,4 @@ class Search extends Component {
             </div>
         );
     }
-}
-
-Search.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(withRouter(Search));
+}));

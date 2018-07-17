@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import Search from '../search';
+import Search from './search';
 import { Failure } from '../Errors';
 
 export default class extends Component {
