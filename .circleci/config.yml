@@ -58,4 +58,13 @@ jobs:
           name: Notification of Build Failure
           command: ./bot.py "BUILD FAILED"
           when: on_fail
+  success:
+    docker:
+      - image: circleci/python:3.6.1
+    steps:
+      - checkout
+      - run:
+          name: Notification of Build Success
+          command: ./bot.py "BUILD SUCCEEDED"
+          when: on_success
 
