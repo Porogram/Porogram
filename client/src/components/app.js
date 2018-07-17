@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from './navbar';
 import Home from './Home';
 import Summoner from './summoner';
-import NotFound from './Errors/notFound';
+import { NotFound } from './Errors';
 
 export default () => {
     return (

@@ -1,21 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-const showStatusCode = error => {
-    if ('status_code' in error)
-        return <h2>STATUS CODE: {error.status_code}</h2>;
-}
-
-const showMessage = error => {
-    if ('message' in error)
-        return <h2>MESSAGE: {error.message}</h2>;
-}
-
-export default props => {
+export default ({ error }) => {
     return (
-        <div>
+        <Fragment>
             <h1>ERROR</h1>
-            {showStatusCode(props.error)}
-            {showMessage(props.error)}
-        </div>
+            {'status_code' in error && <h2>STATUS CODE: {error.status_code}</h2>}
+            {'message' in error && <h2>MESSAGE: {error.message}</h2>}
+        </Fragment>
     );
 }

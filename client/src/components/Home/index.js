@@ -1,18 +1,25 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import Search from '../search';
-import Failure from '../Errors/failure';
+import { Failure } from '../Errors';
 
-const showError = props => {
-    if (props.location.state && 'error' in props.location.state) {
-        return <Failure error={props.location.state.error} />;
+export default class extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { error: false };
     }
-}
-
-export default props => {
-    return (
-        <Fragment>
-            <Search />
-            {showError(props)}
-        </Fragment>
-    );
+    componentDidUpdate() {
+        if (!this.state.error && 'error' in this.props.location.state) {
+            this.setState({ error: true });
+        }
+    }
+    render() {
+        const { error } = this.state;
+        const { location: { state }} = this.props;
+        return (
+            <Fragment>
+                <Search />
+                {error && <Failure error={state.error} />}
+            </Fragment>
+        );
+    }
 }
