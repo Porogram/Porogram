@@ -55,7 +55,7 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Notification of Build Failure
-        command: ./bot.py "BUILD FAILED"
-        when: on_fail
+          name: Notification of Build Failure
+          command: ./bot.py "BUILD FAILED"
+          when: on_fail
 
