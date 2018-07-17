@@ -1,13 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { Drawer, Divider, Avatar, ListItem, ListItemText, Typography } from '@material-ui/core'
 
 const styles = theme => ({
     Drawer: {
@@ -30,12 +23,12 @@ const styles = theme => ({
         marginBottom: 25,
         marginTop: 15,
     },
-});
+})
 
-const Sidebar = props => {
-    const { classes } = props;
+export default withStyles(styles)(props => {
+    const { classes } = props
     if (!props.positions || !props.summoner || !props.version)
-        return null;
+        return null
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
             <div className={classes.sidebar}>
@@ -58,10 +51,5 @@ const Sidebar = props => {
                 </div>
             </div>
         </Drawer>
-    );
-}
-Sidebar.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Sidebar);
+    )
+})

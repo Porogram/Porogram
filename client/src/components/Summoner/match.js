@@ -1,14 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-
+import React from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import { Paper, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
+    Typography, List, ListItem } from '@material-ui/core'
 
 const styles = theme => ({
     avatar: {
@@ -57,29 +50,25 @@ const styles = theme => ({
         marginTop: 'auto',
         marginBottom: 'auto',
     }
-});
+})
 
-const Match = props => {
-
-        const { classes } = props;
-
+export default withStyles(styles)(props => {
+        const { classes } = props
         if (props.champData == null || props.match == null || props.version == null || props.summoner == null)
-            return null;
-
+            return null
         const matchData = (account) => {
             let summoner = props.match.participantIdentities.filter(part => {
-                return part.player.accountId === account;
-            });
+                return part.player.accountId === account
+            })
             let champ = Object.values(props.champData).filter(champion => {
-                return champion.key == props.match.participants[summoner[0].participantId -1].championId;
-            });
+                return champion.key == props.match.participants[summoner[0].participantId -1].championId
+            })
             let results  = {
                 champ: champ[0],
                 summoner: props.match.participants[summoner[0].participantId -1]
-            };
-            return results;
-        };
-
+            }
+            return results
+        }
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
@@ -116,12 +105,5 @@ const Match = props => {
                     </List>
                 </ExpansionPanelDetails>
             </ExpansionPanel>
-        );
-
-}
-
-Match.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Match);
+        )
+})
