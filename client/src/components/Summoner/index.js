@@ -28,21 +28,23 @@ export default withRouter(class extends Component {
         })
     }
     render() {
+        const { summonerData, summonerData: { positions }, summonerData: { summoner }, summonerData: { version } } = this.state
+        const { path } = this.props.match
         return (
             <div className="summoner">
                 <Grid container>
                     <Grid item xs={2}>
                         <Sidebar
-                            positions={this.state.summonerData.positions}
-                            summoner={this.state.summonerData.summoner}
-                            version={this.state.summonerData.version}
+                            positions={positions}
+                            summoner={summoner}
+                            version={version}
                         />
                     </Grid>
                     <Grid item xs={10}>
                         <Switch>
                             <Route
-                                path={`${this.props.match.path}/matches`}
-                                render={props => <MatchList {...props} summonerData={this.state.summonerData}/>}
+                                path={`${path}/matches`}
+                                render={props => <MatchList {...props} summonerData={summonerData}/>}
                             />
                         </Switch>
                     </Grid>
