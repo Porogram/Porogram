@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export default props => {
-    return <h3>Page not found</h3>;
+    return <h3>Page not found</h3>
 }

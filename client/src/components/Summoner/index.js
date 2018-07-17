@@ -1,32 +1,31 @@
-import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import axios from 'axios';
-import Sidebar from './sidebar';
-import MatchList from './matchlist';
-import Grid from '@material-ui/core/Grid';
+import React, { Component } from 'react'
+import { Route, Switch, withRouter } from 'react-router-dom'
+import axios from 'axios'
+import Sidebar from './sidebar'
+import MatchList from './matchlist'
+import Grid from '@material-ui/core/Grid'
 
-
-class Summoner extends Component {
+export default withRouter(class extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             summonerData: {}
-        };
+        }
         axios.get(`/api/search/${props.match.params.summonerName}`).then(res => {
-            console.log(res.data);
-            this.setState({ summonerData: res.data });
+            console.log(res.data)
+            this.setState({ summonerData: res.data })
             if ('status_code' in res.data.summoner)
                 this.props.history.push({
                     pathname: '/',
                     state: { error: res.data.summoner }
-                });
+                })
         }).catch(error => {
-            console.log(error);
+            console.log(error)
             this.props.history.push({
                 pathname: '/',
                 state: { error: { message: 'Failed to complete request' } }
-            });
-        });
+            })
+        })
     }
     render() {
         return (
@@ -49,8 +48,6 @@ class Summoner extends Component {
                     </Grid>
                 </Grid>
             </div>
-        );
+        )
     }
-}
-
-export default withRouter(Summoner);
+})

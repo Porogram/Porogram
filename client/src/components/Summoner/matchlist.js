@@ -1,13 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import Match from './match'
-import axios from 'axios';
-
-
+import axios from 'axios'
 
 const styles = theme => ({
     main: {
@@ -23,27 +19,23 @@ const styles = theme => ({
         margin: '30px 0',
         textAlign: 'center',
     },
-});
+})
 
-
-class MatchList extends Component {
+export default withStyles(styles)(class extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             champData: {},
-        };
+        }
         axios.get('http://ddragon.leagueoflegends.com/cdn/8.13.1/data/en_US/champion.json').then(res => {
-            console.log(res.data.data);
-            this.setState({ champData: res.data.data});
-        });
+            console.log(res.data.data)
+            this.setState({ champData: res.data.data})
+        })
     }
     render() {
-
-        const { classes } = this.props;
-
+        const { classes } = this.props
         if (this.props.summonerData.matches == null || this.props.summonerData.summoner == null)
-            return null;
-
+            return null
         return (
             <div className={classes.main}>
                 <Typography variant="display2" className={classes.title}>Match History</Typography>
@@ -59,12 +51,6 @@ class MatchList extends Component {
                     )}
                 </Paper>
             </div>
-        );
+        )
     }
-}
-
-MatchList.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(MatchList);
+})

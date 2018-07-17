@@ -1,5 +1,5 @@
-import Failure from './failure';
-import NotFound from './notFound';
+import Failure from './failure'
+import NotFound from './notFound'
 
 export {
     Failure,

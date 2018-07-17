@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Navbar from './navbar';
-import Home from './Home';
-import Summoner from './summoner';
-import { NotFound } from './Errors';
+import React, { Fragment } from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Navbar from './navbar'
+import Home from './Home'
+import Summoner from './Summoner'
+import { NotFound } from './Errors'
 
 export default () => {
     return (
@@ -19,5 +19,5 @@ export default () => {
                 </Switch>
             </Fragment>
         </BrowserRouter>
-    );
+    )
 }
