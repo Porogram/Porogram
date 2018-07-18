@@ -3,24 +3,33 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
-import MatchList from './matchlist'
+// import MatchList from './matchlist'
 
 export default withRouter(class extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            summonerData: {},
+            summoner: {},
+            positions: {},
+            matchlist: {},
+            matches: [],
             version: '',
             champData: {},
             error: {}
         }
     }
+    componentDidMount() {
+        this.getSummonerData()
+        this.getStaticData()
+    }
     getSummonerData = () => {
-        axios.get(`/api/search/${props.match.params.summonerName}`)
+        axios.get(`/api/search/${this.props.match.params.summonerName}`)
             .then(res => {
                 console.log(res.data)
-                if ('status_code' in res.data.summoner) this.setState({ error: res.data.summoner })
-                this.setState({ summonerData: res.data })
+                if ('summoner' in res.data) this.setState({ summoner: res.data.summoner })
+                if ('positions' in res.data && res.data.positions.length) this.setState({ positions: res.data.positions[0] })
+                if ('matchlist' in res.data) this.setState({ matchlist: res.data.matchlist })
+                if ('matches' in res.data) this.setState({ matches: res.data.matches })
             }).catch(error => {
                 console.log(error)
                 this.setState({ error: { message: 'Failed to complete request' } })
@@ -42,15 +51,19 @@ export default withRouter(class extends Component {
     }
     render() {
         const {
-            summonerData,
-            summonerData: { positions },
-            summonerData: { summoner },
+            summoner,
+            positions,
+            matchlist,
+            matches,
             version,
             champData,
             error
         } = this.state
         const { path } = this.props.match
-        if (error) return <h1>ERROR</h1>
+        if ('message' in error) {
+            console.log(error.message)
+            return <h1>{error.message}</h1>
+        }
         return (
             <div className="summoner">
                 <Grid container>
@@ -62,15 +75,17 @@ export default withRouter(class extends Component {
                         />
                     </Grid>
                     <Grid item xs={10}>
-                        <Switch>
-                            <Route
-                                path={`${path}/matches`}
-                                render={props => <MatchList {...props} summonerData={summonerData}/>}
-                            />
-                        </Switch>
+
                     </Grid>
                 </Grid>
             </div>
         )
     }
 })
+
+// <Switch>
+//     <Route
+//         path={`${path}/matches`}
+//         render={props => <MatchList {...props} summonerData={summonerData}/>}
+//     />
+// </Switch>
