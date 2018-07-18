@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import axios from 'axios'
@@ -25,27 +25,22 @@ export default withRouter(class extends Component {
     getSummonerData = () => {
         axios.get(`/api/search/${this.props.match.params.summonerName}`)
             .then(res => {
-                console.log(res.data)
                 if ('summoner' in res.data) this.setState({ summoner: res.data.summoner })
                 if ('positions' in res.data && res.data.positions.length) this.setState({ positions: res.data.positions[0] })
                 if ('matchlist' in res.data) this.setState({ matchlist: res.data.matchlist })
                 if ('matches' in res.data) this.setState({ matches: res.data.matches })
             }).catch(error => {
-                console.log(error)
                 this.setState({ error: { message: 'Failed to complete request' } })
             })
     }
     getStaticData = () => {
         axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
             .then(res => {
-                console.log(res.data)
                 this.setState({ version: res.data[0] })
                 return axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/champion.json`)
             }).then(res => {
-                console.log(res.data)
                 this.setState({ champData: res.data.data })
             }).catch(error => {
-                console.log(error)
                 this.setState({ error: { message: 'Failed to complete request' } })
             })
     }
@@ -65,7 +60,7 @@ export default withRouter(class extends Component {
             return <h1>{error.message}</h1>
         }
         return (
-            <div className="summoner">
+            <Fragment>
                 <Grid container>
                     <Grid item xs={2}>
                         <Sidebar
@@ -78,7 +73,7 @@ export default withRouter(class extends Component {
 
                     </Grid>
                 </Grid>
-            </div>
+            </Fragment>
         )
     }
 })
