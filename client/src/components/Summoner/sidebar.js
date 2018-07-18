@@ -29,13 +29,14 @@ export default withStyles(styles)(props => {
     const { classes } = props
     if (!props.positions || !props.summoner || !props.version)
         return null
+    const { positions, summoner, version } = props
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
             <div className={classes.sidebar}>
                 <div className={classes.profile}>
-                    <Typography variant='display1'>{props.positions.playerOrTeamName}</Typography>
-                    <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${props.version}/img/profileicon/${props.summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
-                    <Typography variant='subheading'>{props.positions.tier + ' ' + props.positions.rank}</Typography>
+                    <Typography variant='display1'>{positions[0].playerOrTeamName}</Typography>
+                    <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.profileIconId}.png`} alt="profile icon" className={classes.Avatar} />
+                    <Typography variant='subheading'>{positions[0].tier + ' ' + positions[0].rank}</Typography>
                 </div>
                 <Divider />
                 <div>
