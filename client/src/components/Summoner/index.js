@@ -31,20 +31,15 @@ export default class extends Component {
                 if ('positions' in res.data && res.data.positions.length) this.setState({ positions: res.data.positions[0] })
                 if ('matchlist' in res.data) this.setState({ matchlist: res.data.matchlist })
                 if ('matches' in res.data) this.setState({ matches: res.data.matches })
-            }).catch(error => {
-                this.setState({ error: { message: 'Failed to complete request' } })
-            })
+            }).catch(error => this.setState({ error: { message: 'Failed to complete request' } }))
     }
     getStaticData = () => {
         return axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
             .then(res => {
                 this.setState({ version: res.data[0] })
                 return axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/champion.json`)
-            }).then(res => {
-                this.setState({ champData: res.data.data })
-            }).catch(error => {
-                this.setState({ error: { message: 'Failed to complete request' } })
-            })
+            }).then(res => this.setState({ champData: res.data.data })
+            ).catch(error => this.setState({ error: { message: 'Failed to complete request' } }))
     }
     render() {
         const {
