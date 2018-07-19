@@ -2,15 +2,17 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
+
+defaults: &defaults
+  working_directory: ~/lol_stats
+  docker:
+    - image: circleci/python:3.6.1-browsers
+
 version: 2
 jobs:
   build:
-    working_directory: ~/lolstats
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1-browsers
-      
+      <<: *defaults 
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -37,8 +39,8 @@ jobs:
       # https://pytest.org
       # https://nose.readthedocs.io
   test:
-    docker:
-      - image: circleci/python:3.6.1-browsers
+    <<: *defaults
+
     steps:
       - checkout
       - run:
@@ -49,18 +51,18 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
-  error:
-    docker:
-      - image: circleci/python:3.6.1
+  errorMessage:
+    <<: *defaults
+
     steps:
       - checkout
       - run:
           name: Notification of Build Failure
           command: ./bot.py "BUILD FAILED"
           when: on_fail
-  success:
-    docker:
-      - image: circleci/python:3.6.1
+  successMessage:
+    <<: *defaults
+
     steps:
       - checkout
       - run:
@@ -68,3 +70,20 @@ jobs:
           command: ./bot.py "BUILD SUCCEEDED"
           when: on_success
 
+
+workflows:
+  version: 2
+  btd:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - errorMessage:
+          requires:
+            - build
+            - test
+      - successMessage:
+          requires:
+            - build
+            - test
