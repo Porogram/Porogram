@@ -3,13 +3,14 @@ import { Route, Switch } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
-// import MatchList from './matchlist'
+import MatchList from './matchlist'
 import { Failure } from '../Errors'
 
 export default class extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            fetchedData: false,
             summoner: {},
             positions: {},
             matchlist: {},
@@ -20,11 +21,13 @@ export default class extends Component {
         }
     }
     componentDidMount() {
-        this.getSummonerData()
-        this.getStaticData()
+        Promise.all([this.getSummonerData(), this.getStaticData()])
+            .then(() => {
+                this.setState({ fetchedData: true })
+            })
     }
     getSummonerData = () => {
-        axios.get(`/api/search/${this.props.match.params.summonerName}`)
+        return axios.get(`/api/search/${this.props.match.params.summonerName}`)
             .then(res => {
                 if ('summoner' in res.data) this.setState({ summoner: res.data.summoner })
                 if ('positions' in res.data && res.data.positions.length) this.setState({ positions: res.data.positions[0] })
@@ -35,7 +38,7 @@ export default class extends Component {
             })
     }
     getStaticData = () => {
-        axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
+        return axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
             .then(res => {
                 this.setState({ version: res.data[0] })
                 return axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/champion.json`)
@@ -47,6 +50,7 @@ export default class extends Component {
     }
     render() {
         const {
+            fetchedData,
             summoner,
             positions,
             matchlist,
@@ -56,6 +60,7 @@ export default class extends Component {
             error
         } = this.state
         const { path } = this.props.match
+        if (!fetchedData) return null
         if ('message' in error) {
             return <Failure error={error} />
         } else if ('message' in summoner) {
@@ -72,17 +77,23 @@ export default class extends Component {
                         />
                     </Grid>
                     <Grid item xs={10}>
-
+                        <Switch>
+                            <Route
+                                path={`${path}/matches`}
+                                render={props =>
+                                    <MatchList
+                                        {...props}
+                                        summoner={summoner}
+                                        matches={matches}
+                                        version={version}
+                                        champData={champData}
+                                    />
+                                }
+                            />
+                        </Switch>
                     </Grid>
                 </Grid>
             </Fragment>
         )
     }
 }
-
-// <Switch>
-//     <Route
-//         path={`${path}/matches`}
-//         render={props => <MatchList {...props} summonerData={summonerData}/>}
-//     />
-// </Switch>

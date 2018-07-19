@@ -46,13 +46,10 @@ export default withStyles(styles)(props => {
                 <Divider />
                 <div>
                     <ListItem button>
-                        <ListItemText primary="Match History" classes={{primary: classes.listText}}/>
+                        <ListItemText primary="Summary" classes={{primary: classes.listText}}/>
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary="Performance" classes={{primary: classes.listText}}/>
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemText primary="Champions" classes={{primary: classes.listText}}/>
+                        <ListItemText primary="Matches" classes={{primary: classes.listText}}/>
                     </ListItem>
                 </div>
             </div>
