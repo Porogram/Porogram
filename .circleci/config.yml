@@ -59,8 +59,9 @@ jobs:
       - checkout
       - run:
           name: Notification of Build Failure
-          command: ./bot.py "BUILD FAILED"
-          when: on_fail
+          command: |
+            . bot.py "BUILD FAILED"
+    when: on_fail
   successMessage:
     <<: *defaults
 
@@ -68,8 +69,9 @@ jobs:
       - checkout
       - run:
           name: Notification of Build Success
-          command: ./bot.py "BUILD SUCCEEDED"
-          when: on_success
+          command: |
+            . bot.py "BUILD SUCCEEDED"
+    when: on_success
 
 
 workflows:
