@@ -58,7 +58,7 @@ export default class extends Component {
         const { path } = this.props.match
         if ('message' in error) {
             return <Failure error={error} />
-        } else if ('status_code' in summoner) {
+        } else if ('message' in summoner) {
             return <Failure error={summoner} />
         }
         return (
