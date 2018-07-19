@@ -28,7 +28,7 @@ jobs:
             - ./venv
       - run:
           name: build failed notification
-          command: . bot.py "BUILD FAILED"
+          command: ./bot.py "BUILD FAILED"
           when: on_fail
 
           
@@ -53,14 +53,14 @@ jobs:
           destination: test-reports
       - run:
           name: tests failed notification
-          command: . bot.py "TESTS FAILED"
+          command: ./bot.py "TESTS FAILED"
           when: on_fail
   notifySuccess:
     <<: *defaults
     steps:
       - run:
           name: ci success notification
-          command: . bot.py "Ci pipline passed!"
+          command: ./bot.py "Ci pipline passed!"
 
 
 workflows:
