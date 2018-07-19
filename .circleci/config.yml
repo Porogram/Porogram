@@ -4,7 +4,7 @@
 #
 
 defaults: &defaults
-  working_directory: ~/lol_stats
+  working_directory: ~/lol_stats/server
   docker:
     - image: circleci/python:3.6.1-browsers
 
@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "server/requirements.txt" }}
+          key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
           name: install dependencies
           command: |
@@ -28,7 +28,7 @@ jobs:
             . venv/bin/activate
             pip install -U pip setuptools virtualenv
       - save_cache:
-          key: dependency-cache-{{ checksum "server/requirements.txt" }}
+          key: dependency-cache-{{ checksum "requirements.txt" }}
           paths:
             - ./venv
           
