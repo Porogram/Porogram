@@ -52,9 +52,6 @@ jobs:
             #. venv/bin/activate
             #python manage.py test
             echo "Testing..."
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
       - run:
           name: tests failed notification
           command: python3 -m bot "TESTS FAILED"
