@@ -8,6 +8,16 @@ defaults: &defaults
   docker:
     - image: circleci/python:3.6.1-browsers
 
+restore_cache: &restore_cache
+  - restore_cache:
+      key: dependency-cache-{{ checksum "requirements.txt" }}
+
+save_cache: &save_cache
+  - save_cache:
+      key: dependency-cache-{{ checksum "requirements.txt" }}
+      paths:
+        - ./venv
+
 version: 2
 jobs:
   build:
@@ -19,18 +29,14 @@ jobs:
     # - image: circleci/postgres:9.4
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "requirements.txt" }}
+      <<: *restore_cache
       - run:
           name: install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -U pip setuptools virtualenv
-      - save_cache:
-          key: dependency-cache-{{ checksum "requirements.txt" }}
-          paths:
-            - ./venv
+      <<: &save_cache
           
  
     # run tests!
@@ -43,6 +49,7 @@ jobs:
 
     steps:
       - checkout
+      <<: *restore_cache
       - run:
           name: run tests
           command: |
@@ -51,6 +58,8 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+      <<: *save_cache
+
   errorMessage:
     <<: *defaults
 
