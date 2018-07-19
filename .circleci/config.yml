@@ -30,6 +30,10 @@ jobs:
           name: build failed notification
           command: python3 -m bot "BUILD FAILED"
           when: on_fail
+      - run:
+          name: success pls
+          command: ./bot.py "SUCCESS YAAAYY"
+          when: on_success
 
           
  
