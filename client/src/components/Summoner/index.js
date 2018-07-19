@@ -22,9 +22,7 @@ export default class extends Component {
     }
     componentDidMount() {
         Promise.all([this.getSummonerData(), this.getStaticData()])
-            .then(() => {
-                this.setState({ fetchedData: true })
-            })
+            .then(() => this.setState({ fetchedData: true }))
     }
     getSummonerData = () => {
         return axios.get(`/api/search/${this.props.match.params.summonerName}`)
