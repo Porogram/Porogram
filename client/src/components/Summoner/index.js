@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
 // import MatchList from './matchlist'
+import { Failure } from '../Errors'
 
-export default withRouter(class extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -56,8 +57,9 @@ export default withRouter(class extends Component {
         } = this.state
         const { path } = this.props.match
         if ('message' in error) {
-            console.log(error.message)
-            return <h1>{error.message}</h1>
+            return <Failure error={error} />
+        } else if ('status_code' in summoner) {
+            return <Failure error={summoner} />
         }
         return (
             <Fragment>
@@ -76,7 +78,7 @@ export default withRouter(class extends Component {
             </Fragment>
         )
     }
-})
+}
 
 // <Switch>
 //     <Route
