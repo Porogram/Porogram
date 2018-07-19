@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
-// import MatchList from './matchlist'
+import MatchList from './matchlist'
 import { Failure } from '../Errors'
 
 export default class extends Component {
@@ -77,17 +77,23 @@ export default class extends Component {
                         />
                     </Grid>
                     <Grid item xs={10}>
-
+                        <Switch>
+                            <Route
+                                path={`${path}/matches`}
+                                render={props =>
+                                    <MatchList
+                                        {...props}
+                                        summoner={summoner}
+                                        matches={matches}
+                                        version={version}
+                                        champData={champData}
+                                    />
+                                }
+                            />
+                        </Switch>
                     </Grid>
                 </Grid>
             </Fragment>
         )
     }
 }
-
-// <Switch>
-//     <Route
-//         path={`${path}/matches`}
-//         render={props => <MatchList {...props} summonerData={summonerData}/>}
-//     />
-// </Switch>
