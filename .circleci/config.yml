@@ -58,6 +58,7 @@ jobs:
   notifySuccess:
     <<: *defaults
     steps:
+      - checkout
       - run:
           name: ci success notification
           command: ./bot.py "Ci pipline passed!"
