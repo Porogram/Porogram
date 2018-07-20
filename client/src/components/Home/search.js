@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Input, Button } from '@material-ui/core'
+import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
 
 const styles = theme => ({
@@ -31,11 +32,10 @@ export default withStyles(styles)(class extends Component {
         if (toSummoner) return <Redirect to={`/summoner/${summonerName}/matches`} />
         return (
             <div className={classes.search}>
-                <Input
-                    type="text"
+                <SearchBar
                     value={summonerName}
-                    placeholder="Summoner Name"
-                    onChange={event => this.setState({ summonerName: event.target.value })}
+                    onChange={value => this.setState({ summonerName: value })}
+                    onRequestSearch={this.onSearch}
                 />
                 <Button onClick={this.onSearch}>Search</Button>
                 {invalidInput && <h3>Invalid input</h3>}
@@ -43,3 +43,10 @@ export default withStyles(styles)(class extends Component {
         )
     }
 })
+
+// <Input
+//     type="text"
+//     value={summonerName}
+//     placeholder="Summoner Name"
+//     onChange={event => this.setState({ summonerName: event.target.value })}
+// />
