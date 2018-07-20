@@ -34,11 +34,11 @@ jobs:
             - ./venv
       - run:
           name: build failed notification
-          command: ./bot.py "BUILD FAILED"
+          command: python3 bot.py "BUILD FAILED"
           when: on_fail
       - run:
           name: success pls
-          command: ./bot.py "SUCCESS YAAAYY"
+          command: python3 bot.py "SUCCESS YAAAYY"
           when: on_success
 
 
