@@ -1,4 +1,4 @@
-# Python CircleCI 2.0 configuration file
+# Python CircleCI 2.0 configuration file:
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
@@ -7,6 +7,11 @@ defaults: &defaults
   working_directory: ~/lolstats/server
   docker:
     - image: circleci/python:3.6.1
+
+
+machine:
+  python:
+    version: 3.6.1
 
 version: 2
 jobs:
