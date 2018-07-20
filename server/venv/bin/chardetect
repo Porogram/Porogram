@@ -1,4 +1,4 @@
-#!/Users/jewonoh/Documents/projects/lolstats/server/venv/bin/python3
+#!~/lolstats/server/venv/bin/python3
 
 # -*- coding: utf-8 -*-
 import re
