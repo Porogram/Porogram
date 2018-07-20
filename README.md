@@ -7,9 +7,8 @@ $ git clone git@github.com:lolstats/lolstats.git
 ### Server
 ```
 $ cd server
-$ npm install
 $ python3 -m venv venv
-$ source venv/bin/activate
+$ . venv/bin/activate
 $ python3 -m pip install -r requirements.txt
 ```
 make `.env` file inside `server` to store your Riot API key
@@ -21,7 +20,7 @@ export API_KEY="<YOUR API_KEY>"
 ### Client
 ```
 $ cd ../client
-$ npm install
+$ npm i
 ```
 ## Usage
 ```
