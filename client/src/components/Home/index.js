@@ -5,7 +5,8 @@ import Search from './search'
 const styles = theme => ({
     search: {
         width: '50%',
-        margin: '220px auto'
+        marginTop: '230px',
+        margin: '0 auto'
     }
 })
 
