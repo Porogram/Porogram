@@ -94,7 +94,7 @@ jobs:
           name: ci success notification
           command: |
               . venv/bin/activate
-              python3 bot.py "Ci pipline passed!"
+              python3 bot.py "Master Ci pipline passed!"
 
 
 workflows:
@@ -109,3 +109,6 @@ workflows:
           requires:
             - build
             - test
+          filters:
+            branches:
+              only: master
