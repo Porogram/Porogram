@@ -20,8 +20,6 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            pwd
-            ls -l
             python3 -m venv venv
             . venv/bin/activate
             pip install -U pip setuptools virtualenv
@@ -31,7 +29,7 @@ jobs:
             - ./venv
       - run:
           name: build failed notification
-          command: python3 -m bot "BUILD FAILED"
+          command: ./bot.py "BUILD FAILED"
           when: on_fail
       - run:
           name: success pls
