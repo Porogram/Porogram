@@ -6,7 +6,7 @@
 defaults: &defaults
   working_directory: ~/lolstats/server
   docker:
-    - image: circleci/python:3.6.1-browsers
+    - image: circleci/python:3.6.1
 
 version: 2
 jobs:
