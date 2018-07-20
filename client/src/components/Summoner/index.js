@@ -54,11 +54,8 @@ export default class extends Component {
         } = this.state
         const { path } = this.props.match
         if (!fetchedData) return null
-        if ('message' in error) {
-            return <Failure error={error} />
-        } else if ('message' in summoner) {
-            return <Failure error={summoner} />
-        }
+        if ('message' in error) return <Failure error={error} />
+        else if ('message' in summoner) return <Failure error={summoner} />
         return (
             <Fragment>
                 <Grid container>
@@ -77,6 +74,7 @@ export default class extends Component {
                                     <MatchList
                                         {...props}
                                         summoner={summoner}
+                                        matchlist={matchlist}
                                         matches={matches}
                                         version={version}
                                         champData={champData}

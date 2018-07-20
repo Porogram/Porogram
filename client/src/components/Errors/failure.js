@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import dogeImage from '../../images/error-doge.jpg'
@@ -33,7 +33,7 @@ export default withStyles(styles)(props => {
             <Typography variant="display4" className={classes.failure}>ERROR</Typography>
             {'status_code' in error && <Typography variant="subheading" className={classes.status}>STATUS CODE: {error.status_code}</Typography>}
             {'message' in error && <Typography variant="subheading" className={classes.status}>MESSAGE: {error.message}</Typography>}
-            <img src={dogeImage} className={classes.doge}/>
+            <img src={dogeImage} className={classes.doge} alt="" />
         </div>
     )
 })
