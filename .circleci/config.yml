@@ -4,7 +4,7 @@
 #
 
 defaults: &defaults
-  working_directory: ~/lolstats
+  working_directory: ~/lolstats/server
   docker:
     - image: circleci/python:3.6.1-browsers
 
@@ -13,7 +13,8 @@ jobs:
   build:
     <<: *defaults 
     steps:
-      - checkout
+      - checkout:
+          path: ~/lolstats
       - restore_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
@@ -47,7 +48,8 @@ jobs:
   test:
     <<: *defaults
     steps:
-      - checkout
+      - checkout:
+          path: ~/lolstats
       - run:
           name: run tests
           command: |
@@ -61,7 +63,8 @@ jobs:
   notifySuccess:
     <<: *defaults
     steps:
-      - checkout
+      - checkout:
+          path: ~/lolstats
       - run:
           name: ci success notification
           command: python3 -m bot "Ci pipline passed!"
