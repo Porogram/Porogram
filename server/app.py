@@ -7,7 +7,6 @@ app = Flask(__name__)
 def search(summonerName):
     res = {}
     res['summoner'] = fetchApi.getSummoner(summonerName)
-    res['version'] = fetchApi.getVersion()
     if 'id' in res['summoner']:
         res['positions'] = fetchApi.getPositions(res['summoner']['id'])
     if 'accountId' in res['summoner']:

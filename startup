@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd server
-source ./venv/bin/activate
-source .env
-npm start
+. venv/bin/activate
+. .env
+cd ../client
+npm run client-server
