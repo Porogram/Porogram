@@ -59,14 +59,11 @@ jobs:
           path: ~/lolstats
       - run:
           name: run tests
-          command: |
-            #. venv/bin/activate
-            #python manage.py test
+          command: 
             echo "Testing..."
       - run:
           name: tests failed notification
-          command: |
-              . venv/bin/activate
+          command:
               python3 bot.py "TESTS FAILED"
           when: on_fail
   notifySuccess:
@@ -76,8 +73,7 @@ jobs:
           path: ~/lolstats
       - run:
           name: ci success notification
-          command: |
-              . venv/bin/activate
+          command:
               python3 bot.py "Ci pipline passed!"
 
 
