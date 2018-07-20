@@ -16,7 +16,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "cd ../server && python app.py",
+    "client-server": "npm start & npm run server"
   },
   "proxy": "http://localhost:5000/"
 }
