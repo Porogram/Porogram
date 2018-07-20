@@ -36,13 +36,13 @@ jobs:
           name: build failed notification
           command: |
               . venv/bin/activate
-              ./bot.py "BUILD FAILED"
+              python3 bot.py "BUILD FAILED"
           when: on_fail
       - run:
           name: success pls
           command: |
               . venv/bin/activate
-              ./bot.py "SUCCESS YAAAYY"
+              python3 bot.py "SUCCESS YAAAYY"
           when: on_success
 
 
@@ -67,7 +67,7 @@ jobs:
           name: tests failed notification
           command: |
               . venv/bin/activate
-              ./bot.py "TESTS FAILED"
+              python3 bot.py "TESTS FAILED"
           when: on_fail
   notifySuccess:
     <<: *defaults
@@ -78,7 +78,7 @@ jobs:
           name: ci success notification
           command: |
               . venv/bin/activate
-              ./bot "Ci pipline passed!"
+              python3 bot.py "Ci pipline passed!"
 
 
 workflows:
