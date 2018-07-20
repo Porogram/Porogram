@@ -27,18 +27,22 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            python3 -m pip install -r requirements/dev.txt
+            python3 -m pip install -r requirements.txt
       - save_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
       - run:
           name: build failed notification
-          command: python3 bot.py "BUILD FAILED"
+          command: |
+              . venv/bin/activate
+              python bot.py "BUILD FAILED"
           when: on_fail
       - run:
           name: success pls
-          command: python3 bot.py "SUCCESS YAAAYY"
+          command: |
+              . venv/bin/activate
+              python3 bot.py "SUCCESS YAAAYY"
           when: on_success
 
 
