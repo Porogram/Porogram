@@ -31,7 +31,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
           paths:
-            - ./venv
+            - "venv"
       - run:
           name: build failed notification
           command: python3 bot.py "BUILD FAILED"
