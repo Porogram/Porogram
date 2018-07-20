@@ -57,6 +57,18 @@ jobs:
     steps:
       - checkout:
           path: ~/lolstats
+      - restore_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            python3 -m pip install -r requirements.txt
+      - save_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
       - run:
           name: run tests
           command:
@@ -72,6 +84,18 @@ jobs:
     steps:
       - checkout:
           path: ~/lolstats
+      - restore_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            python3 -m pip install -r requirements.txt
+      - save_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
       - run:
           name: ci success notification
           command: |
