@@ -1,50 +1,114 @@
-# Python CircleCI 2.0 configuration file
+# Python CircleCI 2.0 configuration file:
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
+
+defaults: &defaults
+  working_directory: ~/lolstats/server
+  docker:
+    - image: circleci/python:3.6.1
+
+
+machine:
+  python:
+    version: 3.6.1
+
 version: 2
 jobs:
   build:
-    working_directory: ~/lolstats
-    docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1-browsers
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+    <<: *defaults
     steps:
-      - checkout
+      - checkout:
+          path: ~/lolstats
       - restore_cache:
-          key: dependency-cache-{{ checksum "server/requirements.txt" }}
+          key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
           name: install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -U pip setuptools virtualenv
+            python3 -m pip install -r requirements.txt
       - save_cache:
-          key: dependency-cache-{{ checksum "server/requirements.txt" }}
+          key: dependency-cache-{{ checksum "requirements.txt" }}
           paths:
-            - ./venv
-          
- 
-      # run tests!
-      # this example uses Django's built-in test-runner
-      # other common Python testing frameworks include pytest and nose
-      # https://pytest.org
-      # https://nose.readthedocs.io
+            - "venv"
+      - run:
+          name: build failed notification
+          command: |
+              . venv/bin/activate
+              python3 bot.py "BUILD FAILED"
+          when: on_fail
+
+
+
+    # run tests!
+    # this example uses Django's built-in test-runner
+    # other common Python testing frameworks include pytest and nose
+    # https://pytest.org
+    # https://nose.readthedocs.io
   test:
-    docker:
-      - image: circleci/python:3.6.1-browsers
+    <<: *defaults
     steps:
+      - checkout:
+          path: ~/lolstats
+      - restore_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            python3 -m pip install -r requirements.txt
+      - save_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
       - run:
           name: run tests
+          command:
+            echo "Testing..."
+      - run:
+          name: tests failed notification
           command: |
+              . venv/bin/activate
+              python3 bot.py "TESTS FAILED"
+          when: on_fail
+  notifySuccess:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: ~/lolstats
+      - restore_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
             . venv/bin/activate
-            python manage.py test
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+            python3 -m pip install -r requirements.txt
+      - save_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: ci success notification
+          command: |
+              . venv/bin/activate
+              python3 bot.py "Master Ci pipline passed!"
+
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - notifySuccess:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
