@@ -38,12 +38,6 @@ jobs:
               . venv/bin/activate
               python3 bot.py "BUILD FAILED"
           when: on_fail
-      - run:
-          name: success pls
-          command: |
-              . venv/bin/activate
-              python3 bot.py "SUCCESS YAAAYY"
-          when: on_success
 
 
 
