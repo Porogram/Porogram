@@ -79,6 +79,11 @@ export default withStyles(styles)(props => {
             participant.spell1Id === parseInt(summonerSpell.key, 10)).id
         participant.summonerSpell2 = Object.values(summonerSpells).find(summonerSpell =>
             participant.spell2Id === parseInt(summonerSpell.key, 10)).id
+        participant.rune1 = runes.find(rune =>
+            participant.stats.perkPrimaryStyle === rune.id).slots[0].runes.find(rune =>
+            participant.stats.perk0 === rune.id).icon
+        participant.rune2 = runes.find(rune =>
+            participant.stats.perkSubStyle === rune.id).icon
     })
     console.log(match)
     return (
@@ -96,6 +101,16 @@ export default withStyles(styles)(props => {
                 />
                 <img
                     src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
+                    alt=""
+                    className={classes.item}
+                />
+                <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/img/${participants[summonerIndex].rune1}`}
+                    alt=""
+                    className={classes.item}
+                />
+                <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/img/${participants[summonerIndex].rune2}`}
                     alt=""
                     className={classes.item}
                 />
