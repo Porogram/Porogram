@@ -45,7 +45,6 @@ export default class extends Component {
                     axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/runesReforged.json`)
                 ])
             }).then(results => {
-                console.log(results)
                 this.setState({ champData: results[0].data.data })
                 this.setState({ summonerSpells: results[1].data.data })
                 this.setState({ runes: results[2].data })
