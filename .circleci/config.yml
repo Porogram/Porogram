@@ -33,9 +33,35 @@ jobs:
           paths:
             - "venv"
       - run:
-          name: test_CI_env
+          name: Print CI Env Vars to augment build/test description
           command: |
-            echo "Working directory is ${CIRCLE_WORKING_DIRECTORY}"
+            echo "CI		                is ${CI}"			 	
+            echo "CI_PULL_REQUEST			is ${CI_PULL_REQUEST}"
+            echo "CI_PULL_REQUESTS		    is ${CI_PULL_REQUESTS}"
+            echo "CIRCLE_BRANCH			    is ${CIRCLE_BRANCH}"
+            echo "CIRCLE_BUILD_NUM		    is ${CIRCLE_BUILD_NUM}"
+            echo "CIRCLE_BUILD_URL		    is ${CIRCLE_BUILD_URL}"
+            echo "CIRCLE_COMPARE_URL	    is ${CIRCLE_COMPARE_URL}"
+            echo "CIRCLE_INTERNAL_TASK_DATA is ${CIRCLE_INTERNAL_TASK_DATA}"
+            echo "CIRCLE_JOB				is ${CIRCLE_JOB}"
+            echo "CIRCLE_NODE_INDEX		    is ${CIRCLE_NODE_INDEX}"
+            echo "CIRCLE_NODE_TOTAL		    is ${CIRCLE_NODE_TOTAL}"
+            echo "CIRCLE_PR_NUMBER		    is ${CIRCLE_PR_NUMBER}"
+            echo "CIRCLE_PR_REPONAME		is ${CIRCLE_PR_REPONAME}"
+            echo "CIRCLE_PR_USERNAME		is ${CIRCLE_PR_USERNAME}"
+            echo "CIRCLE_PREVIOUS_BUILD_NUM is ${CIRCLE_PREVIOUS_BUILD_NU}"
+            echo "CIRCLE_PROJECT_REPONAME	is ${CIRCLE_PROJECT_REPONAME}"
+            echo "CIRCLE_PROJECT_USERNAME	is ${CIRCLE_PROJECT_USERNAME}"
+            echo "CIRCLE_PULL_REQUEST		is ${CIRCLE_PULL_REQUEST}"
+            echo "CIRCLE_PULL_REQUESTS	    is ${CIRCLE_PULL_REQUESTS}"
+            echo "CIRCLE_REPOSITORY_URL	    is ${CIRCLE_REPOSITORY_URL}"
+            echo "CIRCLE_SHA1				is ${CIRCLE_SHA1}"
+            echo "CIRCLE_TAG				is ${CIRCLE_TAG}"
+            echo "CIRCLE_USERNAME			is ${CIRCLE_USERNAME}"
+            echo "CIRCLE_WORKFLOW_ID		is ${CIRCLE_WORKFLOW_ID}"
+            echo "CIRCLE_WORKING_DIRECTORY  is ${CIRCLE_WORKING_DIRECTORY}"
+            echo "CIRCLECI				    is ${CIRCLECI}"
+            echo "HOME					    is ${HOME}"
       - run:
           name: build failed notification
           command: |
