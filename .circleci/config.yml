@@ -35,8 +35,9 @@ jobs:
       - run:
           name: test_CI_env
           comand: |
+            python3 -m venv venv
+            . venv/bin/activate
             echo "Working directory is ${CIRCLE_WORKING_DIRECTORY}"
-        
       - run:
           name: build failed notification
           command: |
