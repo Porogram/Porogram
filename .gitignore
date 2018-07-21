@@ -1,5 +1,6 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+
 # server
 /server/__pycache__
 /server/node_modules
@@ -23,6 +24,7 @@
 /client/.env.development.local
 /client/.env.test.local
 /client/.env.production.local
+*.swp
 
 /client/npm-debug.log*
 /client/yarn-debug.log*
