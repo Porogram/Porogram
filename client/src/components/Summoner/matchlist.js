@@ -12,18 +12,20 @@ const styles = theme => ({
         position: 'static',
         margin: '30px 0',
         textAlign: 'center',
-    },
+    }
 })
 
 export default withStyles(styles)(props => {
     const { classes, summoner, matches, version, champData } = props
+    console.log(champData)
+    console.log(summoner)
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>Match History</Typography>
-            {matches.map((object, i) =>
-                <Match className={classes.match}
+            {matches.map((match, i) =>
+                <Match
                     key={i}
-                    match={matches[i]}
+                    match={match}
                     version={version}
                     summoner={summoner}
                     champData={champData}
