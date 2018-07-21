@@ -67,15 +67,19 @@ const styles = theme => ({
 // }
 
 export default withStyles(styles)(props => {
-    const { classes, match, version, summoner, champData } = props
+    const { classes, match, version, summoner, champData, summonerSpells, runes } = props
     const { participants, participantIdentities } = match
     const summonerIndex = participantIdentities.findIndex(participant =>
         participant.player.accountId === summoner.accountId
     )
-    participants.forEach(participant =>
+    participants.forEach(participant => {
         participant.champion = Object.values(champData).find(champion =>
             participant.championId === parseInt(champion.key, 10)).id
-    )
+        participant.summonerSpell1 = Object.values(summonerSpells).find(summonerSpell =>
+            participant.spell1Id === parseInt(summonerSpell.key, 10)).id
+        participant.summonerSpell2 = Object.values(summonerSpells).find(summonerSpell =>
+            participant.spell2Id === parseInt(summonerSpell.key, 10)).id
+    })
     console.log(match)
     return (
         <ExpansionPanel>
@@ -84,6 +88,16 @@ export default withStyles(styles)(props => {
                     src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${participants[summonerIndex].champion}.png`}
                     alt=""
                     className={classes.avatar}
+                />
+                <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
+                    alt=""
+                    className={classes.item}
+                />
+                <img
+                    src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
+                    alt=""
+                    className={classes.item}
                 />
                 <Typography variant="headline" className={classes.kda}>
                     {participants[summonerIndex].stats.kills}/
@@ -97,35 +111,26 @@ export default withStyles(styles)(props => {
                 )}
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
+                <List className={classes.list}>
 
+                </List>
             </ExpansionPanelDetails>
         </ExpansionPanel>
     )
 })
 
-
-
-// <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats.item0}.png`} alt="" className={classes.item}/>
-// <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats.item1}.png`} alt="" className={classes.item}/>
-// <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats.item2}.png`} alt="" className={classes.item}/>
-// <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats.item3}.png`} alt="" className={classes.item}/>
-// <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats.item4}.png`} alt="" className={classes.item}/>
-// <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats.item5}.png`} alt="" className={classes.item}/>
-
-// <List className={classes.list}>
-//     {participantIdentities.map((object, j) =>
-//         <ListItem button key={j} className={classes.playerList}>
-//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${matchData(match.participantIdentities[j].player.accountId, match, champData).champ.id}.png`} alt="champion icon" className={classes.playerAvatar}/>
-//             {participantIdentities[j].player.summonerName}
-//             <Typography variant="body1" className={classes.kda}>{matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.kills}/{matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.deaths}/{matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.assists}</Typography>
-//             <Paper className={classes.playersItemList}>
-//                 <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item0}.png`} alt="" className={classes.playerItem}/>
-//                 <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item1}.png`} alt="" className={classes.playerItem}/>
-//                 <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item2}.png`} alt="" className={classes.playerItem}/>
-//                 <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item3}.png`} alt="" className={classes.playerItem}/>
-//                 <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item4}.png`} alt="" className={classes.playerItem}/>
-//                 <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item5}.png`} alt="" className={classes.playerItem}/>
-//             </Paper>
-//         </ListItem>
-//     )}
-// </List>
+// {participantIdentities.map((object, j) =>
+//     <ListItem button key={j} className={classes.playerList}>
+//         <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${matchData(match.participantIdentities[j].player.accountId, match, champData).champ.id}.png`} alt="champion icon" className={classes.playerAvatar}/>
+//         {participantIdentities[j].player.summonerName}
+//         <Typography variant="body1" className={classes.kda}>{matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.kills}/{matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.deaths}/{matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.assists}</Typography>
+//         <Paper className={classes.playersItemList}>
+//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item0}.png`} alt="" className={classes.playerItem}/>
+//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item1}.png`} alt="" className={classes.playerItem}/>
+//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item2}.png`} alt="" className={classes.playerItem}/>
+//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item3}.png`} alt="" className={classes.playerItem}/>
+//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item4}.png`} alt="" className={classes.playerItem}/>
+//             <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${matchData(match.participantIdentities[j].player.accountId, match, champData).summoner.stats.item5}.png`} alt="" className={classes.playerItem}/>
+//         </Paper>
+//     </ListItem>
+// )}

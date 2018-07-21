@@ -16,9 +16,11 @@ const styles = theme => ({
 })
 
 export default withStyles(styles)(props => {
-    const { classes, summoner, matches, version, champData } = props
+    const { classes, summoner, matches, version, champData, summonerSpells, runes } = props
     console.log(champData)
     console.log(summoner)
+    console.log(summonerSpells)
+    console.log(runes)
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>Match History</Typography>
@@ -29,6 +31,8 @@ export default withStyles(styles)(props => {
                     version={version}
                     summoner={summoner}
                     champData={champData}
+                    summonerSpells={summonerSpells}
+                    runes={runes}
                 />
             )}
         </div>
