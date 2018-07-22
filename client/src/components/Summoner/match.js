@@ -61,10 +61,12 @@ export default withStyles(styles)(props => {
     participants.forEach(participant => {
         participant.champion = Object.values(champions).find(champion =>
             participant.championId === parseInt(champion.key, 10)).id
-        participant.summonerSpell1 = Object.values(summonerSpells).find(summonerSpell =>
-            participant.spell1Id === parseInt(summonerSpell.key, 10)).id
-        participant.summonerSpell2 = Object.values(summonerSpells).find(summonerSpell =>
-            participant.spell2Id === parseInt(summonerSpell.key, 10)).id
+        if (participant.spell1Id !== 0)
+            participant.summonerSpell1 = Object.values(summonerSpells).find(summonerSpell =>
+                participant.spell1Id === parseInt(summonerSpell.key, 10)).id
+        if (participant.spell2Id !== 0)
+            participant.summonerSpell2 = Object.values(summonerSpells).find(summonerSpell =>
+                participant.spell2Id === parseInt(summonerSpell.key, 10)).id
         participant.rune1 = runes.find(rune =>
             participant.stats.perkPrimaryStyle === rune.id).slots[0].runes.find(rune =>
             participant.stats.perk0 === rune.id).icon
@@ -116,16 +118,24 @@ export default withStyles(styles)(props => {
                     {participants.map((participant, participantIndex) =>
                         <ListItem button key={participantIndex} className={classes.playerList}>
                             <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${participant.champion}.png`} alt="" className={classes.playerAvatar}/>
-                            <img
-                                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell1}.png`}
-                                alt=""
-                                className={classes.item}
-                            />
-                            <img
-                                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell2}.png`}
-                                alt=""
-                                className={classes.item}
-                            />
+                            {
+                                participant.spell1Id === 0 ?
+                                    <img src={notFoundDoge} alt="" className={classes.item} /> :
+                                    <img
+                                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell1}.png`}
+                                        alt=""
+                                        className={classes.item}
+                                    />
+                            }
+                            {
+                                participant.spell2Id === 0 ?
+                                    <img src={notFoundDoge} alt="" className={classes.item} /> :
+                                    <img
+                                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell2}.png`}
+                                        alt=""
+                                        className={classes.item}
+                                    />
+                            }
                             <img
                                 src={`http://ddragon.leagueoflegends.com/cdn/img/${participant.rune1}`}
                                 alt=""

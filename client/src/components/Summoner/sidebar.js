@@ -27,19 +27,19 @@ const styles = theme => ({
 
 export default withStyles(styles)(props => {
     const { classes, positions, summoner, version } = props
-    const { playerOrTeamName, tier, rank } = positions
-    const { profileIconId } = summoner
+    const { tier, rank } = positions
+    const { name, profileIconId } = summoner
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
             <div className={classes.sidebar}>
                 <div className={classes.profile}>
-                    <Typography variant='display1'>{playerOrTeamName}</Typography>
+                    <Typography variant='display1'>{name}</Typography>
                     <Avatar
-                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.profileIconId}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
                         alt="profile icon"
                         className={classes.Avatar}
                     />
-                    <Typography variant='subheading'>{`${tier} ${rank}`}</Typography>
+                    {tier && rank && <Typography variant='subheading'>{`${tier} ${rank}`}</Typography>}
                 </div>
                 <Divider />
                 <div>
