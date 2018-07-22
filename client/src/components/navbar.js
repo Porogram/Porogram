@@ -20,7 +20,7 @@ export default withStyles(styles)(props => {
             <Toolbar>
                 <Link to="/"><img className={classes.img} src={logo} alt="logo" /></Link>
                 <Typography variant="title" color="inherit">
-                    LOL Stats
+                    Porogram
                 </Typography>
             </Toolbar>
         </AppBar>

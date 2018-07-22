@@ -4,7 +4,7 @@
 #
 
 defaults: &defaults
-  working_directory: ~/lolstats/server
+  working_directory: ~/porogram/server
   docker:
     - image: circleci/python:3.6.1
 
@@ -19,7 +19,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout:
-          path: ~/lolstats
+          path: ~/porogram
       - restore_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
@@ -51,7 +51,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout:
-          path: ~/lolstats
+          path: ~/porogram
       - restore_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
@@ -78,7 +78,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout:
-          path: ~/lolstats
+          path: ~/porogram
       - restore_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
