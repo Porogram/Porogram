@@ -16,7 +16,7 @@ export default class extends Component {
             matchlist: {},
             matches: [],
             version: '',
-            champData: {},
+            champions: {},
             summonerSpells: {},
             runes: {},
             error: {}
@@ -45,9 +45,11 @@ export default class extends Component {
                     axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/runesReforged.json`)
                 ])
             }).then(results => {
-                this.setState({ champData: results[0].data.data })
-                this.setState({ summonerSpells: results[1].data.data })
-                this.setState({ runes: results[2].data })
+                this.setState({
+                    champions: results[0].data.data,
+                    summonerSpells: results[1].data.data,
+                    runes: results[2].data
+                })
             }).catch(error => this.setState({ error: { message: 'Failed to get static data' } }))
     }
     render() {
@@ -58,11 +60,12 @@ export default class extends Component {
             matchlist,
             matches,
             version,
-            champData,
+            champions,
             summonerSpells,
             runes,
             error
         } = this.state
+        const staticData = { version, champions, summonerSpells, runes }
         const { path } = this.props.match
         if (!fetchedData) return null
         if ('message' in error) return <Failure error={error} />
@@ -87,10 +90,7 @@ export default class extends Component {
                                         summoner={summoner}
                                         matchlist={matchlist}
                                         matches={matches}
-                                        version={version}
-                                        champData={champData}
-                                        summonerSpells={summonerSpells}
-                                        runes={runes}
+                                        staticData={staticData}
                                     />
                                 }
                             />

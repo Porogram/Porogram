@@ -52,13 +52,14 @@ const styles = theme => ({
 })
 
 export default withStyles(styles)(props => {
-    const { classes, match, version, summoner, champData, summonerSpells, runes } = props
+    const { classes, match, summoner, staticData } = props
     const { participants, participantIdentities } = match
+    const { version, champions, summonerSpells, runes } = staticData
     const summonerIndex = participantIdentities.findIndex(participant =>
         participant.player.accountId === summoner.accountId
     )
     participants.forEach(participant => {
-        participant.champion = Object.values(champData).find(champion =>
+        participant.champion = Object.values(champions).find(champion =>
             participant.championId === parseInt(champion.key, 10)).id
         participant.summonerSpell1 = Object.values(summonerSpells).find(summonerSpell =>
             participant.spell1Id === parseInt(summonerSpell.key, 10)).id
@@ -70,7 +71,6 @@ export default withStyles(styles)(props => {
         participant.rune2 = runes.find(rune =>
             participant.stats.perkSubStyle === rune.id).icon
     })
-    console.log(participants)
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary>
@@ -105,7 +105,6 @@ export default withStyles(styles)(props => {
                     {participants[summonerIndex].stats.assists}
                 </Typography>
                 {[...Array(7).keys()].map(itemIndex => {
-                    console.log(`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats[`item${itemIndex}`]}.png`)
                     return participants[summonerIndex].stats[`item${itemIndex}`] === 0 ?
                         <img src={notFoundDoge} alt="" className={classes.item} key={itemIndex} /> :
                         <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats[`item${itemIndex}`]}.png`} alt="" className={classes.item} key={itemIndex} />
