@@ -66,7 +66,7 @@ export default withStyles(styles)(class extends Component {
         const { newSummoner } = this.state
         const { participants, participantIdentities } = match
         const { version, champions, summonerSpells, runes } = staticData
-        if (newSummoner.length > 0) return <Redirect push to={`/summoner/${newSummoner}/matches`} />
+        if (newSummoner.length) return <Redirect push to={`/summoner/${newSummoner}/matches`} />
         const summonerIndex = participantIdentities.findIndex(participant =>
             participant.player.accountId === summoner.accountId
         )
