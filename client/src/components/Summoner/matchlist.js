@@ -17,7 +17,6 @@ const styles = theme => ({
 
 export default withStyles(styles)(props => {
     const { classes, summoner, matches, staticData } = props
-    console.log(staticData)
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>Match History</Typography>
