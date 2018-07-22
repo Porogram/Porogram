@@ -57,12 +57,16 @@ export default withStyles(styles)(class extends Component {
         super(props)
         this.state = { newSummoner: '' }
     }
+    getSummoner = participantIdentity => {
+        'summonerId' in participantIdentity.player &&
+        this.setState({ newSummoner: participantIdentity.player.summonerName })
+    }
     render() {
         const { classes, match, summoner, staticData } = this.props
         const { newSummoner } = this.state
         const { participants, participantIdentities } = match
         const { version, champions, summonerSpells, runes } = staticData
-        if (newSummoner.length > 0) return <Redirect to={`/summoner/${newSummoner}/matches`} />
+        if (newSummoner.length > 0) return <Redirect push to={`/summoner/${newSummoner}/matches`} />
         const summonerIndex = participantIdentities.findIndex(participant =>
             participant.player.accountId === summoner.accountId
         )
@@ -81,6 +85,7 @@ export default withStyles(styles)(class extends Component {
             participant.rune2 = runes.find(rune =>
                 participant.stats.perkSubStyle === rune.id).icon
         })
+        console.log(match)
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
@@ -124,7 +129,7 @@ export default withStyles(styles)(class extends Component {
                 <ExpansionPanelDetails>
                     <List className={classes.list}>
                         {participants.map((participant, participantIndex) =>
-                            <ListItem button key={participantIndex} onClick={() => this.setState({ newSummoner: participantIdentities[participantIndex].player.summonerName })} className={classes.playerList}>
+                            <ListItem button key={participantIndex} onClick={() => this.getSummoner(participantIdentities[participantIndex])} className={classes.playerList}>
                                 <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${participant.champion}.png`} alt="" className={classes.playerAvatar}/>
                                 {
                                     participant.spell1Id === 0 ?
