@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Grid } from '@material-ui/core'
+import { Grid, CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
 import MatchList from './matchlist'
@@ -67,7 +67,7 @@ export default class extends Component {
         } = this.state
         const staticData = { version, champions, summonerSpells, runes }
         const { path } = this.props.match
-        if (!fetchedData) return null
+        if (!fetchedData) return <CircularProgress />
         if ('message' in error) return <Failure error={error} />
         else if ('message' in summoner) return <Failure error={summoner} />
         return (
