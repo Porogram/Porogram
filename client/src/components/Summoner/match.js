@@ -25,6 +25,7 @@ const styles = theme => ({
     },
     item: {
         height: 30,
+        width: 30,
     },
     items: {
         width: '13%',
@@ -150,8 +151,14 @@ export default withStyles(styles)(props => {
                         <ListItem button key={participantIndex} className={classes.playerList}>
                             <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${participant.champion}.png`} alt="" className={classes.playerAvatar}/>
                             <Grid container direction="column" className={classes.doubleIcon}>
-                                <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell1}.png`} classes={classes.item}/>
-                                <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell2}.png`} classes={classes.item}/>
+                                {participant.summonerSpell1 === 0 ?
+                                    <img src={notFoundDoge} alt="" className={classes.item}/> :
+                                    <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell1}.png`} classes={classes.item}/>
+                                }
+                                {participant.summonerSpell2 === 0 ?
+                                    <img src={notFoundDoge} alt="" className={classes.item}/> :
+                                    <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell2}.png`} classes={classes.item}/>
+                                }
                             </Grid>
                             <Grid container direction="column" className={classes.doubleIcon} justify="center">
                                 <Image source={`http://ddragon.leagueoflegends.com/cdn/img/${participant.rune1}`} classes={classes.img}/>
