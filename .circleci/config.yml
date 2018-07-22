@@ -35,15 +35,9 @@ jobs:
       - run:
           name: Groupe bot commit message CI Env Vars to augment build/test description
           command: |
-            weirdmessage="FirstLine\nSecondLine\\nThirdLine\\\nFourthLine\\\\FifthLine";
-            message='
-            /${CIRCLE_USERNAME} ran ${CIRCLE_JOB} <br />
-            /under build #${CIRCLE_BUILD_NUM} on branch ${CIRCLE_BRANCH}/n/n/
-            /CI: ${CIRCLE_BUILD_URL}  \n
-            /GitHub: ${CIRCLE_COMPARE_URL}
-            ';
+            helpfulmessage="${CIRCLE_USERNAME} ran ${CIRCLE_JOB} \r\nunder build #${CIRCLE_BUILD_NUM} on branch ${CIRCLE_BRANCH} \r\nCI: ${CIRCLE_BUILD_URL} \r\nGitHub: ${CIRCLE_COMPARE_URL} ";
             . venv/bin/activate
-            python3 bot.py "$message"
+            python3 bot.py "$helpfulmessage"
       - run:
           name: build failed notification
           command: |
