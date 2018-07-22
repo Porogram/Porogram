@@ -8,7 +8,8 @@ import {
     List,
     ListItem,
     Avatar,
-    Divider
+    Divider,
+    Grid,
 } from '@material-ui/core'
 import notFoundDoge from '../../images/not-found-doge.jpg'
 
@@ -23,7 +24,16 @@ const styles = theme => ({
         marginBottom: 'auto',
     },
     item: {
-        height: 30
+        height: 30,
+    },
+    items: {
+        width: '13%',
+    },
+    img: {
+        height: 30,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
     playerList: {
         fontSize: 15,
@@ -48,8 +58,38 @@ const styles = theme => ({
         width: '90%',
     },
     kda: {
+        width: '10%',
+        display: 'block',
+        margin: 'auto 10px',
+    },
+    doubleIcon: {
+        width: '5%',
+    },
+    secondary: {
+        height: 15,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    trinket: {
+        height: 30,
+        display: 'block',
+        marginTop: 'auto',
+        marginBottom: 'auto',
     }
 })
+
+const Image = ({source, classes}) => {
+    return(
+        <Grid item>
+            <img
+                src={source}
+                alt=""
+                className={classes}
+            />
+        </Grid>
+    )
+}
 
 export default withStyles(styles)(props => {
     const { classes, match, summoner, staticData } = props
@@ -79,36 +119,29 @@ export default withStyles(styles)(props => {
                     alt=""
                     className={classes.avatar}
                 />
-                <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
-                    alt=""
-                    className={classes.item}
-                />
-                <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
-                    alt=""
-                    className={classes.item}
-                />
-                <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/img/${participants[summonerIndex].rune1}`}
-                    alt=""
-                    className={classes.item}
-                />
-                <img
-                    src={`http://ddragon.leagueoflegends.com/cdn/img/${participants[summonerIndex].rune2}`}
-                    alt=""
-                    className={classes.item}
-                />
+                <Grid container direction="column" className={classes.doubleIcon}>
+                    <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`} classes={classes.item}/>
+                    <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`} classes={classes.item}/>
+                </Grid>
+                <Grid container direction="column"  className={classes.doubleIcon} justify="center">
+                    <Image source={`http://ddragon.leagueoflegends.com/cdn/img/${participants[summonerIndex].rune1}`} classes={classes.img}/>
+                    <Image source={`http://ddragon.leagueoflegends.com/cdn/img/${participants[summonerIndex].rune2}`} classes={classes.secondary}/>
+                </Grid>
+
+
                 <Typography variant="headline" className={classes.kda}>
                     {participants[summonerIndex].stats.kills}/
                     {participants[summonerIndex].stats.deaths}/
                     {participants[summonerIndex].stats.assists}
                 </Typography>
-                {[...Array(7).keys()].map(i => {
-                    return participants[summonerIndex].stats[`item${i}`] === 0 ?
-                        <img src={notFoundDoge} alt="" className={classes.item} key={i} /> :
-                        <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats[`item${i}`]}.png`} alt="" className={classes.item} key={i} />
-                })}
+                <div className={classes.items}>
+                    {[...Array(6).keys()].map(i => {
+                        return participants[summonerIndex].stats[`item${i}`] === 0 ?
+                            <img src={notFoundDoge} alt="" className={classes.item} key={i} /> :
+                            <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats[`item${i}`]}.png`} alt="" className={classes.item} key={i} />
+                    })}
+                </div>
+                <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`} alt="" className={classes.trinket}/>
             </ExpansionPanelSummary>
             <Divider />
             <ExpansionPanelDetails>
@@ -116,26 +149,14 @@ export default withStyles(styles)(props => {
                     {participants.map((participant, participantIndex) =>
                         <ListItem button key={participantIndex} className={classes.playerList}>
                             <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${participant.champion}.png`} alt="" className={classes.playerAvatar}/>
-                            <img
-                                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell1}.png`}
-                                alt=""
-                                className={classes.item}
-                            />
-                            <img
-                                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell2}.png`}
-                                alt=""
-                                className={classes.item}
-                            />
-                            <img
-                                src={`http://ddragon.leagueoflegends.com/cdn/img/${participant.rune1}`}
-                                alt=""
-                                className={classes.item}
-                            />
-                            <img
-                                src={`http://ddragon.leagueoflegends.com/cdn/img/${participant.rune2}`}
-                                alt=""
-                                className={classes.item}
-                            />
+                            <Grid container direction="column" className={classes.doubleIcon}>
+                                <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell1}.png`} classes={classes.item}/>
+                                <Image source={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${participant.summonerSpell2}.png`} classes={classes.item}/>
+                            </Grid>
+                            <Grid container direction="column" className={classes.doubleIcon} justify="center">
+                                <Image source={`http://ddragon.leagueoflegends.com/cdn/img/${participant.rune1}`} classes={classes.img}/>
+                                <Image source={`http://ddragon.leagueoflegends.com/cdn/img/${participant.rune2}`} classes={classes.secondary}/>
+                            </Grid>
                             <Typography variant="body2" className={classes.kda}>
                                 {participantIdentities[participantIndex].player.summonerName}
                             </Typography>
@@ -144,11 +165,14 @@ export default withStyles(styles)(props => {
                                 {participant.stats.deaths}/
                                 {participant.stats.assists}
                             </Typography>
-                            {[...Array(7).keys()].map(i =>
-                                participant.stats[`item${i}`] === 0 ?
-                                    <img src={notFoundDoge} alt="" className={classes.item} key={i} /> :
-                                    <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`} alt="" className={classes.item} key={i} />
-                            )}
+                            <div className={classes.items}>
+                                {[...Array(6).keys()].map(i =>
+                                    participant.stats[`item${i}`] === 0 ?
+                                        <img src={notFoundDoge} alt="" className={classes.item} key={i} /> :
+                                        <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`} alt="" className={classes.item} key={i} />
+                                )}
+                            </div>
+                            <img src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/item/${participant.stats[`item6`]}.png`} alt="" className={classes.trinket }/>
                         </ListItem>
                     )}
                 </List>
