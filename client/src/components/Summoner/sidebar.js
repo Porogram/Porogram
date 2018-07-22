@@ -26,30 +26,28 @@ const styles = theme => ({
 })
 
 export default withStyles(styles)(props => {
-    const { classes } = props
-    const { positions, summoner, version } = props
+    const { classes, positions, summoner, version } = props
+    const { playerOrTeamName, tier, rank } = positions
+    const { profileIconId } = summoner
     return (
         <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
             <div className={classes.sidebar}>
                 <div className={classes.profile}>
-                    {'playerOrTeamName' in positions &&
-                        <Typography variant='display1'>{positions.playerOrTeamName}</Typography>}
-                    {'profileIconId' in summoner && version &&
-                        <Avatar
-                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.profileIconId}.png`}
-                            alt="profile icon"
-                            className={classes.Avatar}
-                        />}
-                    {'tier' in positions && 'rank' in positions &&
-                        <Typography variant='subheading'>{positions.tier + ' ' + positions.rank}</Typography>}
+                    <Typography variant='display1'>{playerOrTeamName}</Typography>
+                    <Avatar
+                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.profileIconId}.png`}
+                        alt="profile icon"
+                        className={classes.Avatar}
+                    />
+                    <Typography variant='subheading'>{`${tier} ${rank}`}</Typography>
                 </div>
                 <Divider />
                 <div>
                     <ListItem button>
-                        <ListItemText primary="Summary" classes={{primary: classes.listText}}/>
+                        <ListItemText primary="Summary" classes={{primary: classes.listText}} />
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary="Matches" classes={{primary: classes.listText}}/>
+                        <ListItemText primary="Matches" classes={{primary: classes.listText}} />
                     </ListItem>
                 </div>
             </div>

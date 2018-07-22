@@ -27,7 +27,7 @@ export default withStyles(styles) (props => {
         <div className={classes.error}>
             <Typography variant="display4" className={classes.sorry}>SORRY</Typography>
             <Typography variant="display1" className={classes.notFound}>we could not find that page</Typography>
-            <img src={dogeImage} className={classes.doge}/>
+            <img src={dogeImage} className={classes.doge} alt="" />
         </div>
     )
 })

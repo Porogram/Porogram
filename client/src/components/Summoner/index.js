@@ -16,7 +16,9 @@ export default class extends Component {
             matchlist: {},
             matches: [],
             version: '',
-            champData: {},
+            champions: {},
+            summonerSpells: {},
+            runes: {},
             error: {}
         }
     }
@@ -31,15 +33,24 @@ export default class extends Component {
                 if ('positions' in res.data && res.data.positions.length) this.setState({ positions: res.data.positions[0] })
                 if ('matchlist' in res.data) this.setState({ matchlist: res.data.matchlist })
                 if ('matches' in res.data) this.setState({ matches: res.data.matches })
-            }).catch(error => this.setState({ error: { message: 'Failed to complete request' } }))
+            }).catch(error => this.setState({ error: { message: 'Failed to get summoner data' } }))
     }
     getStaticData = () => {
         return axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
             .then(res => {
                 this.setState({ version: res.data[0] })
-                return axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/champion.json`)
-            }).then(res => this.setState({ champData: res.data.data })
-            ).catch(error => this.setState({ error: { message: 'Failed to complete request' } }))
+                return Promise.all([
+                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/champion.json`),
+                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/summoner.json`),
+                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/runesReforged.json`)
+                ])
+            }).then(results => {
+                this.setState({
+                    champions: results[0].data.data,
+                    summonerSpells: results[1].data.data,
+                    runes: results[2].data
+                })
+            }).catch(error => this.setState({ error: { message: 'Failed to get static data' } }))
     }
     render() {
         const {
@@ -49,16 +60,16 @@ export default class extends Component {
             matchlist,
             matches,
             version,
-            champData,
+            champions,
+            summonerSpells,
+            runes,
             error
         } = this.state
+        const staticData = { version, champions, summonerSpells, runes }
         const { path } = this.props.match
         if (!fetchedData) return null
-        if ('message' in error) {
-            return <Failure error={error} />
-        } else if ('message' in summoner) {
-            return <Failure error={summoner} />
-        }
+        if ('message' in error) return <Failure error={error} />
+        else if ('message' in summoner) return <Failure error={summoner} />
         return (
             <Fragment>
                 <Grid container>
@@ -77,9 +88,9 @@ export default class extends Component {
                                     <MatchList
                                         {...props}
                                         summoner={summoner}
+                                        matchlist={matchlist}
                                         matches={matches}
-                                        version={version}
-                                        champData={champData}
+                                        staticData={staticData}
                                     />
                                 }
                             />
