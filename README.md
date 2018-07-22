@@ -1,8 +1,8 @@
-# LOL Stats
+# Porogram
 Statistics interface for League of Legends
 ## Getting Started
 ```
-$ git clone git@github.com:lolstats/lolstats.git
+$ git clone https://github.com/Porogram/Porogram.git
 ```
 ### Server
 ```
@@ -35,3 +35,4 @@ $ ./startup
 * Jewon Oh
 * Matt Shan
 * Edward Atkinson
+* Matthew Phelps
