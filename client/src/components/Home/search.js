@@ -19,7 +19,7 @@ export default class extends Component {
     }
     render() {
         const { summonerName, toSummoner, invalidInput } = this.state
-        if (toSummoner) return <Redirect to={`/summoner/${summonerName}/matches`} />
+        if (toSummoner) return <Redirect push to={`/summoner/${summonerName}/matches`} />
         return (
             <div>
                 <SearchBar
