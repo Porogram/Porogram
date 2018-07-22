@@ -14,7 +14,10 @@ export default () => {
                 <Navbar />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/summoner/:summonerName" component={Summoner} />
+                    <Route
+                        path="/summoner/:summonerName"
+                        render={props => <Summoner key={props.match.params.summonerName} {...props} />} 
+                    />
                     <Route component={NotFound} />
                 </Switch>
             </Fragment>

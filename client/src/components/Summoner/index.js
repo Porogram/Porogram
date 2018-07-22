@@ -29,23 +29,26 @@ export default class extends Component {
     getSummonerData = () => {
         return axios.get(`/api/search/${this.props.match.params.summonerName}`)
             .then(res => {
-                if ('summoner' in res.data) this.setState({ summoner: res.data.summoner })
-                if ('positions' in res.data && res.data.positions.length) this.setState({ positions: res.data.positions[0] })
-                if ('matchlist' in res.data) this.setState({ matchlist: res.data.matchlist })
-                if ('matches' in res.data) this.setState({ matches: res.data.matches })
+                this.setState({
+                    summoner: 'summoner' in res.data && res.data.summoner,
+                    positions: 'positions' in res.data && res.data.positions.length && res.data.positions[0],
+                    matchlist: 'matchlist' in res.data && res.data.matchlist,
+                    matches: 'matches' in res.data && res.data.matches
+                })
             }).catch(error => this.setState({ error: { message: 'Failed to get summoner data' } }))
     }
     getStaticData = () => {
         return axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
             .then(res => {
-                this.setState({ version: res.data[0] })
                 return Promise.all([
-                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/champion.json`),
-                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/summoner.json`),
-                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.state.version}/data/en_US/runesReforged.json`)
+                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/champion.json`),
+                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/summoner.json`),
+                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/runesReforged.json`),
+                    res.data[0]
                 ])
             }).then(results => {
                 this.setState({
+                    version: results[3],
                     champions: results[0].data.data,
                     summonerSpells: results[1].data.data,
                     runes: results[2].data
