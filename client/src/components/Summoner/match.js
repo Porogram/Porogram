@@ -162,7 +162,7 @@ export default withStyles(styles)(class extends Component {
               <ExpansionPanelDetails>
                   <List className={classes.list}>
                       {participants.map((participant, participantIndex) =>
-                          <ListItem button key={participantIndex} className={classes.playerList}>
+                          <ListItem button key={participantIndex} onClick={() => this.getSummoner(participantIdentities[participantIndex])} className={classes.playerList}>
                               <Avatar src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${participant.champion}.png`} alt="" className={classes.playerAvatar}/>
                               <Grid container direction="column" className={classes.doubleIcon}>
                                   {participant.summonerSpell1 === 0 ?
