@@ -3,11 +3,9 @@ import os
 from urllib.parse import urlencode
 
 API_KEY = os.environ['API_KEY']
-
 API_PREFIX = 'lol/'
 BASE_URL = 'https://na1.api.riotgames.com/' + API_PREFIX
-
-errors = {
+ERRORS = {
     400: 'Bad request',
     401: 'Unauthorized',
     403: 'Forbidden',
@@ -34,7 +32,7 @@ def makeRequest(url):
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
-    message = errors[r.status_code] if r.status_code in errors else 'Unknown error'
+    message = ERRORS[r.status_code] if r.status_code in ERRORS else 'Unknown error'
     return {
         'status_code': r.status_code,
         'message': message
@@ -46,7 +44,7 @@ def getSummoner(summonerName):
 def getPositions(summonerId):
     return makeRequest(createUrl('league/v3/positions/by-summoner', str(summonerId)))
 
-def getMatchlist(accountId, beginIndex = 0, endIndex = 5):
+def getMatchlist(accountId, beginIndex = 0, endIndex = 10):
     return makeRequest(createUrl('match/v3/matchlists/by-account', str(accountId), { 'beginIndex': beginIndex, 'endIndex': endIndex }))
 
 def getMatches(matches):
