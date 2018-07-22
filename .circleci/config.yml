@@ -37,10 +37,10 @@ jobs:
           command: |
             weirdmessage="FirstLine\nSecondLine\\nThirdLine\\\nFourthLine\\\\FifthLine";
             message='
-            /${CIRCLE_USERNAME} ran ${CIRCLE_JOB} 
-            /under build #${CIRCLE_BUILD_NUM} on branch ${CIRCLE_BRANCH}
-            /CI: ${CIRCLE_BUILD_URL}
-            /GitHub: ${CIRCLE_COMPARE_URL}"
+            /${CIRCLE_USERNAME} ran ${CIRCLE_JOB} <br />
+            /under build #${CIRCLE_BUILD_NUM} on branch ${CIRCLE_BRANCH}/n/n/
+            /CI: ${CIRCLE_BUILD_URL}  \n
+            /GitHub: ${CIRCLE_COMPARE_URL}
             ';
             . venv/bin/activate
             python3 bot.py "$message"
