@@ -85,7 +85,6 @@ export default withStyles(styles)(class extends Component {
             participant.rune2 = runes.find(rune =>
                 participant.stats.perkSubStyle === rune.id).icon
         })
-        console.log(match)
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
