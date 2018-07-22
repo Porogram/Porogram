@@ -35,7 +35,7 @@ export default withStyles(styles)(props => {
                 <div className={classes.profile}>
                     <Typography variant='display1'>{playerOrTeamName}</Typography>
                     <Avatar
-                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.profileIconId}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
                         alt="profile icon"
                         className={classes.Avatar}
                     />
