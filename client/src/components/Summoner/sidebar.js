@@ -1,8 +1,15 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Drawer, Divider, Avatar, ListItem, ListItemText, Typography } from '@material-ui/core'
+import {
+    Drawer,
+    Divider,
+    Avatar,
+    ListItem,
+    ListItemText,
+    Typography
+} from '@material-ui/core'
 
-const styles = theme => ({
+const styles = {
     Drawer: {
         position: 'static',
     },
@@ -23,34 +30,43 @@ const styles = theme => ({
         marginBottom: 25,
         marginTop: 15,
     },
-})
+}
 
-export default withStyles(styles)(props => {
-    const { classes, positions, summoner, version } = props
-    const { tier, rank } = positions
-    const { name, profileIconId } = summoner
-    return (
-        <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
-            <div className={classes.sidebar}>
-                <div className={classes.profile}>
-                    <Typography variant='display1'>{name}</Typography>
-                    <Avatar
-                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                        alt="profile icon"
-                        className={classes.Avatar}
-                    />
-                    {tier && rank && <Typography variant='subheading'>{`${tier} ${rank}`}</Typography>}
-                </div>
-                <Divider />
-                <div>
+export default withStyles(styles)(
+    ({ classes, positions, summoner, version }) => {
+        const { tier, rank } = positions
+        const { name, profileIconId } = summoner
+        return (
+            <Drawer variant='permanent' classes={{ paper: classes.Drawer }}>
+                <div className={classes.sidebar}>
+                    <div className={classes.profile}>
+                        <Typography variant='display1'>{name}</Typography>
+                        <Avatar
+                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                            alt="profile icon"
+                            className={classes.Avatar}
+                        />
+                        {tier && rank && (
+                            <Typography variant='subheading'>
+                                {`${tier} ${rank}`}
+                            </Typography>
+                        )}
+                    </div>
+                    <Divider />
                     <ListItem button>
-                        <ListItemText primary="Summary" classes={{primary: classes.listText}} />
+                        <ListItemText
+                            primary="Summary"
+                            classes={{primary: classes.listText}}
+                        />
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary="Matches" classes={{primary: classes.listText}} />
+                        <ListItemText
+                            primary="Matches"
+                            classes={{primary: classes.listText}}
+                        />
                     </ListItem>
                 </div>
-            </div>
-        </Drawer>
-    )
-})
+            </Drawer>
+        )
+    }
+)

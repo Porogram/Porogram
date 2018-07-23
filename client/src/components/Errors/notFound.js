@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import dogeImage from '../../images/not-found-doge.jpg'
 
-const styles = theme => ({
+const styles = {
     error: {
         textAlign: 'center',
     },
@@ -19,14 +19,17 @@ const styles = theme => ({
         height: 300,
         width: 'auto',
     }
-})
+}
 
-export default withStyles(styles) (props => {
-    const {classes} = props
+export default withStyles(styles)(({ classes }) => {
     return (
         <div className={classes.error}>
-            <Typography variant="display4" className={classes.sorry}>SORRY</Typography>
-            <Typography variant="display1" className={classes.notFound}>we could not find that page</Typography>
+            <Typography variant="display4" className={classes.sorry}>
+                SORRY
+            </Typography>
+            <Typography variant="display1" className={classes.notFound}>
+                we could not find that page
+            </Typography>
             <img src={dogeImage} className={classes.doge} alt="" />
         </div>
     )

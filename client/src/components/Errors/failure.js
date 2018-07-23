@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import dogeImage from '../../images/error-doge.jpg'
 
-const styles = theme => ({
+const styles = {
     error: {
         textAlign: 'center',
     },
@@ -24,15 +24,24 @@ const styles = theme => ({
         height: 300,
         width: 'auto',
     }
-})
+}
 
-export default withStyles(styles)(props => {
-    const { classes, error } = props
+export default withStyles(styles)(({ classes, error }) => {
     return (
         <div className={classes.error}>
-            <Typography variant="display4" className={classes.failure}>ERROR</Typography>
-            {'status_code' in error && <Typography variant="subheading" className={classes.status}>STATUS CODE: {error.status_code}</Typography>}
-            {'message' in error && <Typography variant="subheading" className={classes.status}>MESSAGE: {error.message}</Typography>}
+            <Typography variant="display4" className={classes.failure}>
+                ERROR
+            </Typography>
+            {'status_code' in error && (
+                <Typography variant="subheading" className={classes.status}>
+                    STATUS CODE: {error.status_code}
+                </Typography>
+            )}
+            {'message' in error && (
+                <Typography variant="subheading" className={classes.status}>
+                    MESSAGE: {error.message}
+                </Typography>
+            )}
             <img src={dogeImage} className={classes.doge} alt="" />
         </div>
     )

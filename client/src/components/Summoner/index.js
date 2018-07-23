@@ -28,32 +28,44 @@ export default class extends Component {
     }
     getSummonerData = () => {
         return axios.get(`/api/search/${this.props.match.params.summonerName}`)
-            .then(res => {
+            .then(res =>
                 this.setState({
                     summoner: 'summoner' in res.data && res.data.summoner,
-                    positions: 'positions' in res.data && res.data.positions.length && res.data.positions[0],
+                    positions:
+                        'positions' in res.data &&
+                        res.data.positions.length &&
+                        res.data.positions[0],
                     matchlist: 'matchlist' in res.data && res.data.matchlist,
                     matches: 'matches' in res.data && res.data.matches
                 })
-            }).catch(error => this.setState({ error: { message: 'Failed to get summoner data' } }))
+            ).catch(error =>
+                this.setState({
+                    error: { message: 'Failed to get summoner data' }
+                })
+            )
     }
     getStaticData = () => {
-        return axios.get('https://ddragon.leagueoflegends.com/api/versions.json')
-            .then(res => {
-                return Promise.all([
-                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/champion.json`),
-                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/summoner.json`),
-                    axios.get(`http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/runesReforged.json`),
-                    res.data[0]
+        const baseUrl = 'https://ddragon.leagueoflegends.com/'
+        return axios.get(`${baseUrl}api/versions.json`)
+            .then(({ data }) =>
+                Promise.all([
+                    data[0],
+                    axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/champion.json`),
+                    axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/summoner.json`),
+                    axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/runesReforged.json`)
                 ])
-            }).then(results => {
+            ).then(([version, champions, summonerSpells, runes]) =>
                 this.setState({
-                    version: results[3],
-                    champions: results[0].data.data,
-                    summonerSpells: results[1].data.data,
-                    runes: results[2].data
+                    version,
+                    champions: champions.data.data,
+                    summonerSpells: summonerSpells.data.data,
+                    runes: runes.data
                 })
-            }).catch(error => this.setState({ error: { message: 'Failed to get static data' } }))
+            ).catch(error =>
+                this.setState({
+                    error: { message: 'Failed to get static data' }
+                })
+            )
     }
     render() {
         const {
@@ -68,8 +80,8 @@ export default class extends Component {
             runes,
             error
         } = this.state
-        const staticData = { version, champions, summonerSpells, runes }
         const { path } = this.props.match
+        const staticData = { version, champions, summonerSpells, runes }
         if (!fetchedData) return <CircularProgress />
         if ('message' in error) return <Failure error={error} />
         else if ('message' in summoner) return <Failure error={summoner} />
