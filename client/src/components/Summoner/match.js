@@ -109,19 +109,17 @@ export default withStyles(() => ({
             return <Redirect push to={`/summoner/${newSummoner}/matches`} />
         const baseUrl = 'https://ddragon.leagueoflegends.com/'
         const summonerIndex = participantIdentities.findIndex(participant =>
-        participant.player.accountId === summoner.accountId
+            participant.player.accountId === summoner.accountId
         )
         participants.forEach(participant => {
             participant.champion = Object.values(champions).find(champion =>
-            participant.championId === parseInt(champion.key, 10)).id
-            if (participant.spell1Id !== 0)
-                participant.summonerSpell1 = Object.values(summonerSpells)
-                    .find(summonerSpell =>
-                        participant.spell1Id === parseInt(summonerSpell.key, 10)).id
-            if (participant.spell2Id !== 0)
-                participant.summonerSpell2 = Object.values(summonerSpells)
-                    .find(summonerSpell =>
-                        participant.spell2Id === parseInt(summonerSpell.key, 10)).id
+                participant.championId === parseInt(champion.key, 10)).id
+            participant.summonerSpell1 = participant.spell1Id !== 0 && Object.values(summonerSpells)
+                .find(summonerSpell =>
+                    participant.spell1Id === parseInt(summonerSpell.key, 10)).id
+            participant.summonerSpell2 = participant.spell2Id !== 0 && Object.values(summonerSpells)
+                .find(summonerSpell =>
+                    participant.spell2Id === parseInt(summonerSpell.key, 10)).id
             participant.rune1 = runes.find(rune =>
                 participant.stats.perkPrimaryStyle === rune.id).slots[0].runes
                 .find(rune =>
