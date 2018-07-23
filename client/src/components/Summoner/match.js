@@ -10,7 +10,7 @@ import {
     ListItem,
     Avatar,
     Divider,
-    Grid,
+    Grid
 } from '@material-ui/core'
 import notFoundDoge from '../../images/not-found-doge.jpg'
 
@@ -30,66 +30,66 @@ export default withStyles(() => ({
     avatar: {
         width: 60,
         height: 60,
-        marginRight: 20,
+        marginRight: 20
     },
     champName: {
         marginTop: 'auto',
-        marginBottom: 'auto',
+        marginBottom: 'auto'
     },
     item: {
         height: 30,
-        width: 30,
+        width: 30
     },
     items: {
-        width: '13%',
+        width: '13%'
     },
     img: {
         height: 30,
         display: 'block',
         marginLeft: 'auto',
-        marginRight: 'auto',
+        marginRight: 'auto'
     },
     playerList: {
         fontSize: 15,
-        padding: '5px 10px',
+        padding: '5px 10px'
     },
     playersItemList: {
-        marginRight: 0,
+        marginRight: 0
     },
     playerItem: {
         width: 30,
         height: 30,
-        margin: 4,
+        margin: 4
     },
     playerAvatar: {
         width: 40,
         height: 40,
-        marginRight: 20,
+        marginRight: 20
     },
     list: {
         marginLeft: 'auto',
         marginRight: 'auto',
-        width: '90%',
+        width: '90%'
     },
     kda: {
         width: '10%',
         display: 'block',
-        margin: 'auto 10px',
+        margin: 'auto 10px'
     },
     doubleIcon: {
-        width: '5%',
+        width: '5%'
     },
     secondary: {
         height: 15,
         display: 'block',
         marginLeft: 'auto',
-        marginRight: 'auto',
+        marginRight: 'auto'
     },
     trinket: {
         height: 30,
         display: 'block',
         marginTop: 'auto',
-        marginBottom: 'auto',
+        marginBottom: 'auto'
     }
 }))(class extends Component {
     constructor(props) {

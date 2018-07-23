@@ -6,12 +6,12 @@ import Match from './match'
 export default withStyles(() => ({
     main: {
         marginLeft: 60,
-        marginRight: 60,
+        marginRight: 60
     },
     title: {
         position: 'static',
         margin: '30px 0',
-        textAlign: 'center',
+        textAlign: 'center'
     }
 }))(({ classes, summoner, matches, staticData }) => {
     return (

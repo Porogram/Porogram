@@ -5,24 +5,24 @@ import dogeImage from '../../images/error-doge.jpg'
 
 export default withStyles(() => ({
     error: {
-        textAlign: 'center',
+        textAlign: 'center'
     },
     failure: {
         letterSpacing: .3,
         transform: 'scaleY(1.2)',
-        marginTop: 20,
+        marginTop: 20
     },
-    status: {
+    errorText: {
         color: '#0080ff',
         fontWeight: 400,
-        letterSpacing: .5,
+        letterSpacing: .5
     },
     notFound: {
-        margin: '10px auto',
+        margin: '10px auto'
     },
     doge: {
         height: 300,
-        width: 'auto',
+        width: 'auto'
     }
 }))(({ classes, error }) => {
     return (
@@ -31,12 +31,12 @@ export default withStyles(() => ({
                 ERROR
             </Typography>
             {'status_code' in error && (
-                <Typography variant="subheading" className={classes.status}>
+                <Typography variant="subheading" className={classes.errorText}>
                     STATUS CODE: {error.status_code}
                 </Typography>
             )}
             {'message' in error && (
-                <Typography variant="subheading" className={classes.status}>
+                <Typography variant="subheading" className={classes.errorText}>
                     MESSAGE: {error.message}
                 </Typography>
             )}

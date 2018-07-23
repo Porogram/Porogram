@@ -5,19 +5,19 @@ import dogeImage from '../../images/not-found-doge.jpg'
 
 export default withStyles(() => ({
     error: {
-        textAlign: 'center',
+        textAlign: 'center'
     },
     sorry: {
         marginTop: 20,
         letterSpacing: .3,
-        transform: 'scaleY(1.2)',
+        transform: 'scaleY(1.2)'
     },
     notFound: {
-        margin: '10px auto',
+        margin: '10px auto'
     },
     doge: {
         height: 300,
-        width: 'auto',
+        width: 'auto'
     }
 }))(({ classes }) => {
     return (

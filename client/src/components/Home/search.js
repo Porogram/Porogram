@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
+import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
 
@@ -28,7 +29,7 @@ export default class extends Component {
                     onChange={value => this.setState({ summonerName: value })}
                     onRequestSearch={this.onSearch}
                 />
-                {invalidInput && <h3>Invalid input</h3>}
+                {invalidInput && <FormHelperText>Invalid input</FormHelperText>}
             </Fragment>
         )
     }

@@ -18,8 +18,8 @@ export default () => {
                         path="/summoner/:summonerName"
                         render={props =>
                             <Summoner
-                                key={props.match.params.summonerName}
                                 {...props} 
+                                key={props.match.params.summonerName}
                             />
                         }
                     />

@@ -11,16 +11,16 @@ import {
 
 export default withStyles(() => ({
     Drawer: {
-        position: 'static',
+        position: 'static'
     },
     Avatar: {
         width: 100,
         height: 100,
-        margin: '10px auto',
+        margin: '10px auto'
     },
     listText: {
         fontSize: 22,
-        fontWeight: 300,
+        fontWeight: 300
     },
     sidebar: {
         textAlign: 'center',
@@ -28,8 +28,8 @@ export default withStyles(() => ({
     },
     profile: {
         marginBottom: 25,
-        marginTop: 15,
-    },
+        marginTop: 15
+    }
 }))(({ classes, positions, summoner, version }) => {
     const { tier, rank } = positions
     const { name, profileIconId } = summoner
@@ -53,13 +53,13 @@ export default withStyles(() => ({
                 <ListItem button>
                     <ListItemText
                         primary="Summary"
-                        classes={{primary: classes.listText}}
+                        classes={{ primary: classes.listText }}
                     />
                 </ListItem>
                 <ListItem button>
                     <ListItemText
                         primary="Matches"
-                        classes={{primary: classes.listText}}
+                        classes={{ primary: classes.listText }}
                     />
                 </ListItem>
             </div>
