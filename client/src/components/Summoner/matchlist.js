@@ -17,7 +17,7 @@ export default withStyles(() => ({
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>
-                Match History
+                Matches
             </Typography>
             {matches.map((match, i) =>
                 <Match
