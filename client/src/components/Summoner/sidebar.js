@@ -1,19 +1,26 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Drawer, Divider, Avatar, ListItem, ListItemText, Typography } from '@material-ui/core'
+import {
+    Drawer,
+    Divider,
+    Avatar,
+    ListItem,
+    ListItemText,
+    Typography
+} from '@material-ui/core'
 
-const styles = theme => ({
+export default withStyles(() => ({
     Drawer: {
-        position: 'static',
+        position: 'static'
     },
     Avatar: {
         width: 100,
         height: 100,
-        margin: '10px auto',
+        margin: '10px auto'
     },
     listText: {
         fontSize: 22,
-        fontWeight: 300,
+        fontWeight: 300
     },
     sidebar: {
         textAlign: 'center',
@@ -21,16 +28,13 @@ const styles = theme => ({
     },
     profile: {
         marginBottom: 25,
-        marginTop: 15,
-    },
-})
-
-export default withStyles(styles)(props => {
-    const { classes, positions, summoner, version } = props
+        marginTop: 15
+    }
+}))(({ classes, positions, summoner, version }) => {
     const { tier, rank } = positions
     const { name, profileIconId } = summoner
     return (
-        <Drawer variant='permanent' classes={{paper: classes.Drawer}}>
+        <Drawer variant='permanent' classes={{ paper: classes.Drawer }}>
             <div className={classes.sidebar}>
                 <div className={classes.profile}>
                     <Typography variant='display1'>{name}</Typography>
@@ -39,17 +43,25 @@ export default withStyles(styles)(props => {
                         alt="profile icon"
                         className={classes.Avatar}
                     />
-                    {tier && rank && <Typography variant='subheading'>{`${tier} ${rank}`}</Typography>}
+                    {tier && rank && (
+                        <Typography variant='subheading'>
+                            {`${tier} ${rank}`}
+                        </Typography>
+                    )}
                 </div>
                 <Divider />
-                <div>
-                    <ListItem button>
-                        <ListItemText primary="Summary" classes={{primary: classes.listText}} />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemText primary="Matches" classes={{primary: classes.listText}} />
-                    </ListItem>
-                </div>
+                <ListItem button>
+                    <ListItemText
+                        primary="Summary"
+                        classes={{ primary: classes.listText }}
+                    />
+                </ListItem>
+                <ListItem button>
+                    <ListItemText
+                        primary="Matches"
+                        classes={{ primary: classes.listText }}
+                    />
+                </ListItem>
             </div>
         </Drawer>
     )
