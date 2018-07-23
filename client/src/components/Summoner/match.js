@@ -14,7 +14,19 @@ import {
 } from '@material-ui/core'
 import notFoundDoge from '../../images/not-found-doge.jpg'
 
-const styles = {
+const Image = ({ src, classes }) => {
+    return (
+        <Grid item>
+            <img
+                src={src}
+                alt=""
+                className={classes}
+            />
+        </Grid>
+    )
+}
+
+export default withStyles(() => ({
     avatar: {
         width: 60,
         height: 60,
@@ -79,21 +91,7 @@ const styles = {
         marginTop: 'auto',
         marginBottom: 'auto',
     }
-}
-
-const Image = ({ src, classes }) => {
-    return (
-        <Grid item>
-            <img
-                src={src}
-                alt=""
-                className={classes}
-            />
-        </Grid>
-    )
-}
-
-export default withStyles(styles)(class extends Component {
+}))(class extends Component {
     constructor(props) {
         super(props)
         this.state = { newSummoner: '' }
@@ -190,11 +188,19 @@ export default withStyles(styles)(class extends Component {
                             )
                         })}
                     </div>
-                    <img
-                        src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}
-                        alt=""
-                        className={classes.trinket}
-                    />
+                    {participants[summonerIndex].stats[`item6`] === 0 ? (
+                        <img
+                            src={notFoundDoge}
+                            alt=""
+                            className={classes.trinket}
+                        />
+                    ) : (
+                        <img
+                            src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}
+                            alt=""
+                            className={classes.trinket}
+                        />
+                    )}
                 </ExpansionPanelSummary>
                 <Divider />
                 <ExpansionPanelDetails>
@@ -218,7 +224,7 @@ export default withStyles(styles)(class extends Component {
                                     direction="column"
                                     className={classes.doubleIcon}
                                 >
-                                    {participant.summonerSpell1 === 0 ? (
+                                    {participant.spell1Id === 0 ? (
                                         <img
                                             src={notFoundDoge}
                                             alt=""
@@ -230,9 +236,10 @@ export default withStyles(styles)(class extends Component {
                                             classes={classes.item}
                                         />
                                     )}
-                                    {participant.summonerSpell2 === 0 ? (
+                                    {participant.spell2Id === 0 ? (
                                         <img
-                                            src={notFoundDoge} alt=""
+                                            src={notFoundDoge}
+                                            alt=""
                                             className={classes.item}
                                         />
                                     ) : (
@@ -290,11 +297,19 @@ export default withStyles(styles)(class extends Component {
                                         )
                                     )}
                                 </div>
-                                <img
-                                    src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item6`]}.png`}
-                                    alt=""
-                                    className={classes.trinket}
-                                />
+                                {participant.stats[`item6`] === 0 ? (
+                                    <img
+                                        src={notFoundDoge}
+                                        alt=""
+                                        className={classes.trinket}
+                                    />
+                                ) : (
+                                    <img
+                                        src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item6`]}.png`}
+                                        alt=""
+                                        className={classes.trinket}
+                                    />
+                                )}
                             </ListItem>
                         )}
                     </List>

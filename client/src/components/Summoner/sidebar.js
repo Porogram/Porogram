@@ -9,7 +9,7 @@ import {
     Typography
 } from '@material-ui/core'
 
-const styles = {
+export default withStyles(() => ({
     Drawer: {
         position: 'static',
     },
@@ -30,43 +30,39 @@ const styles = {
         marginBottom: 25,
         marginTop: 15,
     },
-}
-
-export default withStyles(styles)(
-    ({ classes, positions, summoner, version }) => {
-        const { tier, rank } = positions
-        const { name, profileIconId } = summoner
-        return (
-            <Drawer variant='permanent' classes={{ paper: classes.Drawer }}>
-                <div className={classes.sidebar}>
-                    <div className={classes.profile}>
-                        <Typography variant='display1'>{name}</Typography>
-                        <Avatar
-                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                            alt="profile icon"
-                            className={classes.Avatar}
-                        />
-                        {tier && rank && (
-                            <Typography variant='subheading'>
-                                {`${tier} ${rank}`}
-                            </Typography>
-                        )}
-                    </div>
-                    <Divider />
-                    <ListItem button>
-                        <ListItemText
-                            primary="Summary"
-                            classes={{primary: classes.listText}}
-                        />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemText
-                            primary="Matches"
-                            classes={{primary: classes.listText}}
-                        />
-                    </ListItem>
+}))(({ classes, positions, summoner, version }) => {
+    const { tier, rank } = positions
+    const { name, profileIconId } = summoner
+    return (
+        <Drawer variant='permanent' classes={{ paper: classes.Drawer }}>
+            <div className={classes.sidebar}>
+                <div className={classes.profile}>
+                    <Typography variant='display1'>{name}</Typography>
+                    <Avatar
+                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                        alt="profile icon"
+                        className={classes.Avatar}
+                    />
+                    {tier && rank && (
+                        <Typography variant='subheading'>
+                            {`${tier} ${rank}`}
+                        </Typography>
+                    )}
                 </div>
-            </Drawer>
-        )
-    }
-)
+                <Divider />
+                <ListItem button>
+                    <ListItemText
+                        primary="Summary"
+                        classes={{primary: classes.listText}}
+                    />
+                </ListItem>
+                <ListItem button>
+                    <ListItemText
+                        primary="Matches"
+                        classes={{primary: classes.listText}}
+                    />
+                </ListItem>
+            </div>
+        </Drawer>
+    )
+})

@@ -4,16 +4,14 @@ import { withStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import logo from '../images/poro.png'
 
-const styles = {
+export default withStyles(() => ({
     img: {
         width: 50,
         height: 50,
         marginLeft: 10,
         marginRight: 10
     }
-}
-
-export default withStyles(styles)(({ classes }) => {
+}))(({ classes }) => {
     return (
         <AppBar position="static">
             <Toolbar>
