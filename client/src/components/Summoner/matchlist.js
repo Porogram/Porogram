@@ -22,9 +22,9 @@ export default withStyles(styles)(
                 <Typography variant="display2" className={classes.title}>
                     Match History
                 </Typography>
-                {matches.map(match =>
+                {matches.map((match, i) =>
                     <Match
-                        key={match.id}
+                        key={i}
                         match={match}
                         summoner={summoner}
                         staticData={staticData}
