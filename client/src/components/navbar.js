@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
-import logo from '../images/logo.png'
+import logo from '../images/poro.png'
 
 const styles = theme => ({
     img: {
@@ -20,7 +20,7 @@ export default withStyles(styles)(props => {
             <Toolbar>
                 <Link to="/"><img className={classes.img} src={logo} alt="logo" /></Link>
                 <Typography variant="title" color="inherit">
-                    Porogram
+                    POROGRAM
                 </Typography>
             </Toolbar>
         </AppBar>
