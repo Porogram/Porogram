@@ -80,7 +80,7 @@ export default withStyles(() => ({
         width: '5%'
     },
     secondary: {
-        height: 15,
+        height: 26,
         display: 'block',
         marginLeft: 'auto',
         marginRight: 'auto'

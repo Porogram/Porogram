@@ -19,9 +19,9 @@ export default withStyles(() => ({
             <Typography variant="display2" className={classes.title}>
                 Matches
             </Typography>
-            {matches.map((match, i) =>
+            {matches.map(match =>
                 <Match
-                    key={i}
+                    key={match.gameId}
                     match={match}
                     summoner={summoner}
                     staticData={staticData}
