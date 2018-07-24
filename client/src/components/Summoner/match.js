@@ -106,8 +106,8 @@ export default withStyles(() => ({
         this.setState({ newSummoner: participantIdentity.player.summonerName })
     }
     updateMatch = (match, { accountId }, { champions, summonerSpells, runes }) => {
-        const { participants } = match
-        match.summonerIndex = match.participantIdentities.findIndex(participant =>
+        const { participants, participantIdentities } = match
+        match.summonerIndex = participantIdentities.findIndex(participant =>
             participant.player.accountId === accountId
         )
         participants.forEach(participant => {
@@ -119,12 +119,13 @@ export default withStyles(() => ({
             participant.summonerSpell2 = participant.spell2Id !== 0 && Object.values(summonerSpells)
                 .find(summonerSpell =>
                     participant.spell2Id === parseInt(summonerSpell.key, 10)).id
-            participant.rune1 = runes.find(rune =>
-                participant.stats.perkPrimaryStyle === rune.id).slots[0].runes
-                .find(rune =>
+            let rune1 = runes.find(rune =>
+                participant.stats.perkPrimaryStyle === rune.id)
+            participant.rune1 = rune1 && rune1.slots[0].runes.find(rune =>
                     participant.stats.perk0 === rune.id).icon
-            participant.rune2 = runes.find(rune =>
-                participant.stats.perkSubStyle === rune.id).icon
+            let rune2 = runes.find(rune =>
+                participant.stats.perkSubStyle === rune.id)
+            participant.rune2 = rune2 && rune2.icon
         })
     }
     render() {
@@ -166,27 +167,59 @@ export default withStyles(() => ({
                         className={classes.doubleIcon}
                         justify="center"
                     >
-                        <Image
-                            src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
-                            classes={classes.img}
-                        />
-                        <Image
-                            src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
-                            classes={classes.secondary}
-                        />
+                        {participants[summonerIndex].rune1 ? (
+                            <Image
+                                src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
+                                classes={classes.img}
+                            />
+                        ) : (
+                            <img
+                                src={notFoundDoge}
+                                alt=""
+                                className={classes.img}
+                            />
+                        )}
+                        {participants[summonerIndex].rune1 ? (
+                            <Image
+                                src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
+                                classes={classes.secondary}
+                            />
+                        ) : (
+                            <img
+                                src={notFoundDoge}
+                                alt=""
+                                className={classes.secondary}
+                            />
+                        )}
                     </Grid>
                     <Grid
                         container direction="column"
                         className={classes.doubleIcon}
                     >
-                        <Image
-                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
-                            classes={classes.item}
-                        />
-                        <Image
-                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
-                            classes={classes.item}
-                        />
+                        {participants[summonerIndex].summonerSpell1 ? (
+                            <Image
+                                src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
+                                classes={classes.item}
+                            />
+                        ) : (
+                            <img
+                                src={notFoundDoge}
+                                alt=""
+                                className={classes.item}
+                            />
+                        )}
+                        {participants[summonerIndex].summonerSpell2 ? (
+                            <Image
+                                src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
+                                classes={classes.item}
+                            />
+                        ) : (
+                            <img
+                                src={notFoundDoge}
+                                alt=""
+                                className={classes.item}
+                            />
+                        )}
                     </Grid>
                     <div className={classes.items}>
                         {[...Array(6).keys()].map(i => {
@@ -233,17 +266,21 @@ export default withStyles(() => ({
                                 }
                                 className={classes.playerList}
                             >
-                                <Avatar
-                                    src={`${baseUrl}cdn/${version}/img/champion/${participant.champion}.png`}
-                                    alt=""
-                                    className={classes.playerAvatar}
-                                />
-                                <Typography
-                                    variant="body2"
-                                    className={classes.kda}
-                                >
-                                    {participantIdentities[participantIndex].player.summonerName}
-                                </Typography>
+                                {participant.champion && (
+                                    <Avatar
+                                        src={`${baseUrl}cdn/${version}/img/champion/${participant.champion}.png`}
+                                        alt=""
+                                        className={classes.playerAvatar}
+                                    />
+                                )}
+                                {participantIdentities[participantIndex].player.summonerName && (
+                                    <Typography
+                                        variant="body2"
+                                        className={classes.kda}
+                                    >
+                                        {participantIdentities[participantIndex].player.summonerName}
+                                    </Typography>
+                                )}
                                 <Typography
                                     variant="body1"
                                     className={classes.kda}
@@ -258,14 +295,30 @@ export default withStyles(() => ({
                                     className={classes.doubleIcon}
                                     justify="center"
                                 >
-                                    <Image
-                                        src={`${baseUrl}cdn/img/${participant.rune1}`}
-                                        classes={classes.img}
-                                    />
-                                    <Image
-                                        src={`${baseUrl}cdn/img/${participant.rune2}`}
-                                        classes={classes.secondary}
-                                    />
+                                    {participant.rune1 ? (
+                                        <Image
+                                            src={`${baseUrl}cdn/img/${participant.rune1}`}
+                                            classes={classes.img}
+                                        />
+                                    ) : (
+                                        <img
+                                            src={notFoundDoge}
+                                            alt=""
+                                            className={classes.img}
+                                        />
+                                    )}
+                                    {participant.rune2 ? (
+                                        <Image
+                                            src={`${baseUrl}cdn/img/${participant.rune2}`}
+                                            classes={classes.secondary}
+                                        />
+                                    ) : (
+                                        <img
+                                            src={notFoundDoge}
+                                            alt=""
+                                            className={classes.secondary}
+                                        />
+                                    )}
                                 </Grid>
                                 <Grid
                                     container
