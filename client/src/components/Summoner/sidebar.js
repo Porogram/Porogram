@@ -30,19 +30,26 @@ export default withStyles(() => ({
         marginBottom: 25,
         marginTop: 15
     }
-}))(({ classes, positions, summoner, version }) => {
-    const { tier, rank } = positions
-    const { name, profileIconId } = summoner
+}))(({
+    classes,
+    positions,
+    positions: { tier, rank },
+    summoner,
+    summoner: { name, profileIconId },
+    version
+}) => {
     return (
         <Drawer variant='permanent' classes={{ paper: classes.Drawer }}>
             <div className={classes.sidebar}>
                 <div className={classes.profile}>
-                    <Typography variant='display1'>{name}</Typography>
-                    <Avatar
-                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                        alt="profile icon"
-                        className={classes.Avatar}
-                    />
+                    {name && <Typography variant='display1'>{name}</Typography>}
+                    {version && profileIconId && (
+                        <Avatar
+                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                            alt="profile icon"
+                            className={classes.Avatar}
+                        />
+                    )}
                     {tier && rank && (
                         <Typography variant='subheading'>
                             {`${tier} ${rank}`}
