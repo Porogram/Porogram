@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -72,7 +72,7 @@ export default withStyles(() => ({
         width: '90%'
     },
     kda: {
-        width: '10%',
+        width: '15%',
         display: 'block',
         margin: 'auto 10px'
     },
@@ -100,17 +100,12 @@ export default withStyles(() => ({
         'summonerId' in participantIdentity.player &&
         this.setState({ newSummoner: participantIdentity.player.summonerName })
     }
-    render() {
-        const { classes, match, summoner, staticData } = this.props
-        const { newSummoner } = this.state
-        const { participants, participantIdentities } = match
-        const { version, champions, summonerSpells, runes } = staticData
-        if (newSummoner.length)
-            return <Redirect push to={`/summoner/${newSummoner}/matches`} />
-        const baseUrl = 'https://ddragon.leagueoflegends.com/'
-        const summonerIndex = participantIdentities.findIndex(participant =>
-            participant.player.accountId === summoner.accountId
+    getSummonerIndex = (participantIdentities, { accountId }) => {
+        return participantIdentities.findIndex(participant =>
+            participant.player.accountId === accountId
         )
+    }
+    updateData = ({ participants }, { champions, summonerSpells, runes }) => {
         participants.forEach(participant => {
             participant.champion = Object.values(champions).find(champion =>
                 participant.championId === parseInt(champion.key, 10)).id
@@ -127,27 +122,42 @@ export default withStyles(() => ({
             participant.rune2 = runes.find(rune =>
                 participant.stats.perkSubStyle === rune.id).icon
         })
+    }
+    render() {
+        const {
+            classes,
+            match,
+            match: { participants, participantIdentities },
+            summoner,
+            staticData,
+            staticData: { version, champions, summonerSpells, runes }
+        } = this.props
+        const { newSummoner } = this.state
+        if (newSummoner.length)
+            return <Redirect push to={`/summoner/${newSummoner}/matches`} />
+        const baseUrl = 'https://ddragon.leagueoflegends.com/'
+        const summonerIndex = this.getSummonerIndex(participantIdentities, summoner)
+        this.updateData(match, staticData)
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
-                    <Avatar
-                        src={`${baseUrl}cdn/${version}/img/champion/${participants[summonerIndex].champion}.png`}
-                        alt=""
-                        className={classes.avatar}
-                    />
-                    <Grid
-                        container direction="column"
-                        className={classes.doubleIcon}
-                    >
-                        <Image
-                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
-                            classes={classes.item}
-                        />
-                        <Image
-                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
-                            classes={classes.item}
-                        />
-                    </Grid>
+                    {participants[summonerIndex].champion && (
+                        <Fragment>
+                            <Avatar
+                                src={`${baseUrl}cdn/${version}/img/champion/${participants[summonerIndex].champion}.png`}
+                                alt=""
+                                className={classes.avatar}
+                            />
+                            <Typography variant="headline" className={classes.kda}>
+                                {participants[summonerIndex].champion}
+                            </Typography>
+                        </Fragment>
+                    )}
+                    <Typography variant="headline" className={classes.kda}>
+                        {participants[summonerIndex].stats.kills}/
+                        {participants[summonerIndex].stats.deaths}/
+                        {participants[summonerIndex].stats.assists}
+                    </Typography>
                     <Grid
                         container direction="column"
                         className={classes.doubleIcon}
@@ -162,11 +172,19 @@ export default withStyles(() => ({
                             classes={classes.secondary}
                         />
                     </Grid>
-                    <Typography variant="headline" className={classes.kda}>
-                        {participants[summonerIndex].stats.kills}/
-                        {participants[summonerIndex].stats.deaths}/
-                        {participants[summonerIndex].stats.assists}
-                    </Typography>
+                    <Grid
+                        container direction="column"
+                        className={classes.doubleIcon}
+                    >
+                        <Image
+                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
+                            classes={classes.item}
+                        />
+                        <Image
+                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
+                            classes={classes.item}
+                        />
+                    </Grid>
                     <div className={classes.items}>
                         {[...Array(6).keys()].map(i => {
                             return participants[summonerIndex].stats[`item${i}`] === 0 ? (
@@ -217,6 +235,35 @@ export default withStyles(() => ({
                                     alt=""
                                     className={classes.playerAvatar}
                                 />
+                                <Typography
+                                    variant="body2"
+                                    className={classes.kda}
+                                >
+                                    {participantIdentities[participantIndex].player.summonerName}
+                                </Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={classes.kda}
+                                >
+                                    {participant.stats.kills}/
+                                    {participant.stats.deaths}/
+                                    {participant.stats.assists}
+                                </Typography>
+                                <Grid
+                                    container
+                                    direction="column"
+                                    className={classes.doubleIcon}
+                                    justify="center"
+                                >
+                                    <Image
+                                        src={`${baseUrl}cdn/img/${participant.rune1}`}
+                                        classes={classes.img}
+                                    />
+                                    <Image
+                                        src={`${baseUrl}cdn/img/${participant.rune2}`}
+                                        classes={classes.secondary}
+                                    />
+                                </Grid>
                                 <Grid
                                     container
                                     direction="column"
@@ -247,35 +294,6 @@ export default withStyles(() => ({
                                         />
                                     )}
                                 </Grid>
-                                <Grid
-                                    container
-                                    direction="column"
-                                    className={classes.doubleIcon}
-                                    justify="center"
-                                >
-                                    <Image
-                                        src={`${baseUrl}cdn/img/${participant.rune1}`}
-                                        classes={classes.img}
-                                    />
-                                    <Image
-                                        src={`${baseUrl}cdn/img/${participant.rune2}`}
-                                        classes={classes.secondary}
-                                    />
-                                </Grid>
-                                <Typography
-                                    variant="body2"
-                                    className={classes.kda}
-                                >
-                                    {participantIdentities[participantIndex].player.summonerName}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    className={classes.kda}
-                                >
-                                    {participant.stats.kills}/
-                                    {participant.stats.deaths}/
-                                    {participant.stats.assists}
-                                </Typography>
                                 <div className={classes.items}>
                                     {[...Array(6).keys()].map(i =>
                                         participant.stats[`item${i}`] === 0 ? (
