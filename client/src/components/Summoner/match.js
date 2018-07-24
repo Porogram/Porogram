@@ -94,18 +94,22 @@ export default withStyles(() => ({
 }))(class extends Component {
     constructor(props) {
         super(props)
-        this.state = { newSummoner: '' }
+        this.state = { newSummoner: '', updatedMatch: false }
+    }
+    componentDidMount() {
+        const { match, summoner, staticData } = this.props
+        this.updateMatch(match, summoner, staticData)
+        this.setState({ updatedMatch: true })
     }
     getSummoner = participantIdentity => {
         'summonerId' in participantIdentity.player &&
         this.setState({ newSummoner: participantIdentity.player.summonerName })
     }
-    getSummonerIndex = (participantIdentities, { accountId }) => {
-        return participantIdentities.findIndex(participant =>
+    updateMatch = (match, { accountId }, { champions, summonerSpells, runes }) => {
+        const { participants } = match
+        match.summonerIndex = match.participantIdentities.findIndex(participant =>
             participant.player.accountId === accountId
         )
-    }
-    updateData = ({ participants }, { champions, summonerSpells, runes }) => {
         participants.forEach(participant => {
             participant.champion = Object.values(champions).find(champion =>
                 participant.championId === parseInt(champion.key, 10)).id
@@ -127,17 +131,16 @@ export default withStyles(() => ({
         const {
             classes,
             match,
-            match: { participants, participantIdentities },
+            match: { participants, participantIdentities, summonerIndex },
             summoner,
             staticData,
             staticData: { version, champions, summonerSpells, runes }
         } = this.props
-        const { newSummoner } = this.state
+        const { newSummoner, updatedMatch } = this.state
+        const baseUrl = 'https://ddragon.leagueoflegends.com/'
         if (newSummoner.length)
             return <Redirect push to={`/summoner/${newSummoner}/matches`} />
-        const baseUrl = 'https://ddragon.leagueoflegends.com/'
-        const summonerIndex = this.getSummonerIndex(participantIdentities, summoner)
-        this.updateData(match, staticData)
+        if (!updatedMatch) return null
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
