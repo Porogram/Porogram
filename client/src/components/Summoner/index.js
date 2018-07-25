@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { Grid, CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
-import MatchList from './matchlist'
+import Matches from './Matches'
 import { Failure } from '../Errors'
 
 export default class extends Component {
@@ -100,7 +100,7 @@ export default class extends Component {
                             <Route
                                 path={`${path}/matches`}
                                 render={props =>
-                                    <MatchList
+                                    <Matches
                                         {...props}
                                         summoner={summoner}
                                         matchlist={matchlist}

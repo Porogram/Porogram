@@ -9,7 +9,7 @@ import {
     Divider,
     Grid
 } from '@material-ui/core'
-import notFoundDoge from '../../images/not-found-doge.jpg'
+import notFoundDoge from '../../../images/not-found-doge.jpg'
 
 const Image = ({ src, classes }) => {
     return (
@@ -109,7 +109,7 @@ export default ({ match, match: { participants, participantIdentities, summonerI
                 <img
                     src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}
                     alt=""
-                    cn={classes.trinket}
+                    className={classes.trinket}
                 />
             )}
         </Fragment>

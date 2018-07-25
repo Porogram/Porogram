@@ -9,7 +9,7 @@ import {
     Divider,
     Grid
 } from '@material-ui/core'
-import notFoundDoge from '../../images/not-found-doge.jpg'
+import notFoundDoge from '../../../images/not-found-doge.jpg'
 
 const Image = ({ src, classes }) => {
     return (

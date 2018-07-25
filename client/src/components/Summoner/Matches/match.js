@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core'
 import Summary from './summary'
 import Details from './details'
-import notFoundDoge from '../../images/not-found-doge.jpg'
 
 export default withStyles(() => ({
     avatar: {
