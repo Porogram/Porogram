@@ -9,7 +9,7 @@ import {
     Divider,
     Grid
 } from '@material-ui/core'
-import notFoundDoge from '../../../images/not-found-doge.jpg'
+import Empty from './empty'
 
 const Image = ({ src, classes }) => {
     return (
@@ -20,16 +20,6 @@ const Image = ({ src, classes }) => {
                 className={classes}
             />
         </Grid>
-    )
-}
-
-const Empty = ({ cn }) => {
-    return (
-        <img
-            src={notFoundDoge}
-            alt=""
-            className={cn}
-        />
     )
 }
 
@@ -175,14 +165,8 @@ export default withStyles(() => ({
                     </Grid>
                     <div className={classes.items}>
                         {[...Array(6).keys()].map(i =>
-                            participant.stats[`item${i}`] === 0 ? (
-                                <img
-                                    src={notFoundDoge}
-                                    alt=""
-                                    className={classes.item}
-                                    key={i}
-                                />
-                            ) : (
+                            participant.stats[`item${i}`] === 0 ?
+                                <Empty cn={classes.item} />  : (
                                 <img
                                     src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`}
                                     alt=""

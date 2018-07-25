@@ -6,7 +6,7 @@ import {
     Divider,
     Grid
 } from '@material-ui/core'
-import notFoundDoge from '../../../images/not-found-doge.jpg'
+import Empty from './empty'
 
 const Image = ({ src, classes }) => {
     return (
@@ -17,16 +17,6 @@ const Image = ({ src, classes }) => {
                 className={classes}
             />
         </Grid>
-    )
-}
-
-const Empty = ({ cn }) => {
-    return (
-        <img
-            src={notFoundDoge}
-            alt=""
-            className={cn}
-        />
     )
 }
 
