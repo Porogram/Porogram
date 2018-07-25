@@ -8,18 +8,6 @@ import {
 } from '@material-ui/core'
 import Empty from './empty'
 
-const Image = ({ src, classes }) => {
-    return (
-        <Grid item>
-            <img
-                src={src}
-                alt=""
-                className={classes}
-            />
-        </Grid>
-    )
-}
-
 export default withStyles(() => ({
     avatar: {
         width: 60,
@@ -81,39 +69,52 @@ export default withStyles(() => ({
                 {participants[summonerIndex].stats.assists}
             </Typography>
             <Grid
-                container direction="column"
+                container
+                direction="column"
                 className={classes.doubleIcon}
                 justify="center"
             >
-                {participants[summonerIndex].rune1 ? (
-                    <Image
-                        src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
-                        classes={classes.img}
-                    />
-                ) : <Empty classes={classes.img} />}
-                {participants[summonerIndex].rune1 ? (
-                    <Image
-                        src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
-                        classes={classes.secondary}
-                    />
-                ) : <Empty classes={classes.secondary} />}
+                <Grid item>
+                    {participants[summonerIndex].rune1 ? (
+                        <img
+                            src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
+                            alt=""
+                            className={classes.img}
+                        />
+                    ) : <Empty classes={classes.img} />}
+                </Grid>
+                <Grid item>
+                    {participants[summonerIndex].rune1 ? (
+                        <img
+                            src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
+                            alt=""
+                            className={classes.secondary}
+                        />
+                    ) : <Empty classes={classes.secondary} />}
+                </Grid>
             </Grid>
             <Grid
                 container direction="column"
                 className={classes.doubleIcon}
             >
-                {participants[summonerIndex].summonerSpell1 ? (
-                    <Image
-                        src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
-                        classes={classes.item}
-                    />
-                ) : <Empty classes={classes.item} />}
-                {participants[summonerIndex].summonerSpell2 ? (
-                    <Image
-                        src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
-                        classes={classes.item}
-                    />
-                ) : <Empty classes={classes.item} />}
+                <Grid item>
+                    {participants[summonerIndex].summonerSpell1 ? (
+                        <img
+                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
+                            alt=""
+                            className={classes.item}
+                        />
+                    ) : <Empty classes={classes.item} />}
+                </Grid>
+                <Grid item>
+                    {participants[summonerIndex].summonerSpell2 ? (
+                        <img
+                            src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
+                            alt=""
+                            className={classes.item}
+                        />
+                    ) : <Empty classes={classes.item} />}
+                </Grid>
             </Grid>
             <div className={classes.items}>
                 {[...Array(6).keys()].map(i =>
