@@ -110,10 +110,7 @@ export default withStyles(() => ({
                             className={classes.item}
                             key={i}
                         />
-                    ) : (
-                        <Empty classes={classes.item} key={i} />
-                    )
-                )}
+                    ) : <Empty classes={classes.item} key={i} />)}
             </div>
             {participants[summonerIndex].stats[`item6`] !== 0 ? (
                 <img
@@ -121,9 +118,7 @@ export default withStyles(() => ({
                     alt=""
                     className={classes.trinket}
                 />
-            ) : (
-                <Empty classes={classes.trinket} />
-            )}
+            ) : <Empty classes={classes.trinket} />}
         </Fragment>
     )
 })
