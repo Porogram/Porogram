@@ -145,13 +145,13 @@ export default withStyles(() => ({
                                 src={`${baseUrl}cdn/img/${participant.rune1}`}
                                 classes={classes.img}
                             />
-                        ) : <Empty className={classes.img} />}
+                        ) : <Empty cn={classes.img} />}
                         {participant.rune2 ? (
                             <Image
                                 src={`${baseUrl}cdn/img/${participant.rune2}`}
                                 classes={classes.secondary}
                             />
-                        ) : <Empty className={classes.secondary} />}
+                        ) : <Empty cn={classes.secondary} />}
                     </Grid>
                     <Grid
                         container
@@ -159,14 +159,14 @@ export default withStyles(() => ({
                         className={classes.doubleIcon}
                     >
                         {participant.spell1Id === 0 ?
-                            <Empty className={classes.item} /> : (
+                            <Empty cn={classes.item} /> : (
                             <Image
                                 src={`${baseUrl}cdn/${version}/img/spell/${participant.summonerSpell1}.png`}
                                 classes={classes.item}
                             />
                         )}
                         {participant.spell2Id === 0 ?
-                            <Empty className={classes.item} /> : (
+                            <Empty cn={classes.item} /> : (
                             <Image
                                 src={`${baseUrl}cdn/${version}/img/spell/${participant.summonerSpell2}.png`}
                                 classes={classes.item}
@@ -193,7 +193,7 @@ export default withStyles(() => ({
                         )}
                     </div>
                     {participant.stats[`item6`] === 0 ?
-                        <Empty className={classes.item} /> : (
+                        <Empty cn={classes.item} /> : (
                         <img
                             src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item6`]}.png`}
                             alt=""

@@ -32,11 +32,11 @@ export default class extends Component {
         participants.forEach(participant => {
             participant.champion = Object.values(champions).find(champion =>
                 participant.championId === parseInt(champion.key, 10)).id
-            participant.summonerSpell1 = participant.spell1Id !== 0 && Object.values(summonerSpells)
-                .find(summonerSpell =>
+            participant.summonerSpell1 = participant.spell1Id !== 0 &&
+                Object.values(summonerSpells).find(summonerSpell =>
                     participant.spell1Id === parseInt(summonerSpell.key, 10)).id
-            participant.summonerSpell2 = participant.spell2Id !== 0 && Object.values(summonerSpells)
-                .find(summonerSpell =>
+            participant.summonerSpell2 = participant.spell2Id !== 0 &&
+                Object.values(summonerSpells).find(summonerSpell =>
                     participant.spell2Id === parseInt(summonerSpell.key, 10)).id
             let rune = runes.find(rune =>
                 participant.stats.perkPrimaryStyle === rune.id)
