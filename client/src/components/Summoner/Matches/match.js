@@ -38,17 +38,18 @@ export default class extends Component {
             participant.summonerSpell2 = participant.spell2Id !== 0 && Object.values(summonerSpells)
                 .find(summonerSpell =>
                     participant.spell2Id === parseInt(summonerSpell.key, 10)).id
-            let rune1 = runes.find(rune =>
+            let rune = runes.find(rune =>
                 participant.stats.perkPrimaryStyle === rune.id)
-            participant.rune1 = rune1 && rune1.slots[0].runes.find(rune =>
-                    participant.stats.perk0 === rune.id).icon
+            let rune1 = rune && rune.slots[0].runes.find(rune =>
+                    participant.stats.perk0 === rune.id)
+            participant.rune1 = rune1 && rune1.icon
             let rune2 = runes.find(rune =>
                 participant.stats.perkSubStyle === rune.id)
             participant.rune2 = rune2 && rune2.icon
         })
     }
     render() {
-        const { classes, match, staticData } = this.props
+        const { match, staticData } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
             return <Redirect push to={`/summoner/${newSummoner}/matches`} />
