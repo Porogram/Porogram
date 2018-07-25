@@ -9,7 +9,6 @@ export default withStyles(() => ({
         marginRight: 60
     },
     title: {
-        position: 'static',
         margin: '30px 0',
         textAlign: 'center'
     }

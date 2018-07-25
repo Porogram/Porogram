@@ -10,72 +10,7 @@ import {
 import Summary from './summary'
 import Details from './details'
 
-export default withStyles(() => ({
-    avatar: {
-        width: 60,
-        height: 60,
-        marginRight: 20
-    },
-    champName: {
-        marginTop: 'auto',
-        marginBottom: 'auto'
-    },
-    item: {
-        height: 30,
-        width: 30
-    },
-    items: {
-        width: '13%'
-    },
-    img: {
-        height: 30,
-        display: 'block',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-    },
-    playerList: {
-        fontSize: 15,
-        padding: '5px 10px'
-    },
-    playersItemList: {
-        marginRight: 0
-    },
-    playerItem: {
-        width: 30,
-        height: 30,
-        margin: 4
-    },
-    playerAvatar: {
-        width: 40,
-        height: 40,
-        marginRight: 20
-    },
-    list: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        width: '90%'
-    },
-    kda: {
-        width: '15%',
-        display: 'block',
-        margin: 'auto 10px'
-    },
-    doubleIcon: {
-        width: '5%'
-    },
-    secondary: {
-        height: 26,
-        display: 'block',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-    },
-    trinket: {
-        height: 30,
-        display: 'block',
-        marginTop: 'auto',
-        marginBottom: 'auto'
-    }
-}))(class extends Component {
+export default class extends Component {
     constructor(props) {
         super(props)
         this.state = { newSummoner: '', updatedMatch: false }
@@ -113,29 +48,25 @@ export default withStyles(() => ({
         })
     }
     render() {
-        const {
-            classes,
-            match,
-            match: { participants, participantIdentities, summonerIndex },
-            summoner,
-            staticData,
-            staticData: { version, champions, summonerSpells, runes }
-        } = this.props
+        const { classes, match, staticData } = this.props
         const { newSummoner, updatedMatch } = this.state
-        const baseUrl = 'https://ddragon.leagueoflegends.com/'
         if (newSummoner.length)
             return <Redirect push to={`/summoner/${newSummoner}/matches`} />
         if (!updatedMatch) return null
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
-                    <Summary match={match} staticData={staticData} classes={classes} />
+                    <Summary match={match} staticData={staticData} />
                 </ExpansionPanelSummary>
                 <Divider />
                 <ExpansionPanelDetails>
-                    <Details match={match} staticData={staticData} classes={classes} />
+                    <Details
+                        match={match}
+                        staticData={staticData}
+                        getSummoner={this.getSummoner}
+                    />
                 </ExpansionPanelDetails>
             </ExpansionPanel>
         )
     }
-})
+}

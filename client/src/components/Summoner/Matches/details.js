@@ -33,7 +33,72 @@ const Empty = ({ cn }) => {
     )
 }
 
-export default ({ match, match: { participants, participantIdentities, summonerIndex }, staticData, staticData: { version, champions, summonerSpells, runes }, classes }) => {
+export default withStyles(() => ({
+    avatar: {
+        width: 60,
+        height: 60,
+        marginRight: 20
+    },
+    champName: {
+        marginTop: 'auto',
+        marginBottom: 'auto'
+    },
+    item: {
+        height: 30,
+        width: 30
+    },
+    items: {
+        width: '13%'
+    },
+    img: {
+        height: 30,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    playerList: {
+        fontSize: 15,
+        padding: '5px 10px'
+    },
+    playersItemList: {
+        marginRight: 0
+    },
+    playerItem: {
+        width: 30,
+        height: 30,
+        margin: 4
+    },
+    playerAvatar: {
+        width: 40,
+        height: 40,
+        marginRight: 20
+    },
+    list: {
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: '90%'
+    },
+    kda: {
+        width: '15%',
+        display: 'block',
+        margin: 'auto 10px'
+    },
+    doubleIcon: {
+        width: '5%'
+    },
+    secondary: {
+        height: 26,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    trinket: {
+        height: 30,
+        display: 'block',
+        marginTop: 'auto',
+        marginBottom: 'auto'
+    }
+}))(({ match, match: { participants, participantIdentities, summonerIndex }, staticData, staticData: { version, champions, summonerSpells, runes }, getSummoner, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     return (
         <List className={classes.list}>
@@ -42,7 +107,7 @@ export default ({ match, match: { participants, participantIdentities, summonerI
                     button
                     key={participantIndex}
                     onClick={() =>
-                        this.getSummoner(participantIdentities[participantIndex])
+                        getSummoner(participantIdentities[participantIndex])
                     }
                     className={classes.playerList}
                 >
@@ -139,4 +204,4 @@ export default ({ match, match: { participants, participantIdentities, summonerI
             )}
         </List>
     )
-}
+})
