@@ -90,13 +90,13 @@ export default withStyles(() => ({
                         src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
                         classes={classes.img}
                     />
-                ) : <Empty cn={classes.img} />}
+                ) : <Empty classes={classes.img} />}
                 {participants[summonerIndex].rune1 ? (
                     <Image
                         src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
                         classes={classes.secondary}
                     />
-                ) : <Empty cn={classes.secondary} />}
+                ) : <Empty classes={classes.secondary} />}
             </Grid>
             <Grid
                 container direction="column"
@@ -107,18 +107,18 @@ export default withStyles(() => ({
                         src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
                         classes={classes.item}
                     />
-                ) : <Empty cn={classes.item} />}
+                ) : <Empty classes={classes.item} />}
                 {participants[summonerIndex].summonerSpell2 ? (
                     <Image
                         src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
                         classes={classes.item}
                     />
-                ) : <Empty cn={classes.item} />}
+                ) : <Empty classes={classes.item} />}
             </Grid>
             <div className={classes.items}>
                 {[...Array(6).keys()].map(i =>
                     participants[summonerIndex].stats[`item${i}`] === 0 ? (
-                        <Empty cn={classes.item} key={i} />
+                        <Empty classes={classes.item} key={i} />
                     ) : (
                         <img
                             src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item${i}`]}.png`}
@@ -130,7 +130,7 @@ export default withStyles(() => ({
                 )}
             </div>
             {participants[summonerIndex].stats[`item6`] === 0 ? (
-                <Empty cn={classes.trinket} />
+                <Empty classes={classes.trinket} />
             ) : (
                 <img
                     src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}

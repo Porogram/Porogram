@@ -135,13 +135,13 @@ export default withStyles(() => ({
                                 src={`${baseUrl}cdn/img/${participant.rune1}`}
                                 classes={classes.img}
                             />
-                        ) : <Empty cn={classes.img} />}
+                        ) : <Empty classes={classes.img} />}
                         {participant.rune2 ? (
                             <Image
                                 src={`${baseUrl}cdn/img/${participant.rune2}`}
                                 classes={classes.secondary}
                             />
-                        ) : <Empty cn={classes.secondary} />}
+                        ) : <Empty classes={classes.secondary} />}
                     </Grid>
                     <Grid
                         container
@@ -149,14 +149,14 @@ export default withStyles(() => ({
                         className={classes.doubleIcon}
                     >
                         {participant.spell1Id === 0 ?
-                            <Empty cn={classes.item} /> : (
+                            <Empty classes={classes.item} /> : (
                             <Image
                                 src={`${baseUrl}cdn/${version}/img/spell/${participant.summonerSpell1}.png`}
                                 classes={classes.item}
                             />
                         )}
                         {participant.spell2Id === 0 ?
-                            <Empty cn={classes.item} /> : (
+                            <Empty classes={classes.item} /> : (
                             <Image
                                 src={`${baseUrl}cdn/${version}/img/spell/${participant.summonerSpell2}.png`}
                                 classes={classes.item}
@@ -166,7 +166,7 @@ export default withStyles(() => ({
                     <div className={classes.items}>
                         {[...Array(6).keys()].map(i =>
                             participant.stats[`item${i}`] === 0 ?
-                                <Empty cn={classes.item} />  : (
+                                <Empty classes={classes.item} />  : (
                                 <img
                                     src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`}
                                     alt=""
@@ -177,7 +177,7 @@ export default withStyles(() => ({
                         )}
                     </div>
                     {participant.stats[`item6`] === 0 ?
-                        <Empty cn={classes.item} /> : (
+                        <Empty classes={classes.item} /> : (
                         <img
                             src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item6`]}.png`}
                             alt=""
