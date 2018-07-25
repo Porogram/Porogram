@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import {
-    ExpansionPanelSummary,
     Typography,
-    List,
-    ListItem,
     Avatar,
     Divider,
     Grid
@@ -39,9 +36,14 @@ export default withStyles(() => ({
         height: 60,
         marginRight: 20
     },
-    champName: {
-        marginTop: 'auto',
-        marginBottom: 'auto'
+    doubleIcon: {
+        width: '5%'
+    },
+    img: {
+        height: 30,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     item: {
         height: 30,
@@ -50,41 +52,10 @@ export default withStyles(() => ({
     items: {
         width: '13%'
     },
-    img: {
-        height: 30,
-        display: 'block',
-        marginLeft: 'auto',
-        marginRight: 'auto'
-    },
-    playerList: {
-        fontSize: 15,
-        padding: '5px 10px'
-    },
-    playersItemList: {
-        marginRight: 0
-    },
-    playerItem: {
-        width: 30,
-        height: 30,
-        margin: 4
-    },
-    playerAvatar: {
-        width: 40,
-        height: 40,
-        marginRight: 20
-    },
-    list: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        width: '90%'
-    },
     kda: {
         width: '15%',
         display: 'block',
         margin: 'auto 10px'
-    },
-    doubleIcon: {
-        width: '5%'
     },
     secondary: {
         height: 26,
@@ -98,7 +69,7 @@ export default withStyles(() => ({
         marginTop: 'auto',
         marginBottom: 'auto'
     }
-}))(({ match, match: { participants, participantIdentities, summonerIndex }, staticData, staticData: { version, champions, summonerSpells, runes }, classes }) => {
+}))(({ participants, summonerIndex, version, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     return (
         <Fragment>

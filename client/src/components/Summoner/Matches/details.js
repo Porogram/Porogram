@@ -98,7 +98,7 @@ export default withStyles(() => ({
         marginTop: 'auto',
         marginBottom: 'auto'
     }
-}))(({ match, match: { participants, participantIdentities, summonerIndex }, staticData, staticData: { version, champions, summonerSpells, runes }, getSummoner, classes }) => {
+}))(({ participants, participantIdentities, version, getSummoner, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     return (
         <List className={classes.list}>

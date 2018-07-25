@@ -49,7 +49,10 @@ export default class extends Component {
         })
     }
     render() {
-        const { match, staticData } = this.props
+        const {
+            match: { participants, participantIdentities, summonerIndex },
+            staticData: { version }
+        } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
             return <Redirect push to={`/summoner/${newSummoner}/matches`} />
@@ -57,13 +60,18 @@ export default class extends Component {
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary>
-                    <Summary match={match} staticData={staticData} />
+                    <Summary
+                        participants={participants}
+                        summonerIndex={summonerIndex}
+                        version={version}
+                    />
                 </ExpansionPanelSummary>
                 <Divider />
                 <ExpansionPanelDetails>
                     <Details
-                        match={match}
-                        staticData={staticData}
+                        participants={participants}
+                        participantIdentities={participantIdentities}
+                        version={version}
                         getSummoner={this.getSummoner}
                     />
                 </ExpansionPanelDetails>
