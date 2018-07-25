@@ -16,7 +16,7 @@ export default withStyles(() => ({
         <AppBar position="static">
             <Toolbar>
                 <Link to="/">
-                    <img className={classes.img} src={logo} alt="logo" />
+                    <img className={classes.img} src={logo} alt="" />
                 </Link>
                 <Typography variant="title" color="inherit">
                     POROGRAM
