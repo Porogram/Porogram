@@ -166,7 +166,7 @@ export default withStyles(() => ({
                     <div className={classes.items}>
                         {[...Array(6).keys()].map(i =>
                             participant.stats[`item${i}`] === 0 ?
-                                <Empty classes={classes.item} />  : (
+                                <Empty key={i} classes={classes.item} />  : (
                                 <img
                                     src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`}
                                     alt=""
