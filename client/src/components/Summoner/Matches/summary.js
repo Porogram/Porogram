@@ -1,15 +1,12 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import {
-    ExpansionPanelSummary,
     Typography,
-    List,
-    ListItem,
     Avatar,
     Divider,
     Grid
 } from '@material-ui/core'
-import notFoundDoge from '../../../images/not-found-doge.jpg'
+import Empty from './empty'
 
 const Image = ({ src, classes }) => {
     return (
@@ -23,17 +20,46 @@ const Image = ({ src, classes }) => {
     )
 }
 
-const Empty = ({ cn }) => {
-    return (
-        <img
-            src={notFoundDoge}
-            alt=""
-            className={cn}
-        />
-    )
-}
-
-export default ({ match, match: { participants, participantIdentities, summonerIndex }, staticData, staticData: { version, champions, summonerSpells, runes }, classes }) => {
+export default withStyles(() => ({
+    avatar: {
+        width: 60,
+        height: 60,
+        marginRight: 20
+    },
+    doubleIcon: {
+        width: '5%'
+    },
+    img: {
+        height: 30,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    item: {
+        height: 30,
+        width: 30
+    },
+    items: {
+        width: '13%'
+    },
+    kda: {
+        width: '15%',
+        display: 'block',
+        margin: 'auto 10px'
+    },
+    secondary: {
+        height: 26,
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    trinket: {
+        height: 30,
+        display: 'block',
+        marginTop: 'auto',
+        marginBottom: 'auto'
+    }
+}))(({ participants, summonerIndex, version, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     return (
         <Fragment>
@@ -64,13 +90,13 @@ export default ({ match, match: { participants, participantIdentities, summonerI
                         src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
                         classes={classes.img}
                     />
-                ) : <Empty cn={classes.img} />}
+                ) : <Empty classes={classes.img} />}
                 {participants[summonerIndex].rune1 ? (
                     <Image
                         src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
                         classes={classes.secondary}
                     />
-                ) : <Empty cn={classes.secondary} />}
+                ) : <Empty classes={classes.secondary} />}
             </Grid>
             <Grid
                 container direction="column"
@@ -81,18 +107,18 @@ export default ({ match, match: { participants, participantIdentities, summonerI
                         src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
                         classes={classes.item}
                     />
-                ) : <Empty cn={classes.item} />}
+                ) : <Empty classes={classes.item} />}
                 {participants[summonerIndex].summonerSpell2 ? (
                     <Image
                         src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
                         classes={classes.item}
                     />
-                ) : <Empty cn={classes.item} />}
+                ) : <Empty classes={classes.item} />}
             </Grid>
             <div className={classes.items}>
                 {[...Array(6).keys()].map(i =>
                     participants[summonerIndex].stats[`item${i}`] === 0 ? (
-                        <Empty cn={classes.item} key={i} />
+                        <Empty classes={classes.item} key={i} />
                     ) : (
                         <img
                             src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item${i}`]}.png`}
@@ -104,7 +130,7 @@ export default ({ match, match: { participants, participantIdentities, summonerI
                 )}
             </div>
             {participants[summonerIndex].stats[`item6`] === 0 ? (
-                <Empty cn={classes.trinket} />
+                <Empty classes={classes.trinket} />
             ) : (
                 <img
                     src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}
@@ -114,4 +140,4 @@ export default ({ match, match: { participants, participantIdentities, summonerI
             )}
         </Fragment>
     )
-}
+})
