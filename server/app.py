@@ -10,7 +10,7 @@ def search(summonerName):
     if 'id' in res['summoner']:
         res['positions'] = fetchApi.getPositions(res['summoner']['id'])
     if 'accountId' in res['summoner']:
-        res['matchlist'] = fetchApi.getMatchlist(res['summoner']['accountId'], 0, 5)
+        res['matchlist'] = fetchApi.getMatchlist(res['summoner']['accountId'], 0, 10)
     if 'matchlist' in res and 'matches' in res['matchlist']:
         res['matches'] = fetchApi.getMatches(res['matchlist']['matches'])
     return jsonify(res)

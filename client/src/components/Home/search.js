@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
+import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
 
@@ -19,16 +20,17 @@ export default class extends Component {
     }
     render() {
         const { summonerName, toSummoner, invalidInput } = this.state
-        if (toSummoner) return <Redirect to={`/summoner/${summonerName}/matches`} />
+        if (toSummoner)
+            return <Redirect push to={`/summoner/${summonerName}/matches`} />
         return (
-            <div>
+            <Fragment>
                 <SearchBar
                     value={summonerName}
                     onChange={value => this.setState({ summonerName: value })}
                     onRequestSearch={this.onSearch}
                 />
-                {invalidInput && <h3>Invalid input</h3>}
-            </div>
+                {invalidInput && <FormHelperText>Invalid input</FormHelperText>}
+            </Fragment>
         )
     }
 }

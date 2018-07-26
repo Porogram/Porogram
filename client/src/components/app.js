@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { CssBaseline } from '@material-ui/core'
 import Navbar from './navbar'
 import Home from './Home'
@@ -14,7 +14,15 @@ export default () => {
                 <Navbar />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/summoner/:summonerName" component={Summoner} />
+                    <Route
+                        path="/summoner/:summonerName"
+                        render={props =>
+                            <Summoner
+                                {...props} 
+                                key={props.match.params.summonerName}
+                            />
+                        }
+                    />
                     <Route component={NotFound} />
                 </Switch>
             </Fragment>
