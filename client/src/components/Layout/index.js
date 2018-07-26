@@ -13,7 +13,41 @@ import {
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 
-export default withStyles()(class extends Component {
+export default withStyles(theme => ({
+    root: {
+        flexGrow: 1,
+        height: 430,
+        zIndex: 1,
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+        width: '100%'
+    },
+    appBar: {
+        position: 'absolute',
+        marginLeft: drawerWidth,
+        [theme.breakpoints.up('md')]: {
+          width: `calc(100% - ${drawerWidth}px)`,
+        }
+    },
+    navIconHide: {
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        }
+    },
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+        width: drawerWidth,
+        [theme.breakpoints.up('md')]: {
+            position: 'relative',
+        }
+    },
+    content: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.default,
+        padding: theme.spacing.unit * 3
+    }
+}))(class extends Component {
     state = {
         mobileOpen: false,
     };
@@ -21,6 +55,16 @@ export default withStyles()(class extends Component {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
     };
     render() {
+        const { classes, children } = this.props
+        const { mobileOpen } = this.state
+        const drawer = (
+            <div>
+                <div className={classes.toolbar} />
+                1
+                <Divider />
+                2
+            </div>
+        );
         return (
             <div className={classes.root}>
                 <AppBar className={classes.appBar}>
@@ -41,8 +85,7 @@ export default withStyles()(class extends Component {
                 <Hidden mdUp>
                     <Drawer
                         variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={this.state.mobileOpen}
+                        open={mobileOpen}
                         onClose={this.handleDrawerToggle}
                         classes={{
                           paper: classes.drawerPaper,
@@ -67,7 +110,7 @@ export default withStyles()(class extends Component {
                 </Hidden>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
+                    {children}
                 </main>
             </div>
         )

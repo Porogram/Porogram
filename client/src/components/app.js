@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { CssBaseline } from '@material-ui/core'
+import Layout from './Layout'
 import Navbar from './navbar'
 import Home from './Home'
 import Summoner from './Summoner'
@@ -18,7 +19,7 @@ export default () => {
                         path="/summoner/:summonerName"
                         render={props =>
                             <Summoner
-                                {...props} 
+                                {...props}
                                 key={props.match.params.summonerName}
                             />
                         }
