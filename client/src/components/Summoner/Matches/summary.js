@@ -1,10 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import {
-    Typography,
-    Avatar,
-    Grid
-} from '@material-ui/core'
+import { Typography, Avatar, Grid } from '@material-ui/core'
 import Empty from './empty'
 
 export default withStyles(() => ({
@@ -112,9 +108,9 @@ export default withStyles(() => ({
                         />
                     ) : <Empty classes={classes.item} key={i} />)}
             </div>
-            {participants[summonerIndex].stats[`item6`] !== 0 ? (
+            {participants[summonerIndex].stats.item6 !== 0 ? (
                 <img
-                    src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}
+                    src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats.item6}.png`}
                     alt=""
                     className={classes.trinket}
                 />
