@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
@@ -12,6 +13,7 @@ import {
     Divider
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons/'
+import logo from '../../images/poro.png'
 
 const drawerWidth = 240
 
@@ -25,28 +27,30 @@ export default withStyles(theme => ({
         width: '100%'
     },
     appBar: {
-        position: 'absolute',
-        marginLeft: drawerWidth,
-        [theme.breakpoints.up('md')]: {
-          width: `calc(100% - ${drawerWidth}px)`,
-        }
+        zIndex: theme.zIndex.drawer + 1
     },
     navIconHide: {
         [theme.breakpoints.up('md')]: {
-            display: 'none',
+            display: 'none'
         }
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
         width: drawerWidth,
         [theme.breakpoints.up('md')]: {
-            position: 'relative',
+            position: 'relative'
         }
     },
     content: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing.unit * 3
+    },
+    img: {
+        width: 50,
+        height: 50,
+        marginLeft: 10,
+        marginRight: 10
     }
 }))(class extends Component {
     state = {
@@ -60,17 +64,17 @@ export default withStyles(theme => ({
         const { mobileOpen } = this.state
         const drawer = (
             <div>
-                <div className={classes.toolbar} />
-                1
-                <Divider />
-                2
+                <Hidden smDown>
+                    <div className={classes.toolbar} />
+                </Hidden>
+                SIDEBAR
             </div>
         )
         return (
             <Fragment>
                 <CssBaseline />
                 <div className={classes.root}>
-                    <AppBar className={classes.appBar}>
+                    <AppBar position="fixed" className={classes.appBar}>
                         <Toolbar>
                             <IconButton
                                 color="inherit"
@@ -80,8 +84,11 @@ export default withStyles(theme => ({
                             >
                                 <Menu />
                             </IconButton>
+                            <Link to="/">
+                                <img className={classes.img} src={logo} alt="" />
+                            </Link>
                             <Typography variant="title" color="inherit" noWrap>
-                                Responsive drawer
+                                POROGRAM
                             </Typography>
                         </Toolbar>
                     </AppBar>
