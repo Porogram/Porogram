@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import {
+    CssBaseline,
     Drawer,
     AppBar,
     Toolbar,
@@ -8,15 +9,15 @@ import {
     Typography,
     IconButton,
     Hidden,
-    Divider,
-    MenuIcon
+    Divider
 } from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+import { Menu } from '@material-ui/icons/'
+
+const drawerWidth = 240
 
 export default withStyles(theme => ({
     root: {
         flexGrow: 1,
-        height: 430,
         zIndex: 1,
         overflow: 'hidden',
         position: 'relative',
@@ -50,10 +51,10 @@ export default withStyles(theme => ({
 }))(class extends Component {
     state = {
         mobileOpen: false,
-    };
+    }
     handleDrawerToggle = () => {
-        this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-    };
+        this.setState(state => ({ mobileOpen: !state.mobileOpen }))
+    }
     render() {
         const { classes, children } = this.props
         const { mobileOpen } = this.state
@@ -64,55 +65,58 @@ export default withStyles(theme => ({
                 <Divider />
                 2
             </div>
-        );
+        )
         return (
-            <div className={classes.root}>
-                <AppBar className={classes.appBar}>
-                    <Toolbar>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerToggle}
-                            className={classes.navIconHide}
+            <Fragment>
+                <CssBaseline />
+                <div className={classes.root}>
+                    <AppBar className={classes.appBar}>
+                        <Toolbar>
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={this.handleDrawerToggle}
+                                className={classes.navIconHide}
+                            >
+                                <Menu />
+                            </IconButton>
+                            <Typography variant="title" color="inherit" noWrap>
+                                Responsive drawer
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <Hidden mdUp>
+                        <Drawer
+                            variant="temporary"
+                            open={mobileOpen}
+                            onClose={this.handleDrawerToggle}
+                            classes={{
+                              paper: classes.drawerPaper,
+                            }}
+                            ModalProps={{
+                              keepMounted: true, // Better open performance on mobile.
+                            }}
                         >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="title" color="inherit" noWrap>
-                            Responsive drawer
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <Hidden mdUp>
-                    <Drawer
-                        variant="temporary"
-                        open={mobileOpen}
-                        onClose={this.handleDrawerToggle}
-                        classes={{
-                          paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                          keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden smDown implementation="css">
-                    <Drawer
-                        variant="permanent"
-                        open
-                        classes={{
-                          paper: classes.drawerPaper,
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    {children}
-                </main>
-            </div>
+                            {drawer}
+                        </Drawer>
+                    </Hidden>
+                    <Hidden smDown implementation="css">
+                        <Drawer
+                            variant="permanent"
+                            open
+                            classes={{
+                              paper: classes.drawerPaper,
+                            }}
+                        >
+                            {drawer}
+                        </Drawer>
+                    </Hidden>
+                    <main className={classes.content}>
+                        <div className={classes.toolbar} />
+                        {children}
+                    </main>
+                </div>
+            </Fragment>
         )
     }
 })
