@@ -1,24 +1,7 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import {
-    Typography,
-    Avatar,
-    Divider,
-    Grid
-} from '@material-ui/core'
+import { Typography, Avatar, Grid } from '@material-ui/core'
 import Empty from './empty'
-
-const Image = ({ src, classes }) => {
-    return (
-        <Grid item>
-            <img
-                src={src}
-                alt=""
-                className={classes}
-            />
-        </Grid>
-    )
-}
 
 export default withStyles(() => ({
     avatar: {
@@ -81,63 +64,57 @@ export default withStyles(() => ({
                 {participants[summonerIndex].stats.assists}
             </Typography>
             <Grid
-                container direction="column"
+                container
+                direction="column"
                 className={classes.doubleIcon}
                 justify="center"
             >
-                {participants[summonerIndex].rune1 ? (
-                    <Image
-                        src={`${baseUrl}cdn/img/${participants[summonerIndex].rune1}`}
-                        classes={classes.img}
-                    />
-                ) : <Empty classes={classes.img} />}
-                {participants[summonerIndex].rune1 ? (
-                    <Image
-                        src={`${baseUrl}cdn/img/${participants[summonerIndex].rune2}`}
-                        classes={classes.secondary}
-                    />
-                ) : <Empty classes={classes.secondary} />}
+                {[...Array(2).keys()].map(i => (
+                    <Grid item key={i} >
+                        {participants[summonerIndex][`rune${i + 1}`] ? (
+                            <img
+                                src={`${baseUrl}cdn/img/${participants[summonerIndex][`rune${i + 1}`]}`}
+                                alt=""
+                                className={classes.img}
+                            />
+                        ) : <Empty classes={classes.img} />}
+                    </Grid>
+                ))}
             </Grid>
             <Grid
                 container direction="column"
                 className={classes.doubleIcon}
             >
-                {participants[summonerIndex].summonerSpell1 ? (
-                    <Image
-                        src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell1}.png`}
-                        classes={classes.item}
-                    />
-                ) : <Empty classes={classes.item} />}
-                {participants[summonerIndex].summonerSpell2 ? (
-                    <Image
-                        src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex].summonerSpell2}.png`}
-                        classes={classes.item}
-                    />
-                ) : <Empty classes={classes.item} />}
+                {[...Array(2).keys()].map(i => (
+                    <Grid item key={i} >
+                        {participants[summonerIndex][`summonerSpell${i + 1}`] ? (
+                            <img
+                                src={`${baseUrl}cdn/${version}/img/spell/${participants[summonerIndex][`summonerSpell${i + 1}`]}.png`}
+                                alt=""
+                                className={classes.img}
+                            />
+                        ) : <Empty classes={classes.img} />}
+                    </Grid>
+                ))}
             </Grid>
             <div className={classes.items}>
                 {[...Array(6).keys()].map(i =>
-                    participants[summonerIndex].stats[`item${i}`] === 0 ? (
-                        <Empty classes={classes.item} key={i} />
-                    ) : (
+                    participants[summonerIndex].stats[`item${i}`] !== 0 ? (
                         <img
                             src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item${i}`]}.png`}
                             alt=""
                             className={classes.item}
                             key={i}
                         />
-                    )
-                )}
+                    ) : <Empty classes={classes.item} key={i} />)}
             </div>
-            {participants[summonerIndex].stats[`item6`] === 0 ? (
-                <Empty classes={classes.trinket} />
-            ) : (
+            {participants[summonerIndex].stats.item6 !== 0 ? (
                 <img
-                    src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats[`item6`]}.png`}
+                    src={`${baseUrl}cdn/${version}/img/item/${participants[summonerIndex].stats.item6}.png`}
                     alt=""
                     className={classes.trinket}
                 />
-            )}
+            ) : <Empty classes={classes.trinket} />}
         </Fragment>
     )
 })
