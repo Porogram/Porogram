@@ -105,15 +105,10 @@ export default withStyles(theme => ({
         }
     },
 }))(class extends Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
         const {
             classes,
-            positions,
             positions: { tier, rank },
-            summoner,
             summoner: { name, profileIconId },
             version,
         } = this.props

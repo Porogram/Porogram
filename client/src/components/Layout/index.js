@@ -1,16 +1,12 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
-    Drawer,
     AppBar,
     Toolbar,
-    List,
     Typography,
-    IconButton,
-    Hidden,
-    Divider
+    IconButton
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons/'
 import logo from '../../images/poro.png'
