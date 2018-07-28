@@ -3,10 +3,16 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import Match from './match'
 
-export default withStyles(() => ({
+export default withStyles(theme => ({
     main: {
-        marginLeft: 60,
-        marginRight: 60
+        marginRight: 60,
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: 60
+        },
+        [theme.breakpoints.up('md')]: {
+            marginLeft: 300
+        },
+        toolbar: theme.mixins.toolbar
     },
     title: {
         margin: '30px 0',

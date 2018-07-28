@@ -13,8 +13,6 @@ import { Menu } from '@material-ui/icons/'
 import Container from '../Container'
 import logo from '../../images/poro.png'
 
-const drawerWidth = 240
-
 export default withRouter(withStyles(theme => ({
     root: {
         flexGrow: 1,
@@ -33,15 +31,10 @@ export default withRouter(withStyles(theme => ({
         }
     },
     toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-        width: drawerWidth,
-        [theme.breakpoints.up('md')]: {
-            position: 'relative'
-        }
-    },
     content: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.default
+        backgroundColor: theme.palette.background.default,
+        marginTop: 64
     },
     img: {
         width: 50,
@@ -81,9 +74,7 @@ export default withRouter(withStyles(theme => ({
                     </Toolbar>
                 </AppBar>
                 <main className={classes.content}>
-                    <div className={classes.toolbar}>
-                        {children}
-                    </div>
+                    {children}
                 </main>
             </div>
         </Provider>

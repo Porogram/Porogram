@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Grid, CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
 import Matches from './Matches'

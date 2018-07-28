@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Subscribe } from 'unstated'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -11,8 +11,6 @@ import {
     Hidden
 } from '@material-ui/core'
 import Container from '../Container'
-
-const drawerWidth = 200
 
 export default withStyles(theme => ({
     Avatar: {
@@ -34,11 +32,8 @@ export default withStyles(theme => ({
     },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
-        width: drawerWidth,
-        [theme.breakpoints.up('md')]: {
-            position: 'relative'
-        }
-    },
+        width: 240
+    }
 }))(({
     classes,
     positions: { tier, rank },
@@ -46,7 +41,7 @@ export default withStyles(theme => ({
     version,
 }) => {
     const drawer = (
-        <div>
+        <Fragment>
             <Hidden smDown>
                 <div className={classes.toolbar} />
             </Hidden>
@@ -80,7 +75,7 @@ export default withStyles(theme => ({
                     />
                 </ListItem>
             </div>
-        </div>
+        </Fragment>
     )
     return (
         <Subscribe to={[Container]}>
@@ -92,22 +87,22 @@ export default withStyles(theme => ({
                                 variant="temporary"
                                 open={sidebar.state.mobileOpen}
                                 onClose={sidebar.handleDrawerToggle}
-                                classes={{
-                                  paper: classes.drawerPaper,
-                                }}
                                 ModalProps={{
-                                  keepMounted: true, // Better open performance on mobile.
+                                    keepMounted: true, // Better open performance on mobile.
+                                }}
+                                classes={{
+                                    paper: classes.drawerPaper,
                                 }}
                             >
                                 {drawer}
                             </Drawer>
                         </Hidden>
-                        <Hidden smDown implementation="css">
+                        <Hidden smDown>
                             <Drawer
                                 variant="permanent"
                                 open
                                 classes={{
-                                  paper: classes.drawerPaper,
+                                    paper: classes.drawerPaper,
                                 }}
                             >
                                 {drawer}
