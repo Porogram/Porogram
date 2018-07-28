@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { Provider, Subscribe } from 'unstated'
 import { withStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
@@ -9,9 +10,8 @@ import {
     IconButton
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons/'
-import logo from '../../images/poro.png'
 import Container from '../Container'
-import { Provider, Subscribe } from 'unstated'
+import logo from '../../images/poro.png'
 
 const drawerWidth = 240
 
@@ -41,8 +41,7 @@ export default withRouter(withStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing.unit * 3
+        backgroundColor: theme.palette.background.default
     },
     img: {
         width: 50,
@@ -50,45 +49,43 @@ export default withRouter(withStyles(theme => ({
         marginLeft: 10,
         marginRight: 10
     }
-}))(class extends Component {
-    render() {
-        const { classes, children, location: { pathname } } = this.props
-        return (
-            <Provider>
-                <CssBaseline />
-                <div className={classes.root}>
-                    <AppBar position="fixed" className={classes.appBar}>
-                        <Toolbar>
-                            {pathname.includes('/summoner') && (
-                                <Subscribe to={[Container]}>
-                                    {
-                                        sidebar => (
-                                            <IconButton
-                                                color="inherit"
-                                                aria-label="Open drawer"
-                                                onClick={sidebar.handleDrawerToggle}
-                                                className={classes.navIconHide}
-                                            >
-                                                <Menu />
-                                            </IconButton>
-                                        )
-                                    }
-                                </Subscribe>
-                            )}
-                            <Link to="/">
-                                <img className={classes.img} src={logo} alt="" />
-                            </Link>
-                            <Typography variant="title" color="inherit" noWrap>
-                                POROGRAM
-                            </Typography>
-                        </Toolbar>
-                    </AppBar>
-                    <main className={classes.content}>
-                        <div className={classes.toolbar} />
+}))(({ classes, children, location: { pathname } }) => {
+    return (
+        <Provider>
+            <CssBaseline />
+            <div className={classes.root}>
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Toolbar>
+                        {pathname.includes('/summoner') && (
+                            <Subscribe to={[Container]}>
+                                {
+                                    sidebar => (
+                                        <IconButton
+                                            color="inherit"
+                                            aria-label="Open drawer"
+                                            onClick={sidebar.handleDrawerToggle}
+                                            className={classes.navIconHide}
+                                        >
+                                            <Menu />
+                                        </IconButton>
+                                    )
+                                }
+                            </Subscribe>
+                        )}
+                        <Link to="/">
+                            <img className={classes.img} src={logo} alt="" />
+                        </Link>
+                        <Typography variant="title" color="inherit" noWrap>
+                            POROGRAM
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <main className={classes.content}>
+                    <div className={classes.toolbar}>
                         {children}
-                    </main>
-                </div>
-            </Provider>
-        )
-    }
+                    </div>
+                </main>
+            </div>
+        </Provider>
+    )
 }))
