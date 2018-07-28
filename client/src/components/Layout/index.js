@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons/'
 import logo from '../../images/poro.png'
-import Container from '../container'
+import Container from '../Container'
 import { Provider, Subscribe } from 'unstated'
 
 const drawerWidth = 240

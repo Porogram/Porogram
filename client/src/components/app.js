@@ -7,26 +7,6 @@ import Home from './Home'
 import Summoner from './Summoner'
 import { NotFound } from './Errors'
 
-// <BrowserRouter>
-//     <Fragment>
-//         <CssBaseline />
-//         <Navbar />
-//         <Switch>
-//             <Route exact path="/" component={Home} />
-//             <Route
-//                 path="/summoner/:summonerName"
-//                 render={props =>
-//                     <Summoner
-//                         {...props}
-//                         key={props.match.params.summonerName}
-//                     />
-//                 }
-//             />
-//             <Route component={NotFound} />
-//         </Switch>
-//     </Fragment>
-// </BrowserRouter>
-
 export default () => {
     return (
         <BrowserRouter>

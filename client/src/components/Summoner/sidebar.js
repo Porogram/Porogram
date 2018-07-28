@@ -9,7 +9,7 @@ import {
     Typography,
     Hidden
 } from '@material-ui/core'
-import Container from '../container'
+import Container from '../Container'
 import { Subscribe } from 'unstated'
 
 // export default withStyles(() => ({
