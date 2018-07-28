@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Grid, CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
 import Matches from './Matches'
@@ -86,31 +86,27 @@ export default class extends Component {
         if ('message' in error) return <Failure error={error} />
         else if ('message' in summoner) return <Failure error={summoner} />
         return (
-            <Grid container>
-                <Grid item xs={2}>
-                    <Sidebar
-                        positions={positions}
-                        summoner={summoner}
-                        version={version}
+            <Fragment>
+                <Sidebar
+                    positions={positions}
+                    summoner={summoner}
+                    version={version}
+                />
+                <Switch>
+                    <Route
+                        path={`${path}/matches`}
+                        render={props =>
+                            <Matches
+                                {...props}
+                                summoner={summoner}
+                                matchlist={matchlist}
+                                matches={matches}
+                                staticData={staticData}
+                            />
+                        }
                     />
-                </Grid>
-                <Grid item xs={10}>
-                    <Switch>
-                        <Route
-                            path={`${path}/matches`}
-                            render={props =>
-                                <Matches
-                                    {...props}
-                                    summoner={summoner}
-                                    matchlist={matchlist}
-                                    matches={matches}
-                                    staticData={staticData}
-                                />
-                            }
-                        />
-                    </Switch>
-                </Grid>
-            </Grid>
+                </Switch>
+            </Fragment>
         )
     }
 }
