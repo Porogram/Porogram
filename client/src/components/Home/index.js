@@ -4,7 +4,10 @@ import Search from './search'
 
 export default withStyles(theme => ({
     main: {
-        toolbar: theme.mixins.toolbar
+        height: '90vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     search: {
         [theme.breakpoints.up('md')]: {
@@ -12,9 +15,7 @@ export default withStyles(theme => ({
         },
         [theme.breakpoints.down('sm')]: {
             width: 300
-        },
-        marginTop: '40vh',
-        margin: '0 auto'
+        }
     }
 }))(({ classes }) => {
     return (
