@@ -28,7 +28,6 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             python3 -m pip install -r requirements.txt
-            echo $CI
       - save_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
           paths:
@@ -37,9 +36,11 @@ jobs:
           name: build failed notification
           command: |
               . venv/bin/activate
-              python3 bot.py "BUILD FAILED"
+              python3 bot.py """BUILD ${CIRCLE_BUILD_NUM} FAILED :/
+              User: ${CIRCLE_USERNAME}
+              Branch: ${CIRCLE_BRANCH}
+              CI: ${CIRCLE_BUILD_URL}"""
           when: on_fail
-
 
 
     # run tests!
@@ -72,7 +73,10 @@ jobs:
           name: tests failed notification
           command: |
               . venv/bin/activate
-              python3 bot.py "TESTS FAILED"
+              python3 bot.py """TESTS FAILED :/
+              User: ${CIRCLE_USERNAME}
+              Branch: ${CIRCLE_BRANCH}
+              CI: ${CIRCLE_BUILD_URL}"""
           when: on_fail
   notifySuccess:
     <<: *defaults
@@ -95,7 +99,8 @@ jobs:
           name: ci success notification
           command: |
               . venv/bin/activate
-              python3 bot.py "Master Ci pipline passed!"
+              python3 bot.py """Master Ci pipeline passed! :D
+              CI: ${CIRCLE_BUILD_URL}"""
 
 
 workflows:
