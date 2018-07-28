@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
@@ -14,10 +14,12 @@ import {
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons/'
 import logo from '../../images/poro.png'
+import Container from '../container'
+import { Provider, Subscribe } from 'unstated'
 
 const drawerWidth = 240
 
-export default withStyles(theme => ({
+export default withRouter(withStyles(theme => ({
     root: {
         flexGrow: 1,
         zIndex: 1,
@@ -53,37 +55,30 @@ export default withStyles(theme => ({
         marginRight: 10
     }
 }))(class extends Component {
-    state = {
-        mobileOpen: false,
-    }
-    handleDrawerToggle = () => {
-        this.setState(state => ({ mobileOpen: !state.mobileOpen }))
-    }
     render() {
-        const { classes, children } = this.props
-        const { mobileOpen } = this.state
-        const drawer = (
-            <div>
-                <Hidden smDown>
-                    <div className={classes.toolbar} />
-                </Hidden>
-                SIDEBAR
-            </div>
-        )
+        const { classes, children, location: { pathname } } = this.props
         return (
-            <Fragment>
+            <Provider>
                 <CssBaseline />
                 <div className={classes.root}>
                     <AppBar position="fixed" className={classes.appBar}>
                         <Toolbar>
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={this.handleDrawerToggle}
-                                className={classes.navIconHide}
-                            >
-                                <Menu />
-                            </IconButton>
+                            {pathname.includes('/summoner') && (
+                                <Subscribe to={[Container]}>
+                                    {
+                                        sidebar => (
+                                            <IconButton
+                                                color="inherit"
+                                                aria-label="Open drawer"
+                                                onClick={sidebar.handleDrawerToggle}
+                                                className={classes.navIconHide}
+                                            >
+                                                <Menu />
+                                            </IconButton>
+                                        )
+                                    }
+                                </Subscribe>
+                            )}
                             <Link to="/">
                                 <img className={classes.img} src={logo} alt="" />
                             </Link>
@@ -92,38 +87,12 @@ export default withStyles(theme => ({
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    <Hidden mdUp>
-                        <Drawer
-                            variant="temporary"
-                            open={mobileOpen}
-                            onClose={this.handleDrawerToggle}
-                            classes={{
-                              paper: classes.drawerPaper,
-                            }}
-                            ModalProps={{
-                              keepMounted: true, // Better open performance on mobile.
-                            }}
-                        >
-                            {drawer}
-                        </Drawer>
-                    </Hidden>
-                    <Hidden smDown implementation="css">
-                        <Drawer
-                            variant="permanent"
-                            open
-                            classes={{
-                              paper: classes.drawerPaper,
-                            }}
-                        >
-                            {drawer}
-                        </Drawer>
-                    </Hidden>
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
                         {children}
                     </main>
                 </div>
-            </Fragment>
+            </Provider>
         )
     }
-})
+}))
