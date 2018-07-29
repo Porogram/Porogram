@@ -17,11 +17,7 @@ export default withStyles(() => ({
             </Typography>
             <Details
                 summoner={summoner}
-                staticData={staticData}
                 version={version}
-                matchlist={matchlist}
-                positions={positions}
-
             />
         </div>
     )

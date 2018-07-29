@@ -117,9 +117,6 @@ export default class extends Component {
                                 <Summary
                                     {...props}
                                     summoner={summoner}
-                                    staticData={staticData}
-                                    matchlist={matchlist}
-                                    positions={positions}
                                 />
                             }
                         />
