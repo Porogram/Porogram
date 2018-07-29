@@ -55,7 +55,7 @@ export default withStyles(theme => ({
     }
     render() {
         const { classes, summoner, staticData } = this.props
-        const { matchlist, matches, moreItems, error } = this.state
+        const { matches, moreItems, error } = this.state
         const items = []
         matches.forEach(match => items.push((
             <Match
