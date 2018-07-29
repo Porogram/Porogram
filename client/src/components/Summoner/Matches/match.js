@@ -54,7 +54,7 @@ export default class extends Component {
         } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
-            return <Redirect push to={`/summoner/${newSummoner}/matches`} />
+            return <Redirect push to={`/summoner/${newSummoner}/summary`} />
         if (!updatedMatch) return null
         return (
             <ExpansionPanel>
