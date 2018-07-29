@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
-import Matches from './Matches'
 import Summary from './Summary'
+import Matches from './Matches'
 import { Failure } from '../Errors'
 
 export default class extends Component {
@@ -95,6 +95,15 @@ export default class extends Component {
                 />
                 <Switch>
                     <Route
+                        path={`${path}/summary`}
+                        render={props =>
+                            <Summary
+                                {...props}
+                                summoner={summoner}
+                            />
+                        }
+                    />
+                    <Route
                         path={`${path}/matches`}
                         render={props =>
                             <Matches
@@ -103,15 +112,6 @@ export default class extends Component {
                                 matchlist={matchlist}
                                 matches={matches}
                                 staticData={staticData}
-                            />
-                        }
-                    />
-                    <Route
-                        path={`${path}/summary`}
-                        render={props =>
-                            <Summary
-                                {...props}
-                                summoner={summoner}
                             />
                         }
                     />

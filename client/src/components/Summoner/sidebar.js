@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { Subscribe } from 'unstated'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -38,7 +39,7 @@ export default withStyles(theme => ({
     classes,
     positions: { tier, rank },
     summoner: { name, profileIconId },
-    version,
+    version
 }) => {
     const drawer = (
         <Fragment>
@@ -62,13 +63,13 @@ export default withStyles(theme => ({
                     )}
                 </div>
                 <Divider />
-                <ListItem button>
+                <ListItem button component={Link} to={`/summoner/${name}/summary`}>
                     <ListItemText
                         primary="Summary"
                         classes={{ primary: classes.listText }}
                     />
                 </ListItem>
-                <ListItem button>
+                <ListItem button component={Link} to={`/summoner/${name}/matches`}>
                     <ListItemText
                         primary="Matches"
                         classes={{ primary: classes.listText }}

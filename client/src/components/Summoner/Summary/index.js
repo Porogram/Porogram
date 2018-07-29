@@ -7,9 +7,8 @@ export default withStyles(() => ({
     main: {
         marginLeft: 60,
         marginRight: 60
-    },
-
-}))(({ classes, summoner, staticData, version, matchlist, positions }) => {
+    }
+}))(({ classes, summoner }) => {
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>
@@ -17,7 +16,6 @@ export default withStyles(() => ({
             </Typography>
             <Details
                 summoner={summoner}
-                version={version}
             />
         </div>
     )
