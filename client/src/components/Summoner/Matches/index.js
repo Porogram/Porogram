@@ -47,7 +47,6 @@ export default withStyles(theme => ({
                 moreItems: matchlist.endIndex < totalGames
             })
         }).catch(error => {
-            console.log(error)
             this.setState({
                 moreItems: false,
                 error: { message: 'Failed to get more matches' }
@@ -66,7 +65,6 @@ export default withStyles(theme => ({
                 staticData={staticData}
             />
         )))
-        console.log(matchlist)
         if ('message' in error) return <Failure error={error} />
         return (
             <div className={classes.main}>
