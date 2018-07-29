@@ -38,7 +38,7 @@ jobs:
               . venv/bin/activate
               python3 bot.py """BUILD ${CIRCLE_BUILD_NUM} FAILED :/
               User: ${CIRCLE_USERNAME}
-              Branch: ${CIRCLE_BRANCH}
+              Source branch: ${CIRCLE_BRANCH}
               CI: ${CIRCLE_BUILD_URL}"""
           when: on_fail
 
@@ -75,7 +75,7 @@ jobs:
               . venv/bin/activate
               python3 bot.py """TESTS FAILED :/
               User: ${CIRCLE_USERNAME}
-              Branch: ${CIRCLE_BRANCH}
+              Source branch: ${CIRCLE_BRANCH}
               CI: ${CIRCLE_BUILD_URL}"""
           when: on_fail
   notifySuccess:
@@ -96,12 +96,19 @@ jobs:
           paths:
             - "venv"
       - run:
-          name: ci success notification
+          name: ci master success notification testing
           command: |
               . venv/bin/activate
-              python3 bot.py """Master Ci pipeline passed! :D
-              CI: ${CIRCLE_BUILD_URL}"""
-
+              if [[ ! -z "${CIRCLE_PULL_REQUEST}" ]]; then
+                  python3 bot.py """Master Ci pipeline passed! :D
+                  PR: ${CIRCLE_PULL_REQUEST}
+                  CI: ${CIRCLE_BUILD_URL}
+                  note: these are temporary tests"""
+              else
+                  python3 bot.py """Master Ci pipeline passed! :D
+                  CI: ${CIRCLE_BUILD_URL}
+                  note: these are temporary tests"""
+              fi
 
 workflows:
   version: 2
