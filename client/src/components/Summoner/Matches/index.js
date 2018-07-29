@@ -4,6 +4,7 @@ import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, CircularProgress } from '@material-ui/core'
 import Match from './match'
+import { Failure } from '../../Errors'
 
 export default withStyles(theme => ({
     main: {
@@ -13,8 +14,7 @@ export default withStyles(theme => ({
         },
         [theme.breakpoints.up('md')]: {
             marginLeft: 300
-        },
-        toolbar: theme.mixins.toolbar
+        }
     },
     title: {
         margin: '30px 0',
@@ -27,11 +27,11 @@ export default withStyles(theme => ({
         this.state = {
             matchlist,
             matches,
-            moreItems: true
+            moreItems: true,
+            error: {}
         }
     }
     getMatches = () => {
-        console.log('getMatches')
         const { summoner: { accountId } } = this.props
         const { matchlist: { beginIndex, endIndex } } = this.state
         if (endIndex - beginIndex < 10)
@@ -41,7 +41,6 @@ export default withStyles(theme => ({
             beginIndex: endIndex,
             endIndex: endIndex + 10
         }).then(res => {
-            console.log(res.data)
             const matches = this.state.matches
             res.data.matches.forEach(match => matches.push(match))
             this.setState(prevState => {
@@ -52,25 +51,25 @@ export default withStyles(theme => ({
             })
         }).catch(error => {
             console.log(error)
-            this.setState({ moreItems: false })
+            this.setState({
+                moreItems: false,
+                error: { message: 'Failed to get more matches' }
+            })
         })
     }
     render() {
         const { classes, summoner, staticData } = this.props
-        const { matches, moreItems } = this.state
+        const { matches, moreItems, error } = this.state
         const items = []
-        // console.log('matchlist', matchlist)
-        console.log('matches', matches)
-        // console.log('moreItems', moreItems)
-        matches.forEach(match =>
-            items.push(
-                <Match
-                    key={match.gameId}
-                    match={match}
-                    summoner={summoner}
-                    staticData={staticData}
-                />
-            ))
+        matches.forEach(match => items.push((
+            <Match
+                key={match.gameId}
+                match={match}
+                summoner={summoner}
+                staticData={staticData}
+            />
+        )))
+        if ('message' in error) return <Failure error={error} />
         return (
             <div className={classes.main}>
                 <Typography variant="display2" className={classes.title}>
