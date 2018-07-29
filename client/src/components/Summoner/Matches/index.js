@@ -33,21 +33,18 @@ export default withStyles(theme => ({
     }
     getMatches = () => {
         const { summoner: { accountId } } = this.props
-        const { matchlist: { beginIndex, endIndex } } = this.state
-        if (endIndex - beginIndex < 10)
-            return this.setState({ moreItems: false })
+        const { matchlist: { endIndex, totalGames }, matches } = this.state
         return axios.post('/api/matches', {
             accountId,
             beginIndex: endIndex,
-            endIndex: endIndex + 10
+            endIndex: endIndex + 10 > totalGames ? totalGames : endIndex + 10
         }).then(res => {
-            const matches = this.state.matches
+            const { matchlist } = res.data
             res.data.matches.forEach(match => matches.push(match))
-            this.setState(prevState => {
-                return {
-                    matches,
-                    matchlist: res.data.matchlist
-                }
+            this.setState({
+                matches,
+                matchlist,
+                moreItems: matchlist.endIndex < totalGames
             })
         }).catch(error => {
             console.log(error)
@@ -59,7 +56,7 @@ export default withStyles(theme => ({
     }
     render() {
         const { classes, summoner, staticData } = this.props
-        const { matches, moreItems, error } = this.state
+        const { matchlist, matches, moreItems, error } = this.state
         const items = []
         matches.forEach(match => items.push((
             <Match
@@ -69,6 +66,7 @@ export default withStyles(theme => ({
                 staticData={staticData}
             />
         )))
+        console.log(matchlist)
         if ('message' in error) return <Failure error={error} />
         return (
             <div className={classes.main}>
