@@ -23,46 +23,65 @@ export default withStyles(theme => ({
 }))(class extends Component {
     constructor(props) {
         super(props)
-        const { matchlist: { beginIndex, endIndex }, matches } = props
+        const { matchlist, matches } = props
         this.state = {
-            beginIndex,
-            endIndex,
+            matchlist,
             matches,
             moreItems: true
         }
     }
     getMatches = () => {
-        const { summoner: { accountId }, matchlist: { endIndex } } = this.props
-        return axios.get('/api/matches/', {
+        console.log('getMatches')
+        const { summoner: { accountId } } = this.props
+        const { matchlist: { beginIndex, endIndex } } = this.state
+        if (endIndex - beginIndex < 10)
+            return this.setState({ moreItems: false })
+        return axios.post('/api/matches', {
             accountId,
             beginIndex: endIndex,
             endIndex: endIndex + 10
-        }).then(res => this.setState({
-            beginIndex: res.data.matchlist.beginIndex,
-            endIndex: res.data.matchlist.endIndex,
-            matches: res.data.matches
-        }))
+        }).then(res => {
+            console.log(res.data)
+            const matches = this.state.matches
+            res.data.matches.forEach(match => matches.push(match))
+            this.setState(prevState => {
+                return {
+                    matches,
+                    matchlist: res.data.matchlist
+                }
+            })
+        }).catch(error => {
+            console.log(error)
+            this.setState({ moreItems: false })
+        })
     }
     render() {
         const { classes, summoner, staticData } = this.props
-        const { matches } = this.state
+        const { matches, moreItems } = this.state
         const items = []
-        items.push(matches.map(match => (
-            <Match
-                key={match.gameId}
-                match={match}
-                summoner={summoner}
-                staticData={staticData}
-            />
-        )))
+        // console.log('matchlist', matchlist)
+        console.log('matches', matches)
+        // console.log('moreItems', moreItems)
+        matches.forEach(match =>
+            items.push(
+                <Match
+                    key={match.gameId}
+                    match={match}
+                    summoner={summoner}
+                    staticData={staticData}
+                />
+            ))
         return (
             <div className={classes.main}>
                 <Typography variant="display2" className={classes.title}>
                     Matches
                 </Typography>
                 <InfiniteScroll
-                    loadMore={() => console.log('load more!')}
-                    loader={<CircularProgress />}
+                    loadMore={this.getMatches}
+                    hasMore={moreItems}
+                    initialLoad={false}
+                    loader={<CircularProgress key={items.length} />}
+                    threshold={100}
                 >
                     {items}
                 </InfiniteScroll>
