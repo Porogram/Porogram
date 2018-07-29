@@ -99,16 +99,10 @@ jobs:
           name: ci master success notification testing
           command: |
               . venv/bin/activate
-              if [[ ! -z "${CIRCLE_PULL_REQUEST}" ]]; then
-                  python3 bot.py """Master Ci pipeline passed! :D
-                  PR: ${CIRCLE_PULL_REQUEST}
-                  CI: ${CIRCLE_BUILD_URL}
-                  note: these are temporary tests"""
-              else
-                  python3 bot.py """Master Ci pipeline passed! :D
-                  CI: ${CIRCLE_BUILD_URL}
-                  note: these are temporary tests"""
-              fi
+              python3 bot.py """Master Ci pipeline passed! :D
+              PR: ${CIRCLE_PULL_REQUEST}
+              CI: ${CIRCLE_BUILD_URL}
+              note: these are temporary tests!!"""
 
 workflows:
   version: 2
