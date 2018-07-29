@@ -1,4 +1,5 @@
 import React from 'react'
+import InfiniteScroll from 'react-infinite-scroller'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import Match from './match'
@@ -24,14 +25,18 @@ export default withStyles(theme => ({
             <Typography variant="display2" className={classes.title}>
                 Matches
             </Typography>
-            {matches.map(match =>
-                <Match
-                    key={match.gameId}
-                    match={match}
-                    summoner={summoner}
-                    staticData={staticData}
-                />
-            )}
+            <InfiniteScroll
+                loadMore={() => console.log('load more!')}
+            >
+                {matches.map(match =>
+                    <Match
+                        key={match.gameId}
+                        match={match}
+                        summoner={summoner}
+                        staticData={staticData}
+                    />
+                )}
+            </InfiniteScroll>
         </div>
     )
 })
