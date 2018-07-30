@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { Subscribe } from 'unstated'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core'
 import Container from '../Container'
 
-export default withStyles(theme => ({
+export default withRouter(withStyles(theme => ({
     Avatar: {
         width: 100,
         height: 100,
@@ -39,7 +39,8 @@ export default withStyles(theme => ({
     classes,
     positions: { tier, rank },
     summoner: { name, profileIconId },
-    version
+    version,
+    location: { pathname }
 }) => {
     const drawer = (
         <Fragment>
@@ -89,10 +90,10 @@ export default withStyles(theme => ({
                                 open={sidebar.state.mobileOpen}
                                 onClose={sidebar.handleDrawerToggle}
                                 ModalProps={{
-                                    keepMounted: true, // Better open performance on mobile.
+                                    keepMounted: true
                                 }}
                                 classes={{
-                                    paper: classes.drawerPaper,
+                                    paper: classes.drawerPaper
                                 }}
                             >
                                 {drawer}
@@ -103,7 +104,7 @@ export default withStyles(theme => ({
                                 variant="permanent"
                                 open
                                 classes={{
-                                    paper: classes.drawerPaper,
+                                    paper: classes.drawerPaper
                                 }}
                             >
                                 {drawer}
@@ -114,4 +115,4 @@ export default withStyles(theme => ({
             }
         </Subscribe>
     )
-})
+}))
