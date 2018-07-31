@@ -42,7 +42,27 @@ export default withStyles(() => ({
     },
     playerList: {
         fontSize: 15,
-        padding: '5px 10px'
+        padding: '5px 10px',
+        backgroundColor: '#93F8FA',
+        borderTop: '2px solid #09c5c9',
+        borderBottom: '2px solid #09c5c9',
+        borderLeft: '4px solid #09c5c9',
+        borderRight: '4px solid #09c5c9',
+        '&:hover': {
+            backgroundColor: '#09c5c9',
+        }
+    },
+    playerList1: {
+        fontSize: 15,
+        padding: '5px 10px',
+        backgroundColor: '#FF781D',
+        borderTop: '2px solid #a54200',
+        borderBottom: '2px solid #a54200',
+        borderLeft: '4px solid #a54200',
+        borderRight: '4px solid #a54200',
+        '&:hover': {
+            backgroundColor: '#a54200',
+        }
     },
     secondary: {
         height: 26,
@@ -55,7 +75,8 @@ export default withStyles(() => ({
         display: 'block',
         marginTop: 'auto',
         marginBottom: 'auto'
-    }
+    },
+
 }))(({ participants, participantIdentities, version, getSummoner, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     return (
@@ -67,8 +88,9 @@ export default withStyles(() => ({
                     onClick={() =>
                         getSummoner(participantIdentities[participantIndex])
                     }
-                    className={classes.playerList}
+                    className={(participantIndex < 5) ? (classes.playerList): classes.playerList1}
                 >
+
                     {participant.champion && (
                         <Avatar
                             src={`${baseUrl}cdn/${version}/img/champion/${participant.champion}.png`}

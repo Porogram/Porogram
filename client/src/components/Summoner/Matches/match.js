@@ -28,6 +28,7 @@ export default class extends Component {
         match.summonerIndex = participantIdentities.findIndex(participant =>
             participant.player.accountId === accountId
         )
+        console.log("match", match)
         participants.forEach(participant => {
             participant.champion = Object.values(champions).find(champion =>
                 participant.championId === parseInt(champion.key, 10)).id
@@ -57,7 +58,7 @@ export default class extends Component {
             return <Redirect push to={`/summoner/${newSummoner}/matches`} />
         if (!updatedMatch) return null
         return (
-            <ExpansionPanel>
+            <ExpansionPanel style={(participants[summonerIndex].stats.win.toString() === 'true') ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>
                 <ExpansionPanelSummary>
                     <Summary
                         participants={participants}
