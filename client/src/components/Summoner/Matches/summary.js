@@ -69,7 +69,7 @@ export default withStyles(() => ({
             <Typography variant="headline" className={classes.kda}>
                 {participants[summonerIndex].stats.kills}/
                 {participants[summonerIndex].stats.deaths}/
-                {participants[summonerIndex].stats.assists}/
+                {participants[summonerIndex].stats.assists}
             </Typography>
             <Grid
                 container

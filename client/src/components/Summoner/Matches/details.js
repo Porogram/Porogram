@@ -40,28 +40,28 @@ export default withStyles(() => ({
         height: 40,
         marginRight: 20
     },
-    playerList: {
+    blueTeam: {
         fontSize: 15,
         padding: '5px 10px',
-        backgroundColor: '#93F8FA',
-        borderTop: '2px solid #09c5c9',
-        borderBottom: '2px solid #09c5c9',
-        borderLeft: '4px solid #09c5c9',
-        borderRight: '4px solid #09c5c9',
+        backgroundColor: '#374785',
+        borderTop: '2px solid #232d55',
+        borderBottom: '2px solid #232d55',
+        borderLeft: '4px solid #232d55',
+        borderRight: '4px solid #232d55',
         '&:hover': {
-            backgroundColor: '#09c5c9',
+            backgroundColor: '#232d55'
         }
     },
-    playerList1: {
+    redTeam: {
         fontSize: 15,
         padding: '5px 10px',
-        backgroundColor: '#FF781D',
-        borderTop: '2px solid #a54200',
-        borderBottom: '2px solid #a54200',
-        borderLeft: '4px solid #a54200',
-        borderRight: '4px solid #a54200',
+        backgroundColor: '#F76C6C',
+        borderTop: '2px solid #f32c2c',
+        borderBottom: '2px solid #f32c2c',
+        borderLeft: '4px solid #f32c2c',
+        borderRight: '4px solid #f32c2c',
         '&:hover': {
-            backgroundColor: '#a54200',
+            backgroundColor: '#f32c2c'
         }
     },
     secondary: {
@@ -75,8 +75,7 @@ export default withStyles(() => ({
         display: 'block',
         marginTop: 'auto',
         marginBottom: 'auto'
-    },
-
+    }
 }))(({ participants, participantIdentities, version, getSummoner, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     return (
@@ -88,7 +87,7 @@ export default withStyles(() => ({
                     onClick={() =>
                         getSummoner(participantIdentities[participantIndex])
                     }
-                    className={(participantIndex < 5) ? (classes.playerList): classes.playerList1}
+                    className={participantIndex < 5 ? classes.blueTeam : classes.redTeam}
                 >
 
                     {participant.champion && (
