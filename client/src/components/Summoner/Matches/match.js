@@ -23,7 +23,7 @@ export default class extends Component {
         'summonerId' in participantIdentity.player &&
         this.setState({ newSummoner: participantIdentity.player.summonerName })
     }
-    updateMatch = (match, { accountId }, { champions, summonerSpells, runes }) => {
+    updateMatch = (match, { accountId }, { champions, summonerSpells, runes, items }) => {
         const { participants, participantIdentities } = match
         match.summonerIndex = participantIdentities.findIndex(participant =>
             participant.player.accountId === accountId
@@ -45,7 +45,11 @@ export default class extends Component {
             participant.rune1 = rune1 && rune1.icon
             let rune2 = runes.find(rune =>
                 participant.stats.perkSubStyle === rune.id)
-            participant.rune2 = rune2 && rune2.icon
+            participant.rune2 = rune2 && rune2.icon;
+            [...Array(7).keys()].forEach(i => {
+                if (!(participant.stats[`item${i}`].toString() in items))
+                    participant.stats[`item${i}`] = 0
+            })
         })
     }
     render() {
@@ -55,7 +59,7 @@ export default class extends Component {
         } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
-            return <Redirect push to={`/summoner/${newSummoner}/matches`} />
+            return <Redirect push to={`/summoner/${newSummoner}/summary`} />
         if (!updatedMatch) return null
         return (
             <ExpansionPanel style={(participants[summonerIndex].stats.win.toString() === 'true') ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>

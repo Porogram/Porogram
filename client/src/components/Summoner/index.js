@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Sidebar from './sidebar'
+import Summary from './Summary'
 import Matches from './Matches'
 import { Failure } from '../Errors'
 
@@ -19,6 +20,7 @@ export default class extends Component {
             champions: {},
             summonerSpells: {},
             runes: {},
+            items: {},
             error: {}
         }
     }
@@ -52,14 +54,16 @@ export default class extends Component {
                     data[0],
                     axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/champion.json`),
                     axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/summoner.json`),
-                    axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/runesReforged.json`)
+                    axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/runesReforged.json`),
+                    axios.get(`${baseUrl}cdn/${data[0]}/data/en_US/item.json`)
                 ])
-            ).then(([version, champions, summonerSpells, runes]) =>
+            ).then(([version, champions, summonerSpells, runes, items]) =>
                 this.setState({
                     version,
                     champions: champions.data.data,
                     summonerSpells: summonerSpells.data.data,
-                    runes: runes.data
+                    runes: runes.data,
+                    items: items.data.data
                 })
             ).catch(error =>
                 this.setState({
@@ -78,10 +82,11 @@ export default class extends Component {
             champions,
             summonerSpells,
             runes,
+            items,
             error
         } = this.state
         const { path } = this.props.match
-        const staticData = { version, champions, summonerSpells, runes }
+        const staticData = { version, champions, summonerSpells, runes, items }
         if (!fetchedData) return <CircularProgress />
         if ('message' in error) return <Failure error={error} />
         else if ('message' in summoner) return <Failure error={summoner} />
@@ -93,6 +98,15 @@ export default class extends Component {
                     version={version}
                 />
                 <Switch>
+                    <Route
+                        path={`${path}/summary`}
+                        render={props =>
+                            <Summary
+                                {...props}
+                                summoner={summoner}
+                            />
+                        }
+                    />
                     <Route
                         path={`${path}/matches`}
                         render={props =>
