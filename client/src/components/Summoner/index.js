@@ -86,6 +86,10 @@ export default class extends Component {
         if (!fetchedData) return <CircularProgress />
         if ('message' in error) return <Failure error={error} />
         else if ('message' in summoner) return <Failure error={summoner} />
+        console.log('summoner', summoner)
+        console.log('positions', positions)
+        console.log('matchlist', matchlist)
+        console.log('matches', matches)
         return (
             <Fragment>
                 <Sidebar
