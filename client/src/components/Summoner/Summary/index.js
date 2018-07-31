@@ -3,13 +3,17 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import Details from './details'
 
-export default withStyles(() => ({
+export default withStyles(theme => ({
     main: {
-        marginLeft: 60,
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: 60
+        },
+        [theme.breakpoints.up('md')]: {
+            marginLeft: 300
+        },
         marginRight: 60
-    },
-
-}))(({ classes, summoner, staticData, version, matchlist, positions }) => {
+    }
+}))(({ classes, summoner }) => {
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>
@@ -17,7 +21,6 @@ export default withStyles(() => ({
             </Typography>
             <Details
                 summoner={summoner}
-                version={version}
             />
         </div>
     )
