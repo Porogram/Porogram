@@ -10,7 +10,6 @@ def search(summonerName):
     if 'id' in res['summoner']:
         res['positions'] = fetchApi.getPositions(res['summoner']['id'])
         res['championMasteries'] = fetchApi.getChampionMasteries(res['summoner']['id'])
-        res['scores'] = fetchApi.getScores(res['summoner']['id'])
     if 'accountId' in res['summoner']:
         res['matchlist'] = fetchApi.getMatchlist(res['summoner']['accountId'], 0, 10)
     if 'matchlist' in res and 'matches' in res['matchlist']:

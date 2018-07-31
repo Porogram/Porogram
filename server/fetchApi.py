@@ -43,14 +43,11 @@ def getSummoner(summonerName):
 def getPositions(summonerId):
     return makeRequest(createUrl('league/v3/positions/by-summoner', str(summonerId)))
 
+def getChampionMasteries(summonerId):
+    return makeRequest(createUrl('champion-mastery/v3/champion-masteries/by-summoner', str(summonerId)))
+
 def getMatchlist(accountId, beginIndex = 0, endIndex = 10):
     return makeRequest(createUrl('match/v3/matchlists/by-account', str(accountId), { 'beginIndex': beginIndex, 'endIndex': endIndex }))
 
 def getMatches(matches):
     return [makeRequest(createUrl('match/v3/matches', str(match['gameId']))) for match in matches]
-
-def getChampionMasteries(summonerId):
-    return makeRequest(createUrl('champion-mastery/v3/champion-masteries/by-summoner', str(summonerId)))
-
-def getScores(summonerId):
-    return makeRequest(createUrl('champion-mastery/v3/scores/by-summoner', str(summonerId)))

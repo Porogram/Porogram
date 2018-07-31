@@ -13,7 +13,15 @@ export default withStyles(theme => ({
         },
         marginRight: 60
     }
-}))(({ classes, summoner }) => {
+}))(({
+    classes,
+    summoner,
+    positions,
+    championMasteries,
+    matchlist,
+    matches,
+    staticData
+}) => {
     return (
         <div className={classes.main}>
             <Typography variant="display2" className={classes.title}>
