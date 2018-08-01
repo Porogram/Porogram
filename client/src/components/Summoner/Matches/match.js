@@ -61,7 +61,7 @@ export default class extends Component {
             return <Redirect push to={`/summoner/${newSummoner}/summary`} />
         if (!updatedMatch) return null
         return (
-            <ExpansionPanel>
+            <ExpansionPanel style={participants[summonerIndex].stats.win ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>
                 <ExpansionPanelSummary>
                     <Summary
                         participants={participants}

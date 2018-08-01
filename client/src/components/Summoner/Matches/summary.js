@@ -41,6 +41,14 @@ export default withStyles(() => ({
         display: 'block',
         marginTop: 'auto',
         marginBottom: 'auto'
+    },
+    win: {
+        backgroundColor: 'blue',
+        width: '100wh'
+    },
+    lose: {
+        backgroundColor: 'red',
+        width: '100wh'
     }
 }))(({ participants, summonerIndex, version, classes }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com/'

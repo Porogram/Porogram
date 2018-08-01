@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, List, ListItem, Avatar, Grid } from '@material-ui/core'
 import Empty from './empty'
@@ -40,9 +40,29 @@ export default withStyles(() => ({
         height: 40,
         marginRight: 20
     },
-    playerList: {
+    victory: {
         fontSize: 15,
-        padding: '5px 10px'
+        padding: '5px 10px',
+        backgroundColor: '#374785',
+        borderTop: '2px solid #232d55',
+        borderBottom: '2px solid #232d55',
+        borderLeft: '4px solid #232d55',
+        borderRight: '4px solid #232d55',
+        '&:hover': {
+            backgroundColor: '#232d55'
+        }
+    },
+    defeat: {
+        fontSize: 15,
+        padding: '5px 10px',
+        backgroundColor: '#F76C6C',
+        borderTop: '2px solid #f32c2c',
+        borderBottom: '2px solid #f32c2c',
+        borderLeft: '4px solid #f32c2c',
+        borderRight: '4px solid #f32c2c',
+        '&:hover': {
+            backgroundColor: '#f32c2c'
+        }
     },
     secondary: {
         height: 26,
@@ -61,14 +81,22 @@ export default withStyles(() => ({
     return (
         <List className={classes.list}>
             {participants.map((participant, participantIndex) => (
+                <Fragment>
+                {participantIndex === 0 || participantIndex ===5 ? (
+                    <Typography variant="display2">
+                        {participants[participantIndex].stats.win ? 'Victory' : 'Defeat'}
+                    </Typography>
+                ): ""}
                 <ListItem
                     button
                     key={participantIndex}
                     onClick={() =>
                         getSummoner(participantIdentities[participantIndex])
                     }
-                    className={classes.playerList}
+                    className={participants[participantIndex].stats.win ? classes.victory : classes.defeat}
                 >
+
+
                     {participant.champion && (
                         <Avatar
                             src={`${baseUrl}cdn/${version}/img/champion/${participant.champion}.png`}
@@ -147,6 +175,8 @@ export default withStyles(() => ({
                         />
                     ) : <Empty classes={classes.item} />}
                 </ListItem>
+                </Fragment>
+
             ))}
         </List>
     )
