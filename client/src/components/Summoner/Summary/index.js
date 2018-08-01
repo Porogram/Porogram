@@ -1,6 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import { Avatar, Typography } from '@material-ui/core'
 
 export default withStyles(theme => ({
     main: {
@@ -10,7 +10,16 @@ export default withStyles(theme => ({
         [theme.breakpoints.up('md')]: {
             marginLeft: 300
         },
-        marginRight: 60
+        marginRight: 60,
+        marginTop: 60,
+        display: 'flex'
+    },
+    profile: {
+        marginRight: 30
+    },
+    Avatar: {
+        width: 150,
+        height: 150
     }
 }))(({
     classes,
@@ -21,11 +30,34 @@ export default withStyles(theme => ({
     matches,
     staticData
 }) => {
+    const { name, profileIconId, summonerLevel } = summoner
+    const { tier, rank } = positions
+    const { version } = staticData
+    console.log(summoner, positions, championMasteries, matchlist, matches)
     return (
         <div className={classes.main}>
-            <Typography variant="display2" className={classes.title}>
-                Summary Details
-            </Typography>
+            <div className={classes.profile}>
+                {version && profileIconId && (
+                    <Avatar
+                        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                        alt=""
+                        className={classes.Avatar}
+                    />
+                )}
+            </div>
+            <section className={classes.container}>
+                {name && <Typography variant='display1'>{name}</Typography>}
+                {summonerLevel && (
+                    <Typography variant='subheading'>
+                        Level: {summonerLevel}
+                    </Typography>
+                )}
+                {tier && rank && (
+                    <Typography variant='subheading'>
+                        {`${tier} ${rank}`}
+                    </Typography>
+                )}
+            </section>
         </div>
     )
 })

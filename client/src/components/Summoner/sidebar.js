@@ -53,7 +53,7 @@ export default withRouter(withStyles(theme => ({
                     {version && profileIconId && (
                         <Avatar
                             src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                            alt="profile icon"
+                            alt=""
                             className={classes.Avatar}
                         />
                     )}
