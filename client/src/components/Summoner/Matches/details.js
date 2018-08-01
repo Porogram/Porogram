@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, List, ListItem, Avatar, Grid } from '@material-ui/core'
 import Empty from './empty'
@@ -40,7 +40,7 @@ export default withStyles(() => ({
         height: 40,
         marginRight: 20
     },
-    blueTeam: {
+    victory: {
         fontSize: 15,
         padding: '5px 10px',
         backgroundColor: '#374785',
@@ -52,7 +52,7 @@ export default withStyles(() => ({
             backgroundColor: '#232d55'
         }
     },
-    redTeam: {
+    defeat: {
         fontSize: 15,
         padding: '5px 10px',
         backgroundColor: '#F76C6C',
@@ -81,14 +81,21 @@ export default withStyles(() => ({
     return (
         <List className={classes.list}>
             {participants.map((participant, participantIndex) => (
+                <Fragment>
+                {participantIndex === 0 || participantIndex ===5 ? (
+                    <Typography variant="display2">
+                        {participants[participantIndex].stats.win ? 'Victory' : 'Defeat'}
+                    </Typography>
+                ): ""}
                 <ListItem
                     button
                     key={participantIndex}
                     onClick={() =>
                         getSummoner(participantIdentities[participantIndex])
                     }
-                    className={participantIndex < 5 ? classes.blueTeam : classes.redTeam}
+                    className={participants[participantIndex].stats.win ? classes.victory : classes.defeat}
                 >
+
 
                     {participant.champion && (
                         <Avatar
@@ -168,6 +175,8 @@ export default withStyles(() => ({
                         />
                     ) : <Empty classes={classes.item} />}
                 </ListItem>
+                </Fragment>
+
             ))}
         </List>
     )
