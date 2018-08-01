@@ -100,9 +100,9 @@ jobs:
           command: |
               . venv/bin/activate
               python3 bot.py """Master Ci pipeline passed! :D
-              PR: ${CIRCLE_PULL_REQUESTS}
+              PR: ${CIRCLE_PULL_REQUEST}
               CI: ${CIRCLE_BUILD_URL}
-              note: these are temporary tests!!!!"""
+              note: these are temporary tests..."""
 
 workflows:
   version: 2
