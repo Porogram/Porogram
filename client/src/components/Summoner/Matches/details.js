@@ -81,7 +81,7 @@ export default withStyles(() => ({
     return (
         <List className={classes.list}>
             {participants.map((participant, participantIndex) => (
-                <Fragment>
+                <Fragment key={participantIndex}>
                     {participantIndex === 0 || participantIndex === 5 ? (
                         <Typography variant="display2">
                             {participants[participantIndex].stats.win ? 'Victory' : 'Defeat'}
