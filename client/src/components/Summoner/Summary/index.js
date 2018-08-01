@@ -31,7 +31,7 @@ export default withStyles(theme => ({
     staticData
 }) => {
     const { name, profileIconId, summonerLevel } = summoner
-    const { tier, rank } = positions
+    const { tier, rank, leaguePoints, wins, losses } = positions
     const { version } = staticData
     console.log(summoner, positions, championMasteries, matchlist, matches)
     return (
@@ -55,6 +55,16 @@ export default withStyles(theme => ({
                 {tier && rank && (
                     <Typography variant='subheading'>
                         {`${tier} ${rank}`}
+                    </Typography>
+                )}
+                {leaguePoints && (
+                    <Typography variant='subheading'>
+                        {`LP: ${leaguePoints}`}
+                    </Typography>
+                )}
+                {wins && losses && (
+                    <Typography variant='subheading'>
+                        {`W${wins} : L${losses}`}
                     </Typography>
                 )}
             </section>
