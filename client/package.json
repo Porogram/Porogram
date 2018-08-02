@@ -23,5 +23,5 @@
     "server": "cd ../server && python3 app.py",
     "client-server": "npm start | npm run server"
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000"
 }
