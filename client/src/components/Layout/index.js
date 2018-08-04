@@ -10,7 +10,6 @@ import {
     IconButton
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons/'
-import Container from '../Container'
 import logo from '../../images/poro.png'
 
 export default withRouter(withStyles(theme => ({

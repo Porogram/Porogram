@@ -11,7 +11,6 @@ import {
     Typography,
     Hidden
 } from '@material-ui/core'
-import Container from '../Container'
 
 export default withRouter(withStyles(theme => ({
     Avatar: {
