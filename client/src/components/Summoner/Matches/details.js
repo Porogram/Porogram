@@ -81,102 +81,99 @@ export default withStyles(() => ({
     return (
         <List className={classes.list}>
             {participants.map((participant, participantIndex) => (
-                <Fragment>
-                {participantIndex === 0 || participantIndex ===5 ? (
-                    <Typography variant="display2">
-                        {participants[participantIndex].stats.win ? 'Victory' : 'Defeat'}
-                    </Typography>
-                ): ""}
-                <ListItem
-                    button
-                    key={participantIndex}
-                    onClick={() =>
-                        getSummoner(participantIdentities[participantIndex])
-                    }
-                    className={participants[participantIndex].stats.win ? classes.victory : classes.defeat}
-                >
-
-
-                    {participant.champion && (
-                        <Avatar
-                            src={`${baseUrl}cdn/${version}/img/champion/${participant.champion}.png`}
-                            alt=""
-                            className={classes.playerAvatar}
-                        />
-                    )}
-                    {participantIdentities[participantIndex].player.summonerName && (
+                <Fragment key={participantIndex}>
+                    {participantIndex === 0 || participantIndex === 5 ? (
+                        <Typography variant="display2">
+                            {participants[participantIndex].stats.win ? 'Victory' : 'Defeat'}
+                        </Typography>
+                    ): ""}
+                    <ListItem
+                        button
+                        key={participantIndex}
+                        onClick={() =>
+                            getSummoner(participantIdentities[participantIndex])
+                        }
+                        className={participants[participantIndex].stats.win ? classes.victory : classes.defeat}
+                    >
+                        {participant.champion && (
+                            <Avatar
+                                src={`${baseUrl}cdn/${version}/img/champion/${participant.champion}.png`}
+                                alt=""
+                                className={classes.playerAvatar}
+                            />
+                        )}
+                        {participantIdentities[participantIndex].player.summonerName && (
+                            <Typography
+                                variant="body2"
+                                className={classes.kda}
+                            >
+                                {participantIdentities[participantIndex].player.summonerName}
+                            </Typography>
+                        )}
                         <Typography
-                            variant="body2"
+                            variant="body1"
                             className={classes.kda}
                         >
-                            {participantIdentities[participantIndex].player.summonerName}
+                            {participant.stats.kills}/
+                            {participant.stats.deaths}/
+                            {participant.stats.assists}
                         </Typography>
-                    )}
-                    <Typography
-                        variant="body1"
-                        className={classes.kda}
-                    >
-                        {participant.stats.kills}/
-                        {participant.stats.deaths}/
-                        {participant.stats.assists}
-                    </Typography>
-                    <Grid
-                        container
-                        direction="column"
-                        className={classes.doubleIcon}
-                        justify="center"
-                    >
-                        {[...Array(2).keys()].map(i => (
-                            <Grid item key={i} >
-                                {participant[`rune${i + 1}`] ? (
+                        <Grid
+                            container
+                            direction="column"
+                            className={classes.doubleIcon}
+                            justify="center"
+                        >
+                            {[...Array(2).keys()].map(i => (
+                                <Grid item key={i} >
+                                    {participant[`rune${i + 1}`] ? (
+                                        <img
+                                            src={`${baseUrl}cdn/img/${participant[`rune${i + 1}`]}`}
+                                            alt=""
+                                            className={classes.img}
+                                        />
+                                    ) : <Empty classes={classes.img} />}
+                                </Grid>
+                            ))}
+                        </Grid>
+                        <Grid
+                            container
+                            direction="column"
+                            className={classes.doubleIcon}
+                        >
+                            {[...Array(2).keys()].map(i => (
+                                <Grid item key={i} >
+                                    {participant[`summonerSpell${i + 1}`] ? (
+                                        <img
+                                            src={`${baseUrl}cdn/${version}/img/spell/${participant[`summonerSpell${i + 1}`]}.png`}
+                                            alt=""
+                                            className={classes.img}
+                                        />
+                                    ) : <Empty classes={classes.img} />}
+                                </Grid>
+                            ))}
+                        </Grid>
+                        <div className={classes.items}>
+                            {[...Array(6).keys()].map(i =>
+                                participant.stats[`item${i}`] !== 0 ? (
                                     <img
-                                        src={`${baseUrl}cdn/img/${participant[`rune${i + 1}`]}`}
+                                        src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`}
                                         alt=""
-                                        className={classes.img}
+                                        className={classes.item}
+                                        key={i}
                                     />
-                                ) : <Empty classes={classes.img} />}
-                            </Grid>
-                        ))}
-                    </Grid>
-                    <Grid
-                        container
-                        direction="column"
-                        className={classes.doubleIcon}
-                    >
-                        {[...Array(2).keys()].map(i => (
-                            <Grid item key={i} >
-                                {participant[`summonerSpell${i + 1}`] ? (
-                                    <img
-                                        src={`${baseUrl}cdn/${version}/img/spell/${participant[`summonerSpell${i + 1}`]}.png`}
-                                        alt=""
-                                        className={classes.img}
-                                    />
-                                ) : <Empty classes={classes.img} />}
-                            </Grid>
-                        ))}
-                    </Grid>
-                    <div className={classes.items}>
-                        {[...Array(6).keys()].map(i =>
-                            participant.stats[`item${i}`] !== 0 ? (
-                                <img
-                                    src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item${i}`]}.png`}
-                                    alt=""
-                                    className={classes.item}
-                                    key={i}
-                                />
-                            ) : <Empty key={i} classes={classes.item} />
-                        )}
-                    </div>
-                    {participant.stats[`item6`] !== 0 ? (
-                        <img
-                            src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item6`]}.png`}
-                            alt=""
-                            className={classes.trinket}
-                        />
-                    ) : <Empty classes={classes.item} />}
-                </ListItem>
+                                ) : <Empty key={i} classes={classes.item} />
+                            )}
+                        </div>
+                        {participant.stats[`item6`] !== 0 ? (
+                            <img
+                                src={`${baseUrl}cdn/${version}/img/item/${participant.stats[`item6`]}.png`}
+                                alt=""
+                                className={classes.trinket}
+                            />
+                        ) : <Empty classes={classes.item} />}
+                    </ListItem>
                 </Fragment>
-
             ))}
         </List>
     )

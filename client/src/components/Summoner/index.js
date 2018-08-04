@@ -14,6 +14,7 @@ export default class extends Component {
             fetchedData: false,
             summoner: {},
             positions: {},
+            championMasteries: {},
             matchlist: {},
             matches: [],
             version: '',
@@ -37,6 +38,9 @@ export default class extends Component {
                         'positions' in res.data &&
                         res.data.positions.length &&
                         res.data.positions[0],
+                    championMasteries:
+                        'championMasteries' in res.data &&
+                        res.data.championMasteries,
                     matchlist: 'matchlist' in res.data && res.data.matchlist,
                     matches: 'matches' in res.data && res.data.matches
                 })
@@ -76,6 +80,7 @@ export default class extends Component {
             fetchedData,
             summoner,
             positions,
+            championMasteries,
             matchlist,
             matches,
             version,
@@ -93,8 +98,8 @@ export default class extends Component {
         return (
             <Fragment>
                 <Sidebar
-                    positions={positions}
                     summoner={summoner}
+                    positions={positions}
                     version={version}
                 />
                 <Switch>
@@ -104,6 +109,11 @@ export default class extends Component {
                             <Summary
                                 {...props}
                                 summoner={summoner}
+                                positions={positions}
+                                championMasteries={championMasteries}
+                                matchlist={matchlist}
+                                matches={matches}
+                                staticData={staticData}
                             />
                         }
                     />
