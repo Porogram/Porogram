@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Provider, Subscribe } from 'unstated'
+import { Provider, Consumer } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
@@ -49,20 +49,20 @@ export default withRouter(withStyles(theme => ({
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         {pathname.includes('/summoner') && (
-                            <Subscribe to={[Container]}>
+                            <Consumer>
                                 {
-                                    sidebar => (
+                                    value => (
                                         <IconButton
                                             color="inherit"
                                             aria-label="Open drawer"
-                                            onClick={sidebar.handleDrawerToggle}
+                                            onClick={value.handleDrawerToggle}
                                             className={classes.navIconHide}
                                         >
                                             <Menu />
                                         </IconButton>
                                     )
                                 }
-                            </Subscribe>
+                            </Consumer>
                         )}
                         <Link to="/">
                             <img className={classes.img} src={logo} alt="" />

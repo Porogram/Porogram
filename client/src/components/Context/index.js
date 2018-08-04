@@ -1,8 +1,8 @@
 import React, { Component, createContext } from 'react'
 
-const { Provider, Consumer } = createContext()
+const Context = createContext()
 
-export class Provider extends Component {
+class Provider extends Component {
     state = { mobileOpen: false }
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }))
@@ -10,11 +10,16 @@ export class Provider extends Component {
     render() {
         const { children } = this.props
         return (
-            <Provider value={this.handleDrawerToggle}>
+            <Context.Provider value={{
+                state: this.state,
+                handleDrawerToggle: this.handleDrawerToggle
+            }}>
                 {children}
-            </Provider>
+            </Context.Provider>
         )
     }
 }
 
-export const Consumer
+const { Consumer } = Context
+
+export { Provider, Consumer }

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Subscribe } from 'unstated'
+import { Consumer } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Drawer,
@@ -80,15 +80,15 @@ export default withRouter(withStyles(theme => ({
         </Fragment>
     )
     return (
-        <Subscribe to={[Container]}>
+        <Consumer>
             {
-                sidebar => (
+                value => (
                     <Fragment>
                         <Hidden mdUp>
                             <Drawer
                                 variant="temporary"
-                                open={sidebar.state.mobileOpen}
-                                onClose={sidebar.handleDrawerToggle}
+                                open={value.state.mobileOpen}
+                                onClose={value.handleDrawerToggle}
                                 ModalProps={{
                                     keepMounted: true
                                 }}
@@ -113,6 +113,6 @@ export default withRouter(withStyles(theme => ({
                     </Fragment>
                 )
             }
-        </Subscribe>
+        </Consumer>
     )
 }))
