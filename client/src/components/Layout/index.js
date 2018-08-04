@@ -3,24 +3,16 @@ import { Link, withRouter } from 'react-router-dom'
 import { Sidebar } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
-    CssBaseline,
     AppBar,
+    CssBaseline,
+    IconButton,
     Toolbar,
-    Typography,
-    IconButton
+    Typography
 } from '@material-ui/core'
-import { Menu } from '@material-ui/icons/'
+import { Menu } from '@material-ui/icons'
 import logo from '../../images/poro.png'
 
 export default withRouter(withStyles(theme => ({
-    root: {
-        flexGrow: 1,
-        zIndex: 1,
-        overflow: 'hidden',
-        position: 'relative',
-        display: 'flex',
-        width: '100%'
-    },
     appBar: {
         zIndex: theme.zIndex.drawer + 1
     },
@@ -30,51 +22,51 @@ export default withRouter(withStyles(theme => ({
         }
     },
     content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        marginTop: 64
+        backgroundColor: theme.palette.background.default
+    },
+    toolbar: theme.mixins.toolbar,
+    logo: {
+        marginLeft: theme.spacing.unit * 2,
+        marginRight: theme.spacing.unit * 2
     },
     img: {
-        width: 50,
-        height: 50,
-        marginLeft: 10,
-        marginRight: 10
+        width: theme.spacing.unit * 6,
+        verticalAlign: 'middle'
     }
 }))(({ classes, children, location: { pathname } }) => {
     return (
         <Sidebar.Provider>
             <CssBaseline />
-            <div className={classes.root}>
-                <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
-                        {pathname.includes('/summoner') && (
-                            <Sidebar.Consumer>
-                                {
-                                    value => (
-                                        <IconButton
-                                            color="inherit"
-                                            aria-label="Open drawer"
-                                            onClick={value.handleDrawerToggle}
-                                            className={classes.navIconHide}
-                                        >
-                                            <Menu />
-                                        </IconButton>
-                                    )
-                                }
-                            </Sidebar.Consumer>
-                        )}
-                        <Link to="/">
-                            <img className={classes.img} src={logo} alt="" />
-                        </Link>
-                        <Typography variant="title" color="inherit" noWrap>
-                            POROGRAM
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-                <main className={classes.content}>
-                    {children}
-                </main>
-            </div>
+            <AppBar position="fixed" className={classes.appBar}>
+                <Toolbar>
+                    {pathname.includes('/summoner') && (
+                        <Sidebar.Consumer>
+                            {
+                                value => (
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="Open drawer"
+                                        onClick={value.handleDrawerToggle}
+                                        className={classes.navIconHide}
+                                    >
+                                        <Menu />
+                                    </IconButton>
+                                )
+                            }
+                        </Sidebar.Consumer>
+                    )}
+                    <Link to="/" className={classes.logo}>
+                        <img src={logo} alt="" className={classes.img} />
+                    </Link>
+                    <Typography variant="title" color="inherit" noWrap>
+                        POROGRAM
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <main className={classes.content}>
+                <div className={classes.toolbar} />
+                {children}
+            </main>
         </Sidebar.Provider>
     )
 }))
