@@ -2,7 +2,7 @@ import React, { Component, createContext } from 'react'
 
 const Context = createContext()
 
-class Provider extends Component {
+export class Provider extends Component {
     state = { mobileOpen: false }
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }))
@@ -10,16 +10,16 @@ class Provider extends Component {
     render() {
         const { children } = this.props
         return (
-            <Context.Provider value={{
-                state: this.state,
-                handleDrawerToggle: this.handleDrawerToggle
-            }}>
+            <Context.Provider
+                value={{
+                    state: this.state,
+                    handleDrawerToggle: this.handleDrawerToggle
+                }}
+            >
                 {children}
             </Context.Provider>
         )
     }
 }
 
-const { Consumer } = Context
-
-export { Provider, Consumer }
+export const Consumer = Context.Consumer
