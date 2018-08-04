@@ -84,6 +84,12 @@ jobs:
       - checkout:
           path: ~/porogram
       - run: ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+      - restore_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+      - run:
+          name: deployment
+          command: |
+            ssh $DEPLOY_USER@$DEPLOY_HOST "cd ~/porogram; ./deploy"
       - run:
           name: deployment
           command: |
