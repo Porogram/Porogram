@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Consumer } from '../Context'
+import { Sidebar } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Drawer,
@@ -79,7 +79,7 @@ export default withRouter(withStyles(theme => ({
         </Fragment>
     )
     return (
-        <Consumer>
+        <Sidebar.Consumer>
             {
                 value => (
                     <Fragment>
@@ -112,6 +112,6 @@ export default withRouter(withStyles(theme => ({
                     </Fragment>
                 )
             }
-        </Consumer>
+        </Sidebar.Consumer>
     )
 }))

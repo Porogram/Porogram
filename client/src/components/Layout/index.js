@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Provider, Consumer } from '../Context'
+import { Sidebar } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     CssBaseline,
@@ -42,13 +42,13 @@ export default withRouter(withStyles(theme => ({
     }
 }))(({ classes, children, location: { pathname } }) => {
     return (
-        <Provider>
+        <Sidebar.Provider>
             <CssBaseline />
             <div className={classes.root}>
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         {pathname.includes('/summoner') && (
-                            <Consumer>
+                            <Sidebar.Consumer>
                                 {
                                     value => (
                                         <IconButton
@@ -61,7 +61,7 @@ export default withRouter(withStyles(theme => ({
                                         </IconButton>
                                     )
                                 }
-                            </Consumer>
+                            </Sidebar.Consumer>
                         )}
                         <Link to="/">
                             <img className={classes.img} src={logo} alt="" />
@@ -75,6 +75,6 @@ export default withRouter(withStyles(theme => ({
                     {children}
                 </main>
             </div>
-        </Provider>
+        </Sidebar.Provider>
     )
 }))
