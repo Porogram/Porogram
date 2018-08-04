@@ -87,9 +87,15 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
-          name: deployment
+          name: install dependencies
           command: |
-            ssh $DEPLOY_USER@$DEPLOY_HOST "cd ~/porogram; ./deploy"
+            python3 -m venv venv
+            . venv/bin/activate
+            python3 -m pip install -r requirements.txt
+      - save_cache:
+          key: dependency-cache-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
       - run:
           name: deployment
           command: |
