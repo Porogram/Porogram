@@ -4,20 +4,20 @@ import { Typography } from '@material-ui/core'
 import dogeImage from '../../images/not-found-doge.jpg'
 
 export default withStyles(() => ({
+    doge: {
+        height: 300,
+        width: 'auto'
+    },
     error: {
         textAlign: 'center'
+    },
+    notFound: {
+        margin: '10px auto'
     },
     sorry: {
         marginTop: 20,
         letterSpacing: .3,
         transform: 'scaleY(1.2)'
-    },
-    notFound: {
-        margin: '10px auto'
-    },
-    doge: {
-        height: 300,
-        width: 'auto'
     }
 }))(({ classes }) => {
     return (

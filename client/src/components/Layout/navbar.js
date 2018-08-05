@@ -32,22 +32,20 @@ export default withRouter(withStyles(theme => ({
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                {pathname.includes('/:summonerName') && (
-                    <Sidebar.Consumer>
-                        {
-                            value => (
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="Open drawer"
-                                    onClick={value.handleDrawerToggle}
-                                    className={classes.navIconHide}
-                                >
-                                    <Menu />
-                                </IconButton>
-                            )
-                        }
-                    </Sidebar.Consumer>
-                )}
+                <Sidebar.Consumer>
+                    {
+                        value => (
+                            <IconButton
+                                color="inherit"
+                                aria-label="Open drawer"
+                                onClick={value.handleDrawerToggle}
+                                className={classes.navIconHide}
+                            >
+                                <Menu />
+                            </IconButton>
+                        )
+                    }
+                </Sidebar.Consumer>
                 <Link to="/" className={classes.logo}>
                     <img src={logo} alt="" className={classes.img} />
                 </Link>
