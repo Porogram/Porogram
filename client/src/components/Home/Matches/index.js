@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography, CircularProgress } from '@material-ui/core'
 import Match from './match'
 import { Failure } from '../../Errors'
-import { StaticData } from '../../Context'
+import { StaticDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     main: {
@@ -55,7 +55,7 @@ export default withStyles(theme => ({
         const { matches, moreItems, error } = this.state
         const items = []
         matches.forEach(match => items.push((
-            <StaticData.Consumer>
+            <StaticDataContext.Consumer>
                 {
                     value => (
                         <Match
@@ -66,7 +66,7 @@ export default withStyles(theme => ({
                         />
                     )
                 }
-            </StaticData.Consumer>
+            </StaticDataContext.Consumer>
         )))
         if ('message' in error) return <Failure error={error} />
         return (

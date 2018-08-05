@@ -1,4 +1,4 @@
-import Sidebar from './sidebar'
-import StaticData from './staticData'
+import SidebarContext from './sidebar'
+import StaticDataContext from './staticData'
 
-export { Sidebar, StaticData }
+export { SidebarContext, StaticDataContext }

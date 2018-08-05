@@ -8,7 +8,7 @@ import {
     Typography
 } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
-import { Sidebar } from '../Context'
+import { SidebarContext } from '../Context'
 import logo from '../../images/poro.png'
 
 export default withStyles(theme => ({
@@ -32,20 +32,23 @@ export default withStyles(theme => ({
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <Sidebar.Consumer>
+                <SidebarContext.Consumer>
                     {
-                        value => (
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={value.handleDrawerToggle}
-                                className={classes.navIconHide}
-                            >
-                                <Menu />
-                            </IconButton>
-                        )
+                        value => {
+                            if (value.state.display)
+                                return (
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="Open drawer"
+                                        onClick={value.handleDrawerToggle}
+                                        className={classes.navIconHide}
+                                    >
+                                        <Menu />
+                                    </IconButton>
+                                )
+                        }
                     }
-                </Sidebar.Consumer>
+                </SidebarContext.Consumer>
                 <Link to="/" className={classes.logo}>
                     <img src={logo} alt="" className={classes.img} />
                 </Link>

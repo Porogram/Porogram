@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
-import { Sidebar, StaticData } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Drawer,
@@ -8,6 +7,7 @@ import {
     Typography,
     Hidden
 } from '@material-ui/core'
+import { SidebarContext, StaticDataContext } from '../Context'
 
 export default withRouter(withStyles(theme => ({
     Avatar: {
@@ -38,7 +38,7 @@ export default withRouter(withStyles(theme => ({
     location: { pathname }
 }) => {
     const drawer = (
-        <StaticData.Consumer>
+        <StaticDataContext.Consumer>
             {
                 value => (
                     <Fragment>
@@ -65,12 +65,12 @@ export default withRouter(withStyles(theme => ({
                     </Fragment>
                 )
             }
-        </StaticData.Consumer>
+        </StaticDataContext.Consumer>
     )
     return (
         <Fragment>
             <Hidden mdUp>
-                <Sidebar.Consumer>
+                <SidebarContext.Consumer>
                     {
                         value => (
                             <Drawer
@@ -88,7 +88,7 @@ export default withRouter(withStyles(theme => ({
                             </Drawer>
                         )
                     }
-                </Sidebar.Consumer>
+                </SidebarContext.Consumer>
             </Hidden>
             <Hidden smDown>
                 <Drawer
