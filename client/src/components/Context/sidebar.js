@@ -3,9 +3,8 @@ import React, { Component, createContext } from 'react'
 const Context = createContext()
 
 class Provider extends Component {
-    state = { mobileOpen: false, display: false }
+    state = { mobileOpen: false, display: true }
     handleDisplayToggle = () => {
-        console.log('display', this.state.display)
         this.setState(state => ({ display: !state.display }))
     }
     handleDrawerToggle = () => {

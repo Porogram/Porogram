@@ -34,13 +34,13 @@ export default withStyles(theme => ({
             <Toolbar>
                 <SidebarContext.Consumer>
                     {
-                        value => {
-                            if (value.state.display)
+                        ({ state: { display }, handleDrawerToggle }) => {
+                            if (display)
                                 return (
                                     <IconButton
                                         color="inherit"
                                         aria-label="Open drawer"
-                                        onClick={value.handleDrawerToggle}
+                                        onClick={handleDrawerToggle}
                                         className={classes.navIconHide}
                                     >
                                         <Menu />
