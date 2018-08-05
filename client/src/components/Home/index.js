@@ -4,6 +4,7 @@ import axios from 'axios'
 import Search from './Search'
 import Matches from './Matches'
 import Sidebar from './sidebar'
+import { Failure } from '../Errors'
 
 export default class extends Component {
     constructor() {
@@ -45,10 +46,13 @@ export default class extends Component {
             summoner,
             positions,
             matchlist,
-            matches
+            matches,
+            error
         } = this.state
         if (!searched) return <Search getSummonerData={this.getSummonerData} />
         if (!fetchedData) return <CircularProgress />
+        if ('message' in error) return <Failure error={error} />
+        else if ('message' in summoner) return <Failure error={summoner} />
         return (
             <Fragment>
                 <Sidebar
