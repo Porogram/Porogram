@@ -50,7 +50,7 @@ export default withStyles(theme => ({
     const champion = Object.values(champions).find(champion =>
         matchlist.matches[0].champion === parseInt(champion.key, 10)).id
     // console.log('champion', champion)
-    let background = {backgroundImage: `url(${baseUrl}cdn/img/champion/splash/${champion}_0.jpg)`}
+    const background = {backgroundImage: `url(${baseUrl}cdn/img/champion/splash/${champion}_0.jpg)`}
     return (
         <div className={classes.main} style={background}>
             {name && <Typography variant='display3' align='center' className={classes.summonerName}>{name}</Typography>}
