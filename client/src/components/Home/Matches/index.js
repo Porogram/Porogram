@@ -8,6 +8,11 @@ import { Failure } from '../../Errors'
 import { StaticData } from '../../Context'
 
 export default withStyles(theme => ({
+    main: {
+        [theme.breakpoints.up('md')]: {
+            marginLeft: 240
+        }
+    },
     title: {
         margin: '30px 0',
         textAlign: 'center'
@@ -65,7 +70,7 @@ export default withStyles(theme => ({
         )))
         if ('message' in error) return <Failure error={error} />
         return (
-            <Fragment>
+            <div className={classes.main}>
                 <Typography variant="display2" className={classes.title}>
                     Matches
                 </Typography>
@@ -78,7 +83,7 @@ export default withStyles(theme => ({
                 >
                     {items}
                 </InfiniteScroll>
-            </Fragment>
+            </div>
         )
     }
 })

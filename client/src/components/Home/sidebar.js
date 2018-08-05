@@ -38,7 +38,6 @@ export default withRouter(withStyles(theme => ({
     classes,
     positions: { tier, rank },
     summoner: { name, profileIconId },
-    version,
     location: { pathname }
 }) => {
     const drawer = (
@@ -52,7 +51,7 @@ export default withRouter(withStyles(theme => ({
                         <div className={classes.sidebar}>
                             <div className={classes.profile}>
                                 {name && <Typography variant='display1'>{name}</Typography>}
-                                {version && profileIconId && (
+                                {profileIconId && (
                                     <Avatar
                                         src={`http://ddragon.leagueoflegends.com/cdn/${value.state.version}/img/profileicon/${profileIconId}.png`}
                                         alt=""
@@ -65,19 +64,6 @@ export default withRouter(withStyles(theme => ({
                                     </Typography>
                                 )}
                             </div>
-                            <Divider />
-                            <ListItem button component={Link} to={`/${name}/summary`}>
-                                <ListItemText
-                                    primary="Summary"
-                                    classes={{ primary: classes.listText }}
-                                />
-                            </ListItem>
-                            <ListItem button component={Link} to={`/${name}/matches`}>
-                                <ListItemText
-                                    primary="Matches"
-                                    classes={{ primary: classes.listText }}
-                                />
-                            </ListItem>
                         </div>
                     </Fragment>
                 )
