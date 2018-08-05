@@ -52,7 +52,6 @@ export default withStyles(theme => ({
                 <Typography variant="title" color="inherit" noWrap>
                     POROGRAM
                 </Typography>
-                <Sidebar
             </Toolbar>
         </AppBar>
     )
