@@ -21,7 +21,7 @@ export default class extends Component {
     render() {
         const { summonerName, toSummoner, invalidInput } = this.state
         if (toSummoner)
-            return <Redirect push to={`/summoner/${summonerName}/summary`} />
+            return <Redirect push to={`/${summonerName}/summary`} />
         return (
             <Fragment>
                 <SearchBar

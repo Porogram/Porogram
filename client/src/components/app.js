@@ -12,7 +12,7 @@ export default () => {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route
-                        path="/summoner/:summonerName"
+                        path="/:summonerName"
                         render={props =>
                             <Summoner
                                 {...props}

@@ -32,7 +32,7 @@ export default withRouter(withStyles(theme => ({
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                {pathname.includes('/summoner') && (
+                {pathname.includes('/:summonerName') && (
                     <Sidebar.Consumer>
                         {
                             value => (

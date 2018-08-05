@@ -63,13 +63,13 @@ export default withRouter(withStyles(theme => ({
                     )}
                 </div>
                 <Divider />
-                <ListItem button component={Link} to={`/summoner/${name}/summary`}>
+                <ListItem button component={Link} to={`/${name}/summary`}>
                     <ListItemText
                         primary="Summary"
                         classes={{ primary: classes.listText }}
                     />
                 </ListItem>
-                <ListItem button component={Link} to={`/summoner/${name}/matches`}>
+                <ListItem button component={Link} to={`/${name}/matches`}>
                     <ListItemText
                         primary="Matches"
                         classes={{ primary: classes.listText }}
