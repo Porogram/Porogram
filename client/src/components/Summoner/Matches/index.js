@@ -54,7 +54,7 @@ export default withStyles(theme => ({
         })
     }
     render() {
-        const { classes, summoner, staticData } = this.props
+        const { classes, summoner, staticData, positions } = this.props
         const { matches, moreItems, error } = this.state
         const items = []
         matches.forEach(match => items.push((
@@ -63,6 +63,7 @@ export default withStyles(theme => ({
                 match={match}
                 summoner={summoner}
                 staticData={staticData}
+                positions={positions}
             />
         )))
         if ('message' in error) return <Failure error={error} />

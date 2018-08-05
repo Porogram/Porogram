@@ -126,6 +126,7 @@ export default class extends Component {
                                 matchlist={matchlist}
                                 matches={matches}
                                 staticData={staticData}
+                                positions={positions}
                             />
                         }
                     />

@@ -4,10 +4,16 @@ import {
     ExpansionPanel,
     ExpansionPanelSummary,
     ExpansionPanelDetails,
-    Divider
+    Divider,
+    Card,
+    CardHeader,
+    CardMedia,
+    CardContent,
+    CardActions
 } from '@material-ui/core'
 import Summary from './summary'
 import Details from './details'
+import Header from './header'
 
 export default class extends Component {
     constructor(props) {
@@ -54,31 +60,42 @@ export default class extends Component {
     render() {
         const {
             match: { participants, participantIdentities, summonerIndex },
-            staticData: { version }
+            staticData: { version },
+            summoner,
+            positions
         } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
             return <Redirect push to={`/summoner/${newSummoner}/summary`} />
         if (!updatedMatch) return null
         return (
-            <ExpansionPanel style={participants[summonerIndex].stats.win ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>
-                <ExpansionPanelSummary>
-                    <Summary
-                        participants={participants}
-                        summonerIndex={summonerIndex}
-                        version={version}
-                    />
-                </ExpansionPanelSummary>
+            <Card style={participants[summonerIndex].stats.win ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>
+                <Header
+                    version={version}
+                    summoner={summoner}
+                    positions={positions}
+                />
                 <Divider />
-                <ExpansionPanelDetails>
-                    <Details
-                        participants={participants}
-                        participantIdentities={participantIdentities}
-                        version={version}
-                        getSummoner={this.getSummoner}
-                    />
-                </ExpansionPanelDetails>
-            </ExpansionPanel>
+                <CardMedia
+                    image="/static/images/cards/paella.jpg"
+                    title="Contemplative Reptile"
+                />
+            </Card>
         )
     }
 }
+// <Summary
+//     participants={participants}
+//     summonerIndex={summonerIndex}
+//     version={version}
+//     summoner={summoner}
+// />
+
+// <ExpansionPanelDetails>
+//     <Details
+//         participants={participants}
+//         participantIdentities={participantIdentities}
+//         version={version}
+//         getSummoner={this.getSummoner}
+//     />
+// </ExpansionPanelDetails>
