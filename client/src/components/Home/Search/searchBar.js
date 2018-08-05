@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
 import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
@@ -9,7 +8,6 @@ export default class extends Component {
         super(props)
         this.state = {
             summonerName: '',
-            // toSummoner: false,
             invalidInput: false
         }
     }
@@ -18,8 +16,6 @@ export default class extends Component {
             ? this.props.getSummonerData(this.state.summonerName)
             : this.setState({ invalidInput: true })
     }
-    // if (toSummoner)
-    //     return <Redirect push to={`/${summonerName}/summary`} />
     render() {
         const { summonerName, invalidInput } = this.state
         return (

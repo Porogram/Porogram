@@ -19,7 +19,6 @@ export default class extends Component {
         }
     }
     getSummonerData = summonerName => {
-        console.log('getSummonerData')
         this.setState({ searched: true })
         return axios.get(`/api/search/${summonerName}`)
             .then(res =>

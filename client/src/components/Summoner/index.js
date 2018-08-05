@@ -1,9 +1,7 @@
-import React, { Component, Fragment } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React, { Component } from 'react'
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import Summary from './Summary'
-import Matches from './Matches'
 import { Failure } from '../Errors'
 
 export default class extends Component {
@@ -89,7 +87,6 @@ export default class extends Component {
             items,
             error
         } = this.state
-        const { path } = this.props.match
         const staticData = { version, champions, summonerSpells, runes, items }
         if (!fetchedData) return <CircularProgress />
         if ('message' in error) return <Failure error={error} />

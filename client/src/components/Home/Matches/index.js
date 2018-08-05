@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
@@ -51,7 +51,7 @@ export default withStyles(theme => ({
         })
     }
     render() {
-        const { classes, summoner, staticData } = this.props
+        const { classes, summoner } = this.props
         const { matches, moreItems, error } = this.state
         const items = []
         matches.forEach(match => items.push((

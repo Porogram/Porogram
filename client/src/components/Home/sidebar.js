@@ -1,13 +1,10 @@
 import React, { Fragment } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { Sidebar, StaticData } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Drawer,
-    Divider,
     Avatar,
-    ListItem,
-    ListItemText,
     Typography,
     Hidden
 } from '@material-ui/core'
