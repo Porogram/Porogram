@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
-import Sidebar from './sidebar'
 import Summary from './Summary'
 import Matches from './Matches'
 import { Failure } from '../Errors'
@@ -96,41 +95,14 @@ export default class extends Component {
         if ('message' in error) return <Failure error={error} />
         else if ('message' in summoner) return <Failure error={summoner} />
         return (
-            <Fragment>
-                <Sidebar
-                    summoner={summoner}
-                    positions={positions}
-                    version={version}
-                />
-                <Switch>
-                    <Route
-                        path={`${path}/summary`}
-                        render={props =>
-                            <Summary
-                                {...props}
-                                summoner={summoner}
-                                positions={positions}
-                                championMasteries={championMasteries}
-                                matchlist={matchlist}
-                                matches={matches}
-                                staticData={staticData}
-                            />
-                        }
-                    />
-                    <Route
-                        path={`${path}/matches`}
-                        render={props =>
-                            <Matches
-                                {...props}
-                                summoner={summoner}
-                                matchlist={matchlist}
-                                matches={matches}
-                                staticData={staticData}
-                            />
-                        }
-                    />
-                </Switch>
-            </Fragment>
+            <Summary
+                summoner={summoner}
+                positions={positions}
+                championMasteries={championMasteries}
+                matchlist={matchlist}
+                matches={matches}
+                staticData={staticData}
+            />
         )
     }
 }

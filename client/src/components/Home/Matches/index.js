@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
@@ -8,15 +8,6 @@ import { Failure } from '../../Errors'
 import { StaticData } from '../../Context'
 
 export default withStyles(theme => ({
-    // main: {
-    //     marginRight: 60,
-    //     [theme.breakpoints.down('sm')]: {
-    //         marginLeft: 60
-    //     },
-    //     [theme.breakpoints.up('md')]: {
-    //         marginLeft: 300
-    //     }
-    // },
     title: {
         margin: '30px 0',
         textAlign: 'center'
@@ -74,7 +65,7 @@ export default withStyles(theme => ({
         )))
         if ('message' in error) return <Failure error={error} />
         return (
-            <div className={classes.main}>
+            <Fragment>
                 <Typography variant="display2" className={classes.title}>
                     Matches
                 </Typography>
@@ -87,7 +78,7 @@ export default withStyles(theme => ({
                 >
                     {items}
                 </InfiniteScroll>
-            </div>
+            </Fragment>
         )
     }
 })

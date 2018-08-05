@@ -33,6 +33,11 @@ export default class extends Component {
                 })
             )
     }
+    // <Sidebar
+    //     summoner={summoner}
+    //     positions={positions}
+    //     version={version}
+    // />
     render() {
         const {
             searched,

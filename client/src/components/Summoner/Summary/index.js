@@ -4,9 +4,6 @@ import { Avatar, Typography, Paper } from '@material-ui/core'
 
 export default withStyles(theme => ({
     main: {
-        [theme.breakpoints.up('md')]: {
-            marginLeft: 240
-        },
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: '80vh',
