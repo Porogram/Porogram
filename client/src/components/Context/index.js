@@ -1,3 +1,4 @@
 import Sidebar from './sidebar'
+import StaticData from './staticData'
 
-export { Sidebar }
+export { Sidebar, StaticData }
