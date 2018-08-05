@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
     AppBar,
@@ -11,7 +11,7 @@ import { Menu } from '@material-ui/icons'
 import { Sidebar } from '../Context'
 import logo from '../../images/poro.png'
 
-export default withRouter(withStyles(theme => ({
+export default withStyles(theme => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1
     },
@@ -28,7 +28,7 @@ export default withRouter(withStyles(theme => ({
             display: 'none'
         }
     }
-}))(({ classes, location: { pathname } }) => {
+}))(({ classes }) => {
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -52,7 +52,8 @@ export default withRouter(withStyles(theme => ({
                 <Typography variant="title" color="inherit" noWrap>
                     POROGRAM
                 </Typography>
+                <Sidebar
             </Toolbar>
         </AppBar>
     )
-}))
+})
