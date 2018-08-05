@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Sidebar } from '../Context'
+import { Sidebar, StaticData } from '../Context'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Drawer,
@@ -42,48 +42,54 @@ export default withRouter(withStyles(theme => ({
     location: { pathname }
 }) => {
     const drawer = (
-        <Fragment>
-            <Hidden smDown>
-                <div className={classes.toolbar} />
-            </Hidden>
-            <div className={classes.sidebar}>
-                <div className={classes.profile}>
-                    {name && <Typography variant='display1'>{name}</Typography>}
-                    {version && profileIconId && (
-                        <Avatar
-                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                            alt=""
-                            className={classes.Avatar}
-                        />
-                    )}
-                    {tier && rank && (
-                        <Typography variant='subheading'>
-                            {`${tier} ${rank}`}
-                        </Typography>
-                    )}
-                </div>
-                <Divider />
-                <ListItem button component={Link} to={`/${name}/summary`}>
-                    <ListItemText
-                        primary="Summary"
-                        classes={{ primary: classes.listText }}
-                    />
-                </ListItem>
-                <ListItem button component={Link} to={`/${name}/matches`}>
-                    <ListItemText
-                        primary="Matches"
-                        classes={{ primary: classes.listText }}
-                    />
-                </ListItem>
-            </div>
-        </Fragment>
-    )
-    return (
-        <Sidebar.Consumer>
+        <StaticData.Consumer>
             {
                 value => (
                     <Fragment>
-                        <Hidden mdUp>
+                        <Hidden smDown>
+                            <div className={classes.toolbar} />
+                        </Hidden>
+                        <div className={classes.sidebar}>
+                            <div className={classes.profile}>
+                                {name && <Typography variant='display1'>{name}</Typography>}
+                                {version && profileIconId && (
+                                    <Avatar
+                                        src={`http://ddragon.leagueoflegends.com/cdn/${value.state.version}/img/profileicon/${profileIconId}.png`}
+                                        alt=""
+                                        className={classes.Avatar}
+                                    />
+                                )}
+                                {tier && rank && (
+                                    <Typography variant='subheading'>
+                                        {`${tier} ${rank}`}
+                                    </Typography>
+                                )}
+                            </div>
+                            <Divider />
+                            <ListItem button component={Link} to={`/${name}/summary`}>
+                                <ListItemText
+                                    primary="Summary"
+                                    classes={{ primary: classes.listText }}
+                                />
+                            </ListItem>
+                            <ListItem button component={Link} to={`/${name}/matches`}>
+                                <ListItemText
+                                    primary="Matches"
+                                    classes={{ primary: classes.listText }}
+                                />
+                            </ListItem>
+                        </div>
+                    </Fragment>
+                )
+            }
+        </StaticData.Consumer>
+    )
+    return (
+        <Fragment>
+            <Hidden mdUp>
+                <Sidebar.Consumer>
+                    {
+                        value => (
                             <Drawer
                                 variant="temporary"
                                 open={value.state.mobileOpen}
@@ -97,21 +103,21 @@ export default withRouter(withStyles(theme => ({
                             >
                                 {drawer}
                             </Drawer>
-                        </Hidden>
-                        <Hidden smDown>
-                            <Drawer
-                                variant="permanent"
-                                open
-                                classes={{
-                                    paper: classes.drawerPaper
-                                }}
-                            >
-                                {drawer}
-                            </Drawer>
-                        </Hidden>
-                    </Fragment>
-                )
-            }
-        </Sidebar.Consumer>
+                        )
+                    }
+                </Sidebar.Consumer>
+            </Hidden>
+            <Hidden smDown>
+                <Drawer
+                    variant="permanent"
+                    open
+                    classes={{
+                        paper: classes.drawerPaper
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+            </Hidden>
+        </Fragment>
     )
 }))
