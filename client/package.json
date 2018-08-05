@@ -12,7 +12,6 @@
     "react-infinite-scroller": "^1.2.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
-    "unstated": "^2.1.1",
     "xregexp": "^4.2.0"
   },
   "scripts": {
@@ -23,5 +22,5 @@
     "server": "cd ../server && python3 app.py",
     "client-server": "npm start | npm run server"
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000"
 }

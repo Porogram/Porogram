@@ -78,11 +78,12 @@ jobs:
               Source branch: ${CIRCLE_BRANCH}
               CI: ${CIRCLE_BUILD_URL}"""
           when: on_fail
-  notifySuccess:
+  deploy:
     <<: *defaults
     steps:
       - checkout:
           path: ~/porogram
+      - run: ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
       - restore_cache:
           key: dependency-cache-{{ checksum "requirements.txt" }}
       - run:
@@ -95,6 +96,10 @@ jobs:
           key: dependency-cache-{{ checksum "requirements.txt" }}
           paths:
             - "venv"
+      - run:
+          name: deployment
+          command: |
+            ssh $DEPLOY_USER@$DEPLOY_HOST "cd ~/porogram; ./deploy"
       - run:
           name: ci master success notification testing
           command: |
@@ -112,7 +117,7 @@ workflows:
       - test:
           requires:
             - build
-      - notifySuccess:
+      - deploy:
           requires:
             - build
             - test
