@@ -17,11 +17,11 @@ export default withStyles(theme => ({
             width: 300
         }
     }
-}))(({ classes }) => {
+}))(({ classes, getSummonerData }) => {
     return (
         <div className={classes.main}>
             <div className={classes.search}>
-                <SearchBar />
+                <SearchBar getSummonerData={getSummonerData} />
             </div>
         </div>
     )

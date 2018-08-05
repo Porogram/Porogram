@@ -9,19 +9,19 @@ export default class extends Component {
         super(props)
         this.state = {
             summonerName: '',
-            toSummoner: false,
+            // toSummoner: false,
             invalidInput: false
         }
     }
     onSearch = () => {
         XRegExp('^[0-9\\p{L} _\\.]+$').test(this.state.summonerName)
-            ? this.setState({ toSummoner: true })
+            ? this.props.getSummonerData(this.state.summonerName)
             : this.setState({ invalidInput: true })
     }
+    // if (toSummoner)
+    //     return <Redirect push to={`/${summonerName}/summary`} />
     render() {
-        const { summonerName, toSummoner, invalidInput } = this.state
-        if (toSummoner)
-            return <Redirect push to={`/${summonerName}/summary`} />
+        const { summonerName, invalidInput } = this.state
         return (
             <Fragment>
                 <SearchBar
