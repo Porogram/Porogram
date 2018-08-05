@@ -14,9 +14,9 @@ export default class extends Component {
         }
     }
     onSearch = () => {
-        XRegExp('^[0-9\\p{L} _\\.]+$').test(this.state.summonerName) ?
-            this.setState({ toSummoner: true }) :
-            this.setState({ invalidInput: true })
+        XRegExp('^[0-9\\p{L} _\\.]+$').test(this.state.summonerName)
+            ? this.setState({ toSummoner: true })
+            : this.setState({ invalidInput: true })
     }
     render() {
         const { summonerName, toSummoner, invalidInput } = this.state
