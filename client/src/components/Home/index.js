@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress, Grid } from '@material-ui/core'
 import axios from 'axios'
 import Search from './Search'
-import Matches from './Matches'
 import Sidebar from './sidebar'
+import Matches from './Matches'
 import { Failure } from '../Errors'
 
 export default class extends Component {
@@ -50,9 +50,21 @@ export default class extends Component {
             error
         } = this.state
         if (!searched) return <Search getSummonerData={this.getSummonerData} />
-        if (!fetchedData) return <CircularProgress />
-        if ('message' in error) return <Failure error={error} />
-        else if ('message' in summoner) return <Failure error={summoner} />
+        if (!fetchedData) return (
+            <Grid
+                container
+                alignItems="center"
+                justify="center"
+                style={{ height: '80vh' }}
+            >
+                <CircularProgress />
+            </Grid>
+        )
+        if ('message' in summoner) return <Failure error={summoner} />
+        else if ('message' in positions) return <Failure error={positions} />
+        else if ('message' in matchlist) return <Failure error={matchlist} />
+        else if ('message' in matches) return <Failure error={matches} />
+        else if ('message' in error) return <Failure error={error} />
         return (
             <Fragment>
                 <Sidebar

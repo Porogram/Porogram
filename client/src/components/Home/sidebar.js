@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Drawer,
@@ -9,33 +8,27 @@ import {
 } from '@material-ui/core'
 import { SidebarContext, StaticDataContext } from '../Context'
 
-export default withRouter(withStyles(theme => ({
+export default withStyles(theme => ({
     Avatar: {
-        width: 100,
-        height: 100,
-        margin: '10px auto'
+        width: theme.spacing.unit * 12,
+        height: theme.spacing.unit * 12,
+        margin: `${theme.spacing.unit}px auto`
     },
-    listText: {
-        fontSize: 22,
-        fontWeight: 300
-    },
-    sidebar: {
-        textAlign: 'center',
-        fontFamily: 'Lato'
+    drawerPaper: {
+        width: theme.spacing.unit * 30
     },
     profile: {
-        marginBottom: 25,
-        marginTop: 15
+        marginTop: theme.spacing.unit * 2,
+        marginBottom: theme.spacing.unit * 3
     },
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-        width: 240
-    }
+    sidebar: {
+        textAlign: 'center'
+    },
+    toolbar: theme.mixins.toolbar
 }))(({
     classes,
     positions: { tier, rank },
-    summoner: { name, profileIconId },
-    location: { pathname }
+    summoner: { name, profileIconId }
 }) => {
     const drawer = (
         <StaticDataContext.Consumer>
@@ -103,4 +96,4 @@ export default withRouter(withStyles(theme => ({
             </Hidden>
         </Fragment>
     )
-}))
+})
