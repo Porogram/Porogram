@@ -14,6 +14,7 @@ import {
 import Summary from './summary'
 import Details from './details'
 import Header from './header'
+import Media from './media'
 
 export default class extends Component {
     constructor(props) {
@@ -60,25 +61,35 @@ export default class extends Component {
     render() {
         const {
             match: { participants, participantIdentities, summonerIndex },
-            staticData: { version },
+            staticData: { version, champions },
             summoner,
-            positions
+            positions,
+            matchlist
         } = this.props
         const { newSummoner, updatedMatch } = this.state
+        const baseUrl = 'https://ddragon.leagueoflegends.com/'
         if (newSummoner.length)
             return <Redirect push to={`/summoner/${newSummoner}/summary`} />
         if (!updatedMatch) return null
         return (
-            <Card style={participants[summonerIndex].stats.win ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>
+            <Card
+                style={participants[summonerIndex].stats.win ?
+                    {'backgroundColor': '#0A7FD9', 'marginBottom': '50px'}:
+                    {'backgroundColor': '#B63015', 'marginBottom': '50px'}}
+            >
                 <Header
                     version={version}
                     summoner={summoner}
                     positions={positions}
                 />
                 <Divider />
-                <CardMedia
-                    image="/static/images/cards/paella.jpg"
-                    title="Contemplative Reptile"
+                <Media
+                    version={version}
+                    champions={champions}
+                    matchlist={matchlist}
+                    summonerIndex={summonerIndex}
+                    participants={participants}
+
                 />
             </Card>
         )

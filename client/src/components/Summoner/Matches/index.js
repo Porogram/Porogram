@@ -10,16 +10,19 @@ export default withStyles(theme => ({
     main: {
         marginRight: 60,
         [theme.breakpoints.down('sm')]: {
-            marginLeft: 60
+            marginLeft: 60,
+            padding: 50
         },
         [theme.breakpoints.up('md')]: {
-            marginLeft: 300
-        }
+            marginLeft: 300,
+            padding: 50
+
+        },
     },
     title: {
         margin: '30px 0',
         textAlign: 'center'
-    }
+    },
 }))(class extends Component {
     constructor(props) {
         super(props)
@@ -55,8 +58,9 @@ export default withStyles(theme => ({
     }
     render() {
         const { classes, summoner, staticData, positions } = this.props
-        const { matches, moreItems, error } = this.state
+        const { matches, moreItems, error, matchlist } = this.state
         const items = []
+        console.log("matches", matches)
         matches.forEach(match => items.push((
             <Match
                 key={match.gameId}
@@ -64,6 +68,7 @@ export default withStyles(theme => ({
                 summoner={summoner}
                 staticData={staticData}
                 positions={positions}
+                matchlist={matchlist}
             />
         )))
         if ('message' in error) return <Failure error={error} />
