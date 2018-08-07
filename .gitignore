@@ -5,7 +5,7 @@
 /server/__pycache__
 /server/node_modules
 /server/package-lock.json
-
+/server/venv
 /server/.env
 
 # dependencies
