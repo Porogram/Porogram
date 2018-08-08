@@ -5,6 +5,7 @@ import Search from './Search'
 import Sidebar from './Sidebar'
 import Matches from './Matches'
 import { Failure } from '../Errors'
+import { SummonerDataContext } from '../Context'
 
 export default class extends Component {
     constructor() {
@@ -79,14 +80,20 @@ export default class extends Component {
         // else if ('message' in matches) return <Failure error={matches} />
         // else if ('message' in error) return <Failure error={error} />
         return (
-            <Fragment>
-                <Sidebar />
-                <Matches
-                    summoner={summoner}
-                    matchlist={matchlist}
-                    matches={matches}
-                />
-            </Fragment>
+            <SummonerDataContext.Consumer>
+                {
+                    ({ state: { summoner, matchlist, matches } }) => (
+                        <Fragment>
+                            <Sidebar />
+                            <Matches
+                                summoner={summoner}
+                                matchlist={matchlist}
+                                matches={matches}
+                            />
+                        </Fragment>
+                    )
+                }
+            </SummonerDataContext.Consumer>
         )
     }
 }

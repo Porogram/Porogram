@@ -1,7 +1,11 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
-import { SidebarContext, StaticDataContext, SummonerDataContext } from '../Context'
+import {
+    SidebarContext,
+    StaticDataContext,
+    SummonerDataContext
+} from '../Context'
 import Navbar from './navbar'
 
 export default withStyles(theme => ({

@@ -5,6 +5,8 @@ const Context = createContext()
 
 class Provider extends Component {
     state = {
+        searched: false,
+        fetchedData: false,
         summoner: {},
         positions: {},
         championMasteries: {},
@@ -13,9 +15,11 @@ class Provider extends Component {
         error: {}
     }
     getSummonerData = summonerName => {
+        this.setState({ searched: true })
         return axios.get(`/api/search/${summonerName}`)
             .then(res =>
                 this.setState({
+                    fetchedData: true,
                     summoner: 'summoner' in res.data && res.data.summoner,
                     positions:
                         'positions' in res.data &&
