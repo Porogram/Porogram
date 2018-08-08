@@ -13,8 +13,9 @@ class Provider extends Component {
         error: {}
     }
     getSummonerData = summonerName => {
-        return axios.get(`/api/search/${this.props.match.params.summonerName}`)
-            .then(res =>
+        console.log('getSummonerData')
+        return axios.get(`/api/search/${summonerName}`)
+            .then(res => 
                 this.setState({
                     summoner: 'summoner' in res.data && res.data.summoner,
                     positions:
@@ -39,6 +40,7 @@ class Provider extends Component {
             <Context.Provider
                 value={{
                     state: this.state,
+                    getSummonerData: this.getSummonerData
                 }}
             >
                 {children}

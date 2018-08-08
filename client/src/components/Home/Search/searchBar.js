@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
+import { SummonerDataContext } from '../../Context'
 
 export default class extends Component {
     constructor(props) {
@@ -11,22 +12,38 @@ export default class extends Component {
             invalidInput: false
         }
     }
-    onSearch = () => {
-        XRegExp('^[0-9\\p{L} _\\.]+$').test(this.state.summonerName)
-            ? this.props.getSummonerData(this.state.summonerName)
+    onSearch = getSummonerData => {
+        const { handleSearched, handleFetchedData } = this.props
+        const { summonerName } = this.state
+        handleSearched()
+        XRegExp('^[0-9\\p{L} _\\.]+$').test(summonerName)
+            ? getSummonerData(summonerName)
+                .then(() => handleFetchedData())
             : this.setState({ invalidInput: true })
     }
     render() {
         const { summonerName, invalidInput } = this.state
         return (
-            <Fragment>
-                <SearchBar
-                    value={summonerName}
-                    onChange={value => this.setState({ summonerName: value })}
-                    onRequestSearch={this.onSearch}
-                />
-                {invalidInput && <FormHelperText>Invalid input</FormHelperText>}
-            </Fragment>
+            <SummonerDataContext.Consumer>
+                {
+                    ({ getSummonerData }) => (
+                        <Fragment>
+                            <SearchBar
+                                value={summonerName}
+                                onChange={value =>
+                                    this.setState({ summonerName: value })
+                                }
+                                onRequestSearch={() =>
+                                    this.onSearch(getSummonerData)
+                                }
+                            />
+                            {invalidInput && (
+                                <FormHelperText>Invalid input</FormHelperText>)
+                            }
+                        </Fragment>
+                    )
+                }
+            </SummonerDataContext.Consumer>
         )
     }
 }

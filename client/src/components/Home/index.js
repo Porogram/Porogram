@@ -39,6 +39,12 @@ export default class extends Component {
                 })
             )
     }
+    handleSearched = () => {
+        this.setState({ searched: true })
+    }
+    handleFetchedData = () => {
+        this.setState({ fetchedData: true })
+    }
     render() {
         const {
             searched,
@@ -49,17 +55,24 @@ export default class extends Component {
             matches,
             error
         } = this.state
-        if (!searched) return <Search getSummonerData={this.getSummonerData} />
-        if (!fetchedData) return (
-            <Grid
-                container
-                alignItems="center"
-                justify="center"
-                style={{ height: '80vh' }}
-            >
-                <CircularProgress />
-            </Grid>
-        )
+        if (!searched)
+            return (
+                <Search
+                    handleSearched={this.handleSearched}
+                    handleFetchedData={this.handleFetchedData}
+                />
+            )
+        if (!fetchedData)
+            return (
+                <Grid
+                    container
+                    alignItems="center"
+                    justify="center"
+                    style={{ height: '80vh' }}
+                >
+                    <CircularProgress />
+                </Grid>
+            )
         if ('message' in summoner) return <Failure error={summoner} />
         else if ('message' in positions) return <Failure error={positions} />
         else if ('message' in matchlist) return <Failure error={matchlist} />
