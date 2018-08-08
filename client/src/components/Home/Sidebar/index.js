@@ -6,7 +6,11 @@ import {
     Typography,
     Hidden
 } from '@material-ui/core'
-import { SidebarContext, StaticDataContext } from '../Context'
+import {
+    SidebarContext,
+    StaticDataContext,
+    SummonerDataContext
+} from '../../Context'
 
 export default withStyles(theme => ({
     Avatar: {
@@ -27,13 +31,16 @@ export default withStyles(theme => ({
     toolbar: theme.mixins.toolbar
 }))(({
     classes,
-    positions: { tier, rank },
-    summoner: { name, profileIconId }
+    // positions: { tier, rank },
+    // summoner: { name, profileIconId }
 }) => {
     const drawer = (
-        <StaticDataContext.Consumer>
+        <SummonerDataContext.Consumer>
             {
-                value => (
+                ({
+                    state: { positions: { tier, rank },
+                    summoner: { name, profileIconId } }
+                }) => (
                     <Fragment>
                         <Hidden smDown>
                             <div className={classes.toolbar} />
@@ -41,13 +48,17 @@ export default withStyles(theme => ({
                         <div className={classes.sidebar}>
                             <div className={classes.profile}>
                                 {name && <Typography variant='display1'>{name}</Typography>}
-                                {profileIconId && (
-                                    <Avatar
-                                        src={`http://ddragon.leagueoflegends.com/cdn/${value.state.version}/img/profileicon/${profileIconId}.png`}
-                                        alt=""
-                                        className={classes.Avatar}
-                                    />
-                                )}
+                                <StaticDataContext.Consumer>
+                                    {
+                                        ({ state: { version } }) => (
+                                            <Avatar
+                                                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                                                alt=""
+                                                className={classes.Avatar}
+                                            />
+                                        )
+                                    }
+                                </StaticDataContext.Consumer>
                                 {tier && rank && (
                                     <Typography variant='subheading'>
                                         {`${tier} ${rank}`}
@@ -58,7 +69,7 @@ export default withStyles(theme => ({
                     </Fragment>
                 )
             }
-        </StaticDataContext.Consumer>
+        </SummonerDataContext.Consumer>
     )
     return (
         <Fragment>

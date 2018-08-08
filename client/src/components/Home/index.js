@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { CircularProgress, Grid } from '@material-ui/core'
 import axios from 'axios'
 import Search from './Search'
-import Sidebar from './sidebar'
+import Sidebar from './Sidebar'
 import Matches from './Matches'
 import { Failure } from '../Errors'
 
@@ -73,17 +73,14 @@ export default class extends Component {
                     <CircularProgress />
                 </Grid>
             )
-        if ('message' in summoner) return <Failure error={summoner} />
-        else if ('message' in positions) return <Failure error={positions} />
-        else if ('message' in matchlist) return <Failure error={matchlist} />
-        else if ('message' in matches) return <Failure error={matches} />
-        else if ('message' in error) return <Failure error={error} />
+        // if ('message' in summoner) return <Failure error={summoner} />
+        // else if ('message' in positions) return <Failure error={positions} />
+        // else if ('message' in matchlist) return <Failure error={matchlist} />
+        // else if ('message' in matches) return <Failure error={matches} />
+        // else if ('message' in error) return <Failure error={error} />
         return (
             <Fragment>
-                <Sidebar
-                    summoner={summoner}
-                    positions={positions}
-                />
+                <Sidebar />
                 <Matches
                     summoner={summoner}
                     matchlist={matchlist}

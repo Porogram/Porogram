@@ -13,9 +13,8 @@ class Provider extends Component {
         error: {}
     }
     getSummonerData = summonerName => {
-        console.log('getSummonerData')
         return axios.get(`/api/search/${summonerName}`)
-            .then(res => 
+            .then(res =>
                 this.setState({
                     summoner: 'summoner' in res.data && res.data.summoner,
                     positions:
