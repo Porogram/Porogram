@@ -1,13 +1,11 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 import SearchBar from './searchBar'
 
 export default withStyles(theme => ({
-    main: {
-        height: '90vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+    grid: {
+        height: '90vh'
     },
     search: {
         [theme.breakpoints.up('md')]: {
@@ -18,9 +16,14 @@ export default withStyles(theme => ({
         }
     }
 }))(({ classes }) => (
-    <div className={classes.main}>
+    <Grid
+        container
+        alignItems="center"
+        justify="center"
+        className={classes.grid}
+    >
         <div className={classes.search}>
             <SearchBar />
         </div>
-    </div>
+    </Grid>
 ))

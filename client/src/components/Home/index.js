@@ -11,12 +11,7 @@ export default () => (
             state: { searched, fetchedData, summoner, matchlist, matches }
         }) => (
             <Fragment>
-                {!searched && (
-                    <Search
-                        handleSearched={this.handleSearched}
-                        handleFetchedData={this.handleFetchedData}
-                    />
-                )}
+                {!searched && <Search />}
                 {!fetchedData && (
                     <Grid
                         container
