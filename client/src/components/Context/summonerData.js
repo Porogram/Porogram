@@ -16,7 +16,7 @@ class Provider extends Component {
     }
     getSummonerData = summonerName => {
         this.setState({ searched: true })
-        axios.get(`/api/search/${summonerName}`)
+        return axios.get(`/api/search/${summonerName}`)
             .then(res =>
                 this.setState({
                     fetchedData: true,

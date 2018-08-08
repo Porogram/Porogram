@@ -27,9 +27,9 @@ export default withStyles(theme => ({
     <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
             <SidebarContext.Consumer>
-                {({ state: { display }, handleDrawerToggle }) => (
+                {({ state: { displayIcon }, handleDrawerToggle }) => (
                     <Fragment>
-                        {display && (
+                        {displayIcon && (
                             <IconButton
                                 color="inherit"
                                 aria-label="Open drawer"

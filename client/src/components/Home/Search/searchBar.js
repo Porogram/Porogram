@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
-import { SummonerDataContext } from '../../Context'
+import { SidebarContext, SummonerDataContext } from '../../Context'
 
 export default class extends Component {
     constructor(props) {
@@ -12,10 +12,10 @@ export default class extends Component {
             invalidInput: false
         }
     }
-    onSearch = getSummonerData => {
+    onSearch = (getSummonerData, handleDisplayIconToggle) => {
         const { summonerName } = this.state
         XRegExp('^[0-9\\p{L} _\\.]+$').test(summonerName)
-            ? getSummonerData(summonerName)
+            ? getSummonerData(summonerName).then(() => handleDisplayIconToggle())
             : this.setState({ invalidInput: true })
     }
     render() {
@@ -23,20 +23,26 @@ export default class extends Component {
         return (
             <SummonerDataContext.Consumer>
                 {({ getSummonerData }) => (
-                    <Fragment>
-                        <SearchBar
-                            value={summonerName}
-                            onChange={value =>
-                                this.setState({ summonerName: value })
-                            }
-                            onRequestSearch={() =>
-                                this.onSearch(getSummonerData)
-                            }
-                        />
-                        {invalidInput && (
-                            <FormHelperText>Invalid input</FormHelperText>)
-                        }
-                    </Fragment>
+                    <SidebarContext.Consumer>
+                        {({ handleDisplayIconToggle }) => (
+                            <Fragment>
+                                <SearchBar
+                                    value={summonerName}
+                                    onChange={value =>
+                                        this.setState({ summonerName: value })
+                                    }
+                                    onRequestSearch={() =>
+                                        this.onSearch(getSummonerData, handleDisplayIconToggle)
+                                    }
+                                />
+                                {invalidInput && (
+                                    <FormHelperText>
+                                        Invalid input
+                                    </FormHelperText>
+                                )}
+                            </Fragment>
+                        )}
+                    </SidebarContext.Consumer>
                 )}
             </SummonerDataContext.Consumer>
         )
