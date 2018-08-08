@@ -30,7 +30,8 @@ class Provider extends Component {
                     champions: champions.data.data,
                     summonerSpells: summonerSpells.data.data,
                     runes: runes.data,
-                    items: items.data.data
+                    items: items.data.data,
+                    baseUrl: BASEURL
                 })
             ).catch(error => console.log(error))
     }
