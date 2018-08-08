@@ -3,10 +3,7 @@ import React, { Component, createContext } from 'react'
 const Context = createContext()
 
 class Provider extends Component {
-    state = { mobileOpen: false, displayIcon: false }
-    handleDisplayIconToggle = () => {
-        this.setState(state => ({ displayIcon: !state.displayIcon }))
-    }
+    state = { mobileOpen: false }
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }))
     }
@@ -16,7 +13,6 @@ class Provider extends Component {
             <Context.Provider
                 value={{
                     state: this.state,
-                    handleDisplayIconToggle: this.handleDisplayIconToggle,
                     handleDrawerToggle: this.handleDrawerToggle
                 }}
             >

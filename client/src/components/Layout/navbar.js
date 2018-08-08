@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
-import { SidebarContext } from '../Context'
+import { SidebarContext, SummonerDataContext } from '../Context'
 import logo from '../../images/poro.png'
 
 export default withStyles(theme => ({
@@ -26,22 +26,26 @@ export default withStyles(theme => ({
 }))(({ classes }) => (
     <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-            <SidebarContext.Consumer>
-                {({ state: { displayIcon }, handleDrawerToggle }) => (
-                    <Fragment>
-                        {displayIcon && (
-                            <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
-                                onClick={handleDrawerToggle}
-                                className={classes.navIconHide}
-                            >
-                                <Menu />
-                            </IconButton>
+            <SummonerDataContext.Consumer>
+                {({ state: { fetchedData } }) => (
+                    <SidebarContext.Consumer>
+                        {({ handleDrawerToggle }) => (
+                            <Fragment>
+                                {fetchedData && (
+                                    <IconButton
+                                        color="inherit"
+                                        aria-label="Open drawer"
+                                        onClick={handleDrawerToggle}
+                                        className={classes.navIconHide}
+                                    >
+                                        <Menu />
+                                    </IconButton>
+                                )}
+                            </Fragment>
                         )}
-                    </Fragment>
+                    </SidebarContext.Consumer>
                 )}
-            </SidebarContext.Consumer>
+            </SummonerDataContext.Consumer>
             <Link to="/" className={classes.logo}>
                 <img src={logo} alt="" className={classes.img} />
             </Link>
