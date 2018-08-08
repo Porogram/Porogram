@@ -13,19 +13,17 @@ export default withStyles(theme => ({
         backgroundColor: theme.palette.background.default
     },
     toolbar: theme.mixins.toolbar
-}))(({ classes, children }) => {
-    return (
-        <StaticDataContext.Provider>
-            <SummonerDataContext.Provider>
-                <SidebarContext.Provider>
-                    <CssBaseline />
-                    <Navbar />
-                    <main className={classes.content}>
-                        <div className={classes.toolbar} />
-                        {children}
-                    </main>
-                </SidebarContext.Provider>
-            </SummonerDataContext.Provider>
-        </StaticDataContext.Provider>
-    )
-})
+}))(({ classes, children }) => (
+    <StaticDataContext.Provider>
+        <SummonerDataContext.Provider>
+            <SidebarContext.Provider>
+                <CssBaseline />
+                <Navbar />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    {children}
+                </main>
+            </SidebarContext.Provider>
+        </SummonerDataContext.Provider>
+    </StaticDataContext.Provider>
+))

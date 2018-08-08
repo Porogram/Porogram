@@ -24,23 +24,21 @@ export default withStyles(() => ({
     notFound: {
         margin: '10px auto'
     }
-}))(({ classes, error }) => {
-    return (
-        <div className={classes.error}>
-            <Typography variant="display4" className={classes.failure}>
-                ERROR
+}))(({ classes, error }) => (
+    <div className={classes.error}>
+        <Typography variant="display4" className={classes.failure}>
+            ERROR
+        </Typography>
+        {'status_code' in error && (
+            <Typography variant="subheading" className={classes.errorText}>
+                STATUS CODE: {error.status_code}
             </Typography>
-            {'status_code' in error && (
-                <Typography variant="subheading" className={classes.errorText}>
-                    STATUS CODE: {error.status_code}
-                </Typography>
-            )}
-            {'message' in error && (
-                <Typography variant="subheading" className={classes.errorText}>
-                    MESSAGE: {error.message}
-                </Typography>
-            )}
-            <img src={dogeImage} className={classes.doge} alt="" />
-        </div>
-    )
-})
+        )}
+        {'message' in error && (
+            <Typography variant="subheading" className={classes.errorText}>
+                MESSAGE: {error.message}
+            </Typography>
+        )}
+        <img src={dogeImage} className={classes.doge} alt="" />
+    </div>
+))

@@ -19,16 +19,14 @@ export default withStyles(() => ({
         letterSpacing: .3,
         transform: 'scaleY(1.2)'
     }
-}))(({ classes }) => {
-    return (
-        <div className={classes.error}>
-            <Typography variant="display4" className={classes.sorry}>
-                SORRY
-            </Typography>
-            <Typography variant="display1" className={classes.notFound}>
-                we could not find that page
-            </Typography>
-            <img src={dogeImage} className={classes.doge} alt="" />
-        </div>
-    )
-})
+}))(({ classes }) => (
+    <div className={classes.error}>
+        <Typography variant="display4" className={classes.sorry}>
+            SORRY
+        </Typography>
+        <Typography variant="display1" className={classes.notFound}>
+            we could not find that page
+        </Typography>
+        <img src={dogeImage} className={classes.doge} alt="" />
+    </div>
+))

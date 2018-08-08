@@ -7,7 +7,9 @@ import { SummonerDataContext } from '../Context'
 
 export default () => (
     <SummonerDataContext.Consumer>
-        {({ state: { searched, fetchedData, summoner, matchlist, matches } }) => (
+        {({
+            state: { searched, fetchedData, summoner, matchlist, matches }
+        }) => (
             <Fragment>
                 {!searched && (
                     <Search
