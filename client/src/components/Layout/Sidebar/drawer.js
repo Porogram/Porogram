@@ -34,7 +34,7 @@ export default withStyles(theme => ({
                         {name && <Typography variant='display1'>{name}</Typography>}
                         {profileIconId && (
                             <StaticDataContext.Consumer>
-                                {({ state: { baseUrl, version } }) => (
+                                {({ baseUrl, state: { version } }) => (
                                     <Avatar
                                         src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
                                         alt=""

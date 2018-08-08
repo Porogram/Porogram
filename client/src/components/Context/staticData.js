@@ -2,7 +2,6 @@ import React, { Component, createContext } from 'react'
 import axios from 'axios'
 
 const BASEURL = 'https://ddragon.leagueoflegends.com'
-
 const Context = createContext()
 
 class Provider extends Component {
@@ -30,8 +29,7 @@ class Provider extends Component {
                     champions: champions.data.data,
                     summonerSpells: summonerSpells.data.data,
                     runes: runes.data,
-                    items: items.data.data,
-                    baseUrl: BASEURL
+                    items: items.data.data
                 })
             ).catch(error => console.log(error))
     }
@@ -40,7 +38,8 @@ class Provider extends Component {
         return (
             <Context.Provider
                 value={{
-                    state: this.state,
+                    baseUrl: BASEURL,
+                    state: this.state
                 }}
             >
                 {children}
