@@ -17,14 +17,11 @@ export default withStyles(theme => ({
             width: 300
         }
     }
-}))(({ classes, handleSearched, handleFetchedData }) => {
+}))(({ classes }) => {
     return (
         <div className={classes.main}>
             <div className={classes.search}>
-                <SearchBar
-                    handleSearched={handleSearched}
-                    handleFetchedData={handleFetchedData}
-                />
+                <SearchBar />
             </div>
         </div>
     )
