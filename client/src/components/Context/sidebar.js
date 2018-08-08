@@ -5,7 +5,6 @@ const Context = createContext()
 class Provider extends Component {
     state = { mobileOpen: false, displayIcon: false }
     handleDisplayIconToggle = () => {
-        console.log('handleDisplayIconToggle')
         this.setState(state => ({ displayIcon: !state.displayIcon }))
     }
     handleDrawerToggle = () => {

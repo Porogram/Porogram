@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
-import { SidebarContext, SummonerDataContext } from '../../Context'
+import { SidebarContext, SummonerDataContext } from '../Context'
 
 export default class extends Component {
     constructor(props) {
