@@ -1,12 +1,7 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Drawer, Hidden, Typography } from '@material-ui/core'
-import {
-    SidebarContext,
-    StaticDataContext,
-    SummonerDataContext
-} from '../../Context'
-import SidebarDrawer from './drawer'
+import { StaticDataContext, SummonerDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     Avatar: {
@@ -26,7 +21,7 @@ export default withStyles(theme => ({
     },
     toolbar: theme.mixins.toolbar
 }))(({ classes }) => {
-    const drawer = (
+    return (
         <SummonerDataContext.Consumer>
             {
                 ({
@@ -62,33 +57,5 @@ export default withStyles(theme => ({
                 )
             }
         </SummonerDataContext.Consumer>
-    )
-    return (
-        <Fragment>
-            <Hidden mdUp>
-                <SidebarContext.Consumer>
-                    {({ state: { mobileOpen }, handleDrawerToggle }) => (
-                        <Drawer
-                            variant="temporary"
-                            open={mobileOpen}
-                            onClose={handleDrawerToggle}
-                            ModalProps={{ keepMounted: true }}
-                            classes={{ paper: classes.drawerPaper }}
-                        >
-                            <SidebarDrawer />
-                        </Drawer>
-                    )}
-                </SidebarContext.Consumer>
-            </Hidden>
-            <Hidden smDown>
-                <Drawer
-                    variant="permanent"
-                    open
-                    classes={{ paper: classes.drawerPaper }}
-                >
-                    <SidebarDrawer />
-                </Drawer>
-            </Hidden>
-        </Fragment>
     )
 })
