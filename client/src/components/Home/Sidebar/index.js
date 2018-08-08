@@ -48,7 +48,8 @@ export default withStyles(theme => ({
                         <div className={classes.sidebar}>
                             <div className={classes.profile}>
                                 {name && <Typography variant='display1'>{name}</Typography>}
-                                <StaticDataContext.Consumer>
+                                {profileIconId && (
+                                    <StaticDataContext.Consumer>
                                     {
                                         ({ state: { version } }) => (
                                             <Avatar
@@ -58,7 +59,8 @@ export default withStyles(theme => ({
                                             />
                                         )
                                     }
-                                </StaticDataContext.Consumer>
+                                    </StaticDataContext.Consumer>
+                                )}
                                 {tier && rank && (
                                     <Typography variant='subheading'>
                                         {`${tier} ${rank}`}
