@@ -17,12 +17,10 @@ export default withStyles(theme => ({
             width: 300
         }
     }
-}))(({ classes }) => {
-    return (
-        <div className={classes.main}>
-            <div className={classes.search}>
-                <SearchBar />
-            </div>
+}))(({ classes }) => (
+    <div className={classes.main}>
+        <div className={classes.search}>
+            <SearchBar />
         </div>
-    )
-})
+    </div>
+))

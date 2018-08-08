@@ -22,24 +22,22 @@ export default class extends Component {
         const { summonerName, invalidInput } = this.state
         return (
             <SummonerDataContext.Consumer>
-                {
-                    ({ getSummonerData }) => (
-                        <Fragment>
-                            <SearchBar
-                                value={summonerName}
-                                onChange={value =>
-                                    this.setState({ summonerName: value })
-                                }
-                                onRequestSearch={() =>
-                                    this.onSearch(getSummonerData)
-                                }
-                            />
-                            {invalidInput && (
-                                <FormHelperText>Invalid input</FormHelperText>)
+                {({ getSummonerData }) => (
+                    <Fragment>
+                        <SearchBar
+                            value={summonerName}
+                            onChange={value =>
+                                this.setState({ summonerName: value })
                             }
-                        </Fragment>
-                    )
-                }
+                            onRequestSearch={() =>
+                                this.onSearch(getSummonerData)
+                            }
+                        />
+                        {invalidInput && (
+                            <FormHelperText>Invalid input</FormHelperText>)
+                        }
+                    </Fragment>
+                )}
             </SummonerDataContext.Consumer>
         )
     }
