@@ -42,11 +42,9 @@ export default withStyles(theme => ({
     const { name, profileIconId, summonerLevel } = summoner
     const { tier, rank, leaguePoints, wins, losses } = positions
     const { version, champions } = staticData
-    // console.log(summoner, positions, championMasteries, matchlist, matches)
     const baseUrl = 'https://ddragon.leagueoflegends.com/'
     const champion = Object.values(champions).find(champion =>
         matchlist.matches[0].champion === parseInt(champion.key, 10)).id
-    // console.log('champion', champion)
     const background = {backgroundImage: `url(${baseUrl}cdn/img/champion/splash/${champion}_0.jpg)`}
     return (
         <div className={classes.main} style={background}>
