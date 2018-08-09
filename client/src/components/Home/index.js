@@ -49,7 +49,7 @@ export default withStyles(theme => ({
                         <CircularProgress />
                     </Grid>
                 )}
-                {searched && fetchedData && (
+                {fetchedData && (
                     <Fragment>
                         <Sidebar />
                         <Matches
