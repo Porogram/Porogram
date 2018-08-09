@@ -3,7 +3,7 @@ import os
 from urllib.parse import urlencode
 
 API_KEY = os.environ['API_KEY']
-BASE_URL = 'https://na1.api.riotgames.com/'
+BASE_URL = 'https://na1.api.riotgames.com'
 ERRORS = {
     400: 'Bad request',
     401: 'Unauthorized',
@@ -20,7 +20,7 @@ ERRORS = {
 }
 
 def createUrl(apiPath, apiParams = None, apiQueryParams = {}):
-    url = BASE_URL + 'lol/' + apiPath
+    url = BASE_URL + '/lol/' + apiPath
     if apiParams:
         url += '/' + apiParams
     apiQueryParams['api_key'] = API_KEY
