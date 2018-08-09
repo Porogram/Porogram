@@ -3,17 +3,14 @@ import utils
 
 app = Flask(__name__)
 
-@app.route('/api/search/<string:summonerName>', methods=['GET'])
-def search(summonerName):
+@app.route('/api/summoner/<string:summonerName>', methods=['GET'])
+def summoner(summonerName):
     res = {}
     res['summoner'] = utils.getSummoner(summonerName)
-    if 'id' in res['summoner']:
-        res['positions'] = utils.getPositions(res['summoner']['id'])
-        res['championMasteries'] = utils.getChampionMasteries(res['summoner']['id'])
-    if 'accountId' in res['summoner']:
-        res['matchlist'] = utils.getMatchlist(res['summoner']['accountId'], 0, 10)
-    if 'matchlist' in res and 'matches' in res['matchlist']:
-        res['matches'] = utils.getMatches(res['matchlist']['matches'])
+    res['positions'] = utils.getPositions(res['summoner']['id']) if 'id' in res['summoner'] else []
+    res['championMasteries'] = utils.getChampionMasteries(res['summoner']['id']) if 'id' in res['summoner'] else []
+    res['matchlist'] = utils.getMatchlist(res['summoner']['accountId'], 0, 10) if 'accountId' in res['summoner'] else {}
+    res['matches'] = utils.getMatches(res['matchlist']['matches']) if 'matchlist' in res and 'matches' in res['matchlist'] else []
     return jsonify(res)
 
 @app.route('/api/matches', methods=['POST'])
@@ -22,8 +19,7 @@ def matches():
         return jsonify({ 'status_code': 400, 'message': 'Bad request' })
     res = {}
     res['matchlist'] = utils.getMatchlist(request.json['accountId'], request.json['beginIndex'], request.json['endIndex'])
-    if 'matchlist' in res and 'matches' in res['matchlist']:
-        res['matches'] = utils.getMatches(res['matchlist']['matches'])
+    res['matches'] = utils.getMatches(res['matchlist']['matches']) if 'matchlist' in res and 'matches' in res['matchlist'] else []
     return jsonify(res)
 
 if __name__ == '__main__':
