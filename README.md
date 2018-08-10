@@ -1,5 +1,6 @@
 # Porogram
-Statistics interface for League of Legends
+Mobile responsive web application for League of Legends that provides a
+customizable activity feed and profile summary for players
 ## Getting Started
 ```
 $ git clone https://github.com/Porogram/Porogram.git

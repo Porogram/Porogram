@@ -5,16 +5,13 @@ import { withStyles } from '@material-ui/core/styles'
 import { Typography, CircularProgress } from '@material-ui/core'
 import Match from './match'
 import { Failure } from '../../Errors'
+import { StaticDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     main: {
-        marginRight: 60,
-        [theme.breakpoints.down('sm')]: {
-            marginLeft: 60
-        },
-        [theme.breakpoints.up('md')]: {
-            marginLeft: 300
-        }
+        // [theme.breakpoints.up('md')]: {
+        //     marginLeft: 240
+        // }
     },
     title: {
         margin: '30px 0',
@@ -54,16 +51,22 @@ export default withStyles(theme => ({
         })
     }
     render() {
-        const { classes, summoner, staticData } = this.props
+        const { classes, summoner } = this.props
         const { matches, moreItems, error } = this.state
         const items = []
         matches.forEach(match => items.push((
-            <Match
-                key={match.gameId}
-                match={match}
-                summoner={summoner}
-                staticData={staticData}
-            />
+            <StaticDataContext.Consumer>
+                {
+                    value => (
+                        <Match
+                            key={match.gameId}
+                            match={match}
+                            summoner={summoner}
+                            staticData={value.state}
+                        />
+                    )
+                }
+            </StaticDataContext.Consumer>
         )))
         if ('message' in error) return <Failure error={error} />
         return (

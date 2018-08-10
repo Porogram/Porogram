@@ -3,7 +3,7 @@ import os
 from urllib.parse import urlencode
 
 API_KEY = os.environ['API_KEY']
-BASE_URL = 'https://na1.api.riotgames.com/'
+BASE_URL = 'https://na1.api.riotgames.com'
 ERRORS = {
     400: 'Bad request',
     401: 'Unauthorized',
@@ -20,7 +20,7 @@ ERRORS = {
 }
 
 def createUrl(apiPath, apiParams = None, apiQueryParams = {}):
-    url = BASE_URL + 'lol/' + apiPath
+    url = BASE_URL + '/lol' + apiPath
     if apiParams:
         url += '/' + apiParams
     apiQueryParams['api_key'] = API_KEY
@@ -38,16 +38,16 @@ def makeRequest(url):
     }
 
 def getSummoner(summonerName):
-    return makeRequest(createUrl('summoner/v3/summoners/by-name', summonerName))
+    return makeRequest(createUrl('/summoner/v3/summoners/by-name', summonerName))
 
 def getPositions(summonerId):
-    return makeRequest(createUrl('league/v3/positions/by-summoner', str(summonerId)))
+    return makeRequest(createUrl('/league/v3/positions/by-summoner', str(summonerId)))
 
 def getChampionMasteries(summonerId):
-    return makeRequest(createUrl('champion-mastery/v3/champion-masteries/by-summoner', str(summonerId)))
+    return makeRequest(createUrl('/champion-mastery/v3/champion-masteries/by-summoner', str(summonerId)))
 
 def getMatchlist(accountId, beginIndex = 0, endIndex = 10):
-    return makeRequest(createUrl('match/v3/matchlists/by-account', str(accountId), { 'beginIndex': beginIndex, 'endIndex': endIndex }))
+    return makeRequest(createUrl('/match/v3/matchlists/by-account', str(accountId), { 'beginIndex': beginIndex, 'endIndex': endIndex }))
 
 def getMatches(matches):
-    return [makeRequest(createUrl('match/v3/matches', str(match['gameId']))) for match in matches]
+    return [makeRequest(createUrl('/match/v3/matches', str(match['gameId']))) for match in matches]

@@ -58,7 +58,7 @@ export default class extends Component {
         } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
-            return <Redirect push to={`/summoner/${newSummoner}/summary`} />
+            return <Redirect push to={`/${newSummoner}`} />
         if (!updatedMatch) return null
         return (
             <ExpansionPanel style={participants[summonerIndex].stats.win ? {'backgroundColor': '#0A7FD9'}: {'backgroundColor': '#B63015'}}>

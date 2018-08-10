@@ -1,17 +1,12 @@
-import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import {
-    AppBar,
-    IconButton,
-    Toolbar,
-    Typography
-} from '@material-ui/core'
+import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
-import { Sidebar } from '../Context'
+import { SidebarContext, SummonerDataContext } from '../Context'
 import logo from '../../images/poro.png'
 
-export default withRouter(withStyles(theme => ({
+export default withStyles(theme => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1
     },
@@ -28,33 +23,36 @@ export default withRouter(withStyles(theme => ({
             display: 'none'
         }
     }
-}))(({ classes, location: { pathname } }) => {
-    return (
-        <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar>
-                {pathname.includes('/summoner') && (
-                    <Sidebar.Consumer>
-                        {
-                            value => (
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="Open drawer"
-                                    onClick={value.handleDrawerToggle}
-                                    className={classes.navIconHide}
-                                >
-                                    <Menu />
-                                </IconButton>
-                            )
-                        }
-                    </Sidebar.Consumer>
-                )}
-                <Link to="/" className={classes.logo}>
-                    <img src={logo} alt="" className={classes.img} />
-                </Link>
-                <Typography variant="title" color="inherit" noWrap>
-                    POROGRAM
-                </Typography>
-            </Toolbar>
-        </AppBar>
-    )
-}))
+}))(({ classes }) => (
+    <AppBar position="fixed" className={classes.appBar}>
+        <Toolbar>
+            <Link to="/" className={classes.logo}>
+                <img src={logo} alt="" className={classes.img} />
+            </Link>
+            <Typography variant="title" color="inherit" noWrap>
+                POROGRAM
+            </Typography>
+        </Toolbar>
+    </AppBar>
+))
+
+// <SummonerDataContext.Consumer>
+//     {({ state: { fetchedData } }) => (
+//         <SidebarContext.Consumer>
+//             {({ handleDrawerToggle }) => (
+//                 <Fragment>
+//                     {fetchedData && (
+//                         <IconButton
+//                             color="inherit"
+//                             aria-label="Open drawer"
+//                             onClick={handleDrawerToggle}
+//                             className={classes.navIconHide}
+//                         >
+//                             <Menu />
+//                         </IconButton>
+//                     )}
+//                 </Fragment>
+//             )}
+//         </SidebarContext.Consumer>
+//     )}
+// </SummonerDataContext.Consumer>
