@@ -8,14 +8,19 @@ import Loading from '../Layout/loading'
 
 export default withStyles(theme => ({
     search: {
-        height: '90vh'
+        [theme.breakpoints.down('sm')]: {
+            height: `calc(100vh - 56px)`
+        } ,
+        [theme.breakpoints.up('sm')]: {
+            height: `calc(100vh - 64px)`
+        }
     },
     searchBar: {
-        [theme.breakpoints.up('md')]: {
-            width: 600
-        },
         [theme.breakpoints.down('sm')]: {
             width: 300
+        },
+        [theme.breakpoints.up('sm')]: {
+            width: 600
         }
     }
 }))(({ classes }) => (
@@ -36,15 +41,13 @@ export default withStyles(theme => ({
                         </div>
                     </Grid>
                 )}
-                {!fetchedData && <Loading />}
+                {searched && !fetchedData && <Loading />}
                 {fetchedData && (
-                    <Fragment>
-                        <Matches
-                            summoner={summoner}
-                            matchlist={matchlist}
-                            matches={matches}
-                        />
-                    </Fragment>
+                    <Matches
+                        summoner={summoner}
+                        matchlist={matchlist}
+                        matches={matches}
+                    />
                 )}
             </Fragment>
         )}
