@@ -26,26 +26,6 @@ export default withStyles(theme => ({
 }))(({ classes }) => (
     <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-            <SummonerDataContext.Consumer>
-                {({ state: { fetchedData } }) => (
-                    <SidebarContext.Consumer>
-                        {({ handleDrawerToggle }) => (
-                            <Fragment>
-                                {fetchedData && (
-                                    <IconButton
-                                        color="inherit"
-                                        aria-label="Open drawer"
-                                        onClick={handleDrawerToggle}
-                                        className={classes.navIconHide}
-                                    >
-                                        <Menu />
-                                    </IconButton>
-                                )}
-                            </Fragment>
-                        )}
-                    </SidebarContext.Consumer>
-                )}
-            </SummonerDataContext.Consumer>
             <Link to="/" className={classes.logo}>
                 <img src={logo} alt="" className={classes.img} />
             </Link>
@@ -55,3 +35,24 @@ export default withStyles(theme => ({
         </Toolbar>
     </AppBar>
 ))
+
+// <SummonerDataContext.Consumer>
+//     {({ state: { fetchedData } }) => (
+//         <SidebarContext.Consumer>
+//             {({ handleDrawerToggle }) => (
+//                 <Fragment>
+//                     {fetchedData && (
+//                         <IconButton
+//                             color="inherit"
+//                             aria-label="Open drawer"
+//                             onClick={handleDrawerToggle}
+//                             className={classes.navIconHide}
+//                         >
+//                             <Menu />
+//                         </IconButton>
+//                     )}
+//                 </Fragment>
+//             )}
+//         </SidebarContext.Consumer>
+//     )}
+// </SummonerDataContext.Consumer>

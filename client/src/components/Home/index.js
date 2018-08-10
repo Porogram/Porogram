@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { CircularProgress, Grid } from '@material-ui/core'
-import Sidebar from '../Layout/Sidebar'
 import Matches from './Matches'
 import SearchBar from './searchBar'
 import { SummonerDataContext } from '../Context'
@@ -51,7 +50,6 @@ export default withStyles(theme => ({
                 )}
                 {fetchedData && (
                     <Fragment>
-                        <Sidebar />
                         <Matches
                             summoner={summoner}
                             matchlist={matchlist}

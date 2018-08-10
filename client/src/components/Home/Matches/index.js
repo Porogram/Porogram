@@ -9,9 +9,9 @@ import { StaticDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     main: {
-        [theme.breakpoints.up('md')]: {
-            marginLeft: 240
-        }
+        // [theme.breakpoints.up('md')]: {
+        //     marginLeft: 240
+        // }
     },
     title: {
         margin: '30px 0',
