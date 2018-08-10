@@ -7,7 +7,7 @@ import {
     Grid,
     CircularProgress
 } from '@material-ui/core'
-import { StaticDataContext, SummonerDataContext } from '../../Context'
+import { StaticDataContext, SummonerDataContext } from '../Context'
 
 export default withStyles(theme => ({
     avatar: {
