@@ -60,7 +60,7 @@ export default class extends Component {
     }
     render() {
         const {
-            match: { participants, participantIdentities, summonerIndex },
+            match: { participants, participantIdentities, summonerIndex, gameCreation },
             staticData: { version, champions },
             summoner,
             positions,
@@ -81,6 +81,7 @@ export default class extends Component {
                     version={version}
                     summoner={summoner}
                     positions={positions}
+                    gameCreation={gameCreation}
                 />
                 <Divider />
                 <Media

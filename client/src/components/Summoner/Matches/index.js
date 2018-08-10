@@ -11,12 +11,13 @@ export default withStyles(theme => ({
         marginRight: 60,
         [theme.breakpoints.down('sm')]: {
             marginLeft: 60,
-            padding: 50
+            padding: 20,
+            maxWidth: 550
         },
         [theme.breakpoints.up('md')]: {
             marginLeft: 300,
-            padding: 50
-
+            padding: 50,
+            maxWidth: 550
         },
     },
     title: {
