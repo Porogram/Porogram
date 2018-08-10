@@ -1,13 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import {
-    Avatar,
-    Typography,
-    Paper,
-    Grid,
-    CircularProgress
-} from '@material-ui/core'
+import { Avatar, Paper, Typography } from '@material-ui/core'
 import { StaticDataContext, SummonerDataContext } from '../Context'
+import Loading from '../Layout/loading'
 
 export default withStyles(theme => ({
     avatar: {
@@ -58,16 +53,7 @@ export default withStyles(theme => ({
                     }
                 }) => (
                     <Fragment>
-                        {!fetchedData && (
-                            <Grid
-                                container
-                                alignItems="center"
-                                justify="center"
-                                className={classes.circularProgress}
-                            >
-                                <CircularProgress />
-                            </Grid>
-                        )}
+                        {!fetchedData && <Loading />}
                         {fetchedData && (
                             <StaticDataContext.Consumer>
                                 {({ state: { version, champions }, baseUrl }) => {

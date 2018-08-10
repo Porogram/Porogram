@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { CircularProgress, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import Matches from './Matches'
 import SearchBar from './searchBar'
 import { SummonerDataContext } from '../Context'
+import Loading from '../Layout/loading'
 
 export default withStyles(theme => ({
-    circularProgress: {
-        height: '80vh'
-    },
     search: {
         height: '90vh'
     },
@@ -38,16 +36,7 @@ export default withStyles(theme => ({
                         </div>
                     </Grid>
                 )}
-                {!fetchedData && (
-                    <Grid
-                        container
-                        alignItems="center"
-                        justify="center"
-                        className={classes.circularProgress}
-                    >
-                        <CircularProgress />
-                    </Grid>
-                )}
+                {!fetchedData && <Loading />}
                 {fetchedData && (
                     <Fragment>
                         <Matches
