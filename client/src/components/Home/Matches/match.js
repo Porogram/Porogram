@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import {
-    Divider,
-    Card,
-} from '@material-ui/core'
+import { Divider, Card } from '@material-ui/core'
 import Header from './header'
 import Media from './media'
 import Content from './content'
@@ -59,7 +56,6 @@ export default class extends Component {
             matchlist
         } = this.props
         const { newSummoner, updatedMatch } = this.state
-        const baseUrl = 'https://ddragon.leagueoflegends.com/'
         if (newSummoner.length)
             return <Redirect push to={`/${newSummoner}`} />
         if (!updatedMatch) return null
@@ -93,18 +89,3 @@ export default class extends Component {
         )
     }
 }
-// <Summary
-//     participants={participants}
-//     summonerIndex={summonerIndex}
-//     version={version}
-//     summoner={summoner}
-// />
-
-// <ExpansionPanelDetails>
-//     <Details
-//         participants={participants}
-//         participantIdentities={participantIdentities}
-//         version={version}
-//         getSummoner={this.getSummoner}
-//     />
-// </ExpansionPanelDetails>

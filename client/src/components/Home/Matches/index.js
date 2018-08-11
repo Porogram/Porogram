@@ -9,16 +9,12 @@ import { StaticDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     main: {
-        // marginRight: 60,
         [theme.breakpoints.down('sm')]: {
-            // marginLeft: 60,
-            padding: 20,
+            padding: 20
         },
         [theme.breakpoints.up('md')]: {
-            // marginLeft: 300,
-            padding: '20px 300px',
-
-        },
+            padding: '20px 300px'
+        }
     },
     title: {
         margin: '30px 0',
@@ -58,10 +54,9 @@ export default withStyles(theme => ({
         })
     }
     render() {
-        const { classes, summoner, staticData, positions } = this.props
+        const { classes, summoner, positions } = this.props
         const { matches, moreItems, error, matchlist } = this.state
         const items = []
-        console.log("matches", matches)
         matches.forEach(match => items.push((
             <StaticDataContext.Consumer key={match.gameId}>
                 {({ state }) => (

@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, CardHeader, Typography, Grid } from '@material-ui/core'
-// import Empty from './empty'
 
 export default withStyles((theme) => ({
     dateTime: {

@@ -1,9 +1,7 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
-import { Menu } from '@material-ui/icons'
-import { SidebarContext, SummonerDataContext } from '../Context'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import logo from '../../images/poro.png'
 
 export default withStyles(theme => ({
