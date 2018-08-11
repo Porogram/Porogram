@@ -2,21 +2,28 @@ import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, CircularProgress } from '@material-ui/core'
+import { Typography, CircularProgress, Grid } from '@material-ui/core'
 import Match from './match'
 import { Failure } from '../../Errors'
 import { StaticDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     main: {
-        // [theme.breakpoints.up('md')]: {
-        //     marginLeft: 240
-        // }
+        // marginRight: 60,
+        [theme.breakpoints.down('sm')]: {
+            // marginLeft: 60,
+            padding: 20,
+        },
+        [theme.breakpoints.up('md')]: {
+            // marginLeft: 300,
+            padding: '20px 300px',
+
+        },
     },
     title: {
         margin: '30px 0',
         textAlign: 'center'
-    }
+    },
 }))(class extends Component {
     constructor(props) {
         super(props)
@@ -51,15 +58,18 @@ export default withStyles(theme => ({
         })
     }
     render() {
-        const { classes, summoner } = this.props
-        const { matches, moreItems, error } = this.state
+        const { classes, summoner, staticData, positions } = this.props
+        const { matches, moreItems, error, matchlist } = this.state
         const items = []
+        console.log("matches", matches)
         matches.forEach(match => items.push((
             <StaticDataContext.Consumer key={match.gameId}>
                 {({ state }) => (
                     <Match
                         match={match}
                         summoner={summoner}
+                        positions={positions}
+                        matchlist={matchlist}
                         staticData={state}
                     />
                 )}
@@ -67,7 +77,13 @@ export default withStyles(theme => ({
         )))
         if ('message' in error) return <Failure error={error} />
         return (
-            <div className={classes.main}>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                className={classes.main}
+            >
                 <Typography variant="display2" className={classes.title}>
                     Matches
                 </Typography>
@@ -80,7 +96,7 @@ export default withStyles(theme => ({
                 >
                     {items}
                 </InfiniteScroll>
-            </div>
+            </Grid>
         )
     }
 })

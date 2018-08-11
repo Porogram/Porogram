@@ -9,7 +9,14 @@ import Matches from './Matches'
 export default () => (
     <SummonerDataContext.Consumer>
         {({
-            state: { searched, fetchedData, summoner, matchlist, matches }
+            state: {
+                searched,
+                fetchedData,
+                summoner,
+                positions,
+                matchlist,
+                matches
+            }
         }) => (
             <Fragment>
                 {!searched && <Search />}
@@ -17,6 +24,7 @@ export default () => (
                 {fetchedData && (
                     <Matches
                         summoner={summoner}
+                        positions={positions}
                         matchlist={matchlist}
                         matches={matches}
                     />
