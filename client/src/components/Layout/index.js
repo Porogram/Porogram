@@ -1,7 +1,11 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
-import { Sidebar } from '../Context'
+import {
+    SidebarContext,
+    StaticDataContext,
+    SummonerDataContext
+} from '../Context'
 import Navbar from './navbar'
 
 export default withStyles(theme => ({
@@ -9,15 +13,17 @@ export default withStyles(theme => ({
         backgroundColor: theme.palette.background.default
     },
     toolbar: theme.mixins.toolbar
-}))(({ classes, children }) => {
-    return (
-        <Sidebar.Provider>
-            <CssBaseline />
-            <Navbar />
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                {children}
-            </main>
-        </Sidebar.Provider>
-    )
-})
+}))(({ classes, children }) => (
+    <StaticDataContext.Provider>
+        <SummonerDataContext.Provider>
+            <SidebarContext.Provider>
+                <CssBaseline />
+                <Navbar />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    {children}
+                </main>
+            </SidebarContext.Provider>
+        </SummonerDataContext.Provider>
+    </StaticDataContext.Provider>
+))

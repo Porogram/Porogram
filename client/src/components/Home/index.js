@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Search from './search'
+import { Grid } from '@material-ui/core'
+import Matches from './Matches'
+import SearchBar from './searchBar'
+import { SummonerDataContext } from '../Context'
+import Loading from '../Layout/loading'
 
 export default withStyles(theme => ({
-    main: {
-        height: '90vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
     search: {
+        height: '90vh'
+    },
+    searchBar: {
         [theme.breakpoints.up('md')]: {
             width: 600
         },
@@ -17,12 +18,43 @@ export default withStyles(theme => ({
             width: 300
         }
     }
-}))(({ classes }) => {
-    return (
-        <div className={classes.main}>
-            <div className={classes.search}>
-                <Search />
-            </div>
-        </div>
-    )
-})
+}))(({ classes }) => (
+    <SummonerDataContext.Consumer>
+        {({
+            state: {
+                searched,
+                fetchedData,
+                summoner,
+                positions,
+                matchlist,
+                matches
+            }
+        }) => (
+            <Fragment>
+                {!searched && (
+                    <Grid
+                        container
+                        alignItems="center"
+                        justify="center"
+                        className={classes.search}
+                    >
+                        <div className={classes.searchBar}>
+                            <SearchBar />
+                        </div>
+                    </Grid>
+                )}
+                {!fetchedData && <Loading />}
+                {fetchedData && (
+                    <Fragment>
+                        <Matches
+                            summoner={summoner}
+                            positions={positions}
+                            matchlist={matchlist}
+                            matches={matches}
+                        />
+                    </Fragment>
+                )}
+            </Fragment>
+        )}
+    </SummonerDataContext.Consumer>
+))
