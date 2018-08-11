@@ -2,22 +2,21 @@ import React, { Component } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, CircularProgress } from '@material-ui/core'
+import { Typography, CircularProgress, Grid } from '@material-ui/core'
 import Match from './match'
 import { Failure } from '../../Errors'
 
 export default withStyles(theme => ({
     main: {
-        marginRight: 60,
+        // marginRight: 60,
         [theme.breakpoints.down('sm')]: {
-            marginLeft: 60,
+            // marginLeft: 60,
             padding: 20,
-            maxWidth: 550
         },
         [theme.breakpoints.up('md')]: {
-            marginLeft: 300,
-            padding: 50,
-            maxWidth: 550
+            // marginLeft: 300,
+            padding: '20px 300px',
+
         },
     },
     title: {
@@ -74,7 +73,13 @@ export default withStyles(theme => ({
         )))
         if ('message' in error) return <Failure error={error} />
         return (
-            <div className={classes.main}>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                className={classes.main}
+            >
                 <Typography variant="display2" className={classes.title}>
                     Matches
                 </Typography>
@@ -87,7 +92,7 @@ export default withStyles(theme => ({
                 >
                     {items}
                 </InfiniteScroll>
-            </div>
+            </Grid>
         )
     }
 })

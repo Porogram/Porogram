@@ -1,20 +1,12 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import {
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
     Divider,
     Card,
-    CardHeader,
-    CardMedia,
-    CardContent,
-    CardActions
 } from '@material-ui/core'
-import Summary from './summary'
-import Details from './details'
 import Header from './header'
 import Media from './media'
+import Content from './content'
 
 export default class extends Component {
     constructor(props) {
@@ -60,7 +52,7 @@ export default class extends Component {
     }
     render() {
         const {
-            match: { participants, participantIdentities, summonerIndex, gameCreation },
+            match: { participants, summonerIndex, gameCreation },
             staticData: { version, champions },
             summoner,
             positions,
@@ -91,6 +83,11 @@ export default class extends Component {
                     summonerIndex={summonerIndex}
                     participants={participants}
 
+                />
+                <Content
+                    participants={participants}
+                    summonerIndex={summonerIndex}
+                    version={version}
                 />
             </Card>
         )

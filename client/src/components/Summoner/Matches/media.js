@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Avatar, CardHeader, CardMedia } from '@material-ui/core'
+import { CardMedia } from '@material-ui/core'
 // import Empty from './empty'
 
 export default withStyles(() => ({
@@ -25,6 +25,7 @@ export default withStyles(() => ({
                 <img
                     src={`${baseUrl}cdn/img/champion/splash/${champion}_0.jpg`}
                     className={classes.splash}
+                    alt=""
                 />
             </CardMedia>
         </Fragment>
