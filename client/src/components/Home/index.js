@@ -2,9 +2,9 @@ import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 import { SummonerDataContext } from '../Context'
-import Matches from './Matches'
-import Search from '../Search'
 import Loading from '../Layout/loading'
+import Search from '../Search'
+import Matches from './Matches'
 
 export default () => (
     <SummonerDataContext.Consumer>
