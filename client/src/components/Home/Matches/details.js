@@ -89,7 +89,6 @@ export default withStyles(() => ({
                     ): ""}
                     <ListItem
                         button
-                        key={participantIndex}
                         onClick={() =>
                             getSummoner(participantIdentities[participantIndex])
                         }

@@ -31,23 +31,46 @@ def makeRequest(url):
     r = requests.get(url)
     if r.status_code == 200:
         return r.json()
-    message = ERRORS[r.status_code] if r.status_code in ERRORS else 'Unknown error'
+    message = (
+        ERRORS[r.status_code] if r.status_code in ERRORS else 'Unknown error'
+    )
     return {
         'status_code': r.status_code,
         'message': message
     }
 
 def getSummoner(summonerName):
-    return makeRequest(createUrl('/summoner/v3/summoners/by-name', summonerName))
+    return makeRequest(
+        createUrl('/summoner/v3/summoners/by-name', summonerName)
+    )
 
 def getPositions(summonerId):
-    return makeRequest(createUrl('/league/v3/positions/by-summoner', str(summonerId)))
+    return makeRequest(
+        createUrl('/league/v3/positions/by-summoner', str(summonerId))
+    )
 
 def getChampionMasteries(summonerId):
-    return makeRequest(createUrl('/champion-mastery/v3/champion-masteries/by-summoner', str(summonerId)))
+    return makeRequest(
+        createUrl(
+            '/champion-mastery/v3/champion-masteries/by-summoner',
+            str(summonerId)
+        )
+    )
 
 def getMatchlist(accountId, beginIndex = 0, endIndex = 10):
-    return makeRequest(createUrl('/match/v3/matchlists/by-account', str(accountId), { 'beginIndex': beginIndex, 'endIndex': endIndex }))
+    return makeRequest(
+        createUrl(
+            '/match/v3/matchlists/by-account',
+            str(accountId),
+            { 'beginIndex': beginIndex, 'endIndex': endIndex }
+        )
+    )
 
 def getMatches(matches):
-    return [makeRequest(createUrl('/match/v3/matches', str(match['gameId']))) for match in matches]
+    return [
+        makeRequest(
+            createUrl(
+                '/match/v3/matches',str(match['gameId'])
+            )
+        ) for match in matches
+    ]

@@ -63,19 +63,16 @@ export default withStyles(theme => ({
         const items = []
         console.log("matches", matches)
         matches.forEach(match => items.push((
-            <StaticDataContext.Consumer>
-                {
-                    value => (
-                        <Match
-                            key={match.gameId}
-                            match={match}
-                            summoner={summoner}
-                            staticData={value.state}
-                            positions={positions}
-                            matchlist={matchlist}
-                        />
-                    )
-                }
+            <StaticDataContext.Consumer key={match.gameId}>
+                {({ state }) => (
+                    <Match
+                        match={match}
+                        summoner={summoner}
+                        positions={positions}
+                        matchlist={matchlist}
+                        staticData={state}
+                    />
+                )}
             </StaticDataContext.Consumer>
         )))
         if ('message' in error) return <Failure error={error} />

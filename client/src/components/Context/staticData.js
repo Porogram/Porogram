@@ -18,9 +18,15 @@ class Provider extends Component {
                 const version = data[0]
                 return Promise.all([
                     version,
-                    axios.get(`${BASE_URL}/cdn/${version}/data/en_US/champion.json`),
-                    axios.get(`${BASE_URL}/cdn/${version}/data/en_US/summoner.json`),
-                    axios.get(`${BASE_URL}/cdn/${version}/data/en_US/runesReforged.json`),
+                    axios.get(
+                        `${BASE_URL}/cdn/${version}/data/en_US/champion.json`
+                    ),
+                    axios.get(
+                        `${BASE_URL}/cdn/${version}/data/en_US/summoner.json`
+                    ),
+                    axios.get(
+                        `${BASE_URL}/cdn/${version}/data/en_US/runesReforged.json`
+                    ),
                     axios.get(`${BASE_URL}/cdn/${version}/data/en_US/item.json`)
                 ])
             }).then(([version, champions, summonerSpells, runes, items]) =>

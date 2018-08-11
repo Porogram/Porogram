@@ -12,9 +12,6 @@ export default withStyles(theme => ({
         marginLeft: theme.spacing.unit * 3,
         border: '3px solid #fff'
     },
-    circularProgress: {
-        height: '80vh'
-    },
     info: {
         paddingTop: theme.spacing.unit * 20,
     },
