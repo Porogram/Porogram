@@ -27,6 +27,10 @@ $ npm i
 ```
 $ ./startup
 ```
+If the bin in venv is replaced with Scripts, run this
+```
+$ ./altStartup
+```
 ## Built With
 * React - front end
 * Python - back end
