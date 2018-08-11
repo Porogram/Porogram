@@ -21,7 +21,14 @@ export default withStyles(theme => ({
 }))(({ classes }) => (
     <SummonerDataContext.Consumer>
         {({
-            state: { searched, fetchedData, summoner, matchlist, matches }
+            state: {
+                searched,
+                fetchedData,
+                summoner,
+                positions,
+                matchlist,
+                matches
+            }
         }) => (
             <Fragment>
                 {!searched && (
@@ -41,6 +48,7 @@ export default withStyles(theme => ({
                     <Fragment>
                         <Matches
                             summoner={summoner}
+                            positions={positions}
                             matchlist={matchlist}
                             matches={matches}
                         />
