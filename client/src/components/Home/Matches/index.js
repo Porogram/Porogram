@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
-import InfiniteScroll from 'react-infinite-scroller'
-import axios from 'axios'
+import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Typography, CircularProgress, Grid } from '@material-ui/core'
-import Match from './match'
-import { Failure } from '../../Errors'
+import { CircularProgress, Grid } from '@material-ui/core'
+import InfiniteScroll from 'react-infinite-scroller'
 import { StaticDataContext, SummonerDataContext } from '../../Context'
+import Match from './match'
 
 export default withStyles(theme => ({
     main: {
@@ -46,7 +44,16 @@ export default withStyles(theme => ({
                     }
                     hasMore={moreMatches}
                     initialLoad={false}
-                    loader={<CircularProgress key={matches.length} />}
+                    loader={(
+                        <Grid
+                            container
+                            alignItems="center"
+                            justify="center"
+                            key={matches.length}
+                        >
+                            <CircularProgress />
+                        </Grid>
+                    )}
                 >
                     {matches.map(match => (
                         <StaticDataContext.Consumer key={match.gameId}>
