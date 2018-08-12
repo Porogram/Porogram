@@ -15,11 +15,6 @@ export default withStyles(theme => ({
     logo: {
         marginLeft: theme.spacing.unit * 2,
         marginRight: theme.spacing.unit * 2
-    },
-    navIconHide: {
-        [theme.breakpoints.up('md')]: {
-            display: 'none'
-        }
     }
 }))(({ classes }) => (
     <AppBar position="fixed" className={classes.appBar}>
