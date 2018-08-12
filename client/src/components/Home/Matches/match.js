@@ -65,12 +65,7 @@ export default class extends Component {
                     {'backgroundColor': '#0A7FD9', 'marginBottom': '50px'}:
                     {'backgroundColor': '#B63015', 'marginBottom': '50px'}}
             >
-                <Header
-                    version={version}
-                    summoner={summoner}
-                    positions={positions}
-                    gameCreation={gameCreation}
-                />
+                <Header gameCreation={gameCreation} />
                 <Divider />
                 <Media
                     version={version}
