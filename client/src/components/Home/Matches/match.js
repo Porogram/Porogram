@@ -68,7 +68,6 @@ export default class extends Component {
                 <Header
                     gameCreation={gameCreation}
                     summoner={summoner}
-                    positions={positions}
                     version={version}
                 />
                 <Divider />

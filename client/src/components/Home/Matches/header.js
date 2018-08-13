@@ -13,8 +13,8 @@ export default withStyles((theme) => ({
 }))(({
     classes,
     gameCreation,
-    summoner: { name, profileIconId },
-    positions: { tier, rank }, version
+    summoner: { name, profileIconId, summonerLevel },
+    version
 }) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com'
     const n = new Date(gameCreation)
@@ -33,7 +33,7 @@ export default withStyles((theme) => ({
                     {name}
                 </Typography>
             )}
-            subheader={`${tier} ${rank}`}
+            subheader={`Level ${summonerLevel}`}
             action={(
                 <Grid
                     container
