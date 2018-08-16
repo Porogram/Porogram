@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography } from '@material-ui/core'
 import { StaticDataContext, SummonerDataContext } from '../Context'
-import Loading from '../Layout/loading'
+import Loading from '../loading'
 
 export default withStyles(theme => ({
     avatar: {
