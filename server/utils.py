@@ -3,7 +3,8 @@ import os
 from urllib.parse import urlencode
 
 API_KEY = os.environ['API_KEY']
-BASE_URL = 'https://na1.api.riotgames.com'
+RIOT_GAMES_URL = 'https://na1.api.riotgames.com'
+DATA_DRAGON_URL = 'https://ddragon.leagueoflegends.com'
 ERRORS = {
     400: 'Bad request',
     401: 'Unauthorized',
@@ -18,9 +19,22 @@ ERRORS = {
     503: 'Service unavailable',
     504: 'Gateway timeout'
 }
+VERSIONS = requests.get(DATA_DRAGON_URL + '/api/versions.json').json()
+CHAMPIONS = requests.get(
+    DATA_DRAGON_URL + '/cdn/' + VERSIONS[0] + '/data/en_US/champion.json'
+).json()
+SUMMONER_SPELLS = requests.get(
+    DATA_DRAGON_URL + '/cdn/' + VERSIONS[0] + '/data/en_US/summoner.json'
+).json()
+RUNES = requests.get(
+    DATA_DRAGON_URL + '/cdn/' + VERSIONS[0] + '/data/en_US/runesReforged.json'
+).json()
+ITEMS = requests.get(
+    DATA_DRAGON_URL + '/cdn/' + VERSIONS[0] + '/data/en_US/item.json'
+).json()
 
 def createUrl(apiPath, apiParams = None, apiQueryParams = {}):
-    url = BASE_URL + '/lol' + apiPath
+    url = RIOT_GAMES_URL + '/lol' + apiPath
     if apiParams:
         url += '/' + apiParams
     apiQueryParams['api_key'] = API_KEY
