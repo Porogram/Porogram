@@ -33,16 +33,21 @@ ITEMS = requests.get(
     DATA_DRAGON_URL + '/cdn/' + VERSIONS[0] + '/data/en_US/item.json'
 ).json()
 CHAMPION_TABLE = {
-    data['key']: champion for champion, data in CHAMPIONS['data'].items()
+    data['key']: data for champion, data in CHAMPIONS['data'].items()
 }
 SUMMONER_SPELL_TABLE = {
-    data['key']: summonerSpell for summonerSpell, data in SUMMONER_SPELLS['data'].items()
+    data['key']: data for summonerSpell, data in SUMMONER_SPELLS['data'].items()
 }
 RUNE_TABLE = {
-    data['id']: data['icon'] for data in RUNES
+    data['id']: {
+        'icon': data['icon'],
+        'id': data['id'],
+        'key': data['key'],
+        'name': data['name']
+    } for data in RUNES
 }
 RUNE_TABLE.update({
-    rune['id']: rune['icon'] for data in RUNES for slot in data['slots'] for rune in slot['runes']
+    rune['id']: rune for data in RUNES for slot in data['slots'] for rune in slot['runes']
 })
 ITEM_TABLE = {
     key: data for key, data in ITEMS['data'].items()
