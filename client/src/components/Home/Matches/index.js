@@ -6,7 +6,7 @@ import { StaticDataContext, SummonerDataContext } from '../../Context'
 import Match from './match'
 
 export default withStyles(theme => ({
-    main: {
+    grid: {
         [theme.breakpoints.up('md')]: {
             padding: '20px 300px'
         }
@@ -17,7 +17,7 @@ export default withStyles(theme => ({
         direction="column"
         justify="center"
         alignItems="center"
-        className={classes.main}
+        className={classes.grid}
     >
         <SummonerDataContext.Consumer>
             {({
