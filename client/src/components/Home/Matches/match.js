@@ -77,9 +77,6 @@ export default class extends Component {
                 />
                 <Divider />
                 <Media
-                    version={version}
-                    champions={champions}
-                    matchlist={matchlist}
                     summonerIndex={summonerIndex}
                     participants={participants}
 

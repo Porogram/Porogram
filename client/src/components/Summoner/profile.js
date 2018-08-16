@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography } from '@material-ui/core'
 import { StaticDataContext, SummonerDataContext } from '../Context'
 import Loading from '../Layout/loading'
+import ChampionMastery from './championMastery'
 
 export default withStyles(theme => ({
     avatar: {
@@ -89,6 +90,10 @@ export default withStyles(theme => ({
                                                             {`W${wins} : L${losses}`}
                                                         </Typography>
                                                     )}
+                                                    <ChampionMastery
+                                                        championMasteries={championMasteries}
+                                                        champions={champions}
+                                                    />
                                                 </Paper>
                                             </div>
                                         </div>

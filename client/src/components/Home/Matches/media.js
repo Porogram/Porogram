@@ -9,10 +9,7 @@ export default withStyles(() => ({
         height: '100%'
     }
 }))(({
-    version,
     classes,
-    matchlist,
-    champions,
     summonerIndex,
     participants
 }) => {
