@@ -34,8 +34,7 @@ class Provider extends Component {
                 const {
                     championTable,
                     summonerSpellTable,
-                    runeTable,
-                    itemTable
+                    runeTable
                 } = this.state
                 for (let champion of Object.values(champions.data.data)) {
                     championTable[champion.key] = champion

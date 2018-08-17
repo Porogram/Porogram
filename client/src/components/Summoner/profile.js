@@ -55,7 +55,7 @@ export default withStyles(theme => ({
                             <StaticDataContext.Consumer>
                                 {({ state: { version, champions }, baseUrl }) => {
                                     const { name, profileIconId, summonerLevel } = summoner
-                                    const { tier, rank, leaguePoints, wins, losses } = positions
+                                    const { tier, rank, leaguePoints, wins, losses } = positions[0]
                                     const champion = Object.values(champions).find(champion =>
                                         matchlist.matches[0].champion === parseInt(champion.key, 10)).id
                                     const background = {backgroundImage: `url(${baseUrl}/cdn/img/champion/splash/${champion}_0.jpg)`}

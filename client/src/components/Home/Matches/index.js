@@ -25,7 +25,6 @@ export default withStyles(theme => ({
                     moreMatches,
                     summoner,
                     summoner: { accountId },
-                    positions,
                     matchlist,
                     matchlist: { endIndex, totalGames },
                     matches,
@@ -61,7 +60,6 @@ export default withStyles(theme => ({
                                 <Match
                                     match={match}
                                     summoner={summoner}
-                                    positions={positions}
                                     matchlist={matchlist}
                                     staticData={state}
                                 />

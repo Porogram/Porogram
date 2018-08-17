@@ -52,7 +52,6 @@ export default class extends Component {
             match: { participants, summonerIndex, gameCreation },
             staticData: { version, champions },
             summoner,
-            positions,
             matchlist
         } = this.props
         const { newSummoner, updatedMatch } = this.state
