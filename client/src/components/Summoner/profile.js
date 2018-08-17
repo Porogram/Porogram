@@ -53,12 +53,14 @@ export default withStyles(theme => ({
                         {!fetchedData && <Loading />}
                         {fetchedData && (
                             <StaticDataContext.Consumer>
-                                {({ state: { version, champions }, baseUrl }) => {
+                                {({ state: { version, champions, championTable }, baseUrl }) => {
                                     const { name, profileIconId, summonerLevel } = summoner
                                     const { tier, rank, leaguePoints, wins, losses } = positions[0]
-                                    const champion = Object.values(champions).find(champion =>
-                                        matchlist.matches[0].champion === parseInt(champion.key, 10)).id
-                                    const background = {backgroundImage: `url(${baseUrl}/cdn/img/champion/splash/${champion}_0.jpg)`}
+                                    const background = {
+                                        backgroundImage: (
+                                            `url(${baseUrl}/cdn/img/champion/splash/${championTable[matchlist.matches[0].champion].name}_0.jpg)`
+                                        )
+                                    }
                                     return (
                                         <div className={classes.main} style={background}>
                                             {name && <Typography variant='display3' align='center' className={classes.summonerName}>{name}</Typography>}
