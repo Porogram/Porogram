@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { SummonerDataContext } from '../Context'
 import Loading from '../loading'
 import Search from '../Search'
-import Matches from './Matches'
+import Feed from './Feed'
 
 export default () => (
     <SummonerDataContext.Consumer>
@@ -10,7 +10,7 @@ export default () => (
             <Fragment>
                 {!searched && <Search />}
                 {searched && !fetchedData && <Loading />}
-                {fetchedData && <Matches />}
+                {fetchedData && <Feed />}
             </Fragment>
         )}
     </SummonerDataContext.Consumer>
