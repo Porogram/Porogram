@@ -16,7 +16,8 @@ export default withStyles((theme) => ({
         padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
     },
     media: {
-        height: theme.spacing.unit * 30
+        height: 0,
+        paddingTop: '56.25%'
     }
 }))(class extends Component {
     constructor(props) {
