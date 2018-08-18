@@ -1,15 +1,22 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Avatar, Card, CardHeader, Typography } from '@material-ui/core'
+import {
+    Avatar,
+    Card,
+    CardHeader,
+    CardMedia,
+    Typography
+} from '@material-ui/core'
 import { StaticDataContext } from '../../../Context'
-import Header from './header'
-import Media from './media'
 import Content from './content'
 
 export default withStyles((theme) => ({
-    cardHeader: {
+    header: {
         padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+    },
+    media: {
+        height: theme.spacing.unit * 30
     }
 }))(class extends Component {
     constructor(props) {
@@ -56,10 +63,7 @@ export default withStyles((theme) => ({
     render() {
         const {
             match: { participants, summonerIndex },
-            staticData: { champions },
-            summoner,
             summoner: { name, profileIconId, summonerLevel },
-            matchlist,
             classes
         } = this.props
         const { newSummoner, updatedMatch } = this.state
@@ -68,11 +72,16 @@ export default withStyles((theme) => ({
         if (!updatedMatch) return null
         return (
             <StaticDataContext.Consumer>
-                {({ baseUrl, state: { version } }) => (
+                {({ baseUrl, state: { championTable, version } }) => (
                     <Card
                         style={participants[summonerIndex].stats.win
-                            ? { 'backgroundColor': '#0A7FD9', 'marginBottom': '50px' }
-                            : { 'backgroundColor': '#B63015', 'marginBottom': '50px' }
+                            ? {
+                                'backgroundColor': '#0A7FD9',
+                                'marginBottom': '50px'
+                            } : {
+                                'backgroundColor': '#B63015',
+                                'marginBottom': '50px'
+                            }
                         }
                     >
                         <CardHeader
@@ -82,7 +91,7 @@ export default withStyles((theme) => ({
                                     alt=""
                                 />
                             )}
-                            className={classes.cardHeader}
+                            className={classes.header}
                             subheader={`Level ${summonerLevel}`}
                             title={(
                                 <Typography variant="headline">
@@ -90,13 +99,9 @@ export default withStyles((theme) => ({
                                 </Typography>
                             )}
                         />
-                        <Media
-                            version={version}
-                            champions={champions}
-                            matchlist={matchlist}
-                            summonerIndex={summonerIndex}
-                            participants={participants}
-
+                        <CardMedia
+                            className={classes.media}
+                            image={`${baseUrl}/cdn/img/champion/splash/${championTable[participants[summonerIndex].championId].id}_0.jpg`}
                         />
                         <Content
                             participants={participants}

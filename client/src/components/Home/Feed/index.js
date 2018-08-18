@@ -1,22 +1,16 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
 import Matches from './Matches'
 
 export default withStyles(theme => ({
-    grid: {
+    matches: {
         [theme.breakpoints.up('md')]: {
-            padding: '20px 300px'
+            marginLeft: theme.spacing.unit * 40,
+            marginRight: theme.spacing.unit * 40
         }
     }
 }))(({ classes }) => (
-    <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        className={classes.grid}
-    >
+    <div className={classes.matches}>
         <Matches />
-    </Grid>
+    </div>
 ))
