@@ -41,12 +41,12 @@ export default withStyles(theme => ({
             }
         }) => (
             <StaticDataContext.Consumer>
-                {({ state: { version, championTable }, baseUrl }) => (
+                {({ state: { version, champions }, baseUrl }) => (
                     <div
                         className={classes.main}
                         style={{
                             backgroundImage: (
-                                `url(${baseUrl}/cdn/img/champion/splash/${championTable[matchlist.matches[0].champion].id}_0.jpg)`
+                                `url(${baseUrl}/cdn/img/champion/splash/${champions[matchlist.matches[0].champion].id}_0.jpg)`
                             )
                         }}
                     >

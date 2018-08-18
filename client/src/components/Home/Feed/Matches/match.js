@@ -28,7 +28,7 @@ export default withStyles((theme) => ({
     )
     return (
         <StaticDataContext.Consumer>
-            {({ baseUrl, state: { championTable, version } }) => (
+            {({ baseUrl, state: { champions, version } }) => (
                 <Card
                     style={participants[summonerIndex].stats.win
                         ? {
@@ -57,7 +57,7 @@ export default withStyles((theme) => ({
                     />
                     <CardMedia
                         className={classes.media}
-                        image={`${baseUrl}/cdn/img/champion/splash/${championTable[participants[summonerIndex].championId].id}_0.jpg`}
+                        image={`${baseUrl}/cdn/img/champion/splash/${champions[participants[summonerIndex].championId].id}_0.jpg`}
                     />
                     <CardContent>
                         <Typography variant="headline">

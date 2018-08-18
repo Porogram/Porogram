@@ -1,7 +1,7 @@
 import React, { Component, createContext } from 'react'
 import axios from 'axios'
 
-const BASE_URL = 'https://ddragon.leagueoflegends.com'
+const baseUrl = 'https://ddragon.leagueoflegends.com'
 const Context = createContext()
 
 class Provider extends Component {
@@ -10,62 +10,53 @@ class Provider extends Component {
         champions: {},
         summonerSpells: {},
         runes: {},
-        items: {},
-        championTable: {},
-        summonerSpellTable: {},
-        runeTable: {},
-        itemTable: {}
+        items: {}
     }
     componentDidMount() {
-        return axios.get(`${BASE_URL}/api/versions.json`)
+        return axios.get(`${baseUrl}/api/versions.json`)
             .then(({ data }) => Promise.all([
                 data[0],
                 axios.get(
-                    `${BASE_URL}/cdn/${data[0]}/data/en_US/champion.json`
+                    `${baseUrl}/cdn/${data[0]}/data/en_US/champion.json`
                 ),
                 axios.get(
-                    `${BASE_URL}/cdn/${data[0]}/data/en_US/summoner.json`
+                    `${baseUrl}/cdn/${data[0]}/data/en_US/summoner.json`
                 ),
                 axios.get(
-                    `${BASE_URL}/cdn/${data[0]}/data/en_US/runesReforged.json`
+                    `${baseUrl}/cdn/${data[0]}/data/en_US/runesReforged.json`
                 ),
-                axios.get(`${BASE_URL}/cdn/${data[0]}/data/en_US/item.json`)
-            ])).then(([version, champions, summonerSpells, runes, items]) => {
-                const {
-                    championTable,
-                    summonerSpellTable,
-                    runeTable
-                } = this.state
-                for (let champion of Object.values(champions.data.data)) {
-                    championTable[champion.key] = champion
+                axios.get(`${baseUrl}/cdn/${data[0]}/data/en_US/item.json`)
+            ])).then(([version, championData, summonerSpellData, runeData, itemData]) => {
+                const champions = {},
+                    summonerSpells = {},
+                    runes = {},
+                    items = itemData.data.data
+                for (let champion of Object.values(championData.data.data)) {
+                    champions[champion.key] = champion
                 }
-                for (let summonerSpell of Object.values(summonerSpells.data.data)) {
-                    summonerSpellTable[summonerSpell.key] = summonerSpell
+                for (let summonerSpell of Object.values(summonerSpellData.data.data)) {
+                    summonerSpells[summonerSpell.key] = summonerSpell
                 }
-                for (let rune of runes.data) {
-                    runeTable[rune.id] = rune
+                for (let rune of runeData.data) {
+                    runes[rune.id] = rune
                 }
-                for (let data of runes.data) {
+                for (let data of runeData.data) {
                     for (let slot of data.slots) {
                         for (let rune of slot.runes) {
-                            runeTable[rune.id] = rune
+                            runes[rune.id] = rune
                         }
                     }
                 }
-                console.log('championTable', championTable)
-                console.log('summonerSpellTable', summonerSpellTable)
-                console.log('runeTable', runeTable)
-                console.log('itemTable', items.data.data)
+                console.log('champions', champions)
+                console.log('summonerSpells', summonerSpells)
+                console.log('runes', runes)
+                console.log('items', items)
                 this.setState({
                     version,
-                    champions: champions.data.data,
-                    summonerSpells: summonerSpells.data.data,
-                    runes: runes.data,
-                    items: items.data.data,
-                    championTable,
-                    summonerSpellTable,
-                    runeTable,
-                    itemTable: items.data.data
+                    champions,
+                    summonerSpells,
+                    runes,
+                    items
                 })
             }).catch(error => console.log(error))
     }
@@ -73,10 +64,7 @@ class Provider extends Component {
         const { children } = this.props
         return (
             <Context.Provider
-                value={{
-                    baseUrl: BASE_URL,
-                    state: this.state
-                }}
+                value={{ baseUrl, state: this.state }}
             >
                 {children}
             </Context.Provider>
