@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
-// import Empty from './empty'
 
 export default withStyles((theme) => ({
     title: {
@@ -30,7 +29,7 @@ export default withStyles((theme) => ({
                             <Grid container direction="row" justify="space-between">
                                 <Grid item>
                                     {championMasteries[i].championLevel ? (
-                                        <Typography variant="subheading">{championMasteries[i].championLevel}</Typography>
+                                        <img src={`src/images/champion-mastery/${championMasteries[i].championLevel}.png`}/>
                                     ) : (<Typography variant="subheading">No champion</Typography>)}
                                 </Grid>
                                 <Grid item>
