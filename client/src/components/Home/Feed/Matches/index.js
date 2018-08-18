@@ -1,5 +1,4 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import { CircularProgress, Grid } from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroller'
 import { StaticDataContext, SummonerDataContext } from '../../../Context'
@@ -45,8 +44,8 @@ export default () => (
                     <StaticDataContext.Consumer key={match.gameId}>
                         {({ state }) => (
                             <Match
-                                match={match}
                                 summoner={summoner}
+                                match={match}
                                 matchlist={matchlist}
                                 staticData={state}
                             />

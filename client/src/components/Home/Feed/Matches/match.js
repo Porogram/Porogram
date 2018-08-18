@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Divider, Card } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+import { Avatar, Card, CardHeader, Typography } from '@material-ui/core'
+import { StaticDataContext } from '../../../Context'
 import Header from './header'
 import Media from './media'
 import Content from './content'
 
-export default class extends Component {
+export default withStyles((theme) => ({
+    cardHeader: {
+        padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`
+    }
+}))(class extends Component {
     constructor(props) {
         super(props)
         this.state = { newSummoner: '', updatedMatch: false }
@@ -49,41 +55,57 @@ export default class extends Component {
     }
     render() {
         const {
-            match: { participants, summonerIndex, gameCreation },
-            staticData: { version, champions },
+            match: { participants, summonerIndex },
+            staticData: { champions },
             summoner,
-            matchlist
+            summoner: { name, profileIconId, summonerLevel },
+            matchlist,
+            classes
         } = this.props
         const { newSummoner, updatedMatch } = this.state
         if (newSummoner.length)
             return <Redirect push to={`/${newSummoner}`} />
         if (!updatedMatch) return null
         return (
-            <Card
-                style={participants[summonerIndex].stats.win ?
-                    {'backgroundColor': '#0A7FD9', 'marginBottom': '50px'}:
-                    {'backgroundColor': '#B63015', 'marginBottom': '50px'}}
-            >
-                <Header
-                    gameCreation={gameCreation}
-                    summoner={summoner}
-                    version={version}
-                />
-                <Divider />
-                <Media
-                    version={version}
-                    champions={champions}
-                    matchlist={matchlist}
-                    summonerIndex={summonerIndex}
-                    participants={participants}
+            <StaticDataContext.Consumer>
+                {({ baseUrl, state: { version } }) => (
+                    <Card
+                        style={participants[summonerIndex].stats.win
+                            ? { 'backgroundColor': '#0A7FD9', 'marginBottom': '50px' }
+                            : { 'backgroundColor': '#B63015', 'marginBottom': '50px' }
+                        }
+                    >
+                        <CardHeader
+                            avatar={(
+                                <Avatar
+                                    src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                                    alt=""
+                                />
+                            )}
+                            className={classes.cardHeader}
+                            subheader={`Level ${summonerLevel}`}
+                            title={(
+                                <Typography variant="headline">
+                                    {name}
+                                </Typography>
+                            )}
+                        />
+                        <Media
+                            version={version}
+                            champions={champions}
+                            matchlist={matchlist}
+                            summonerIndex={summonerIndex}
+                            participants={participants}
 
-                />
-                <Content
-                    participants={participants}
-                    summonerIndex={summonerIndex}
-                    version={version}
-                />
-            </Card>
+                        />
+                        <Content
+                            participants={participants}
+                            summonerIndex={summonerIndex}
+                            version={version}
+                        />
+                    </Card>
+                )}
+            </StaticDataContext.Consumer>
         )
     }
-}
+})

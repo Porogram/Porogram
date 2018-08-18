@@ -28,7 +28,7 @@ class Provider extends Component {
                 }
             }) => this.setState({
                     summoner,
-                    positions,    // TODO change to positions
+                    positions,
                     championMasteries,
                     matchlist,
                     matches,
