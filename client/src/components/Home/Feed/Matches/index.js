@@ -47,7 +47,6 @@ export default () => (
                                 summoner={summoner}
                                 match={match}
                                 matchlist={matchlist}
-                                staticData={state}
                             />
                         )}
                     </StaticDataContext.Consumer>
