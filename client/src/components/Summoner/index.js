@@ -1,11 +1,11 @@
 import React from 'react'
 import { SummonerDataContext } from '../Context'
-import Profile from './profile'
+import Summoner from './summoner'
 
 export default ({ match: { params: { summonerName } } }) => (
     <SummonerDataContext.Consumer>
         {({ getSummonerData }) => (
-            <Profile
+            <Summoner
                 summonerName={summonerName}
                 getSummonerData={getSummonerData}
             />

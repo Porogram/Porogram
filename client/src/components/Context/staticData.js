@@ -1,7 +1,7 @@
 import React, { Component, createContext } from 'react'
 import axios from 'axios'
 
-const BASE_URL = 'https://ddragon.leagueoflegends.com'
+const baseUrl = 'https://ddragon.leagueoflegends.com'
 const Context = createContext()
 
 class Provider extends Component {
@@ -13,40 +13,58 @@ class Provider extends Component {
         items: {}
     }
     componentDidMount() {
-        return axios.get(`${BASE_URL}/api/versions.json`)
-            .then(({ data }) => {
-                const version = data[0]
-                return Promise.all([
-                    version,
-                    axios.get(
-                        `${BASE_URL}/cdn/${version}/data/en_US/champion.json`
-                    ),
-                    axios.get(
-                        `${BASE_URL}/cdn/${version}/data/en_US/summoner.json`
-                    ),
-                    axios.get(
-                        `${BASE_URL}/cdn/${version}/data/en_US/runesReforged.json`
-                    ),
-                    axios.get(`${BASE_URL}/cdn/${version}/data/en_US/item.json`)
-                ])
-            }).then(([version, champions, summonerSpells, runes, items]) =>
+        return axios.get(`${baseUrl}/api/versions.json`)
+            .then(({ data }) => Promise.all([
+                data[0],
+                axios.get(
+                    `${baseUrl}/cdn/${data[0]}/data/en_US/champion.json`
+                ),
+                axios.get(
+                    `${baseUrl}/cdn/${data[0]}/data/en_US/summoner.json`
+                ),
+                axios.get(
+                    `${baseUrl}/cdn/${data[0]}/data/en_US/runesReforged.json`
+                ),
+                axios.get(`${baseUrl}/cdn/${data[0]}/data/en_US/item.json`)
+            ])).then(([version, championData, summonerSpellData, runeData, itemData]) => {
+                const champions = {},
+                    summonerSpells = {},
+                    runes = {},
+                    items = itemData.data.data
+                for (let champion of Object.values(championData.data.data)) {
+                    champions[champion.key] = champion
+                }
+                for (let summonerSpell of Object.values(summonerSpellData.data.data)) {
+                    summonerSpells[summonerSpell.key] = summonerSpell
+                }
+                for (let rune of runeData.data) {
+                    runes[rune.id] = rune
+                }
+                for (let data of runeData.data) {
+                    for (let slot of data.slots) {
+                        for (let rune of slot.runes) {
+                            runes[rune.id] = rune
+                        }
+                    }
+                }
+                console.log('champions', champions)
+                console.log('summonerSpells', summonerSpells)
+                console.log('runes', runes)
+                console.log('items', items)
                 this.setState({
                     version,
-                    champions: champions.data.data,
-                    summonerSpells: summonerSpells.data.data,
-                    runes: runes.data,
-                    items: items.data.data
+                    champions,
+                    summonerSpells,
+                    runes,
+                    items
                 })
-            ).catch(error => console.log(error))
+            }).catch(error => console.log(error))
     }
     render() {
         const { children } = this.props
         return (
             <Context.Provider
-                value={{
-                    baseUrl: BASE_URL,
-                    state: this.state
-                }}
+                value={{ baseUrl, state: this.state }}
             >
                 {children}
             </Context.Provider>
