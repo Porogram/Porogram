@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { SummonerDataContext } from '../Context'
-import Loading from '../loading'
 import Search from '../Search'
+import Loading from '../loading'
 import Feed from './Feed'
 
 export default () => (

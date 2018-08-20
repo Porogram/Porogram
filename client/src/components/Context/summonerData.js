@@ -20,7 +20,7 @@ class Provider extends Component {
         return axios.get(`/api/summoner/${summonerName}`)
             .then(({ data }) => {
                 'error' in data
-                ? this.setState({ error: data.error })
+                ? this.setState({ error: data.error, fetchedData: true })
                 : this.setState({
                     summoner: data.summoner,
                     positions: data.positions,
