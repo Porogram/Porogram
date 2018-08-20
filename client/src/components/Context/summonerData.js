@@ -35,7 +35,8 @@ class Provider extends Component {
             }).catch(error => {
                 console.log(error)
                 this.setState({
-                    error: { message: 'Failed to get summoner data' }
+                    error: { message: 'Failed to get summoner data' },
+                    fetchedData: true
                 })
             })
     }
