@@ -19,6 +19,7 @@ class Provider extends Component {
         this.setState({ searched: true })
         return axios.get(`/api/summoner/${summonerName}`)
             .then(({ data }) => {
+                console.log(data)   // TODO take this out
                 'error' in data
                 ? this.setState({ error: data.error, fetchedData: true })
                 : this.setState({
