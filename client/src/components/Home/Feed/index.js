@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import { SummonerDataContext } from '../../Context'
+import { Failure } from '../../Errors'
 import Matches from './Matches'
 
 export default withStyles(theme => ({
@@ -10,7 +12,17 @@ export default withStyles(theme => ({
         }
     }
 }))(({ classes }) => (
-    <div className={classes.matches}>
-        <Matches />
-    </div>
+    <SummonerDataContext.Consumer>
+        {({ state: { error } }) => (
+            <Fragment>
+                {'message' in error
+                ? <Failure error={error} />
+                : (
+                    <div className={classes.matches}>
+                        <Matches />
+                    </div>
+                )}
+            </Fragment>
+        )}
+    </SummonerDataContext.Consumer>
 ))

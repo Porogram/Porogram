@@ -18,28 +18,27 @@ class Provider extends Component {
     getSummonerData = summonerName => {
         this.setState({ searched: true })
         return axios.get(`/api/summoner/${summonerName}`)
-            .then(({
-                data: {
-                    summoner,
-                    positions,
-                    championMasteries,
-                    matchlist,
-                    matches
-                }
-            }) => this.setState({
-                    summoner,
-                    positions,
-                    championMasteries,
-                    matchlist,
-                    matches,
+            .then(({ data }) => {
+                'error' in data
+                ? this.setState({ error: data.error, fetchedData: true })
+                : this.setState({
+                    summoner: data.summoner,
+                    positions: data.positions,
+                    championMasteries: data.championMasteries,
+                    matchlist: data.matchlist,
+                    matches: data.matches,
                     fetchedData: true,
-                    moreItems: matchlist.endIndex < matchlist.totalGames
+                    moreItems: (
+                        data.matchlist.endIndex < data.matchlist.totalGames
+                    )
                 })
-            ).catch(error =>
+            }).catch(error => {
+                console.log(error)
                 this.setState({
-                    error: { message: 'Failed to get summoner data' }
+                    error: { message: 'Failed to get summoner data' },
+                    fetchedData: true
                 })
-            )
+            })
     }
     getMatches = (accountId, beginIndex, endIndex) => {
         return axios.post('/api/matches', { accountId, beginIndex, endIndex })
