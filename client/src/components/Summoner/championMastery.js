@@ -2,6 +2,8 @@ import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
 import { StaticDataContext } from '../Context'
+import five from '../../images/champion-mastery/5.png'
+import six from '../../images/champion-mastery/6.png'
 import seven from '../../images/champion-mastery/7.png'
 
 export default withStyles((theme) => ({
@@ -17,7 +19,15 @@ export default withStyles((theme) => ({
     championMasteries,
     champions,
     classes
-    }) => (
+}) => {
+    const getMasteryImage = mastery => {
+        if (mastery === '7') {
+            return <Avatar src={seven}/>
+        } else if (mastery === '6') {
+            return <Avatar src={six}/>
+        }
+    }
+    return (
         <StaticDataContext.Consumer>
             {({ state: { version, champions }, baseUrl }) => (
                 <Fragment>
@@ -26,11 +36,9 @@ export default withStyles((theme) => ({
                     <Grid container direction="column">
                         {[...Array(5).keys()].map(i => (
                             <Grid item key={i} >
-                                <Grid container direction="row" justify="space-between">
+                                <Grid container direction="row" justify="space-between" alignItems="center">
                                     <Grid item>
-                                        {championMasteries[i].championLevel ? (
-                                            <Typography variant="subheading">{championMasteries[i].championLevel}</Typography>
-                                        ) : (<Typography variant="subheading">No champion</Typography>)}
+                                        {getMasteryImage(`${championMasteries[i].championLevel}`)}
                                     </Grid>
                                     <Grid item>
                                         {championMasteries[i].championId ? (
@@ -50,4 +58,4 @@ export default withStyles((theme) => ({
             </Fragment>
         )}
     </StaticDataContext.Consumer>
-))
+)})
