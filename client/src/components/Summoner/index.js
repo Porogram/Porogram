@@ -1,6 +1,6 @@
 import React from 'react'
 import { SummonerDataContext } from '../Context'
-import Summoner from './summoner'
+import Summoner from './Summoner'
 
 export default ({ match: { params: { summonerName } } }) => (
     <SummonerDataContext.Consumer>

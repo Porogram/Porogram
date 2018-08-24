@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography } from '@material-ui/core'
-import { StaticDataContext, SummonerDataContext } from '../Context'
+import { StaticDataContext, SummonerDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     avatar: {

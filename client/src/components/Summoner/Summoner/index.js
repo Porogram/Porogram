@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import { SummonerDataContext } from '../Context'
-import Loading from '../loading'
-import { Failure } from '../Errors'
+import { SummonerDataContext } from '../../Context'
+import Loading from '../../loading'
+import { Failure } from '../../Errors'
 import Profile from './profile'
 
 export default class extends Component {
