@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
 import { StaticDataContext } from '../Context'
+import four from '../../images/champion-mastery/4.png'
 import five from '../../images/champion-mastery/5.png'
 import six from '../../images/champion-mastery/6.png'
 import seven from '../../images/champion-mastery/7.png'
@@ -25,6 +26,10 @@ export default withStyles((theme) => ({
             return <Avatar src={seven}/>
         } else if (mastery === '6') {
             return <Avatar src={six}/>
+        } else if (mastery === '5') {
+            return <Avatar src={five}/>
+        } else if (mastery === '4') {
+            return <Avatar src={four}/>
         }
     }
     return (
@@ -36,21 +41,19 @@ export default withStyles((theme) => ({
                     <Grid container direction="column">
                         {[...Array(5).keys()].map(i => (
                             <Grid item key={i} >
-                                <Grid container direction="row" justify="space-between" alignItems="center">
-                                    <Grid item>
-                                        {getMasteryImage(`${championMasteries[i].championLevel}`)}
-                                    </Grid>
-                                    <Grid item>
-                                        {championMasteries[i].championId ? (
+                                {(championMasteries[i].championLevel > 3) ?
+                                    <Grid container direction="row" justify="space-between" alignItems="center">
+                                        <Grid item>
+                                            {getMasteryImage(`${championMasteries[i].championLevel}`)}
+                                        </Grid>
+                                        <Grid item>
                                             <Typography variant="subheading">{champions[championMasteries[i].championId].id}</Typography>
-                                        ) : (<Typography variant="subheading">No champion</Typography>)}
-                                    </Grid>
-                                    <Grid item>
-                                        {championMasteries[i].championPoints ? (
+                                        </Grid>
+                                        <Grid item>
                                             <Typography variant="subheading">{championMasteries[i].championPoints}</Typography>
-                                        ) : (<Typography variant="subheading">No champion</Typography>)}
+                                        </Grid>
                                     </Grid>
-                                </Grid>
+                                :(<Fragment/>)}
                             </Grid>
                         ))}
                     </Grid>
