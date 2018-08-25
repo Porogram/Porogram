@@ -39,7 +39,7 @@ export default withStyles((theme) => ({
     }
 }))(({
     classes,
-    match: { gameCreation, mapId, participantIdentities, participants },
+    match: { gameCreation, mapId, queueId, participantIdentities, participants },
     summoner: { accountId, name, profileIconId, summonerLevel }
 }) => {
     const summonerIndex = participantIdentities.findIndex(participant =>
@@ -47,7 +47,7 @@ export default withStyles((theme) => ({
     )
     return (
         <StaticDataContext.Consumer>
-            {({ baseUrl, maps, state: { champions, version } }) => (
+            {({ baseUrl, maps, queues, state: { champions, version } }) => (
                 <Card
                     style={participants[summonerIndex].stats.win
                         ? { 'backgroundColor': '#0A7FD9' }
@@ -62,7 +62,7 @@ export default withStyles((theme) => ({
                             />
                         )}
                         className={classes.header}
-                        subheader={maps[mapId]}
+                        subheader={`${queues[queueId]} (${maps[mapId]})`}
                         title={(
                             <Typography variant="headline">
                                 {name}
