@@ -2,6 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography } from '@material-ui/core'
 import { StaticDataContext, SummonerDataContext } from '../../Context'
+import ChampionMastery from '../championMastery'
 
 export default withStyles(theme => ({
     avatar: {
@@ -64,9 +65,10 @@ export default withStyles(theme => ({
                                 className={classes.avatar}
                             />
                             <Paper className={classes.infoPage} elevation={20}>
-                                <Typography variant='subheading'>
-                                    Summoner info
-                                </Typography>
+                                <ChampionMastery
+                                    championMasteries={championMasteries}
+                                    champions={champions}
+                                />
                             </Paper>
                         </div>
                     </div>
