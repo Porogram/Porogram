@@ -18,6 +18,49 @@ const maps = {
     19: 'Substructure 43',
     21: 'Nexus Blitz'
 }
+const queues = {
+    0: 'Custom',
+    72: '1v1 Snowdown Showdown',
+    73: '2v2 Snowdown Showdown',
+    75: '6v6 Hexakill',
+    76: 'URF',
+    78: 'One for All',
+    83: 'Co-op vs AI URF',
+    98: '6v6 Hexakill',
+    100: '5v5 ARAM',
+    310: 'Nemesis',
+    313: 'Black Market Brawlers',
+    317: 'Definitely Not Dominion',
+    325: 'All Random',
+    400: '5v5 Draft',
+    420: '5v5 Ranked Solo',
+    430: '5v5 Blind',
+    440: '5v5 Ranked Flex',
+    450: '5v5 ARAM',
+    460: '3v3 Blind',
+    470: '3v3 Ranked Flex',
+    600: 'Blood Hunt',
+    610: 'Dark Star',
+    700: 'Clash',
+    800: 'Co-op vs. AI',
+    810: 'Co-op vs. AI',
+    820: 'Co-op vs. AI',
+    830: 'Co-op vs. AI',
+    840: 'Co-op vs. AI',
+    850: 'Co-op vs. AI',
+    900: 'ARURF',
+    910: 'Ascension',
+    920: 'Legend of the Poro King',
+    940: 'Nexus Siege',
+    950: 'Doom Bots',
+    960: 'Doom Bots',
+    980: 'Star Guardian Invasion',
+    990: 'Star Guardian Invasion',
+    1000: 'Overcharge',
+    1010: 'Snow ARURF',
+    1020: 'One for All',
+    1200: 'Nexus Blitz'
+}
 
 class Provider extends Component {
     state = {
@@ -67,6 +110,7 @@ class Provider extends Component {
                 console.log('runes', runes)
                 console.log('items', items)
                 console.log('maps', maps)
+                console.log('queues', queues)
                 this.setState({
                     version,
                     champions,
@@ -80,7 +124,7 @@ class Provider extends Component {
         const { children } = this.props
         return (
             <Context.Provider
-                value={{ baseUrl, maps, state: this.state }}
+                value={{ baseUrl, maps, queues, state: this.state }}
             >
                 {children}
             </Context.Provider>
