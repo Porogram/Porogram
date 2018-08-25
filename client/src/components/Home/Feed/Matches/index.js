@@ -1,20 +1,19 @@
 import React from 'react'
 import { CircularProgress, Grid } from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroller'
-import { StaticDataContext, SummonerDataContext } from '../../../Context'
+import { SummonerDataContext } from '../../../Context'
 import Match from './match'
 
 export default () => (
     <SummonerDataContext.Consumer>
         {({
             state: {
-                moreMatches,
-                summoner,
-                summoner: { accountId },
+                matches,
                 matchlist,
                 matchlist: { endIndex, totalGames },
-                matches,
-                error
+                moreMatches,
+                summoner,
+                summoner: { accountId }
             },
             getMatches
         }) => (
@@ -41,15 +40,12 @@ export default () => (
                 )}
             >
                 {matches.map(match => (
-                    <StaticDataContext.Consumer key={match.gameId}>
-                        {({ state }) => (
-                            <Match
-                                summoner={summoner}
-                                match={match}
-                                matchlist={matchlist}
-                            />
-                        )}
-                    </StaticDataContext.Consumer>
+                    <Match
+                        key={match.gameId}
+                        match={match}
+                        matchlist={matchlist}
+                        summoner={summoner}
+                    />
                 ))}
             </InfiniteScroll>
         )}
