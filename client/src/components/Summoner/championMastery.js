@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
 import { StaticDataContext } from '../Context'
-import four from '../../images/champion-mastery/champion-master-4.png'
-import five from '../../images/champion-mastery/champion-master-5.png'
-import six from '../../images/champion-mastery/champion-master-6.png'
-import seven from '../../images/champion-mastery/champion-master-7.png'
+import championMastery4 from '../../images/champion-mastery/champion-mastery-4.png'
+import championMastery5 from '../../images/champion-mastery/champion-mastery-5.png'
+import championMastery6 from '../../images/champion-mastery/champion-mastery-6.png'
+import championMastery7 from '../../images/champion-mastery/champion-mastery-7.png'
 
 export default withStyles((theme) => ({
     title: {
@@ -23,13 +23,13 @@ export default withStyles((theme) => ({
 }) => {
     const getMasteryImage = mastery => {
         if (mastery === '7') {
-            return <Avatar src={seven}/>
+            return <Avatar src={championMastery7}/>
         } else if (mastery === '6') {
-            return <Avatar src={six}/>
+            return <Avatar src={championMastery6}/>
         } else if (mastery === '5') {
-            return <Avatar src={five}/>
+            return <Avatar src={championMastery5}/>
         } else if (mastery === '4') {
-            return <Avatar src={four}/>
+            return <Avatar src={championMastery4}/>
         }
     }
     return (
