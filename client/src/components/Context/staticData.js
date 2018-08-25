@@ -3,6 +3,21 @@ import axios from 'axios'
 
 const baseUrl = 'https://ddragon.leagueoflegends.com'
 const Context = createContext()
+const maps = {
+    1: 'Summoner\'s Rift',
+    2: 'Summoner\'s Rift',
+    3: 'The Proving Grounds',
+    4: 'Twisted Treeline',
+    8: 'The Crystal Scar',
+    10: 'Twisted Treeline',
+    11: 'Summoner\'s Rift',
+    12: 'Howling Abyss',
+    14: 'Butcher\'s Bridge',
+    16: 'Cosmic Ruins',
+    18: 'Valoran City Park',
+    19: 'Substructure 43',
+    21: 'Nexus Blitz'
+}
 
 class Provider extends Component {
     state = {
@@ -51,6 +66,7 @@ class Provider extends Component {
                 console.log('summonerSpells', summonerSpells)
                 console.log('runes', runes)
                 console.log('items', items)
+                console.log('maps', maps)
                 this.setState({
                     version,
                     champions,
@@ -64,7 +80,7 @@ class Provider extends Component {
         const { children } = this.props
         return (
             <Context.Provider
-                value={{ baseUrl, state: this.state }}
+                value={{ baseUrl, maps, state: this.state }}
             >
                 {children}
             </Context.Provider>

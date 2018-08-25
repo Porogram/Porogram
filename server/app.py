@@ -6,23 +6,14 @@ app = Flask(__name__)
 @app.route('/api/summoner/<string:summonerName>', methods=['GET'])
 def summoner(summonerName):
     res = {}
-    res['summoner'] = utils.getSummoner(summonerName)
-    res['positions'] = (
-        utils.getPositions(res['summoner']['id'])
-        if 'id' in res['summoner'] else []
-    )
-    res['championMasteries'] = (
-        utils.getChampionMasteries(res['summoner']['id'])
-        if 'id' in res['summoner'] else []
-    )
-    res['matchlist'] = (
-        utils.getMatchlist(res['summoner']['accountId'], 0, 10)
-        if 'accountId' in res['summoner'] else {}
-    )
-    res['matches'] = (
-        utils.getMatches(res['matchlist']['matches'])
-        if 'matches' in res['matchlist'] else []
-    )
+    summoner = utils.getSummoner(summonerName)
+    if 'message' in summoner:
+        return jsonify({ 'error': summoner })
+    res['summoner'] = summoner
+    res['positions'] = utils.getPositions(res['summoner']['id'])
+    res['championMasteries'] = utils.getChampionMasteries(res['summoner']['id'])
+    res['matchlist'] = utils.getMatchlist(res['summoner']['accountId'], 0, 10)
+    res['matches'] = utils.getMatches(res['matchlist']['matches'])
     return jsonify(res)
 
 @app.route('/api/matches', methods=['POST'])
@@ -38,10 +29,7 @@ def matches():
         request.json['beginIndex'],
         request.json['endIndex']
     )
-    res['matches'] = (
-        utils.getMatches(res['matchlist']['matches'])
-        if 'matches' in res['matchlist'] else []
-    )
+    res['matches'] = utils.getMatches(res['matchlist']['matches'])
     return jsonify(res)
 
 if __name__ == '__main__':
