@@ -41,6 +41,10 @@ class Provider extends Component {
                 })
             })
     }
+    getMatch = matchId => {
+        return axios.get(`/api/match/${matchId}`)
+            .then(({ data: { match } }) => Promise.resolve(match))
+    }
     getMatches = (accountId, beginIndex, endIndex) => {
         return axios.post('/api/matches', { accountId, beginIndex, endIndex })
             .then(({ data: { matchlist, matches } }) => {
