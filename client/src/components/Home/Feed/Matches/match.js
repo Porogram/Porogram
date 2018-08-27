@@ -66,7 +66,7 @@ export default withStyles(theme => ({
             classes,
             getMatch,
             match: { champion, gameId, queue, timestamp },
-            summoner: { name, profileIconId }
+            summoner: { accountId, name, profileIconId }
         } = this.props
         const { showMatch } = this.state
         return (
@@ -97,6 +97,7 @@ export default withStyles(theme => ({
                         />
                         {showMatch && (
                             <MatchInfo
+                                accountId={accountId}
                                 close={this.handleClick}
                                 getMatch={getMatch}
                                 matchId={gameId}
