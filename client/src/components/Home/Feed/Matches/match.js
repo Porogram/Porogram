@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
     Avatar,
@@ -49,45 +50,45 @@ export default withStyles((theme) => ({
     media: {
         height: 0,
         paddingTop: '56.25%'
+    },
+    name: {
+        textDecoration: 'none'
     }
-}))(class extends Component {
-    render() {
-        const {
-            classes,
-            match: { champion, queue, timestamp },
-            summoner: { name, profileIconId }
-        } = this.props
-        return (
-            <StaticDataContext.Consumer>
-                {({ baseUrl, queues, state: { champions, version } }) => (
-                    <Card>
-                        <CardHeader
-                            avatar={(
-                                <Avatar
-                                    src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                                    alt=""
-                                />
-                            )}
-                            className={classes.header}
-                            subheader={`${queues[queue]}`}
-                            title={(
-                                <Typography variant="headline">
-                                    {name}
-                                </Typography>
-                            )}
+}))(({
+    classes,
+    match: { champion, queue, timestamp },
+    summoner: { name, profileIconId }
+}) => (
+    <StaticDataContext.Consumer>
+        {({ baseUrl, queues, state: { champions, version } }) => (
+            <Card>
+                <CardHeader
+                    avatar={(
+                        <Avatar
+                            src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                            alt=""
                         />
-                        <CardMedia
-                            className={classes.media}
-                            image={`${baseUrl}/cdn/img/champion/splash/${champions[champion].id}_0.jpg`}
-                        />
-                        <CardContent>
-                            <Typography variant="caption">
-                                {getElapsedTime(timestamp)}
+                    )}
+                    className={classes.header}
+                    subheader={`${queues[queue]}`}
+                    title={(
+                        <Link className={classes.name} to={`/${name}`}>
+                            <Typography variant="headline">
+                                {name}
                             </Typography>
-                        </CardContent>
-                    </Card>
-                )}
-            </StaticDataContext.Consumer>
-        )
-    }
-})
+                        </Link>
+                    )}
+                />
+                <CardMedia
+                    className={classes.media}
+                    image={`${baseUrl}/cdn/img/champion/splash/${champions[champion].id}_0.jpg`}
+                />
+                <CardContent>
+                    <Typography variant="caption">
+                        {getElapsedTime(timestamp)}
+                    </Typography>
+                </CardContent>
+            </Card>
+        )}
+    </StaticDataContext.Consumer>
+))
