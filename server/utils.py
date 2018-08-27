@@ -68,12 +68,3 @@ def getMatchlist(accountId, beginIndex = 0, endIndex = 10):
 
 def getMatch(matchId):
     return makeRequest(createUrl('/match/v3/matches', matchId))
-
-def getMatches(matches):
-    return [
-        makeRequest(
-            createUrl(
-                '/match/v3/matches', str(match['gameId'])
-            )
-        ) for match in matches
-    ]

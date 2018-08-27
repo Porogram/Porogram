@@ -44,18 +44,23 @@ class Provider extends Component {
     getMatch = matchId => {
         return axios.get(`/api/match/${matchId}`)
             .then(({ data: { match } }) => Promise.resolve(match))
+            .catch(error => {
+                console.log(error)
+                this.setState({ error: { message: 'Failed to get match' } })
+            })
     }
     getMatches = (accountId, beginIndex, endIndex) => {
         return axios.post('/api/matches', { accountId, beginIndex, endIndex })
-            .then(({ data: { matchlist, matches } }) => {
+            .then(({ data: { matchlist, matches } }) =>
                 this.setState(prevState => {
                     return {
                         matchlist,
-                        matches: [...prevState.matches, ...matches],
+                        matches: [...prevState.matchlist.matches, ...matches],
                         moreItems: matchlist.endIndex < prevState.matchlist.totalGames
                     }
                 })
-            }).catch(error => {
+            ).catch(error => {
+                console.log(error)
                 this.setState({
                     moreItems: false,
                     error: { message: 'Failed to get more matches' }
