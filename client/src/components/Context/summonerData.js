@@ -27,7 +27,7 @@ class Provider extends Component {
                     positions: data.positions,
                     championMasteries: data.championMasteries,
                     matchlist: data.matchlist,
-                    matches: data.matches,
+                    matches: data.matchlist.matches,
                     fetchedData: true,
                     moreItems: (
                         data.matchlist.endIndex < data.matchlist.totalGames

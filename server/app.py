@@ -13,8 +13,11 @@ def summoner(summonerName):
     res['positions'] = utils.getPositions(res['summoner']['id'])
     res['championMasteries'] = utils.getChampionMasteries(res['summoner']['id'])
     res['matchlist'] = utils.getMatchlist(res['summoner']['accountId'], 0, 10)
-    res['matches'] = utils.getMatches(res['matchlist']['matches'])
     return jsonify(res)
+
+@app.route('/api/match/<string:matchId>', methods=['GET'])
+def match(matchId):
+    return jsonify({ 'match': utils.getMatch(matchId) })
 
 @app.route('/api/matches', methods=['POST'])
 def matches():
