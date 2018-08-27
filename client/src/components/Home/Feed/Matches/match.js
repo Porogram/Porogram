@@ -39,15 +39,12 @@ export default withStyles((theme) => ({
     }
 }))(({
     classes,
-    // match: { gameCreation, mapId, queueId, participantIdentities, participants },
+    match: { champion, queue, timestamp },
     summoner: { name, profileIconId }
 }) => {
-    // subheader={`${queues[queueId]} (${maps[mapId]})`}
-    // image={`${baseUrl}/cdn/img/champion/splash/${champions[participants[summonerIndex].championId].id}_0.jpg`}
-    // {getElapsedTime(gameCreation)}
     return (
         <StaticDataContext.Consumer>
-            {({ baseUrl, maps, queues, state: { champions, version } }) => (
+            {({ baseUrl, queues, state: { champions, version } }) => (
                 <Card>
                     <CardHeader
                         avatar={(
@@ -57,6 +54,7 @@ export default withStyles((theme) => ({
                             />
                         )}
                         className={classes.header}
+                        subheader={`${queues[queue]}`}
                         title={(
                             <Typography variant="headline">
                                 {name}
@@ -65,12 +63,11 @@ export default withStyles((theme) => ({
                     />
                     <CardMedia
                         className={classes.media}
+                        image={`${baseUrl}/cdn/img/champion/splash/${champions[champion].id}_0.jpg`}
                     />
                     <CardContent>
-                        <Typography variant="headline">
-                            CARD CONTENT
-                        </Typography>
                         <Typography variant="caption">
+                            {getElapsedTime(timestamp)}
                         </Typography>
                     </CardContent>
                 </Card>
