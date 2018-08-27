@@ -43,7 +43,6 @@ export default () => (
                     <Match
                         key={match.gameId}
                         match={match}
-                        matchlist={matchlist}
                         summoner={summoner}
                     />
                 ))}

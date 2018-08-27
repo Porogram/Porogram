@@ -13,8 +13,11 @@ def summoner(summonerName):
     res['positions'] = utils.getPositions(res['summoner']['id'])
     res['championMasteries'] = utils.getChampionMasteries(res['summoner']['id'])
     res['matchlist'] = utils.getMatchlist(res['summoner']['accountId'], 0, 10)
-    res['matches'] = utils.getMatches(res['matchlist']['matches'])
     return jsonify(res)
+
+@app.route('/api/match/<string:matchId>', methods=['GET'])
+def match(matchId):
+    return jsonify({ 'match': utils.getMatch(matchId) })
 
 @app.route('/api/matches', methods=['POST'])
 def matches():
@@ -23,14 +26,13 @@ def matches():
         or 'beginIndex' not in request.json
         or 'endIndex' not in request.json):
         return jsonify({ 'status_code': 400, 'message': 'Bad request' })
-    res = {}
-    res['matchlist'] = utils.getMatchlist(
-        request.json['accountId'],
-        request.json['beginIndex'],
-        request.json['endIndex']
-    )
-    res['matches'] = utils.getMatches(res['matchlist']['matches'])
-    return jsonify(res)
+    return jsonify({
+        'matchlist': utils.getMatchlist(
+            request.json['accountId'],
+            request.json['beginIndex'],
+            request.json['endIndex']
+        )
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)

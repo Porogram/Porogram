@@ -11,21 +11,34 @@ import {
 import { StaticDataContext } from '../../../Context'
 
 const getElapsedTime = gameCreation => {
-    const elapsedTime = Math.round((new Date() - gameCreation) / 1000)
+    let elapsedTime = Math.round((new Date() - gameCreation) / 1000)
     if (elapsedTime < 60) {
-        return `${elapsedTime} SECONDS AGO`
+        return elapsedTime === 1
+        ? `${elapsedTime} SECOND AGO` : `${elapsedTime} SECONDS AGO`
     } else if (elapsedTime < 3600) {
-        return `${Math.round(elapsedTime / 60)} MINUTES AGO`
+        elapsedTime = Math.round(elapsedTime / 60)
+        return elapsedTime === 1
+        ? `${elapsedTime} MINUTE AGO` : `${elapsedTime} MINUTES AGO`
     } else if (elapsedTime < 86400) {
-        return `${Math.round(elapsedTime / 3600)} HOURS AGO`
+        elapsedTime = Math.round(elapsedTime / 3600)
+        return elapsedTime === 1
+        ? `${elapsedTime} HOUR AGO` : `${elapsedTime} HOURS AGO`
     } else if (elapsedTime < 604800){
-        return `${Math.round(elapsedTime / 86400)} DAYS AGO`
+        elapsedTime = Math.round(elapsedTime / 86400)
+        return elapsedTime === 1
+        ? `${elapsedTime} DAY AGO` : `${elapsedTime} DAYS AGO`
     } else if (elapsedTime < 2628000){
-        return `${Math.round(elapsedTime / 604800)} WEEKS AGO`
+        elapsedTime = Math.round(elapsedTime / 604800)
+        return elapsedTime === 1
+        ? `${elapsedTime} WEEK AGO` : `${elapsedTime} WEEKS AGO`
     } else if (elapsedTime < 31540000) {
-        return `${Math.round(elapsedTime / 2628000)} MONTHS AGO`
+        elapsedTime = Math.round(elapsedTime / 2628000)
+        return elapsedTime === 1
+        ? `${elapsedTime} MONTH AGO` : `${elapsedTime} MONTHS AGO`
     } else {
-        return `${Math.round(elapsedTime / 31540000)} YEARS AGO`
+        elapsedTime = Math.round(elapsedTime / 31540000)
+        return elapsedTime === 1
+        ? `${elapsedTime} YEAR AGO` : `${elapsedTime} YEARS AGO`
     }
 }
 
@@ -39,21 +52,13 @@ export default withStyles((theme) => ({
     }
 }))(({
     classes,
-    match: { gameCreation, mapId, queueId, participantIdentities, participants },
-    summoner: { accountId, name, profileIconId, summonerLevel }
+    match: { champion, queue, timestamp },
+    summoner: { name, profileIconId }
 }) => {
-    const summonerIndex = participantIdentities.findIndex(participant =>
-        participant.player.accountId === accountId
-    )
     return (
         <StaticDataContext.Consumer>
-            {({ baseUrl, maps, queues, state: { champions, version } }) => (
-                <Card
-                    style={participants[summonerIndex].stats.win
-                        ? { 'backgroundColor': '#0A7FD9' }
-                        : { 'backgroundColor': '#B63015' }
-                    }
-                >
+            {({ baseUrl, queues, state: { champions, version } }) => (
+                <Card>
                     <CardHeader
                         avatar={(
                             <Avatar
@@ -62,7 +67,7 @@ export default withStyles((theme) => ({
                             />
                         )}
                         className={classes.header}
-                        subheader={`${queues[queueId]} (${maps[mapId]})`}
+                        subheader={`${queues[queue]}`}
                         title={(
                             <Typography variant="headline">
                                 {name}
@@ -71,14 +76,11 @@ export default withStyles((theme) => ({
                     />
                     <CardMedia
                         className={classes.media}
-                        image={`${baseUrl}/cdn/img/champion/splash/${champions[participants[summonerIndex].championId].id}_0.jpg`}
+                        image={`${baseUrl}/cdn/img/champion/splash/${champions[champion].id}_0.jpg`}
                     />
                     <CardContent>
-                        <Typography variant="headline">
-                            CARD CONTENT
-                        </Typography>
                         <Typography variant="caption">
-                            {getElapsedTime(gameCreation)}
+                            {getElapsedTime(timestamp)}
                         </Typography>
                     </CardContent>
                 </Card>
