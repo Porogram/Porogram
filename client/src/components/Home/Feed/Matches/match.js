@@ -64,7 +64,8 @@ export default withStyles(theme => ({
     render() {
         const {
             classes,
-            match: { champion, queue, timestamp },
+            getMatch,
+            match: { champion, gameId, queue, timestamp },
             summoner: { name, profileIconId }
         } = this.props
         const { showMatch } = this.state
@@ -94,7 +95,14 @@ export default withStyles(theme => ({
                             image={`${baseUrl}/cdn/img/champion/splash/${champions[champion].id}_0.jpg`}
                             onClick={this.handleClick}
                         />
-                        <MatchInfo open={showMatch} close={this.handleClick} />
+                        {showMatch && (
+                            <MatchInfo
+                                close={this.handleClick}
+                                getMatch={getMatch}
+                                matchId={gameId}
+                                open={showMatch}
+                            />
+                        )}
                         <CardContent>
                             <Typography variant="caption">
                                 {this.getElapsedTime(timestamp)}

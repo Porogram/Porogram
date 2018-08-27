@@ -72,6 +72,7 @@ class Provider extends Component {
                 value={{
                     state: this.state,
                     getSummonerData: this.getSummonerData,
+                    getMatch: this.getMatch,
                     getMatches: this.getMatches
                 }}
             >
