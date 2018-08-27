@@ -11,21 +11,34 @@ import {
 import { StaticDataContext } from '../../../Context'
 
 const getElapsedTime = gameCreation => {
-    const elapsedTime = Math.round((new Date() - gameCreation) / 1000)
+    let elapsedTime = Math.round((new Date() - gameCreation) / 1000)
     if (elapsedTime < 60) {
-        return `${elapsedTime} SECONDS AGO`
+        return elapsedTime === 1
+        ? `${elapsedTime} SECOND AGO` : `${elapsedTime} SECONDS AGO`
     } else if (elapsedTime < 3600) {
-        return `${Math.round(elapsedTime / 60)} MINUTES AGO`
+        elapsedTime = Math.round(elapsedTime / 60)
+        return elapsedTime === 1
+        ? `${elapsedTime} MINUTE AGO` : `${elapsedTime} MINUTES AGO`
     } else if (elapsedTime < 86400) {
-        return `${Math.round(elapsedTime / 3600)} HOURS AGO`
+        elapsedTime = Math.round(elapsedTime / 3600)
+        return elapsedTime === 1
+        ? `${elapsedTime} HOUR AGO` : `${elapsedTime} HOURS AGO`
     } else if (elapsedTime < 604800){
-        return `${Math.round(elapsedTime / 86400)} DAYS AGO`
+        elapsedTime = Math.round(elapsedTime / 86400)
+        return elapsedTime === 1
+        ? `${elapsedTime} DAY AGO` : `${elapsedTime} DAYS AGO`
     } else if (elapsedTime < 2628000){
-        return `${Math.round(elapsedTime / 604800)} WEEKS AGO`
+        elapsedTime = Math.round(elapsedTime / 604800)
+        return elapsedTime === 1
+        ? `${elapsedTime} WEEK AGO` : `${elapsedTime} WEEKS AGO`
     } else if (elapsedTime < 31540000) {
-        return `${Math.round(elapsedTime / 2628000)} MONTHS AGO`
+        elapsedTime = Math.round(elapsedTime / 2628000)
+        return elapsedTime === 1
+        ? `${elapsedTime} MONTH AGO` : `${elapsedTime} MONTHS AGO`
     } else {
-        return `${Math.round(elapsedTime / 31540000)} YEARS AGO`
+        elapsedTime = Math.round(elapsedTime / 31540000)
+        return elapsedTime === 1
+        ? `${elapsedTime} YEAR AGO` : `${elapsedTime} YEARS AGO`
     }
 }
 
