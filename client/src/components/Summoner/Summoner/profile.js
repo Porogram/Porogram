@@ -1,8 +1,9 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Avatar, Paper, Typography } from '@material-ui/core'
+import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
 import { StaticDataContext, SummonerDataContext } from '../../Context'
-import ChampionMastery from '../championMastery'
+import ChampionMastery from './championMastery'
+import Ranked from './ranked'
 
 export default withStyles(theme => ({
     avatar: {
@@ -65,10 +66,15 @@ export default withStyles(theme => ({
                                 className={classes.avatar}
                             />
                             <Paper className={classes.infoPage} elevation={20}>
-                                <ChampionMastery
-                                    championMasteries={championMasteries}
-                                    champions={champions}
-                                />
+                                <Grid container direction="row" justify="space-between">
+                                    <ChampionMastery
+                                        championMasteries={championMasteries}
+                                        champions={champions}
+                                    />
+                                    <Ranked
+                                        positions={positions}
+                                    />
+                                </Grid>
                             </Paper>
                         </div>
                     </div>
