@@ -9,7 +9,7 @@ import Platinum from '../../../images/tier/platinum.png'
 import Gold from '../../../images/tier/gold.png'
 import Silver from '../../../images/tier/silver.png'
 import Bronze from '../../../images/tier/bronze.png'
-// import Provisional from '../../../images/tier/provisional.png'
+import Provisional from '../../../images/tier/provisional.png'
 import Unranked from '../../../images/tier/unranked.png'
 
 export default withStyles((theme) => ({
@@ -40,8 +40,8 @@ export default withStyles((theme) => ({
             return <img src={Silver}/>
         } else if (tier === 'BRONZE') {
             return <img src={Bronze}/>
-        // } else if (tier === 'PROVISIONAL') {
-        //     return <img src={Provisional}/>
+        } else if (tier === 'PROVISIONAL') {
+            return <img src={Provisional}/>
         } else {
             return <img src={Unranked}/>
         }
