@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
-import { StaticDataContext } from '../../Context'
+import { Paper, Typography, Grid } from '@material-ui/core'
 import Challenger from '../../../images/tier/challenger.png'
 import Master from '../../../images/tier/master.png'
 import Diamond from '../../../images/tier/diamond.png'
@@ -20,47 +19,43 @@ export default withStyles((theme) => ({
     paper: {
         width: theme.spacing.unit * 40,
         padding: theme.spacing.unit * 5
-    }
+    },
 }))(({
     positions,
     classes
 }) => {
     const getTierImage = tier => {
         if (tier === 'CHALLENGER') {
-            return <img src={Challenger}/>
+            return <img src={Challenger} alt=''/>
         } else if (tier === 'MASTER') {
-            return <img src={Master}/>
+            return <img src={Master} alt=''/>
         } else if (tier === 'DIAMOND') {
-            return <img src={Diamond}/>
+            return <img src={Diamond} alt=''/>
         } else if (tier === 'PLATINUM') {
-            return <img src={Platinum}/>
+            return <img src={Platinum} alt=''/>
         } else if (tier === 'GOLD') {
-            return <img src={Gold}/>
+            return <img src={Gold} alt=''/>
         } else if (tier === 'SILVER') {
-            return <img src={Silver}/>
+            return <img src={Silver} alt=''/>
         } else if (tier === 'BRONZE') {
-            return <img src={Bronze}/>
+            return <img src={Bronze} alt=''/>
         } else if (tier === 'PROVISIONAL') {
-            return <img src={Provisional}/>
+            return <img src={Provisional} alt=''/>
         } else {
             return <img src={Unranked}/>
         }
     }
     return (
-        <StaticDataContext.Consumer>
-            {({ state: { version }, baseUrl }) => (
-                <Fragment>
-                <Paper className={classes.paper}>
-                    <Typography variant="headline" className={classes.title}>Ranked Stats</Typography>
-                    <Grid container direction="column" justify="space-between" alignItems="center" spacing={8}>
+        <Fragment>
+            <Paper className={classes.paper}>
+                <Typography variant="headline" className={classes.title}>Ranked Stats</Typography>
+                {positions[0] ? (
+                    <Grid container direction="column" justify="space-between" alignItems="center" spacing={0}>
                         <Grid item>
                             {getTierImage(`${positions[0].tier}`)}
                         </Grid>
                         <Grid item>
-                            {positions[0].tier
-                                ? (<Typography variant="subheading">{positions[0].tier} {positions[0].rank}</Typography>)
-                                : (<Typography variant="subheading">Unranked</Typography>)
-                            }
+                            <Typography variant="subheading">{positions[0].tier} {positions[0].rank}</Typography>
                         </Grid>
                         <Grid item>
                             <Typography variant="subheading">{positions[0].leaguePoints} LP</Typography>
@@ -90,8 +85,16 @@ export default withStyles((theme) => ({
                             </Grid>
                         </Grid>
                     </Grid>
-                </Paper>
-            </Fragment>
-        )}
-    </StaticDataContext.Consumer>
+                ) : (
+                    <Grid container direction="column" alignItems="center">
+                        <Grid item>
+                            {getTierImage('unranked')}
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="subheading">Unranked</Typography>
+                        </Grid>
+                    </Grid>
+                )}
+            </Paper>
+        </Fragment>
 )})
