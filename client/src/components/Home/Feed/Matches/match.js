@@ -98,10 +98,13 @@ export default withStyles(theme => ({
                         {showMatch && (
                             <MatchInfo
                                 accountId={accountId}
+                                baseUrl={baseUrl}
+                                champions={champions}
                                 close={this.handleClick}
                                 getMatch={getMatch}
                                 matchId={gameId}
                                 open={showMatch}
+                                version={version}
                             />
                         )}
                         <CardContent>

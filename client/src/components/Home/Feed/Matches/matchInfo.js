@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
+    Avatar,
     CircularProgress,
     Dialog,
     DialogTitle,
@@ -35,8 +36,12 @@ export default withStyles(theme => ({
         this.props.close()
     }
     render() {
-        const { classes, open } = this.props
-        const { match, summonerIndex } = this.state
+        const { baseUrl, champions, classes, open, version } = this.props
+        const {
+            match,
+            match: { participantIdentities, participants },
+            summonerIndex
+        } = this.state
         console.log(match)
         return (
             <Dialog onClose={this.handleClose} open={open}>
@@ -47,16 +52,23 @@ export default withStyles(theme => ({
                             ? 'VICTORY' : 'DEFEAT'}
                         </DialogTitle>
                         <Grid container direction="column">
-                            {match.participantIdentities.map(participant => (
-                                <Grid item key={participant.participantId}>
-                                    <Link
-                                        className={classes.name}
-                                        to={`/${participant.player.summonerName}`}
-                                    >
-                                        <Typography>
-                                            {participant.player.summonerName}
-                                        </Typography>
-                                    </Link>
+                            {[...Array(10).keys()].map(i => (
+                                <Grid container alignItems="center" key={participantIdentities[i].participantId}>
+                                    <Grid item>
+                                        <Avatar
+                                            src={`${baseUrl}/cdn/${version}/img/champion/${champions[participants[i].championId].image.full}`}
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <Link
+                                            className={classes.name}
+                                            to={`/${participantIdentities[i].player.summonerName}`}
+                                        >
+                                            <Typography>
+                                                {participantIdentities[i].player.summonerName}
+                                            </Typography>
+                                        </Link>
+                                    </Grid>
                                 </Grid>
                             ))}
                         </Grid>
