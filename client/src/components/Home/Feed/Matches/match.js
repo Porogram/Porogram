@@ -71,7 +71,7 @@ export default withStyles(theme => ({
         const { showMatch } = this.state
         return (
             <StaticDataContext.Consumer>
-                {({ baseUrl, queues, state: { champions, version } }) => (
+                {({ baseUrl, queues, state: { champions, items, version } }) => (
                     <Card>
                         <CardHeader
                             avatar={(
@@ -102,6 +102,7 @@ export default withStyles(theme => ({
                                 champions={champions}
                                 close={this.handleClick}
                                 getMatch={getMatch}
+                                items={items}
                                 matchId={gameId}
                                 open={showMatch}
                                 version={version}

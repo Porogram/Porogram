@@ -11,8 +11,24 @@ import {
 } from '@material-ui/core'
 
 export default withStyles(theme => ({
+    champion: {
+        [theme.breakpoints.down('sm')]: {
+            height: theme.spacing.unit * 4,
+            width: theme.spacing.unit * 4
+        },
+        marginRight: theme.spacing.unit * 0.5
+    },
+    item: {
+        [theme.breakpoints.down('sm')]: {
+            height: theme.spacing.unit * 4,
+            width: theme.spacing.unit * 4
+        }
+    },
     name: {
         textDecoration: 'none'
+    },
+    participants: {
+        margin: theme.spacing.unit
     }
 }))(class extends Component {
     state = {
@@ -36,7 +52,7 @@ export default withStyles(theme => ({
         this.props.close()
     }
     render() {
-        const { baseUrl, champions, classes, open, version } = this.props
+        const { baseUrl, champions, classes, items, open, version } = this.props
         const {
             match,
             match: { participantIdentities, participants },
@@ -51,7 +67,12 @@ export default withStyles(theme => ({
                             {match.participants[summonerIndex].stats.win
                             ? 'VICTORY' : 'DEFEAT'}
                         </DialogTitle>
-                        <Grid container direction="column" spacing={8}>
+                        <Grid
+                            className={classes.participants}
+                            container
+                            direction="column"
+                            spacing={8}
+                        >
                             {[...Array(10).keys()].map(i => (
                                 <Grid
                                     alignItems="center"
@@ -59,18 +80,16 @@ export default withStyles(theme => ({
                                     item
                                     key={participantIdentities[i].participantId}
                                 >
-                                    {i === 0 && (
+                                    {(i === 0 || i === 5) && (
                                         <Grid item xs={12}>
-                                            <Typography>TEAM 1</Typography>
-                                        </Grid>
-                                    )}
-                                    {i === 5 && (
-                                        <Grid item xs={12}>
-                                            <Typography>TEAM 2</Typography>
+                                            <Typography>
+                                                {`TEAM ${i ? '2' : '1'}`}
+                                            </Typography>
                                         </Grid>
                                     )}
                                     <Grid item>
                                         <Avatar
+                                            className={classes.champion}
                                             src={`${baseUrl}/cdn/${version}/img/champion/${champions[participants[i].championId].image.full}`}
                                         />
                                     </Grid>
@@ -83,6 +102,20 @@ export default withStyles(theme => ({
                                                 {participantIdentities[i].player.summonerName}
                                             </Typography>
                                         </Link>
+                                    </Grid>
+                                    <Grid container item>
+                                        {[...Array(7).keys()].map(j => (
+                                            <Grid item key={j}>
+                                                {items[participants[i].stats[`item${j}`]]
+                                                && (
+                                                    <img
+                                                        alt=""
+                                                        className={classes.item}
+                                                        src={`${baseUrl}/cdn/${version}/img/item/${items[participants[i].stats[`item${j}`]].image.full}`}
+                                                    />
+                                                )}
+                                            </Grid>
+                                        ))}
                                     </Grid>
                                 </Grid>
                             ))}
