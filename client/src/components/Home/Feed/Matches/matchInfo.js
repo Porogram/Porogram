@@ -51,9 +51,24 @@ export default withStyles(theme => ({
                             {match.participants[summonerIndex].stats.win
                             ? 'VICTORY' : 'DEFEAT'}
                         </DialogTitle>
-                        <Grid container direction="column">
+                        <Grid container direction="column" spacing={8}>
                             {[...Array(10).keys()].map(i => (
-                                <Grid container alignItems="center" key={participantIdentities[i].participantId}>
+                                <Grid
+                                    alignItems="center"
+                                    container
+                                    item
+                                    key={participantIdentities[i].participantId}
+                                >
+                                    {i === 0 && (
+                                        <Grid item xs={12}>
+                                            <Typography>TEAM 1</Typography>
+                                        </Grid>
+                                    )}
+                                    {i === 5 && (
+                                        <Grid item xs={12}>
+                                            <Typography>TEAM 2</Typography>
+                                        </Grid>
+                                    )}
                                     <Grid item>
                                         <Avatar
                                             src={`${baseUrl}/cdn/${version}/img/champion/${champions[participants[i].championId].image.full}`}
