@@ -20,8 +20,8 @@ export default withStyles(theme => ({
     },
     item: {
         [theme.breakpoints.down('sm')]: {
-            height: theme.spacing.unit * 4,
-            width: theme.spacing.unit * 4
+            height: theme.spacing.unit * 2,
+            width: theme.spacing.unit * 2
         }
     },
     name: {
@@ -87,13 +87,13 @@ export default withStyles(theme => ({
                                             </Typography>
                                         </Grid>
                                     )}
-                                    <Grid item>
+                                    <Grid item xs={2}>
                                         <Avatar
                                             className={classes.champion}
                                             src={`${baseUrl}/cdn/${version}/img/champion/${champions[participants[i].championId].image.full}`}
                                         />
                                     </Grid>
-                                    <Grid item>
+                                    <Grid item xs={4}>
                                         <Link
                                             className={classes.name}
                                             to={`/${participantIdentities[i].player.summonerName}`}
@@ -103,7 +103,7 @@ export default withStyles(theme => ({
                                             </Typography>
                                         </Link>
                                     </Grid>
-                                    <Grid container item>
+                                    <Grid container item xs={6}>
                                         {[...Array(7).keys()].map(j => (
                                             <Grid item key={j}>
                                                 {items[participants[i].stats[`item${j}`]]
