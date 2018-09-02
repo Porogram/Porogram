@@ -5,6 +5,7 @@ import {
     Avatar,
     CircularProgress,
     Dialog,
+    DialogContent,
     DialogTitle,
     Grid,
     Typography
@@ -85,59 +86,62 @@ export default withStyles(theme => ({
                             {match.participants[summonerIndex].stats.win
                             ? 'VICTORY' : 'DEFEAT'}
                         </DialogTitle>
-                        <Grid
-                            className={classes.participants}
-                            container
-                            direction="column"
-                            spacing={8}
-                        >
-                            {[...Array(10).keys()].map(i => (
-                                <Grid
-                                    alignItems="center"
-                                    container
-                                    item
-                                    key={participantIdentities[i].participantId}
-                                >
-                                    {(i === 0 || i === 5) && (
-                                        <Grid item xs={12}>
-                                            <Typography>
-                                                {`TEAM ${i ? '2' : '1'}`}
-                                            </Typography>
-                                        </Grid>
-                                    )}
-                                    <Grid item xs={2}>
-                                        <Avatar
-                                            className={classes.champion}
-                                            src={`${baseUrl}/cdn/${version}/img/champion/${champions[participants[i].championId].image.full}`}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <Link
-                                            className={classes.name}
-                                            to={`/${participantIdentities[i].player.summonerName}`}
-                                        >
-                                            <Typography noWrap>
-                                                {participantIdentities[i].player.summonerName}
-                                            </Typography>
-                                        </Link>
-                                    </Grid>
-                                    <Grid container item xs={6}>
-                                        {[...Array(7).keys()].map(j => (
-                                            <Grid item key={j}>
-                                                {items[participants[i].stats[`item${j}`]]
-                                                && (
-                                                    <img
-                                                        alt=""
-                                                        className={classes.item}
-                                                        src={`${baseUrl}/cdn/${version}/img/item/${items[participants[i].stats[`item${j}`]].image.full}`}
-                                                    />
-                                                )}
+                        <DialogContent>
+                            <Grid
+                                alignItems="center"
+                                className={classes.participants}
+                                container
+                                direction="column"
+                                spacing={8}
+                            >
+                                {participants.map((participant, i) => (
+                                    <Grid
+                                        alignItems="center"
+                                        container
+                                        item
+                                        key={participantIdentities[i].participantId}
+                                    >
+                                        {(i === 0 || i === 5) && (
+                                            <Grid item xs={12}>
+                                                <Typography>
+                                                    {`TEAM ${i ? '2' : '1'}`}
+                                                </Typography>
                                             </Grid>
-                                        ))}
+                                        )}
+                                        <Grid item xs={2}>
+                                            <Avatar
+                                                className={classes.champion}
+                                                src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Link
+                                                className={classes.name}
+                                                to={`/${participantIdentities[i].player.summonerName}`}
+                                            >
+                                                <Typography noWrap>
+                                                    {participantIdentities[i].player.summonerName}
+                                                </Typography>
+                                            </Link>
+                                        </Grid>
+                                        <Grid container item xs={6}>
+                                            {[...Array(7).keys()].map(j => (
+                                                <Grid item key={j}>
+                                                    {items[participant.stats[`item${j}`]]
+                                                    && (
+                                                        <img
+                                                            alt=""
+                                                            className={classes.item}
+                                                            src={`${baseUrl}/cdn/${version}/img/item/${items[participant.stats[`item${j}`]].image.full}`}
+                                                        />
+                                                    )}
+                                                </Grid>
+                                            ))}
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            ))}
-                        </Grid>
+                                ))}
+                            </Grid>
+                        </DialogContent>
                     </Fragment>
                 ) : <CircularProgress />}
             </Dialog>
