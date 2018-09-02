@@ -16,12 +16,20 @@ export default withStyles(theme => ({
             height: theme.spacing.unit * 4,
             width: theme.spacing.unit * 4
         },
+        [theme.breakpoints.up('sm')]: {
+            height: theme.spacing.unit * 5,
+            width: theme.spacing.unit * 5
+        },
         marginRight: theme.spacing.unit * 0.5
     },
     item: {
         [theme.breakpoints.down('sm')]: {
             height: theme.spacing.unit * 2,
             width: theme.spacing.unit * 2
+        },
+        [theme.breakpoints.up('sm')]: {
+            height: theme.spacing.unit * 3,
+            width: theme.spacing.unit * 3
         }
     },
     name: {
@@ -29,6 +37,16 @@ export default withStyles(theme => ({
     },
     participants: {
         margin: theme.spacing.unit
+    },
+    title: {
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: theme.spacing.unit
+        },
+        [theme.breakpoints.up('sm')]: {
+            paddingTop: theme.spacing.unit * 2
+        },
+        paddingBottom: 0,
+        textAlign: 'center'
     }
 }))(class extends Component {
     state = {
@@ -63,7 +81,7 @@ export default withStyles(theme => ({
             <Dialog onClose={this.handleClose} open={open}>
                 {'gameId' in match ? (
                     <Fragment>
-                        <DialogTitle>
+                        <DialogTitle className={classes.title}>
                             {match.participants[summonerIndex].stats.win
                             ? 'VICTORY' : 'DEFEAT'}
                         </DialogTitle>
@@ -98,7 +116,7 @@ export default withStyles(theme => ({
                                             className={classes.name}
                                             to={`/${participantIdentities[i].player.summonerName}`}
                                         >
-                                            <Typography>
+                                            <Typography noWrap>
                                                 {participantIdentities[i].player.summonerName}
                                             </Typography>
                                         </Link>
