@@ -15,32 +15,9 @@ import {
     ListItemText,
     Typography
 } from '@material-ui/core'
+import Participant from './participant'
 
 export default withStyles(theme => ({
-    champion: {
-        [theme.breakpoints.down('sm')]: {
-            height: theme.spacing.unit * 4,
-            width: theme.spacing.unit * 4
-        },
-        [theme.breakpoints.up('sm')]: {
-            height: theme.spacing.unit * 5,
-            width: theme.spacing.unit * 5
-        },
-        marginRight: theme.spacing.unit * 0.5
-    },
-    item: {
-        [theme.breakpoints.down('sm')]: {
-            height: theme.spacing.unit * 2,
-            width: theme.spacing.unit * 2
-        },
-        [theme.breakpoints.up('sm')]: {
-            height: theme.spacing.unit * 3,
-            width: theme.spacing.unit * 3
-        }
-    },
-    name: {
-        textDecoration: 'none'
-    },
     participants: {
         margin: theme.spacing.unit
     },
@@ -82,7 +59,6 @@ export default withStyles(theme => ({
             summonerIndex
         } = this.state
         console.log(match)
-        // make each list item into its own component
         return (
             <Dialog onClose={this.handleClose} open={open}>
                 {'gameId' in match ? (
@@ -102,46 +78,11 @@ export default withStyles(theme => ({
                                             i * (participants.length / 2),
                                             (i + 1) * (participants.length / 2)
                                         ).map(participant => (
-                                            <ListItem
-                                                button
+                                            <Participant
                                                 key={participant.participantId}
-                                            >
-                                                <Grid
-                                                    alignItems="center"
-                                                    container
-                                                >
-                                                    <Grid item xs={2}>
-                                                        <Avatar
-                                                            className={classes.champion}
-                                                            src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Link
-                                                            className={classes.name}
-                                                            to={`/${participantIdentities[participant.participantId - 1].player.summonerName}`}
-                                                        >
-                                                            <Typography noWrap>
-                                                                {participantIdentities[participant.participantId - 1].player.summonerName}
-                                                            </Typography>
-                                                        </Link>
-                                                    </Grid>
-                                                    <Grid container item xs={6}>
-                                                        {[...Array(7).keys()].map(j => (
-                                                            <Grid item key={j}>
-                                                                {items[participant.stats[`item${j}`]]
-                                                                && (
-                                                                    <img
-                                                                        alt=""
-                                                                        className={classes.item}
-                                                                        src={`${baseUrl}/cdn/${version}/img/item/${items[participant.stats[`item${j}`]].image.full}`}
-                                                                    />
-                                                                )}
-                                                            </Grid>
-                                                        ))}
-                                                    </Grid>
-                                                </Grid>
-                                            </ListItem>
+                                                participant={participant}
+                                                participantIdentity={participantIdentities[participant.participantId - 1]}
+                                            />
                                         ))}
                                     </List>
                                 </Fragment>
