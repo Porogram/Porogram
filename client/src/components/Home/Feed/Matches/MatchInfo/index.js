@@ -82,9 +82,6 @@ export default withStyles(theme => ({
             summonerIndex
         } = this.state
         console.log(match)
-        // const team1 = participants.slice(0, participants.length / 2)
-        // const team2 = participants.slice(participants.length / 2, participants.length)
-        // slice participant list in half and map
         // make each list item into its own component
         return (
             <Dialog onClose={this.handleClose} open={open}>
@@ -96,12 +93,56 @@ export default withStyles(theme => ({
                         </DialogTitle>
                         <DialogContent>
                             {teams.map((team, i) => (
-                                <Fragment key={i}>
+                                <Fragment key={team.teamId}>
                                     <DialogContentText>
                                         {`TEAM ${i + 1}`}
                                     </DialogContentText>
                                     <List>
-                                        
+                                        {participants.slice(
+                                            i * (participants.length / 2),
+                                            (i + 1) * (participants.length / 2)
+                                        ).map(participant => (
+                                            <ListItem
+                                                button
+                                                key={participant.participantId}
+                                            >
+                                                <Grid
+                                                    alignItems="center"
+                                                    container
+                                                >
+                                                    <Grid item xs={2}>
+                                                        <Avatar
+                                                            className={classes.champion}
+                                                            src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={4}>
+                                                        <Link
+                                                            className={classes.name}
+                                                            to={`/${participantIdentities[participant.participantId - 1].player.summonerName}`}
+                                                        >
+                                                            <Typography noWrap>
+                                                                {participantIdentities[participant.participantId - 1].player.summonerName}
+                                                            </Typography>
+                                                        </Link>
+                                                    </Grid>
+                                                    <Grid container item xs={6}>
+                                                        {[...Array(7).keys()].map(j => (
+                                                            <Grid item key={j}>
+                                                                {items[participant.stats[`item${j}`]]
+                                                                && (
+                                                                    <img
+                                                                        alt=""
+                                                                        className={classes.item}
+                                                                        src={`${baseUrl}/cdn/${version}/img/item/${items[participant.stats[`item${j}`]].image.full}`}
+                                                                    />
+                                                                )}
+                                                            </Grid>
+                                                        ))}
+                                                    </Grid>
+                                                </Grid>
+                                            </ListItem>
+                                        ))}
                                     </List>
                                 </Fragment>
                             ))}
@@ -112,97 +153,3 @@ export default withStyles(theme => ({
         )
     }
 })
-
-// <DialogContentText>TEAM 1</DialogContentText>
-// <List>
-//     {team1.map((participant, i) => (
-//         <ListItem>
-//             <Avatar
-//                 className={classes.champion}
-//                 src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
-//             />
-//             <Link
-//                 className={classes.name}
-//                 to={`/${participantIdentities[i].player.summonerName}`}
-//             >
-//                 <Typography noWrap>
-//                     {participantIdentities[i].player.summonerName}
-//                 </Typography>
-//             </Link>
-//         </ListItem>
-//     ))}
-// </List>
-// <DialogContentText>TEAM 2</DialogContentText>
-// <List>
-//     {team2.map((participant, i) => (
-//         <ListItem>
-//             <Avatar
-//                 className={classes.champion}
-//                 src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
-//             />
-//             <Link
-//                 className={classes.name}
-//                 to={`/${participantIdentities[i].player.summonerName}`}
-//             >
-//                 <Typography noWrap>
-//                     {participantIdentities[i].player.summonerName}
-//                 </Typography>
-//             </Link>
-//         </ListItem>
-//     ))}
-// </List>
-
-// <Grid
-//     alignItems="center"
-//     className={classes.participants}
-//     container
-//     direction="column"
-//     spacing={8}
-// >
-//     {participants.map((participant, i) => (
-//         <Grid
-//             alignItems="center"
-//             container
-//             item
-//             key={participantIdentities[i].participantId}
-//         >
-//             {(i === 0 || i === 5) && (
-//                 <Grid item xs={12}>
-//                     <Typography>
-//                         {`TEAM ${i ? '2' : '1'}`}
-//                     </Typography>
-//                 </Grid>
-//             )}
-//             <Grid item xs={2}>
-//                 <Avatar
-//                     className={classes.champion}
-//                     src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
-//                 />
-//             </Grid>
-//             <Grid item xs={4}>
-//                 <Link
-//                     className={classes.name}
-//                     to={`/${participantIdentities[i].player.summonerName}`}
-//                 >
-//                     <Typography noWrap>
-//                         {participantIdentities[i].player.summonerName}
-//                     </Typography>
-//                 </Link>
-//             </Grid>
-//             <Grid container item xs={6}>
-//                 {[...Array(7).keys()].map(j => (
-//                     <Grid item key={j}>
-//                         {items[participant.stats[`item${j}`]]
-//                         && (
-//                             <img
-//                                 alt=""
-//                                 className={classes.item}
-//                                 src={`${baseUrl}/cdn/${version}/img/item/${items[participant.stats[`item${j}`]].image.full}`}
-//                             />
-//                         )}
-//                     </Grid>
-//                 ))}
-//             </Grid>
-//         </Grid>
-//     ))}
-// </Grid>
