@@ -10,7 +10,7 @@ import {
     Typography
 } from '@material-ui/core'
 import { StaticDataContext } from '../../../Context'
-import MatchInfo from './matchInfo'
+import MatchInfo from './MatchInfo'
 
 export default withStyles(theme => ({
     header: {
