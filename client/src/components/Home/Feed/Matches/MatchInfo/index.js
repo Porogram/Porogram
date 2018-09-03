@@ -1,19 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
-    Avatar,
     CircularProgress,
     Dialog,
     DialogContent,
     DialogContentText,
     DialogTitle,
-    Grid,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    Typography
+    List
 } from '@material-ui/core'
 import Participant from './participant'
 
@@ -52,7 +45,7 @@ export default withStyles(theme => ({
         this.props.close()
     }
     render() {
-        const { baseUrl, champions, classes, items, open, version } = this.props
+        const { classes, open } = this.props
         const {
             match,
             match: { participantIdentities, participants, teams },

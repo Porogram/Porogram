@@ -1,20 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import {
-    Avatar,
-    CircularProgress,
-    Dialog,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Grid,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    Typography
-} from '@material-ui/core'
+import { Avatar, Grid, ListItem, Typography } from '@material-ui/core'
 import { StaticDataContext } from '../../../../Context'
 
 export default withStyles(theme => ({
@@ -42,39 +29,35 @@ export default withStyles(theme => ({
     name: {
         textDecoration: 'none'
     }
-}))(({ classes, participant, participantIdentity }) => (
+}))(({
+    classes,
+    participant: { championId, stats },
+    participantIdentity: { player: { summonerName } }
+}) => (
     <StaticDataContext.Consumer>
         {({ baseUrl, state: { champions, items, version } }) => (
             <ListItem button>
-                <Grid
-                    alignItems="center"
-                    container
-                >
+                <Grid alignItems="center" container>
                     <Grid item xs={2}>
                         <Avatar
                             className={classes.champion}
-                            src={`${baseUrl}/cdn/${version}/img/champion/${champions[participant.championId].image.full}`}
+                            src={`${baseUrl}/cdn/${version}/img/champion/${champions[championId].image.full}`}
                         />
                     </Grid>
                     <Grid item xs={4}>
-                        <Link
-                            className={classes.name}
-                            to={`/${participantIdentity.player.summonerName}`}
-                        >
-                            <Typography noWrap>
-                                {participantIdentity.player.summonerName}
-                            </Typography>
+                        <Link className={classes.name} to={`/${summonerName}`}>
+                            <Typography noWrap>{summonerName}</Typography>
                         </Link>
                     </Grid>
                     <Grid container item xs={6}>
                         {[...Array(7).keys()].map(j => (
                             <Grid item key={j}>
-                                {items[participant.stats[`item${j}`]]
+                                {items[stats[`item${j}`]]
                                 && (
                                     <img
                                         alt=""
                                         className={classes.item}
-                                        src={`${baseUrl}/cdn/${version}/img/item/${items[participant.stats[`item${j}`]].image.full}`}
+                                        src={`${baseUrl}/cdn/${version}/img/item/${items[stats[`item${j}`]].image.full}`}
                                     />
                                 )}
                             </Grid>
