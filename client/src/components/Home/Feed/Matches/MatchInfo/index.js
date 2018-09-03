@@ -11,6 +11,9 @@ import {
 import Participant from './participant'
 
 export default withStyles(theme => ({
+    content: {
+        padding: theme.spacing.unit
+    },
     participants: {
         margin: theme.spacing.unit
     },
@@ -60,7 +63,7 @@ export default withStyles(theme => ({
                             {match.participants[summonerIndex].stats.win
                             ? 'VICTORY' : 'DEFEAT'}
                         </DialogTitle>
-                        <DialogContent>
+                        <DialogContent className={classes.content}>
                             {teams.map((team, i) => (
                                 <Fragment key={team.teamId}>
                                     <DialogContentText>
