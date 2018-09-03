@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Grid, ListItem, Typography } from '@material-ui/core'
 import { StaticDataContext } from '../../../../Context'
+import NotFound from '../../../../../images/not-found-doge.jpg'
 
 export default withStyles(theme => ({
     champion: {
@@ -52,14 +53,13 @@ export default withStyles(theme => ({
                     <Grid container item xs={6}>
                         {[...Array(7).keys()].map(j => (
                             <Grid item key={j}>
-                                {items[stats[`item${j}`]]
-                                && (
-                                    <img
-                                        alt=""
-                                        className={classes.item}
-                                        src={`${baseUrl}/cdn/${version}/img/item/${items[stats[`item${j}`]].image.full}`}
-                                    />
-                                )}
+                                <img
+                                    alt=""
+                                    className={classes.item}
+                                    src={items[stats[`item${j}`]]
+                                    ? `${baseUrl}/cdn/${version}/img/item/${items[stats[`item${j}`]].image.full}`
+                                    : NotFound}
+                                />
                             </Grid>
                         ))}
                     </Grid>
