@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
 
@@ -19,6 +20,9 @@ export default withStyles(theme => ({
         minWidth: theme.spacing.unit * 40,
         paddingBottom: theme.spacing.unit * 2,
         paddingTop: theme.spacing.unit * 2
+    },
+    signup: {
+        textDecoration: 'none'
     }
 }))(({ classes }) => (
     <Grid
@@ -52,7 +56,9 @@ export default withStyles(theme => ({
                         </Button>
                     </Grid>
                     <Grid item>
-                        <Typography>Sign up</Typography>
+                        <Link className={classes.signup} to="/signup">
+                            <Typography>Sign up</Typography>
+                        </Link>
                     </Grid>
                 </Grid>
             </Paper>
