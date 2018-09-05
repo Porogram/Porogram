@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const jsonParser = require('body-parser').json()
 // const utils = require('../utils')
 
 router.use((req, res, next) => {
@@ -11,9 +10,9 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/', jsonParser, (req, res) => {
+router.get('/:matchId', (req, res) => {
     console.log('match')
-    res.send()
+    res.send(req.params)
 })
 
 module.exports = router
