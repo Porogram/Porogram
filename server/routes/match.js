@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 
 router.get('/:matchId', (req, res) => {
     utils.request(utils.createUrl('/match/v3/matches', req.params.matchId))
-        .then(match => res.send(match))
+        .then(match => res.send({ match }))
         .catch(error => res.send(error))
 })
 

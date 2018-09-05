@@ -18,7 +18,7 @@ router.post('/', jsonParser, (req, res) => {
             req.body.accountId,
             { beginIndex: req.body.beginIndex, endIndex: req.body.endIndex }
         )
-    ).then(matchlist => res.send(matchlist)
+    ).then(matchlist => res.send({ matchlist })
     ).catch(error => res.send(error))
 })
 
