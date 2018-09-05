@@ -8,6 +8,11 @@
 /server/venv
 /server/.env
 
+# nodeServer
+/nodeServer/node_modules
+/nodeServer/package-lock.json
+/nodeServer/.env
+
 # dependencies
 /client/node_modules
 /client/package-lock.json
