@@ -2,16 +2,12 @@
 
 
 # server
-/server/__pycache__
 /server/node_modules
 /server/package-lock.json
-/server/venv
 /server/.env
 
-# nodeServer
-/nodeServer/node_modules
-/nodeServer/package-lock.json
-/nodeServer/.env
+# database
+/data
 
 # dependencies
 /client/node_modules
