@@ -1,5 +1,5 @@
 const router = require('express').Router()
-// const utils = require('../utils')
+const utils = require('../utils')
 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')

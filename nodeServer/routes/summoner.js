@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const rp = require('request-promise')
 const utils = require('../utils')
 
 router.use((req, res, next) => {
@@ -12,10 +11,36 @@ router.use((req, res, next) => {
 })
 
 router.get('/:summonerName', (req, res) => {
-    rp(utils.createUrl(
-        '/summoner/v3/summoners/by-name',
-        req.params.summonerName
-    )).then(summoner => res.send(summoner)
+    utils.request(
+        utils.createUrl(
+            '/summoner/v3/summoners/by-name',
+            req.params.summonerName
+        )
+    ).then(summoner =>
+        Promise.all([
+            summoner,
+            utils.request(
+                utils.createUrl(
+                    '/league/v3/positions/by-summoner',
+                    summoner.id
+                )
+            ),
+            utils.request(
+                utils.createUrl(
+                    '/champion-mastery/v3/champion-masteries/by-summoner',
+                    summoner.id
+                )
+            ),
+            utils.request(
+                utils.createUrl(
+                    '/match/v3/matchlists/by-account',
+                    summoner.accountId,
+                    { beginIndex: 0, endIndex: 10 }
+                )
+            )
+        ])
+    ).then(([summoner, positions, championMasteries, matchlist]) =>
+        res.send({ summoner, positions, championMasteries, matchlist })
     ).catch(error => res.send(error))
 })
 
