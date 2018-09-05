@@ -1,5 +1,6 @@
 const router = require('express').Router()
-// const utils = require('../utils')
+const rp = require('request-promise')
+const utils = require('../utils')
 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -11,8 +12,11 @@ router.use((req, res, next) => {
 })
 
 router.get('/:summonerName', (req, res) => {
-    console.log('summoner')
-    res.send(req.params)
+    rp(utils.createUrl(
+        '/summoner/v3/summoners/by-name',
+        req.params.summonerName
+    )).then(summoner => res.send(summoner)
+    ).catch(error => res.send(error))
 })
 
 module.exports = router

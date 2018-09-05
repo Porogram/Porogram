@@ -11,7 +11,6 @@ router.use((req, res, next) => {
 })
 
 router.get('/:matchId', (req, res) => {
-    console.log('match')
     res.send(req.params)
 })
 

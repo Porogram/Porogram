@@ -12,7 +12,6 @@ router.use((req, res, next) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
-    console.log('matches')
     res.send()
 })
 
