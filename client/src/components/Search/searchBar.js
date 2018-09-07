@@ -5,12 +5,9 @@ import XRegExp from 'xregexp'
 import { SummonerDataContext } from '../Context'
 
 export default class extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            summonerName: '',
-            invalidInput: false
-        }
+    state = {
+        summonerName: '',
+        invalidInput: false
     }
     onSearch = getSummonerData => {
         const { summonerName } = this.state

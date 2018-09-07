@@ -52,13 +52,11 @@ class Provider extends Component {
     getMatches = (accountId, beginIndex, endIndex) => {
         return axios.post('/api/matches', { accountId, beginIndex, endIndex })
             .then(({ data: { matchlist } }) =>
-                this.setState(prevState => {
-                    return {
-                        matchlist,
-                        matches: [...prevState.matches, ...matchlist.matches],
-                        moreItems: matchlist.endIndex < prevState.matchlist.totalGames
-                    }
-                })
+                this.setState(prevState => ({
+                    matchlist,
+                    matches: [...prevState.matches, ...matchlist.matches],
+                    moreItems: matchlist.endIndex < prevState.matchlist.totalGames
+                }))
             ).catch(error => {
                 console.log(error)
                 this.setState({
@@ -74,6 +72,7 @@ class Provider extends Component {
                 value={{
                     state: this.state,
                     getSummonerData: this.getSummonerData,
+                    getMatch: this.getMatch,
                     getMatches: this.getMatches
                 }}
             >
