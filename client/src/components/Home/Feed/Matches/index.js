@@ -15,6 +15,7 @@ export default () => (
                 summoner,
                 summoner: { accountId }
             },
+            getMatch,
             getMatches
         }) => (
             <InfiniteScroll
@@ -42,8 +43,8 @@ export default () => (
                 {matches.map(match => (
                     <Match
                         key={match.gameId}
+                        getMatch={getMatch}
                         match={match}
-                        matchlist={matchlist}
                         summoner={summoner}
                     />
                 ))}

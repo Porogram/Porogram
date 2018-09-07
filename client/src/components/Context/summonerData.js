@@ -27,7 +27,7 @@ class Provider extends Component {
                     positions: data.positions,
                     championMasteries: data.championMasteries,
                     matchlist: data.matchlist,
-                    matches: data.matches,
+                    matches: data.matchlist.matches,
                     fetchedData: true,
                     moreItems: (
                         data.matchlist.endIndex < data.matchlist.totalGames
@@ -41,17 +41,24 @@ class Provider extends Component {
                 })
             })
     }
+    getMatch = matchId => {
+        return axios.get(`/api/match/${matchId}`)
+            .then(({ data: { match } }) => Promise.resolve(match))
+            .catch(error => {
+                console.log(error)
+                this.setState({ error: { message: 'Failed to get match' } })
+            })
+    }
     getMatches = (accountId, beginIndex, endIndex) => {
         return axios.post('/api/matches', { accountId, beginIndex, endIndex })
-            .then(({ data: { matchlist, matches } }) => {
-                this.setState(prevState => {
-                    return {
-                        matchlist,
-                        matches: [...prevState.matches, ...matches],
-                        moreItems: matchlist.endIndex < prevState.matchlist.totalGames
-                    }
-                })
-            }).catch(error => {
+            .then(({ data: { matchlist } }) =>
+                this.setState(prevState => ({
+                    matchlist,
+                    matches: [...prevState.matches, ...matchlist.matches],
+                    moreItems: matchlist.endIndex < prevState.matchlist.totalGames
+                }))
+            ).catch(error => {
+                console.log(error)
                 this.setState({
                     moreItems: false,
                     error: { message: 'Failed to get more matches' }
@@ -65,6 +72,7 @@ class Provider extends Component {
                 value={{
                     state: this.state,
                     getSummonerData: this.getSummonerData,
+                    getMatch: this.getMatch,
                     getMatches: this.getMatches
                 }}
             >
