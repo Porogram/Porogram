@@ -17,13 +17,15 @@ export default withStyles((theme) => ({
         paddingBottom: 10
     },
     paper: {
-        width: theme.spacing.unit * 40,
+        minWidth: theme.spacing.unit * 40,
+        maxWidth: theme.spacing.unit * 40,
         padding: theme.spacing.unit * 5
     },
 }))(({
     positions,
     classes
 }) => {
+    console.log('in ranked', positions)
     const getTierImage = tier => {
         if (tier === 'CHALLENGER') {
             return <img src={Challenger} alt=''/>
@@ -45,20 +47,31 @@ export default withStyles((theme) => ({
             return <img src={Unranked}/>
         }
     }
+    const getQueueType = queue => {
+        if (queue === 'RANKED_SOLO_5x5') {
+            return 'Ranked Solo 5v5'
+        } else if (queue === 'RANKED_SOLO_3x3') {
+            return 'Ranked Solo 3v3'
+        } else if (queue === 'RANKED_FLEX_SR') {
+            return 'Ranked Flex 5v5'
+        } else if (queue === 'RANKED_FLEX_3x3') {
+            return 'Ranked Flex 3v3'
+        }
+    }
     return (
         <Fragment>
             <Paper className={classes.paper}>
-                <Typography variant="headline" className={classes.title}>Ranked Stats</Typography>
-                {positions[0] ? (
+                <Typography variant="headline" className={classes.title}>{getQueueType(positions.queueType)}</Typography>
+                {positions ? (
                     <Grid container direction="column" justify="space-between" alignItems="center" spacing={0}>
                         <Grid item>
-                            {getTierImage(`${positions[0].tier}`)}
+                            {getTierImage(`${positions.tier}`)}
                         </Grid>
                         <Grid item>
-                            <Typography variant="subheading">{positions[0].tier} {positions[0].rank}</Typography>
+                            <Typography variant="subheading">{positions.tier} {positions.rank}</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant="subheading">{positions[0].leaguePoints} LP</Typography>
+                            <Typography variant="subheading">{positions.leaguePoints} LP</Typography>
                         </Grid>
                         <Grid item>
                             <Grid container direction="row" justify="space-between" spacing={40}>
@@ -68,7 +81,7 @@ export default withStyles((theme) => ({
                                             <Typography variant="subheading">Wins</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="subheading">{positions[0].wins}</Typography>
+                                            <Typography variant="subheading">{positions.wins}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -78,7 +91,7 @@ export default withStyles((theme) => ({
                                             <Typography variant="subheading">Losses</Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Typography variant="subheading">{positions[0].losses}</Typography>
+                                            <Typography variant="subheading">{positions.losses}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>

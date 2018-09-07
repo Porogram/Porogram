@@ -13,7 +13,8 @@ export default withStyles((theme) => ({
         paddingBottom: 10
     },
     paper: {
-        width: theme.spacing.unit * 40,
+        minWidth: theme.spacing.unit * 40,
+        maxWidth: theme.spacing.unit * 40,
         padding: theme.spacing.unit * 5
     }
 }))(({

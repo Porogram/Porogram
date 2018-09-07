@@ -18,7 +18,7 @@ export default withStyles(theme => ({
     },
     infoPage: {
         borderRadius: 0,
-        height: '100vh',
+        // height: '100vh',
         padding: theme.spacing.unit * 8
     },
     main: {
@@ -71,9 +71,12 @@ export default withStyles(theme => ({
                                         championMasteries={championMasteries}
                                         champions={champions}
                                     />
-                                    <Ranked
-                                        positions={positions}
-                                    />
+                                    {positions.map(position =>
+                                        <Ranked
+                                            key={position.queueType}
+                                            positions={position}
+                                        />
+                                    )}
                                 </Grid>
                             </Paper>
                         </div>
