@@ -6,9 +6,6 @@
 /server/package-lock.json
 /server/.env
 
-# database
-/data
-
 # dependencies
 /client/node_modules
 /client/package-lock.json
