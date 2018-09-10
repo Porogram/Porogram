@@ -27,8 +27,9 @@ const UserSchema = new mongoose.Schema({
         required: true,
         match: /\S+@\S+\.\S+/
     },
-    summonerName: {
-        type: String,
+    summoner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Summoner',
         required: true
     }
 })

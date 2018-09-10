@@ -14,14 +14,31 @@ router.use((req, res, next) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
-    req.body.summonerName
-    Summoner.findOne({ name: req.body.summonerName })
+    const {
+        firstName,
+        lastName,
+        username,
+        password,
+        email,
+        summonerName
+    } = req.body
+    Summoner.findOne({ name: summonerName })
         .then(summoner =>
             summoner
             ? Promise.resolve(summoner)
-            : Summoner.create({ name: req.body.summonerName })
+            : Summoner.create({ name: summonerName })
         )
-        .then(summoner => res.send(summoner))
+        .then(summoner =>
+            User.create({
+                firstName,
+                lastName,
+                username,
+                password,
+                email,
+                summoner
+            })
+        )
+        .then(user => res.send(user))
         .catch(error => res.send(error))
 })
 
