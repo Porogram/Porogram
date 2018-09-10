@@ -1,5 +1,4 @@
 const router = require('express').Router()
-// const jsonParser = require('body-parser').json()
 const utils = require('../utils')
 const User = require('../models/User')
 
