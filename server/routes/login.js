@@ -18,7 +18,14 @@ router.post('/', jsonParser, (req, res) => {
     console.log('username', username)
     console.log('password', password)
     User.findOne({ username, password })
-        .then(user => user ? res.send(user) : res.send())
+        .then(user =>
+            user
+            ? Summoner.findById(user.summoner)
+                .then(summoner => {
+                    user.summoner = summoner
+                    res.send(user)
+                })
+            : res.send())
         .catch(error => res.send(error))
 })
 
