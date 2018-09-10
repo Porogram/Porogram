@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Button, Grid, Paper, TextField } from '@material-ui/core'
 import axios from 'axios'
@@ -27,7 +28,8 @@ export default withStyles(theme => ({
         username: '',
         password: '',
         email: '',
-        summonerName: ''
+        summonerName: '',
+        signedUp: false
     }
     onClick = () => {
         const {
@@ -51,12 +53,15 @@ export default withStyles(theme => ({
             password,
             email,
             summonerName
-        })
-            .then(res => console.log(res))
-            .catch(error => console.log(error))
+        }).then(({ data }) => {
+            console.log(data)
+            if (data.summoner) this.setState({ signedUp: true })
+        }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
+        const { summonerName, signedUp } = this.state
+        if (signedUp) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
                 alignItems="center"
