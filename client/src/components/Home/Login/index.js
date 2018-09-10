@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import axios from 'axios'
 
 export default withStyles(theme => ({
     button: {
@@ -24,44 +26,81 @@ export default withStyles(theme => ({
     signup: {
         textDecoration: 'none'
     }
-}))(({ classes }) => (
-    <Grid
-        alignItems="center"
-        className={classes.login}
-        container
-        direction="column"
-        justify="center"
-    >
-        <Grid item>
-            <Paper className={classes.paper}>
-                <Grid
-                    alignItems="center"
-                    container
-                    direction="column"
-                    justify="center"
-                >
-                    <Grid item>
-                        <TextField label="Username" />
-                    </Grid>
-                    <Grid item>
-                        <TextField label="Password" />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            className={classes.button}
-                            color="primary"
-                            variant="contained"
+}))(class extends Component {
+    state = { username: '', password: '', summonerName: '', loggedIn: false }
+    onClick = () => {
+        const { username, password } = this.state
+        console.log('username', username)
+        console.log('password', password)
+        axios.post('/api/login', { username, password })
+            .then(({ data }) => {
+                console.log(data)
+                if (data.summoner)
+                    this.setState({
+                        loggedIn: true,
+                        summonerName: data.summoner.name
+                    })
+            }).catch(error => console.log(error))
+    }
+    render() {
+        const { classes } = this.props
+        const { summonerName, loggedIn } = this.state
+        if (loggedIn) return <Redirect to={`/${summonerName}`} />
+        return (
+            <Grid
+                alignItems="center"
+                className={classes.login}
+                container
+                direction="column"
+                justify="center"
+            >
+                <Grid item>
+                    <Paper className={classes.paper}>
+                        <Grid
+                            alignItems="center"
+                            container
+                            direction="column"
+                            justify="center"
                         >
-                            LOGIN
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Link className={classes.signup} to="/signup">
-                            <Typography>Sign up</Typography>
-                        </Link>
-                    </Grid>
+                            <Grid item>
+                                <TextField
+                                    label="Username"
+                                    onChange={e =>
+                                        this.setState({
+                                            username: e.target.value
+                                        })
+                                    }
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    label="Password"
+                                    onChange={e =>
+                                        this.setState({
+                                            password: e.target.value
+                                        })
+                                    }
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    className={classes.button}
+                                    color="primary"
+                                    onClick={this.onClick}
+                                    variant="contained"
+                                >
+                                    LOGIN
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Link className={classes.signup} to="/signup">
+                                    <Typography>Sign up</Typography>
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Paper>
                 </Grid>
-            </Paper>
-        </Grid>
-    </Grid>
-))
+            </Grid>
+        )
+    }
+})

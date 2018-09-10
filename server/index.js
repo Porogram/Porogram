@@ -7,6 +7,7 @@ const createUser = require('./routes/createUser')
 const find = require('./routes/find')
 const deleteUser = require('./routes/deleteUser')
 const signup = require('./routes/signup')
+const login = require('./routes/login')
 
 const port = process.env.PORT || 5000
 
@@ -25,4 +26,5 @@ app.use('/api/user/create', createUser)
 app.use('/api/find', find)
 app.use('/api/user/delete', deleteUser)
 app.use('/api/signup', signup)
+app.use('/api/login', login)
 app.listen(port, () => console.log(`server running on port ${port}`))
