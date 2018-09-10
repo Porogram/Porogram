@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import { Button, Grid, Paper, TextField } from '@material-ui/core'
+import axios from 'axios'
 
 export default withStyles(theme => ({
     button: {
@@ -23,27 +24,39 @@ export default withStyles(theme => ({
     state = {
         firstName: '',
         lastName: '',
-        email: '',
+        username: '',
         password: '',
+        email: '',
         summonerName: ''
     }
     onClick = () => {
-        const { firstName, lastName, email, password, summonerName } = this.state
-        console.log('firstName', firstName)
-        console.log('lastName', lastName)
-        console.log('email', email)
-        console.log('password', password)
-        console.log('summonerName', summonerName)
-    }
-    render() {
-        const { classes } = this.props
         const {
             firstName,
             lastName,
-            email,
+            username,
             password,
+            email,
             summonerName
         } = this.state
+        console.log('firstName', firstName)
+        console.log('lastName', lastName)
+        console.log('username', username)
+        console.log('password', password)
+        console.log('email', email)
+        console.log('summonerName', summonerName)
+        axios.post('/api/signup', {
+            firstName,
+            lastName,
+            username,
+            password,
+            email,
+            summonerName
+        })
+            .then(res => console.log(res))
+            .catch(error => console.log(error))
+    }
+    render() {
+        const { classes } = this.props
         return (
             <Grid
                 alignItems="center"
@@ -64,7 +77,9 @@ export default withStyles(theme => ({
                                 <TextField
                                     label="First name"
                                     onChange={e =>
-                                        this.setState({ firstName: e.target.value })
+                                        this.setState({
+                                            firstName: e.target.value
+                                        })
                                     }
                                 />
                             </Grid>
@@ -72,15 +87,19 @@ export default withStyles(theme => ({
                                 <TextField
                                     label="Last name"
                                     onChange={e =>
-                                        this.setState({ lastName: e.target.value })
+                                        this.setState({
+                                            lastName: e.target.value
+                                        })
                                     }
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    label="Email"
+                                    label="Username"
                                     onChange={e =>
-                                        this.setState({ email: e.target.value })
+                                        this.setState({
+                                            username: e.target.value
+                                        })
                                     }
                                 />
                             </Grid>
@@ -88,7 +107,19 @@ export default withStyles(theme => ({
                                 <TextField
                                     label="Password"
                                     onChange={e =>
-                                        this.setState({ password: e.target.value })
+                                        this.setState({
+                                            password: e.target.value
+                                        })
+                                    }
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    label="Email"
+                                    onChange={e =>
+                                        this.setState({
+                                            email: e.target.value
+                                        })
                                     }
                                 />
                             </Grid>
@@ -96,7 +127,9 @@ export default withStyles(theme => ({
                                 <TextField
                                     label="Summoner name"
                                     onChange={e =>
-                                        this.setState({ summonerName: e.target.value })
+                                        this.setState({
+                                            summonerName: e.target.value
+                                        })
                                     }
                                 />
                             </Grid>

@@ -22,6 +22,12 @@ router.post('/', jsonParser, (req, res) => {
         email,
         summonerName
     } = req.body
+    console.log('firstName', firstName)
+    console.log('lastName', lastName)
+    console.log('username', username)
+    console.log('password', password)
+    console.log('email', email)
+    console.log('summonerName', summonerName)
     Summoner.findOne({ name: summonerName })
         .then(summoner =>
             summoner
