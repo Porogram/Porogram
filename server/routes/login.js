@@ -17,15 +17,17 @@ router.post('/', jsonParser, (req, res) => {
     const { username, password } = req.body
     console.log('username', username)
     console.log('password', password)
-    User.findOne({ username, password })
+    User.findOne({ username })
         .then(user =>
             user
-            ? Summoner.findById(user.summoner)
-                .then(summoner => {
-                    user.summoner = summoner
-                    res.send(user)
-                })
-            : res.send())
+            ? user.password === password
+                ? Summoner.findById(user.summoner)
+                    .then(summoner => {
+                        user.summoner = summoner
+                        res.send(user)
+                    })
+                : res.send('username and password do not match')
+            : res.send('cannot find username'))
         .catch(error => res.send(error))
 })
 

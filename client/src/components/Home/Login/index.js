@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Button, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import {
+    Button,
+    FormHelperText,
+    Grid,
+    Paper,
+    TextField,
+    Typography
+} from '@material-ui/core'
 import axios from 'axios'
 
 export default withStyles(theme => ({
@@ -27,24 +34,29 @@ export default withStyles(theme => ({
         textDecoration: 'none'
     }
 }))(class extends Component {
-    state = { username: '', password: '', summonerName: '', loggedIn: false }
+    state = {
+        username: '',
+        password: '',
+        summonerName: '',
+        loggedIn: false,
+        error: ''
+    }
     onClick = () => {
         const { username, password } = this.state
         console.log('username', username)
         console.log('password', password)
         axios.post('/api/login', { username, password })
             .then(({ data }) => {
-                console.log(data)
-                if (data.summoner)
-                    this.setState({
-                        loggedIn: true,
-                        summonerName: data.summoner.name
-                    })
+                data.summoner
+                ? this.setState({
+                    loggedIn: true,
+                    summonerName: data.summoner.name
+                }) : this.setState({ error: data })
             }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, loggedIn } = this.state
+        const { summonerName, loggedIn, error } = this.state
         if (loggedIn) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
@@ -82,6 +94,11 @@ export default withStyles(theme => ({
                                     }
                                 />
                             </Grid>
+                            {error && (
+                                <FormHelperText>
+                                    {error}
+                                </FormHelperText>
+                            )}
                             <Grid item>
                                 <Button
                                     className={classes.button}
