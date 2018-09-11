@@ -1,5 +1,5 @@
 # Porogram
-Mobile responsive web application that serves as a social media platform for gamers, particularly League of Legends, inspired by Instagram
+Mobile responsive, social media application for League of Legends, inspired by Instagram
 ## Getting Started
 ```
 $ git clone https://github.com/Porogram/Porogram.git
