@@ -4,8 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": ". .env && node index.js",
-        "dev": ". .env && (cd ../client && npm start) | nodemon index.js"
+        "start": "node index.js",
+        "dev": "(cd ../client && npm start) | nodemon index.js"
     },
     "author": "",
     "license": "ISC",
