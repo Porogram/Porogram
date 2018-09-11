@@ -1,8 +1,8 @@
 const querystring = require('querystring')
 const rp = require('request-promise')
+const API_KEY = require('../key').API_KEY
 
 const URL = 'https://na1.api.riotgames.com'
-const API_KEY = require('../key').API_KEY
 const OPTIONS = { json: true }
 
 module.exports = {

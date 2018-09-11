@@ -4,7 +4,6 @@
 # server
 /server/node_modules
 /server/package-lock.json
-/server/.env
 /server/key.js
 
 # dependencies
