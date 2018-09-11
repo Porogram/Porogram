@@ -92,6 +92,7 @@ export default withStyles(theme => ({
                                             password: e.target.value
                                         })
                                     }
+                                    type="password"
                                 />
                             </Grid>
                             {error && (
