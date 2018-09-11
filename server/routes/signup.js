@@ -15,15 +15,11 @@ router.use((req, res, next) => {
 
 router.post('/', jsonParser, (req, res) => {
     const {
-        firstName,
-        lastName,
         username,
         password,
         email,
         summonerName
     } = req.body
-    console.log('firstName', firstName)
-    console.log('lastName', lastName)
     console.log('username', username)
     console.log('password', password)
     console.log('email', email)
@@ -36,8 +32,6 @@ router.post('/', jsonParser, (req, res) => {
         )
         .then(summoner =>
             User.create({
-                firstName,
-                lastName,
                 username,
                 password,
                 email,

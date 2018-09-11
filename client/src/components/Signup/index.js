@@ -23,8 +23,6 @@ export default withStyles(theme => ({
     }
 }))(class extends Component {
     state = {
-        firstName: '',
-        lastName: '',
         username: '',
         password: '',
         email: '',
@@ -33,22 +31,16 @@ export default withStyles(theme => ({
     }
     onClick = () => {
         const {
-            firstName,
-            lastName,
             username,
             password,
             email,
             summonerName
         } = this.state
-        console.log('firstName', firstName)
-        console.log('lastName', lastName)
         console.log('username', username)
         console.log('password', password)
         console.log('email', email)
         console.log('summonerName', summonerName)
         axios.post('/api/signup', {
-            firstName,
-            lastName,
             username,
             password,
             email,
@@ -78,26 +70,6 @@ export default withStyles(theme => ({
                             direction="column"
                             justify="center"
                         >
-                            <Grid item>
-                                <TextField
-                                    label="First name"
-                                    onChange={e =>
-                                        this.setState({
-                                            firstName: e.target.value
-                                        })
-                                    }
-                                />
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    label="Last name"
-                                    onChange={e =>
-                                        this.setState({
-                                            lastName: e.target.value
-                                        })
-                                    }
-                                />
-                            </Grid>
                             <Grid item>
                                 <TextField
                                     label="Username"
