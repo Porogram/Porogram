@@ -1,5 +1,7 @@
 const router = require('express').Router()
+const jsonParser = require('body-parser').json()
 const utils = require('../utils')
+const User = require('../models/User')
 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -10,10 +12,10 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/:matchId', (req, res) => {
-    utils.request(utils.createUrl('/match/v3/matches', req.params.matchId))
-        .then(match => res.send({ match }))
-        .catch(error => res.send({ error }))
+router.post('/', jsonParser, (req, res) => {
+    User.create(req.body)
+        .then(user => res.send(user))
+        .catch(error => res.send(error))
 })
 
 module.exports = router

@@ -19,7 +19,7 @@ router.post('/', jsonParser, (req, res) => {
             { beginIndex: req.body.beginIndex, endIndex: req.body.endIndex }
         )
     ).then(matchlist => res.send({ matchlist })
-    ).catch(error => res.send(error))
+    ).catch(error => res.send({ error }))
 })
 
 module.exports = router

@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const utils = require('../utils')
+const User = require('../models/User')
+const Summoner = require('../models/Summoner')
 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -10,10 +12,10 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/:matchId', (req, res) => {
-    utils.request(utils.createUrl('/match/v3/matches', req.params.matchId))
-        .then(match => res.send({ match }))
-        .catch(error => res.send({ error }))
+router.get('/', (req, res) => {
+    Promise.all([User.find(), Summoner.find()])
+        .then(([users, summoners]) => res.send({ users, summoners }))
+        .catch(error => res.send(error))
 })
 
 module.exports = router
