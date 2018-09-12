@@ -34,7 +34,18 @@ export default withStyles(theme => ({
         email: '',
         summonerName: '',
         signedUp: false,
-        signup: ''
+        signup: '',
+        errors: {}
+    }
+    checkErrors = (username, password, email, summonerName) => {
+        const errors = {}
+        if (!username.length) errors.username = 'field is required'
+        if (!password.length) errors.password = 'field is required'
+        if (!email.length) errors.email = 'field is required'
+        else if (!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+            errors.email = 'invalid email'
+        if (!summonerName.length) errors.summonerName = 'field is required'
+        return errors
     }
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
@@ -53,6 +64,7 @@ export default withStyles(theme => ({
         console.log('summonerName', summonerName)
         // TODO: do field validations before request
         // if error, set error, helperText="error message"
+        const errors = this.checkErrors(username, password, email, summonerName)
         axios.post('/api/signup', {
             username,
             password,
@@ -60,14 +72,14 @@ export default withStyles(theme => ({
             summonerName: summonerName.toLowerCase()    // remove spaces also
         }).then(({ data }) => {
             console.log(data)
-            data.error
-            ? this.setState({ signup: data.error })
+            data.error || !Object.is(errors, this.state.errors)
+            ? this.setState({ errors, signup: data.error })
             : this.setState({ signedUp: true })
         }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, signedUp, signup } = this.state
+        const { summonerName, signedUp, signup, errors } = this.state
         if (signedUp) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
@@ -87,6 +99,8 @@ export default withStyles(theme => ({
                         >
                             <Grid item>
                                 <TextField
+                                    error={!!errors.username}
+                                    helperText={errors.username}
                                     label="Username"
                                     name="username"
                                     onChange={this.onChange}
@@ -94,6 +108,8 @@ export default withStyles(theme => ({
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    error={!!errors.password}
+                                    helperText={errors.password}
                                     label="Password"
                                     name="password"
                                     onChange={this.onChange}
@@ -102,6 +118,8 @@ export default withStyles(theme => ({
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    error={!!errors.email}
+                                    helperText={errors.email}
                                     label="Email"
                                     name="email"
                                     onChange={this.onChange}
@@ -109,6 +127,8 @@ export default withStyles(theme => ({
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    error={!!errors.summonerName}
+                                    helperText={errors.summonerName}
                                     label="Summoner name"
                                     name="summonerName"
                                     onChange={this.onChange}
