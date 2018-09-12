@@ -49,7 +49,6 @@ export default withStyles(theme => ({
     }
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
-        // if (!email.test(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))
     }
     onClick = () => {
         const {
@@ -60,16 +59,14 @@ export default withStyles(theme => ({
         } = this.state
         console.log('username', username)
         console.log('password', password)
-        console.log('email', email)
-        console.log('summonerName', summonerName)
-        // TODO: do field validations before request
-        // if error, set error, helperText="error message"
+        console.log('email', email.toLowerCase())
+        console.log('summonerName', summonerName.replace(/\s/g, '').toLowerCase())
         const errors = this.checkErrors(username, password, email, summonerName)
         axios.post('/api/signup', {
             username,
             password,
             email: email.toLowerCase(),
-            summonerName: summonerName.toLowerCase()    // remove spaces also
+            summonerName: summonerName.replace(/\s/g, '').toLowerCase()
         }).then(({ data }) => {
             console.log(data)
             data.error || !Object.is(errors, this.state.errors)
