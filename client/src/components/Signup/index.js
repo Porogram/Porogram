@@ -131,7 +131,7 @@ export default withStyles(theme => ({
                                 </Button>
                             </Grid>
                             {error && (
-                                <FormHelperText>
+                                <FormHelperText error>
                                     {error}
                                 </FormHelperText>
                             )}

@@ -96,7 +96,7 @@ export default withStyles(theme => ({
                                 />
                             </Grid>
                             {error && (
-                                <FormHelperText>
+                                <FormHelperText error>
                                     {error}
                                 </FormHelperText>
                             )}

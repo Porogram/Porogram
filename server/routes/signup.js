@@ -19,14 +19,19 @@ router.post('/', jsonParser, (req, res) => {
     console.log('password', password)
     console.log('email', email)
     console.log('summonerName', summonerName)
-    Summoner.findOne({ name: summonerName })
-        .then(summoner =>
-            summoner
-            ? Promise.resolve(summoner)
-            : Summoner.create({ name: summonerName })
-        ).then(summoner => User.create({ username, password, email, summoner }))
-        .then(user => res.send(user))
-        .catch(error => res.send(error.errmsg))
+    User.findOne({ $or: [{ username }, { email }] })
+        .then(user =>
+            user
+            ? res.send(
+                `${user.username === username ? 'username' : 'email'} already exists`
+            ) : Summoner.findOne({ name: summonerName })
+                .then(summoner =>
+                    summoner
+                    ? Promise.resolve(summoner)
+                    : Summoner.create({ name: summonerName })
+                ).then(summoner => User.create({ username, password, email, summoner }))
+                .then(user => res.send(user))
+        ).catch(error => res.send(error.errmsg))
 })
 
 module.exports = router
