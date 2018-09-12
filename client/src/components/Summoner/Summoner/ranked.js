@@ -28,23 +28,23 @@ export default withStyles((theme) => ({
     console.log('in ranked', positions)
     const getTierImage = tier => {
         if (tier === 'CHALLENGER') {
-            return <img src={Challenger} alt=''/>
+            return <img src={Challenger} alt="" />
         } else if (tier === 'MASTER') {
-            return <img src={Master} alt=''/>
+            return <img src={Master} alt="" />
         } else if (tier === 'DIAMOND') {
-            return <img src={Diamond} alt=''/>
+            return <img src={Diamond} alt="" />
         } else if (tier === 'PLATINUM') {
-            return <img src={Platinum} alt=''/>
+            return <img src={Platinum} alt="" />
         } else if (tier === 'GOLD') {
-            return <img src={Gold} alt=''/>
+            return <img src={Gold} alt="" />
         } else if (tier === 'SILVER') {
-            return <img src={Silver} alt=''/>
+            return <img src={Silver} alt="" />
         } else if (tier === 'BRONZE') {
-            return <img src={Bronze} alt=''/>
+            return <img src={Bronze} alt="" />
         } else if (tier === 'PROVISIONAL') {
-            return <img src={Provisional} alt=''/>
+            return <img src={Provisional} alt="" />
         } else {
-            return <img src={Unranked}/>
+            return <img src={Unranked} alt="" />
         }
     }
     const getQueueType = queue => {

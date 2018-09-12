@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Button, Grid, Paper, TextField } from '@material-ui/core'
+import {
+    Button,
+    FormHelperText,
+    Grid,
+    Paper,
+    TextField
+} from '@material-ui/core'
 import axios from 'axios'
 
 export default withStyles(theme => ({
@@ -27,7 +33,8 @@ export default withStyles(theme => ({
         password: '',
         email: '',
         summonerName: '',
-        signedUp: false
+        signedUp: false,
+        error: ''
     }
     onClick = () => {
         const {
@@ -44,15 +51,17 @@ export default withStyles(theme => ({
             username,
             password,
             email,
-            summonerName
+            summonerName: summonerName.toLowerCase()
         }).then(({ data }) => {
             console.log(data)
-            if (data.summoner) this.setState({ signedUp: true })
+            data.summoner
+            ? this.setState({ signedUp: true })
+            : this.setState({ error: data })
         }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, signedUp } = this.state
+        const { summonerName, signedUp, error } = this.state
         if (signedUp) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
@@ -121,6 +130,11 @@ export default withStyles(theme => ({
                                     SIGN UP
                                 </Button>
                             </Grid>
+                            {error && (
+                                <FormHelperText>
+                                    {error}
+                                </FormHelperText>
+                            )}
                         </Grid>
                     </Paper>
                 </Grid>
