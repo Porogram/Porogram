@@ -120,6 +120,11 @@ export default withStyles(theme => ({
                                     }
                                 />
                             </Grid>
+                            {error && (
+                                <FormHelperText error>
+                                    {error}
+                                </FormHelperText>
+                            )}
                             <Grid item>
                                 <Button
                                     className={classes.button}
@@ -130,11 +135,6 @@ export default withStyles(theme => ({
                                     SIGN UP
                                 </Button>
                             </Grid>
-                            {error && (
-                                <FormHelperText error>
-                                    {error}
-                                </FormHelperText>
-                            )}
                         </Grid>
                     </Paper>
                 </Grid>

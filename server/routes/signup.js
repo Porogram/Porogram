@@ -29,8 +29,9 @@ router.post('/', jsonParser, (req, res) => {
                     summoner
                     ? Promise.resolve(summoner)
                     : Summoner.create({ name: summonerName })
-                ).then(summoner => User.create({ username, password, email, summoner }))
-                .then(user => res.send(user))
+                ).then(summoner =>
+                    User.create({ username, password, email, summoner })
+                ).then(user => res.send(user))
         ).catch(error => res.send(error.errmsg))
 })
 
