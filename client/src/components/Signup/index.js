@@ -34,10 +34,11 @@ export default withStyles(theme => ({
         email: '',
         summonerName: '',
         signedUp: false,
-        error: ''
+        signup: ''
     }
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
+        // if (!email.test(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/))
     }
     onClick = () => {
         const {
@@ -50,21 +51,23 @@ export default withStyles(theme => ({
         console.log('password', password)
         console.log('email', email)
         console.log('summonerName', summonerName)
+        // TODO: do field validations before request
+        // if error, set error, helperText="error message"
         axios.post('/api/signup', {
             username,
             password,
-            email,
-            summonerName: summonerName.toLowerCase()
+            email: email.toLowerCase(),
+            summonerName: summonerName.toLowerCase()    // remove spaces also
         }).then(({ data }) => {
             console.log(data)
-            data.summoner
-            ? this.setState({ signedUp: true })
-            : this.setState({ error: data })
+            data.error
+            ? this.setState({ signup: data.error })
+            : this.setState({ signedUp: true })
         }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, signedUp, error } = this.state
+        const { summonerName, signedUp, signup } = this.state
         if (signedUp) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
@@ -111,9 +114,9 @@ export default withStyles(theme => ({
                                     onChange={this.onChange}
                                 />
                             </Grid>
-                            {error && (
+                            {signup && (
                                 <FormHelperText error>
-                                    {error}
+                                    {signup}
                                 </FormHelperText>
                             )}
                             <Grid item>

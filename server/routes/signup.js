@@ -22,9 +22,10 @@ router.post('/', jsonParser, (req, res) => {
     User.findOne({ $or: [{ username }, { email }] })
         .then(user =>
             user
-            ? res.send(
-                `${user.username === username ? 'username' : 'email'} already exists`
-            ) : Summoner.findOne({ name: summonerName })
+            ? res.send({
+                error: `${user.username === username ? 'username' : 'email'} already exists`
+                // TODO: error: { username: 'username already exists', email: 'email already exists' }
+            }) : Summoner.findOne({ name: summonerName })
                 .then(summoner =>
                     summoner
                     ? Promise.resolve(summoner)
