@@ -14,12 +14,7 @@ router.use((req, res, next) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
-    const {
-        username,
-        password,
-        email,
-        summonerName
-    } = req.body
+    const { username, password, email, summonerName } = req.body
     console.log('username', username)
     console.log('password', password)
     console.log('email', email)
@@ -29,15 +24,7 @@ router.post('/', jsonParser, (req, res) => {
             summoner
             ? Promise.resolve(summoner)
             : Summoner.create({ name: summonerName })
-        )
-        .then(summoner =>
-            User.create({
-                username,
-                password,
-                email,
-                summoner
-            })
-        )
+        ).then(summoner => User.create({ username, password, email, summoner }))
         .then(user => res.send(user))
         .catch(error => res.send(error))
 })
