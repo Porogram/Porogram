@@ -36,6 +36,9 @@ export default withStyles(theme => ({
         signedUp: false,
         error: ''
     }
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
     onClick = () => {
         const {
             username,
@@ -82,42 +85,30 @@ export default withStyles(theme => ({
                             <Grid item>
                                 <TextField
                                     label="Username"
-                                    onChange={e =>
-                                        this.setState({
-                                            username: e.target.value
-                                        })
-                                    }
+                                    name="username"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
                                     label="Password"
-                                    onChange={e =>
-                                        this.setState({
-                                            password: e.target.value
-                                        })
-                                    }
+                                    name="password"
+                                    onChange={this.onChange}
                                     type="password"
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
                                     label="Email"
-                                    onChange={e =>
-                                        this.setState({
-                                            email: e.target.value
-                                        })
-                                    }
+                                    name="email"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
                                     label="Summoner name"
-                                    onChange={e =>
-                                        this.setState({
-                                            summonerName: e.target.value
-                                        })
-                                    }
+                                    name="summonerName"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
                             {error && (
