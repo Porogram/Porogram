@@ -33,50 +33,98 @@ export default withStyles(theme => ({
         password: '',
         email: '',
         summonerName: '',
-        signedUp: false,
-        signup: '',
-        errors: {}
+        usernameError: '',
+        passwordError: '',
+        emailError: '',
+        summonerNameError: '',
+        signupError: '',
+        error: false,
+        signedUp: false
     }
-    checkErrors = (username, password, email, summonerName) => {
-        const errors = {}
-        if (!username.length) errors.username = 'field is required'
-        if (!password.length) errors.password = 'field is required'
-        if (!email.length) errors.email = 'field is required'
-        else if (!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
-            errors.email = 'invalid email'
-        if (!summonerName.length) errors.summonerName = 'field is required'
-        return errors
+    checkUsername = username => {
+        if (!username.length) return  'field is required'
+        else if (username.length < 6)
+            return 'must be at least 6 characters'
+        return ''
+    }
+    checkPassword = password => {
+        if (!password.length) return 'field is required'
+        else if (password.length < 6)
+            return 'must be at least 6 characters'
+        return ''
+    }
+    checkEmail = email => {
+        if (!email.length) return 'field is required'
+        else if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email))
+            return 'invalid email'
+        return ''
+    }
+    checkSummonerName = summonerName => {
+        if (!summonerName.length) return 'field is required'
+        return ''
     }
     onChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
+        if (this.state.error) {
+            if (e.target.name === 'username')
+                this.setState({
+                    username: e.target.value,
+                    usernameError: this.checkUsername(e.target.value)
+                })
+            else if (e.target.name === 'password')
+                this.setState({
+                    password: e.target.value,
+                    passwordError: this.checkPassword(e.target.value)
+                })
+            else if (e.target.name === 'email')
+                this.setState({
+                    email: e.target.value,
+                    emailError: this.checkEmail(e.target.value)
+                })
+            else if (e.target.name === 'summonerName')
+                this.setState({
+                    summonerName: e.target.value,
+                    summonerNameError: this.checkSummonerName(e.target.value)
+                })
+        } else this.setState({ [e.target.name]: e.target.value })
     }
     onClick = () => {
-        const {
-            username,
-            password,
-            email,
-            summonerName
-        } = this.state
-        console.log('username', username)
-        console.log('password', password)
-        console.log('email', email.toLowerCase())
-        console.log('summonerName', summonerName.replace(/\s/g, '').toLowerCase())
-        const errors = this.checkErrors(username, password, email, summonerName)
-        axios.post('/api/signup', {
+        const { username, password, email, summonerName } = this.state
+        const usernameError = this.checkUsername(username),
+        passwordError = this.checkPassword(password),
+        emailError = this.checkEmail(email),
+        summonerNameError = this.checkSummonerName(summonerName)
+        usernameError !== ''
+        || passwordError !== ''
+        || emailError !== ''
+        || summonerNameError !== ''
+        ? this.setState({
+            usernameError,
+            passwordError,
+            emailError,
+            summonerNameError,
+            error: true
+        }) : axios.post('/api/signup', {
             username,
             password,
             email: email.toLowerCase(),
             summonerName: summonerName.replace(/\s/g, '').toLowerCase()
         }).then(({ data }) => {
-            console.log(data)
-            data.error || !Object.is(errors, this.state.errors)
-            ? this.setState({ errors, signup: data.error })
+            data.error
+            ? this.setState({ signupError: data.error, error: true })
             : this.setState({ signedUp: true })
         }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, signedUp, signup, errors } = this.state
+        const {
+            summonerName,
+            signedUp,
+            signupError,
+            usernameError,
+            passwordError,
+            emailError,
+            summonerNameError
+        } = this.state
         if (signedUp) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
@@ -96,8 +144,8 @@ export default withStyles(theme => ({
                         >
                             <Grid item>
                                 <TextField
-                                    error={!!errors.username}
-                                    helperText={errors.username}
+                                    error={!!usernameError}
+                                    helperText={usernameError}
                                     label="Username"
                                     name="username"
                                     onChange={this.onChange}
@@ -105,8 +153,8 @@ export default withStyles(theme => ({
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    error={!!errors.password}
-                                    helperText={errors.password}
+                                    error={!!passwordError}
+                                    helperText={passwordError}
                                     label="Password"
                                     name="password"
                                     onChange={this.onChange}
@@ -115,8 +163,8 @@ export default withStyles(theme => ({
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    error={!!errors.email}
-                                    helperText={errors.email}
+                                    error={!!emailError}
+                                    helperText={emailError}
                                     label="Email"
                                     name="email"
                                     onChange={this.onChange}
@@ -124,16 +172,16 @@ export default withStyles(theme => ({
                             </Grid>
                             <Grid item>
                                 <TextField
-                                    error={!!errors.summonerName}
-                                    helperText={errors.summonerName}
+                                    error={!!summonerNameError}
+                                    helperText={summonerNameError}
                                     label="Summoner name"
                                     name="summonerName"
                                     onChange={this.onChange}
                                 />
                             </Grid>
-                            {signup && (
+                            {signupError && (
                                 <FormHelperText error>
-                                    {signup}
+                                    {signupError}
                                 </FormHelperText>
                             )}
                             <Grid item>
