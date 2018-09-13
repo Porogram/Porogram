@@ -13,15 +13,7 @@ export default () => (
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/signup" component={Signup} />
-                <PrivateRoute
-                    path="/:summonerName"
-                    render={props =>
-                        <Summoner
-                            {...props}
-                            key={props.match.params.summonerName}
-                        />
-                    }
-                />
+                <PrivateRoute path="/:summonerName" component={Summoner} />
                 <Route component={NotFound} />
             </Switch>
         </Layout>

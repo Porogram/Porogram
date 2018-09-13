@@ -8,10 +8,14 @@ export default ({ component: Component, ...rest }) => (
             <Route {...rest} render={props => (
                 isAuthenticated
                 ? <Component {...props} />
-                : <Redirect to={{
-                    pathname: '/',
-                    state: { from: props.location }
-                }} />
+                : (
+                    <Redirect
+                        to={{
+                            pathname: '/',
+                            state: { from: props.location }
+                        }}
+                    />
+                )
             )} />
         )}
     </AuthContext.Consumer>
