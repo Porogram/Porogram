@@ -71,6 +71,9 @@ export default withStyles(theme => ({
             >
                 <Grid item>
                     <Paper className={classes.paper}>
+                        <Typography align="center" variant="title">
+                            Login
+                        </Typography>
                         <Grid
                             alignItems="center"
                             container

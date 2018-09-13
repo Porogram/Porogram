@@ -6,7 +6,8 @@ import {
     FormHelperText,
     Grid,
     Paper,
-    TextField
+    TextField,
+    Typography
 } from '@material-ui/core'
 import axios from 'axios'
 
@@ -136,6 +137,9 @@ export default withStyles(theme => ({
             >
                 <Grid item>
                     <Paper className={classes.paper}>
+                        <Typography align="center" variant="title">
+                            Create an account
+                        </Typography>
                         <Grid
                             alignItems="center"
                             container
