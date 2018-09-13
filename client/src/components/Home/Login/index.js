@@ -11,6 +11,7 @@ import {
     Typography
 } from '@material-ui/core'
 import axios from 'axios'
+import { AuthContext } from '../../Context'
 
 export default withStyles(theme => ({
     button: {
@@ -44,17 +45,18 @@ export default withStyles(theme => ({
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
-    onClick = () => {
+    onClick = login => {
         const { username, password } = this.state
         console.log('username', username)
         console.log('password', password)
         axios.post('/api/login', { username, password })
             .then(({ data }) => {
-                data.summoner
-                ? this.setState({
+                data.error
+                ? this.setState({ error: data.error })
+                : this.setState({
                     loggedIn: true,
                     summonerName: data.summoner.name
-                }) : this.setState({ error: data })
+                }) && login()
             }).catch(error => console.log(error))
     }
     render() {
@@ -101,14 +103,18 @@ export default withStyles(theme => ({
                                 </FormHelperText>
                             )}
                             <Grid item>
-                                <Button
-                                    className={classes.button}
-                                    color="primary"
-                                    onClick={this.onClick}
-                                    variant="contained"
-                                >
-                                    LOGIN
-                                </Button>
+                                <AuthContext.Consumer>
+                                    {({ login }) => (
+                                        <Button
+                                            className={classes.button}
+                                            color="primary"
+                                            onClick={() => this.onClick(login)}
+                                            variant="contained"
+                                        >
+                                            LOGIN
+                                        </Button>
+                                    )}
+                                </AuthContext.Consumer>
                             </Grid>
                             <Grid item>
                                 <Link className={classes.signup} to="/signup">

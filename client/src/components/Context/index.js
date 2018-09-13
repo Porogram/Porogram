@@ -1,5 +1,5 @@
-import Auth from './auth'
+import AuthContext from './auth'
 import StaticDataContext from './staticData'
 import SummonerDataContext from './summonerData'
 
-export { Auth, StaticDataContext, SummonerDataContext }
+export { AuthContext, StaticDataContext, SummonerDataContext }
