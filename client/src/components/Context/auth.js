@@ -5,10 +5,10 @@ const Context = createContext()
 class Provider extends Component {
     state = { isAuthenticated: false }
     login = () => {
-        this.setState({ isAuthenticated: true })
+        return this.setState({ isAuthenticated: true })
     }
     logout = () => {
-        this.setState({ isAuthenticated: false })
+        return this.setState({ isAuthenticated: false })
     }
     render() {
         const { children } = this.props
