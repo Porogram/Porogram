@@ -4,6 +4,7 @@ import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
 import { StaticDataContext, SummonerDataContext } from '../../Context'
 import ChampionMastery from './championMastery'
 import Ranked from './ranked'
+import Recent from './recent'
 
 export default withStyles(theme => ({
     avatar: {
@@ -77,6 +78,9 @@ export default withStyles(theme => ({
                                             positions={position}
                                         />
                                     )}
+                                    <Recent
+                                        matches={matches}
+                                    />
                                 </Grid>
                             </Paper>
                         </div>
