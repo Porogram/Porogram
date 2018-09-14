@@ -15,8 +15,6 @@ router.use((req, res, next) => {
 
 router.post('/', jsonParser, (req, res) => {
     const { username, password } = req.body
-    console.log('username', username)
-    console.log('password', password)
     User.findOne({ username })
         .then(user =>
             user

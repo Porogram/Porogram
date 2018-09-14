@@ -15,16 +15,12 @@ router.use((req, res, next) => {
 
 router.post('/', jsonParser, (req, res) => {
     const { username, password, email, summonerName } = req.body
-    console.log('username', username)
-    console.log('password', password)
-    console.log('email', email)
-    console.log('summonerName', summonerName)
     User.findOne({ $or: [{ username }, { email }] })
         .then(user =>
             user
             ? res.send({
-                error: `${user.username === username ? 'username' : 'email'} already exists`
-                // TODO: error: { username: 'username already exists', email: 'email already exists' }
+                error:
+                    `${user.username === username ? 'username' : 'email'} already exists`
             }) : Summoner.findOne({ name: summonerName })
                 .then(summoner =>
                     summoner
