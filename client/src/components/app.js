@@ -5,6 +5,7 @@ import Home from './Home'
 import Signup from './Signup'
 import Summoner from './Summoner'
 import { NotFound } from './Errors'
+import PrivateRoute from './privateRoute'
 
 export default () => (
     <BrowserRouter>
@@ -12,15 +13,7 @@ export default () => (
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/signup" component={Signup} />
-                <Route
-                    path="/:summonerName"
-                    render={props =>
-                        <Summoner
-                            {...props}
-                            key={props.match.params.summonerName}
-                        />
-                    }
-                />
+                <PrivateRoute path="/:summonerName" component={Summoner} />
                 <Route component={NotFound} />
             </Switch>
         </Layout>

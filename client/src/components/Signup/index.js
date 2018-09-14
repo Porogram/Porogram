@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
-import { Button, Grid, Paper, TextField } from '@material-ui/core'
+import {
+    Button,
+    FormHelperText,
+    Grid,
+    Paper,
+    TextField,
+    Typography
+} from '@material-ui/core'
 import axios from 'axios'
 
 export default withStyles(theme => ({
@@ -27,32 +34,98 @@ export default withStyles(theme => ({
         password: '',
         email: '',
         summonerName: '',
+        usernameError: '',
+        passwordError: '',
+        emailError: '',
+        summonerNameError: '',
+        signupError: '',
+        error: false,
         signedUp: false
     }
+    checkUsername = username => {
+        if (!username.length) return  'field is required'
+        else if (username.length < 6)
+            return 'must be at least 6 characters'
+        return ''
+    }
+    checkPassword = password => {
+        if (!password.length) return 'field is required'
+        else if (password.length < 6)
+            return 'must be at least 6 characters'
+        return ''
+    }
+    checkEmail = email => {
+        if (!email.length) return 'field is required'
+        else if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email))
+            return 'invalid email'
+        return ''
+    }
+    checkSummonerName = summonerName => {
+        if (!summonerName.length) return 'field is required'
+        return ''
+    }
+    onChange = e => {
+        if (this.state.error) {
+            if (e.target.name === 'username')
+                this.setState({
+                    username: e.target.value,
+                    usernameError: this.checkUsername(e.target.value)
+                })
+            else if (e.target.name === 'password')
+                this.setState({
+                    password: e.target.value,
+                    passwordError: this.checkPassword(e.target.value)
+                })
+            else if (e.target.name === 'email')
+                this.setState({
+                    email: e.target.value,
+                    emailError: this.checkEmail(e.target.value)
+                })
+            else if (e.target.name === 'summonerName')
+                this.setState({
+                    summonerName: e.target.value,
+                    summonerNameError: this.checkSummonerName(e.target.value)
+                })
+        } else this.setState({ [e.target.name]: e.target.value })
+    }
     onClick = () => {
-        const {
+        const { username, password, email, summonerName } = this.state
+        const usernameError = this.checkUsername(username),
+        passwordError = this.checkPassword(password),
+        emailError = this.checkEmail(email),
+        summonerNameError = this.checkSummonerName(summonerName)
+        usernameError !== ''
+        || passwordError !== ''
+        || emailError !== ''
+        || summonerNameError !== ''
+        ? this.setState({
+            usernameError,
+            passwordError,
+            emailError,
+            summonerNameError,
+            error: true
+        }) : axios.post('/api/signup', {
             username,
             password,
-            email,
-            summonerName
-        } = this.state
-        console.log('username', username)
-        console.log('password', password)
-        console.log('email', email)
-        console.log('summonerName', summonerName)
-        axios.post('/api/signup', {
-            username,
-            password,
-            email,
-            summonerName
+            email: email.toLowerCase(),
+            summonerName: summonerName.replace(/\s/g, '').toLowerCase()
         }).then(({ data }) => {
-            console.log(data)
-            if (data.summoner) this.setState({ signedUp: true })
+            data.error
+            ? this.setState({ signupError: data.error, error: true })
+            : this.setState({ signedUp: true })
         }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, signedUp } = this.state
+        const {
+            summonerName,
+            signedUp,
+            signupError,
+            usernameError,
+            passwordError,
+            emailError,
+            summonerNameError
+        } = this.state
         if (signedUp) return <Redirect to={`/${summonerName}`} />
         return (
             <Grid
@@ -64,6 +137,9 @@ export default withStyles(theme => ({
             >
                 <Grid item>
                     <Paper className={classes.paper}>
+                        <Typography align="center" variant="title">
+                            Create an account
+                        </Typography>
                         <Grid
                             alignItems="center"
                             container
@@ -72,44 +148,46 @@ export default withStyles(theme => ({
                         >
                             <Grid item>
                                 <TextField
+                                    error={!!usernameError}
+                                    helperText={usernameError}
                                     label="Username"
-                                    onChange={e =>
-                                        this.setState({
-                                            username: e.target.value
-                                        })
-                                    }
+                                    name="username"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    error={!!passwordError}
+                                    helperText={passwordError}
                                     label="Password"
-                                    onChange={e =>
-                                        this.setState({
-                                            password: e.target.value
-                                        })
-                                    }
+                                    name="password"
+                                    onChange={this.onChange}
+                                    type="password"
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    error={!!emailError}
+                                    helperText={emailError}
                                     label="Email"
-                                    onChange={e =>
-                                        this.setState({
-                                            email: e.target.value
-                                        })
-                                    }
+                                    name="email"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    error={!!summonerNameError}
+                                    helperText={summonerNameError}
                                     label="Summoner name"
-                                    onChange={e =>
-                                        this.setState({
-                                            summonerName: e.target.value
-                                        })
-                                    }
+                                    name="summonerName"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
+                            {signupError && (
+                                <FormHelperText error>
+                                    {signupError}
+                                </FormHelperText>
+                            )}
                             <Grid item>
                                 <Button
                                     className={classes.button}

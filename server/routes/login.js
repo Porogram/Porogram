@@ -15,8 +15,6 @@ router.use((req, res, next) => {
 
 router.post('/', jsonParser, (req, res) => {
     const { username, password } = req.body
-    console.log('username', username)
-    console.log('password', password)
     User.findOne({ username })
         .then(user =>
             user
@@ -26,8 +24,8 @@ router.post('/', jsonParser, (req, res) => {
                         user.summoner = summoner
                         res.send(user)
                     })
-                : res.send('username and password do not match')
-            : res.send('cannot find username'))
+                : res.send({ error: 'username and password do not match' })
+            : res.send({ error: 'cannot find username' }))
         .catch(error => res.send(error))
 })
 

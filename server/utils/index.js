@@ -1,9 +1,7 @@
 const querystring = require('querystring')
-const rp = require('request-promise')
 const API_KEY = require('../key').API_KEY
 
 const URL = 'https://na1.api.riotgames.com'
-const OPTIONS = { json: true }
 
 module.exports = {
     createUrl(path, params = undefined, queryParams = {}) {
@@ -12,9 +10,5 @@ module.exports = {
         queryParams.api_key = API_KEY
         url += `?${querystring.stringify(queryParams)}`
         return url
-    },
-    request(url) {
-        OPTIONS.uri = url
-        return rp(OPTIONS)
     }
 }

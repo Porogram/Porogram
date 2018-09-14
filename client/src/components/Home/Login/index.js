@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -11,6 +10,7 @@ import {
     Typography
 } from '@material-ui/core'
 import axios from 'axios'
+import { AuthContext, SummonerDataContext } from '../../Context'
 
 export default withStyles(theme => ({
     button: {
@@ -37,27 +37,25 @@ export default withStyles(theme => ({
     state = {
         username: '',
         password: '',
-        summonerName: '',
-        loggedIn: false,
         error: ''
     }
-    onClick = () => {
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+    onClick = (login, getSummonerData) => {
         const { username, password } = this.state
         console.log('username', username)
         console.log('password', password)
         axios.post('/api/login', { username, password })
             .then(({ data }) => {
-                data.summoner
-                ? this.setState({
-                    loggedIn: true,
-                    summonerName: data.summoner.name
-                }) : this.setState({ error: data })
+                data.error
+                ? this.setState({ error: data.error })
+                : Promise.all([login(), getSummonerData(data.summoner.name)])
             }).catch(error => console.log(error))
     }
     render() {
         const { classes } = this.props
-        const { summonerName, loggedIn, error } = this.state
-        if (loggedIn) return <Redirect to={`/${summonerName}`} />
+        const { error } = this.state
         return (
             <Grid
                 alignItems="center"
@@ -68,6 +66,9 @@ export default withStyles(theme => ({
             >
                 <Grid item>
                     <Paper className={classes.paper}>
+                        <Typography align="center" variant="title">
+                            Login
+                        </Typography>
                         <Grid
                             alignItems="center"
                             container
@@ -77,37 +78,45 @@ export default withStyles(theme => ({
                             <Grid item>
                                 <TextField
                                     label="Username"
-                                    onChange={e =>
-                                        this.setState({
-                                            username: e.target.value
-                                        })
-                                    }
+                                    name="username"
+                                    onChange={this.onChange}
                                 />
                             </Grid>
                             <Grid item>
                                 <TextField
                                     label="Password"
-                                    onChange={e =>
-                                        this.setState({
-                                            password: e.target.value
-                                        })
-                                    }
+                                    name="password"
+                                    onChange={this.onChange}
+                                    type="password"
                                 />
                             </Grid>
                             {error && (
-                                <FormHelperText>
+                                <FormHelperText error>
                                     {error}
                                 </FormHelperText>
                             )}
                             <Grid item>
-                                <Button
-                                    className={classes.button}
-                                    color="primary"
-                                    onClick={this.onClick}
-                                    variant="contained"
-                                >
-                                    LOGIN
-                                </Button>
+                                <AuthContext.Consumer>
+                                    {({ login }) => (
+                                        <SummonerDataContext.Consumer>
+                                            {({ getSummonerData }) => (
+                                                <Button
+                                                    className={classes.button}
+                                                    color="primary"
+                                                    onClick={() =>
+                                                        this.onClick(
+                                                            login,
+                                                            getSummonerData
+                                                        )
+                                                    }
+                                                    variant="contained"
+                                                >
+                                                    LOGIN
+                                                </Button>
+                                            )}
+                                        </SummonerDataContext.Consumer>
+                                    )}
+                                </AuthContext.Consumer>
                             </Grid>
                             <Grid item>
                                 <Link className={classes.signup} to="/signup">

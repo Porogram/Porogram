@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
-import { StaticDataContext, SummonerDataContext } from '../Context'
+import { AuthContext, StaticDataContext, SummonerDataContext } from '../Context'
 import Navbar from './navbar'
 
 export default withStyles(theme => ({
@@ -10,14 +10,16 @@ export default withStyles(theme => ({
     },
     toolbar: theme.mixins.toolbar
 }))(({ classes, children }) => (
-    <StaticDataContext.Provider>
-        <SummonerDataContext.Provider>
-            <CssBaseline />
-            <Navbar />
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                {children}
-            </main>
-        </SummonerDataContext.Provider>
-    </StaticDataContext.Provider>
+    <AuthContext.Provider>
+        <StaticDataContext.Provider>
+            <SummonerDataContext.Provider>
+                <CssBaseline />
+                <Navbar />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    {children}
+                </main>
+            </SummonerDataContext.Provider>
+        </StaticDataContext.Provider>
+    </AuthContext.Provider>
 ))
