@@ -44,6 +44,11 @@ const queues = {
     1000: 'Overcharge',
     1010: 'Snow ARURF',
     1020: 'One for All',
+    1030: 'Odyssey: Extraction Intro',
+    1040: 'Odyssey: Extraction Cadet',
+    1050: 'Odyssey: Extraction Crewmember',
+    1060: 'Odyssey: Extraction Captain',
+    1070: 'Odyssey: Extraction Onslaught',
     1200: 'Nexus Blitz'
 }
 
