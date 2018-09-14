@@ -5,75 +5,71 @@ const Context = createContext()
 
 class Provider extends Component {
     state = {
-        searched: false,
-        fetchedData: false,
-        moreMatches: true,
-        summoner: {},
-        positions: [],
         championMasteries: [],
-        matchlist: {},
+        error: {},
+        fetchedData: false,
         matches: [],
-        error: {}
+        matchlist: {},
+        moreMatches: true,
+        positions: [],
+        searched: false,
+        summoner: {}
     }
     getSummonerData = summonerName => {
         this.setState({ searched: true })
         return axios.get(`/api/summoner/${summonerName}`)
-            .then(({ data }) => {
-                console.log(data)
-                'error' in data
+            .then(({ data }) =>
+                data.error
                 ? this.setState({ error: data.error, fetchedData: true })
                 : this.setState({
-                    summoner: data.summoner,
-                    positions: data.positions,
                     championMasteries: data.championMasteries,
-                    matchlist: data.matchlist,
-                    matches: data.matchlist.matches,
                     fetchedData: true,
+                    matches: data.matchlist.matches,
+                    matchlist: data.matchlist,
                     moreItems: (
                         data.matchlist.endIndex < data.matchlist.totalGames
-                    )
+                    ),
+                    positions: data.positions,
+                    summoner: data.summoner
                 })
-            }).catch(error => {
-                console.log(error)
+            ).catch(error =>
                 this.setState({
                     error: { message: 'Failed to get summoner data' },
                     fetchedData: true
                 })
-            })
+            )
     }
     getMatch = matchId => {
         return axios.get(`/api/match/${matchId}`)
             .then(({ data: { match } }) => Promise.resolve(match))
-            .catch(error => {
-                console.log(error)
+            .catch(error =>
                 this.setState({ error: { message: 'Failed to get match' } })
-            })
+            )
     }
     getMatches = (accountId, beginIndex, endIndex) => {
-        return axios.post('/api/matches', { accountId, beginIndex, endIndex })
+        return axios.post('/api/matchlist', { accountId, beginIndex, endIndex })
             .then(({ data: { matchlist } }) =>
                 this.setState(prevState => ({
                     matchlist,
                     matches: [...prevState.matches, ...matchlist.matches],
                     moreItems: matchlist.endIndex < prevState.matchlist.totalGames
                 }))
-            ).catch(error => {
-                console.log(error)
+            ).catch(error =>
                 this.setState({
-                    moreItems: false,
-                    error: { message: 'Failed to get more matches' }
+                    error: { message: 'Failed to get more matches' },
+                    moreItems: false
                 })
-            })
+            )
     }
     render() {
         const { children } = this.props
         return (
             <Context.Provider
                 value={{
-                    state: this.state,
-                    getSummonerData: this.getSummonerData,
                     getMatch: this.getMatch,
-                    getMatches: this.getMatches
+                    getMatches: this.getMatches,
+                    getSummonerData: this.getSummonerData,
+                    state: this.state
                 }}
             >
                 {children}
