@@ -2,27 +2,24 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
     username: {
-        type: String,
-        lowercase: true,
-        unique: true,
         required: true,
-        match: /^[a-zA-Z0-9]+$/
+        type: String,
+        unique: true
     },
     password: {
-        type: String,
-        required: true
+        required: true,
+        type: String
     },
     email: {
-        type: String,
         lowercase: true,
-        unique: true,
         required: true,
-        match: /\S+@\S+\.\S+/
+        type: String,
+        unique: true
     },
     summoner: {
-        type: mongoose.Schema.Types.ObjectId,
         ref: 'Summoner',
-        required: true
+        required: true,
+        type: mongoose.Schema.Types.ObjectId
     }
 })
 
