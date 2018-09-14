@@ -1,8 +1,8 @@
 import React, { Component, createContext } from 'react'
 import axios from 'axios'
 
-const baseUrl = 'https://ddragon.leagueoflegends.com'
 const Context = createContext()
+const baseUrl = 'https://ddragon.leagueoflegends.com'
 const queues = {
     0: 'Custom',
     72: '1v1 Snowdown Showdown',
@@ -54,11 +54,11 @@ const queues = {
 
 class Provider extends Component {
     state = {
-        version: '',
         champions: {},
-        summonerSpells: {},
+        items: {},
         runes: {},
-        items: {}
+        summonerSpells: {},
+        version: ''
     }
     componentDidMount() {
         return axios.get(`${baseUrl}/api/versions.json`)
