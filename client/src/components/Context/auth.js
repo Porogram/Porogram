@@ -1,9 +1,17 @@
 import React, { Component, createContext } from 'react'
+import { setAuthorizationToken } from '../Utils'
 
 const Context = createContext()
 
 class Provider extends Component {
     state = { isAuthenticated: false }
+    componentDidMount() {
+        if (localStorage.jwtToken) {
+            setAuthorizationToken(localStorage.jwtToken)
+            // TODO: somehow call getSummonerData
+            // this.setState({ isAuthenticated: true })
+        }
+    }
     login = () => {
         return this.setState({ isAuthenticated: true })
     }
