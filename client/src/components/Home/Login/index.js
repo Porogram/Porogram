@@ -10,6 +10,7 @@ import {
     Typography
 } from '@material-ui/core'
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
 import { AuthContext, SummonerDataContext } from '../../Context'
 import { setAuthorizationToken } from '../../Utils'
 
@@ -51,10 +52,11 @@ export default withStyles(theme => ({
             .then(({ data }) => {
                 if (data.error) this.setState({ error: data.error })
                 else {
-                    // Promise.all([login(), getSummonerData(data.summoner.name)])
                     const token = data.token
                     localStorage.setItem('jwtToken', token)
                     setAuthorizationToken(token)
+                    const user = jwt.decode(token)
+                    Promise.all([login(), getSummonerData(user.summoner.name)])
                 }
             }).catch(error => console.log(error))
     }
