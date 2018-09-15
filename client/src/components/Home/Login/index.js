@@ -48,9 +48,12 @@ export default withStyles(theme => ({
         console.log('password', password)
         axios.post('/api/login', { username, password })
             .then(({ data }) => {
-                data.error
-                ? this.setState({ error: data.error })
-                : Promise.all([login(), getSummonerData(data.summoner.name)])
+                if (data.error) this.setState({ error: data.error })
+                else {
+                    // Promise.all([login(), getSummonerData(data.summoner.name)])
+                    const token = data.token
+                    localStorage.setItem('jwtToken', token)
+                }
             }).catch(error => console.log(error))
     }
     render() {
