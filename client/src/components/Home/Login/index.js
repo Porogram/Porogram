@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 import axios from 'axios'
 import { AuthContext, SummonerDataContext } from '../../Context'
+import { setAuthorizationToken } from '../../Utils'
 
 export default withStyles(theme => ({
     button: {
@@ -53,6 +54,7 @@ export default withStyles(theme => ({
                     // Promise.all([login(), getSummonerData(data.summoner.name)])
                     const token = data.token
                     localStorage.setItem('jwtToken', token)
+                    setAuthorizationToken(token)
                 }
             }).catch(error => console.log(error))
     }
