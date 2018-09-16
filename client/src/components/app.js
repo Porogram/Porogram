@@ -92,9 +92,17 @@ export default class extends Component {
     }
     getStaticData = () => {
         return axios.get('/api/staticdata')
-            .then(({ data: { champions, runes, summonerSpells, version } }) =>
-                this.setState({ champions, runes, summonerSpells, version })
-            ).catch(error => console.log(error))
+            .then(({
+                data: { champions, items, runes, summonerSpells, version }
+            }) =>
+                this.setState({
+                    champions,
+                    items,
+                    runes,
+                    summonerSpells,
+                    version
+                }))
+            .catch(error => console.log(error))
     }
     getSummonerData = summonerName => {
         this.setState({ searched: true })

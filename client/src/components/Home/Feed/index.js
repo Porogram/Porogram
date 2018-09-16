@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-// import { SummonerDataContext } from '../../Context'
 import { Consumer } from '../../context'
 import { Failure } from '../../Errors'
 import Matches from './Matches'
@@ -19,7 +18,7 @@ export default withStyles(theme => ({
             <Fragment>
                 {'message' in error
                 ? <Failure error={error} />
-                : !champions[1]
+                : !champions[1]     // TODO: fix this check
                     ? <Loading />
                     : <div className={classes.matches}><Matches /></div>}
             </Fragment>

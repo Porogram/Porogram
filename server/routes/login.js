@@ -1,10 +1,9 @@
 const router = require('express').Router()
 const jsonParser = require('body-parser').json()
 const jwt = require('jsonwebtoken')
-const utils = require('../utils')
+const secret = require('../keys').secret
 const User = require('../models/User')
 const Summoner = require('../models/Summoner')
-const secret = require('../key').secret
 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -16,21 +15,21 @@ router.use((req, res, next) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
-    const { username, password } = req.body
+    const { password, username } = req.body
     User.findOne({ username })
-        .then(user =>
-            user
-            ? user.password === password
-                ? Summoner.findById(user.summoner)
-                    .then(summoner => {
-                        user.summoner = summoner
-                        res.json({
-                            token: jwt.sign(JSON.stringify(user), secret)
+        .then(user => {
+            if (user) {
+                if (user.password === password) {
+                    Summoner.findById(user.summoner)
+                        .then(summoner => {
+                            user.summoner = summoner
+                            res.json({
+                                token: jwt.sign(JSON.stringify(user), secret)
+                            })
                         })
-                    })
-                : res.send({ error: 'username and password do not match' })
-            : res.send({ error: 'cannot find username' }))
-        .catch(error => res.send(error))
+                } else res.send({ error: 'username and password do not match' })
+            } else res.send({ error: 'cannot find username' })
+        }).catch(error => res.send({ error }))
 })
 
 module.exports = router
