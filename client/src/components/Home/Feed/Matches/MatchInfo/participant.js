@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Grid, ListItem, Typography } from '@material-ui/core'
 import { Consumer } from '../../../../context'
-import NotFound from '../../../../../images/not-found-doge.jpg'
+import NotFound from '../../../../../images/error/not-found-doge.jpg'
 
 export default withStyles(theme => ({
     champion: {
