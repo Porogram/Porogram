@@ -14,14 +14,24 @@ export default withStyles(theme => ({
     }
 }))(({ classes }) => (
     <Consumer>
-        {({ state: { champions, error } }) => (
-            <Fragment>
-                {'message' in error
-                ? <Failure error={error} />
-                : !champions[1]     // TODO: fix this check
-                    ? <Loading />
-                    : <div className={classes.matches}><Matches /></div>}
-            </Fragment>
-        )}
+        {({
+            state: { champions, error, items, runes, summonerSpells, version }
+        }) => {
+            let feed
+            if (error.message) feed = <Failure error={error} />
+            else {
+                if (champions === {}
+                    || items === {}
+                    || runes === {}
+                    || summonerSpells === {}
+                    || version === '') feed = <Loading />
+                else feed = <div className={classes.matches}><Matches /></div>
+            }
+            return (
+                <Fragment>
+                    {feed}
+                </Fragment>
+            )
+        }}
     </Consumer>
 ))

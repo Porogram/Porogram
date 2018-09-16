@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
-// import { AuthContext, SummonerDataContext } from '../../Context'
 import { Consumer } from '../../context'
 import { setAuthorizationToken } from '../../Utils'
 
@@ -38,18 +37,18 @@ export default withStyles(theme => ({
     }
 }))(class extends Component {
     state = {
-        username: '',
+        error: '',
         password: '',
-        error: ''
+        username: ''
     }
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
     onClick = (login, getSummonerData) => {
-        const { username, password } = this.state
+        const { password, username } = this.state
         console.log('username', username)
         console.log('password', password)
-        axios.post('/api/login', { username, password })
+        axios.post('/api/login', { password, username })
             .then(({ data }) => {
                 if (data.error) this.setState({ error: data.error })
                 else {
