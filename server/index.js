@@ -8,6 +8,7 @@ const deleteUser = require('./routes/deleteUser')
 const deleteSummoner = require('./routes/deleteSummoner')
 const signup = require('./routes/signup')
 const login = require('./routes/login')
+const staticData = require('./routes/staticData')
 
 const port = process.env.PORT || 5000
 
@@ -28,4 +29,5 @@ app.use('/api/user/delete', deleteUser)
 app.use('/api/summoner/delete', deleteSummoner)
 app.use('/api/signup', signup)
 app.use('/api/login', login)
+app.use('/api/staticdata', staticData)
 app.listen(port, () => console.log(`server running on port ${port}`))

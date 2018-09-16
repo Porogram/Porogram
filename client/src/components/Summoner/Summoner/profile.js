@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
-import { StaticDataContext, SummonerDataContext } from '../../Context'
+import { Consumer } from '../../context'
 import ChampionMastery from './championMastery'
 import Ranked from './ranked'
 
@@ -32,57 +32,56 @@ export default withStyles(theme => ({
         color: '#fff'
     }
 }))(({ classes }) => (
-    <SummonerDataContext.Consumer>
+    <Consumer>
         {({
+            baseUrl,
             state: {
+                champions,
                 summoner: { name, profileIconId, summonerLevel },
                 positions,
                 championMasteries,
                 matchlist,
-                matches
+                matches,
+                version
             }
         }) => (
-            <StaticDataContext.Consumer>
-                {({ state: { version, champions }, baseUrl }) => (
-                    <div
-                        className={classes.main}
-                        style={{
-                            backgroundImage: (
-                                `url(${baseUrl}/cdn/img/champion/splash/${champions[matchlist.matches[0].champion].id}_0.jpg)`
-                            )
-                        }}
-                    >
-                        <Typography
-                            variant='display3'
-                            align='center'
-                            className={classes.summonerName}
-                        >
-                            {name}
-                        </Typography>
-                        <div className={classes.info}>
-                            <Avatar
-                                src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                                alt=""
-                                className={classes.avatar}
+            <div
+                className={classes.main}
+                style={{
+                    backgroundImage: (
+                        `url(${baseUrl}/cdn/img/champion/splash/${champions[matchlist.matches[0].champion].id}_0.jpg)`
+                    )
+                }}
+            >
+                <Typography
+                    variant='display3'
+                    align='center'
+                    className={classes.summonerName}
+                >
+                    {name}
+                </Typography>
+                <div className={classes.info}>
+                    <Avatar
+                        src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                        alt=""
+                        className={classes.avatar}
+                    />
+                    <Paper className={classes.infoPage} elevation={20}>
+                        <Grid container direction="row" justify="space-between">
+                            <ChampionMastery
+                                championMasteries={championMasteries}
+                                champions={champions}
                             />
-                            <Paper className={classes.infoPage} elevation={20}>
-                                <Grid container direction="row" justify="space-between">
-                                    <ChampionMastery
-                                        championMasteries={championMasteries}
-                                        champions={champions}
-                                    />
-                                    {positions.map(position =>
-                                        <Ranked
-                                            key={position.queueType}
-                                            positions={position}
-                                        />
-                                    )}
-                                </Grid>
-                            </Paper>
-                        </div>
-                    </div>
-                )}
-            </StaticDataContext.Consumer>
+                            {positions.map(position =>
+                                <Ranked
+                                    key={position.queueType}
+                                    positions={position}
+                                />
+                            )}
+                        </Grid>
+                    </Paper>
+                </div>
+            </div>
         )}
-    </SummonerDataContext.Consumer>
+    </Consumer>
 ))

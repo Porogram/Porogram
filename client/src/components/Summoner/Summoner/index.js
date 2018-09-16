@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { SummonerDataContext } from '../../Context'
+import { Consumer } from '../../context'
 import Loading from '../../loading'
 import { Failure } from '../../Errors'
 import Profile from './profile'
@@ -11,7 +11,7 @@ export default class extends Component {
     }
     render() {
         return (
-            <SummonerDataContext.Consumer>
+            <Consumer>
                 {({ state, state: { error, fetchedData } }) => (
                     <Fragment>
                         {!fetchedData && <Loading />}
@@ -20,7 +20,7 @@ export default class extends Component {
                         : <Profile />)}
                     </Fragment>
                 )}
-            </SummonerDataContext.Consumer>
+            </Consumer>
         )
     }
 }

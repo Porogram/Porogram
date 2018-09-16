@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { SummonerDataContext } from '../../Context'
+// import { SummonerDataContext } from '../../Context'
+import { Consumer } from '../../context'
 import { Failure } from '../../Errors'
 import Matches from './Matches'
+import Loading from '../../loading'
 
 export default withStyles(theme => ({
     matches: {
@@ -12,17 +14,15 @@ export default withStyles(theme => ({
         }
     }
 }))(({ classes }) => (
-    <SummonerDataContext.Consumer>
-        {({ state: { error } }) => (
+    <Consumer>
+        {({ state: { champions, error } }) => (
             <Fragment>
                 {'message' in error
                 ? <Failure error={error} />
-                : (
-                    <div className={classes.matches}>
-                        <Matches />
-                    </div>
-                )}
+                : !champions[1]
+                    ? <Loading />
+                    : <div className={classes.matches}><Matches /></div>}
             </Fragment>
         )}
-    </SummonerDataContext.Consumer>
+    </Consumer>
 ))

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
-import { StaticDataContext } from '../../Context'
+import { Consumer } from '../../context'
 import championMastery4 from '../../../images/champion-mastery/champion-mastery-4.png'
 import championMastery5 from '../../../images/champion-mastery/champion-mastery-5.png'
 import championMastery6 from '../../../images/champion-mastery/champion-mastery-6.png'
@@ -34,7 +34,7 @@ export default withStyles((theme) => ({
         }
     }
     return (
-        <StaticDataContext.Consumer>
+        <Consumer>
             {({ state: { version, champions }, baseUrl }) => (
                 <Fragment>
                 <Paper className={classes.paper}>
@@ -64,5 +64,5 @@ export default withStyles((theme) => ({
                 </Paper>
             </Fragment>
         )}
-    </StaticDataContext.Consumer>
+    </Consumer>
 )})

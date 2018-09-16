@@ -9,7 +9,7 @@ import {
     CardMedia,
     Typography
 } from '@material-ui/core'
-import { StaticDataContext } from '../../../Context'
+import { Consumer } from '../../../context'
 import MatchInfo from './MatchInfo'
 
 export default withStyles(theme => ({
@@ -70,7 +70,7 @@ export default withStyles(theme => ({
         } = this.props
         const { showMatch } = this.state
         return (
-            <StaticDataContext.Consumer>
+            <Consumer>
                 {({ baseUrl, queues, state: { champions, version } }) => (
                     <Card>
                         <CardHeader
@@ -111,7 +111,7 @@ export default withStyles(theme => ({
                         </CardContent>
                     </Card>
                 )}
-            </StaticDataContext.Consumer>
+            </Consumer>
         )
     }
 })

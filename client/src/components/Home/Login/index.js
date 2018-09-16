@@ -11,7 +11,8 @@ import {
 } from '@material-ui/core'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
-import { AuthContext, SummonerDataContext } from '../../Context'
+// import { AuthContext, SummonerDataContext } from '../../Context'
+import { Consumer } from '../../context'
 import { setAuthorizationToken } from '../../Utils'
 
 export default withStyles(theme => ({
@@ -103,27 +104,23 @@ export default withStyles(theme => ({
                                 </FormHelperText>
                             )}
                             <Grid item>
-                                <AuthContext.Consumer>
-                                    {({ login }) => (
-                                        <SummonerDataContext.Consumer>
-                                            {({ getSummonerData }) => (
-                                                <Button
-                                                    className={classes.button}
-                                                    color="primary"
-                                                    onClick={() =>
-                                                        this.onClick(
-                                                            login,
-                                                            getSummonerData
-                                                        )
-                                                    }
-                                                    variant="contained"
-                                                >
-                                                    LOGIN
-                                                </Button>
-                                            )}
-                                        </SummonerDataContext.Consumer>
+                                <Consumer>
+                                    {({ getSummonerData, login }) => (
+                                        <Button
+                                            className={classes.button}
+                                            color="primary"
+                                            onClick={() =>
+                                                this.onClick(
+                                                    login,
+                                                    getSummonerData
+                                                )
+                                            }
+                                            variant="contained"
+                                        >
+                                            LOGIN
+                                        </Button>
                                     )}
-                                </AuthContext.Consumer>
+                                </Consumer>
                             </Grid>
                             <Grid item>
                                 <Link className={classes.signup} to="/signup">

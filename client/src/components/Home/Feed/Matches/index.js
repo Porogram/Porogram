@@ -1,11 +1,11 @@
 import React from 'react'
 import { CircularProgress, Grid } from '@material-ui/core'
 import InfiniteScroll from 'react-infinite-scroller'
-import { SummonerDataContext } from '../../../Context'
+import { Consumer } from '../../../context'
 import Match from './match'
 
 export default () => (
-    <SummonerDataContext.Consumer>
+    <Consumer>
         {({
             state: {
                 matches,
@@ -50,5 +50,5 @@ export default () => (
                 ))}
             </InfiniteScroll>
         )}
-    </SummonerDataContext.Consumer>
+    </Consumer>
 )

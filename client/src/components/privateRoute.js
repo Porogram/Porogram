@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { AuthContext } from './Context'
+import { Consumer } from './context'
 
 export default ({ component: Component, ...rest }) => (
-    <AuthContext.Consumer>
+    <Consumer>
         {({ state: { isAuthenticated } }) => (
             <Route {...rest} render={props => (
                 isAuthenticated
@@ -18,5 +18,5 @@ export default ({ component: Component, ...rest }) => (
                 )
             )} />
         )}
-    </AuthContext.Consumer>
+    </Consumer>
 )

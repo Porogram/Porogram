@@ -95,11 +95,11 @@ class Provider extends Component {
                         }
                     }
                 }
-                console.log('champions', champions)
-                console.log('summonerSpells', summonerSpells)
-                console.log('runes', runes)
-                console.log('items', items)
-                console.log('queues', queues)
+                // console.log('champions', champions)
+                // console.log('summonerSpells', summonerSpells)
+                // console.log('runes', runes)
+                // console.log('items', items)
+                // console.log('queues', queues)
                 this.setState({
                     version,
                     champions,
