@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const jsonParser = require('body-parser').json()
-const rp = require('request-promise')
 const utils = require('../utils')
 
 router.use((req, res, next) => {
@@ -14,16 +13,14 @@ router.use((req, res, next) => {
 
 router.post('/', jsonParser, (req, res) => {
     const { accountId, beginIndex, endIndex } = req.body
-    rp({
-        json: true,
-        uri:
-            utils.createUrl(
-                '/match/v3/matchlists/by-account',
-                accountId,
-                { beginIndex, endIndex }
-            )
-    }).then(matchlist => res.send({ matchlist })
-    ).catch(error => res.send({ error }))
+    utils.request(
+        utils.createUrl(
+            '/match/v3/matchlists/by-account',
+            accountId,
+            { beginIndex, endIndex }
+        )
+    ).then(matchlist => res.send({ matchlist }))
+        .catch(error => res.send({ error }))
 })
 
 module.exports = router

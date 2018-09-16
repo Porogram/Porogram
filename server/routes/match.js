@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const rp = require('request-promise')
 const utils = require('../utils')
 
 router.use((req, res, next) => {
@@ -12,10 +11,8 @@ router.use((req, res, next) => {
 })
 
 router.get('/:matchId', (req, res) => {
-    rp({
-        json: true,
-        uri: utils.createUrl('/match/v3/matches', req.params.matchId)
-    }).then(match => res.send({ match }))
+    utils.request(utils.createUrl('/match/v3/matches', req.params.matchId))
+        .then(match => res.send({ match }))
         .catch(error => res.send({ error }))
 })
 

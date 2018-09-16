@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
+import jwt from 'jsonwebtoken'
+import { Provider } from './context'
+import { setAuthorizationToken } from './Utils'
+import PrivateRoute from './privateRoute'
 import Layout from './Layout'
 import Home from './Home'
 import Signup from './Signup'
 import Summoner from './Summoner'
 import { NotFound } from './Errors'
-import PrivateRoute from './privateRoute'
-import { setAuthorizationToken } from './Utils'
-import { Provider } from './context'
-import jwt from 'jsonwebtoken'
 
 const baseUrl = 'https://ddragon.leagueoflegends.com'
 const queues = {
@@ -74,7 +74,6 @@ export default class extends Component {
         moreMatches: true,
         positions: [],
         runes: {},
-        searched: false,
         summoner: {},
         summonerSpells: {},
         version: ''
@@ -91,7 +90,7 @@ export default class extends Component {
         } else this.getStaticData()
     }
     getStaticData = () => {
-        return axios.get('/api/staticdata')
+        return axios.get('/api/static-data')
             .then(({
                 data: { champions, items, runes, summonerSpells, version }
             }) =>
@@ -105,7 +104,6 @@ export default class extends Component {
             .catch(error => console.log(error))
     }
     getSummonerData = summonerName => {
-        this.setState({ searched: true })
         return axios.get(`/api/summoner/${summonerName}`)
             .then(({ data }) =>
                 data.error

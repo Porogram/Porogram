@@ -8,12 +8,13 @@ $ git clone https://github.com/Porogram/Porogram.git
 ```
 $ npm i
 ```
-create `key.js` inside `server` to store your Riot API key
+create `keys.js` inside `server` to store your Riot API key
 
 **key.js**
 ```
 module.exports = {
-    API_KEY: "<YOUR API_KEY>"
+    apiKey: '<YOUR API_KEY>',
+    secret: '<YOUR SECRET>'
 }
 ```
 ### Client

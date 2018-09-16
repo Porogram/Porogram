@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const rp = require('request-promise')
 const utils = require('../utils')
 
 router.use((req, res, next) => {
@@ -13,53 +12,41 @@ router.use((req, res, next) => {
 
 router.get('/', (req, res) => {
     const baseUrl = 'https://ddragon.leagueoflegends.com'
-    rp({ json: true, uri: `${baseUrl}/api/versions.json` })
-        .then(data => Promise.all([
-            data[0],
-            rp({
-                json: true,
-                uri: `${baseUrl}/cdn/${data[0]}/data/en_US/champion.json`
-            }),
-            rp({
-                json: true,
-                uri: `${baseUrl}/cdn/${data[0]}/data/en_US/summoner.json`
-            }),
-            rp({
-                json: true,
-                uri: `${baseUrl}/cdn/${data[0]}/data/en_US/runesReforged.json`
-            }),
-            rp({
-                json: true,
-                uri: `${baseUrl}/cdn/${data[0]}/data/en_US/item.json`
-            })
-        ])).then(data => {
+    utils.request(`${baseUrl}/api/versions.json`)
+        .then(versions => Promise.all([
+            versions[0],
+            utils.request(
+                `${baseUrl}/cdn/${versions[0]}/data/en_US/champion.json`
+            ),
+            utils.request(
+                `${baseUrl}/cdn/${versions[0]}/data/en_US/summoner.json`
+            ),
+            utils.request(
+                `${baseUrl}/cdn/${versions[0]}/data/en_US/runesReforged.json`
+            ),
+            utils.request(`${baseUrl}/cdn/${versions[0]}/data/en_US/item.json`)
+        ])).then(([
+            version,
+            championData,
+            summonerSpellData,
+            runeData,
+            itemData
+        ]) => {
             const champions = {},
                 summonerSpells = {},
                 runes = {},
-                items = data[4].data
-            for (let champion of Object.values(data[1].data)) {
+                items = itemData.data
+            for (let champion of Object.values(championData.data))
                 champions[champion.key] = champion
-            }
-            for (let summonerSpell of Object.values(data[2].data)) {
+            for (let summonerSpell of Object.values(summonerSpellData.data))
                 summonerSpells[summonerSpell.key] = summonerSpell
-            }
-            for (let rune of data[3]) {
-                runes[rune.id] = rune
-            }
-            for (let d of data[3]) {
-                for (let slot of d.slots) {
-                    for (let rune of slot.runes) {
-                        runes[rune.id] = rune
-                    }
+            for (let rune of runeData) runes[rune.id] = rune
+            for (let data of runeData) {
+                for (let slot of data.slots) {
+                    for (let rune of slot.runes) runes[rune.id] = rune
                 }
             }
-            res.send({
-                champions,
-                items,
-                runes,
-                summonerSpells,
-                version: data[0]
-            })
+            res.send({ champions, items, runes, summonerSpells, version })
         }).catch(error => res.send({ error }))
 })
 
