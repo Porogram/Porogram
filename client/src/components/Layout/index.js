@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
-// import { AuthContext, StaticDataContext, SummonerDataContext } from '../Context'
 import Navbar from './navbar'
 
 export default withStyles(theme => ({

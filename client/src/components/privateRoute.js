@@ -6,9 +6,9 @@ export default ({ component: Component, ...rest }) => (
     <Consumer>
         {({ state: { isAuthenticated } }) => (
             <Route {...rest} render={props => (
-                isAuthenticated
-                ? <Component {...props} />
-                : (
+                isAuthenticated ? (
+                    <Component {...props} />
+                ) : (
                     <Redirect
                         to={{
                             pathname: '/',

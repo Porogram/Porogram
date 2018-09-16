@@ -23,8 +23,7 @@ export default () => (
                     getMatches(
                         accountId,
                         endIndex,
-                        endIndex + 10 > totalGames
-                        ? totalGames : endIndex + 10
+                        endIndex + 10 > totalGames ? totalGames : endIndex + 10
                     )
                 }
                 hasMore={moreMatches}

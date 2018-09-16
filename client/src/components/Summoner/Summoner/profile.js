@@ -14,17 +14,16 @@ export default withStyles(theme => ({
         border: '3px solid #fff'
     },
     info: {
-        paddingTop: theme.spacing.unit * 20,
+        paddingTop: theme.spacing.unit * 20
     },
     infoPage: {
         borderRadius: 0,
-        // height: '100vh',
         padding: theme.spacing.unit * 8
     },
     main: {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '80vh',
+        height: '80vh'
     },
     summonerName: {
         paddingTop: theme.spacing.unit * 8,

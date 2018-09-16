@@ -54,7 +54,6 @@ export default withStyles(theme => ({
             match: { participantIdentities, participants, teams },
             summonerIndex
         } = this.state
-        console.log(match)
         return (
             <Dialog onClose={this.handleClose} open={open}>
                 {'gameId' in match ? (

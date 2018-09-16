@@ -20,11 +20,13 @@ export default withStyles(theme => ({
             let feed
             if (error.message) feed = <Failure error={error} />
             else {
-                if (champions === {}
+                if (
+                    champions === {}
                     || items === {}
                     || runes === {}
                     || summonerSpells === {}
-                    || version === '') feed = <Loading />
+                    || version === ''
+                ) feed = <Loading />
                 else feed = <div className={classes.matches}><Matches /></div>
             }
             return (

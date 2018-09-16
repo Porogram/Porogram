@@ -94,26 +94,31 @@ export default withStyles(theme => ({
         passwordError = this.checkPassword(password),
         emailError = this.checkEmail(email),
         summonerNameError = this.checkSummonerName(summonerName)
-        usernameError !== ''
-        || passwordError !== ''
-        || emailError !== ''
-        || summonerNameError !== ''
-        ? this.setState({
-            usernameError,
-            passwordError,
-            emailError,
-            summonerNameError,
-            error: true
-        }) : axios.post('/api/signup', {
-            username,
-            password,
-            email: email.toLowerCase(),
-            summonerName: summonerName.replace(/\s/g, '').toLowerCase()
-        }).then(({ data }) => {
-            data.error
-            ? this.setState({ signupError: data.error, error: true })
-            : this.setState({ signedUp: true })
-        }).catch(error => console.log(error))
+        if (
+            usernameError !== ''
+            || passwordError !== ''
+            || emailError !== ''
+            || summonerNameError !== ''
+        ) {
+            this.setState({
+                usernameError,
+                passwordError,
+                emailError,
+                summonerNameError,
+                error: true
+            })
+        } else {
+            axios.post('/api/signup', {
+               username,
+               password,
+               email: email.toLowerCase(),
+               summonerName: summonerName.replace(/\s/g, '').toLowerCase()
+           }).then(({ data }) => {
+               if (data.error)
+                   this.setState({ signupError: data.error, error: true })
+               else this.setState({ signedUp: true })
+           }).catch(error => console.log(error))
+        }
     }
     render() {
         const { classes } = this.props
