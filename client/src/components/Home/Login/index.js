@@ -10,7 +10,9 @@ import {
     Typography
 } from '@material-ui/core'
 import axios from 'axios'
-import { AuthContext, SummonerDataContext } from '../../Context'
+import jwt from 'jsonwebtoken'
+import { Consumer } from '../../context'
+import { setAuthorizationToken } from '../../Utils'
 
 export default withStyles(theme => ({
     button: {
@@ -35,22 +37,25 @@ export default withStyles(theme => ({
     }
 }))(class extends Component {
     state = {
-        username: '',
+        error: '',
         password: '',
-        error: ''
+        username: ''
     }
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
     onClick = (login, getSummonerData) => {
-        const { username, password } = this.state
-        console.log('username', username)
-        console.log('password', password)
-        axios.post('/api/login', { username, password })
+        const { password, username } = this.state
+        axios.post('/api/login', { password, username })
             .then(({ data }) => {
-                data.error
-                ? this.setState({ error: data.error })
-                : Promise.all([login(), getSummonerData(data.summoner.name)])
+                if (data.error) this.setState({ error: data.error })
+                else {
+                    const token = data.token
+                    localStorage.setItem('jwtToken', token)
+                    setAuthorizationToken(token)
+                    const user = jwt.decode(token)
+                    Promise.all([login(), getSummonerData(user.summoner.name)])
+                }
             }).catch(error => console.log(error))
     }
     render() {
@@ -96,27 +101,23 @@ export default withStyles(theme => ({
                                 </FormHelperText>
                             )}
                             <Grid item>
-                                <AuthContext.Consumer>
-                                    {({ login }) => (
-                                        <SummonerDataContext.Consumer>
-                                            {({ getSummonerData }) => (
-                                                <Button
-                                                    className={classes.button}
-                                                    color="primary"
-                                                    onClick={() =>
-                                                        this.onClick(
-                                                            login,
-                                                            getSummonerData
-                                                        )
-                                                    }
-                                                    variant="contained"
-                                                >
-                                                    LOGIN
-                                                </Button>
-                                            )}
-                                        </SummonerDataContext.Consumer>
+                                <Consumer>
+                                    {({ getSummonerData, login }) => (
+                                        <Button
+                                            className={classes.button}
+                                            color="primary"
+                                            onClick={() =>
+                                                this.onClick(
+                                                    login,
+                                                    getSummonerData
+                                                )
+                                            }
+                                            variant="contained"
+                                        >
+                                            LOGIN
+                                        </Button>
                                     )}
-                                </AuthContext.Consumer>
+                                </Consumer>
                             </Grid>
                             <Grid item>
                                 <Link className={classes.signup} to="/signup">

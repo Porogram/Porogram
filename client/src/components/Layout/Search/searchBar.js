@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { FormHelperText } from '@material-ui/core'
 import SearchBar from 'material-ui-search-bar'
 import XRegExp from 'xregexp'
-import { SummonerDataContext } from '../../Context'
+import { Consumer } from '../../context'
 
 export default class extends Component {
     state = {
@@ -11,14 +11,14 @@ export default class extends Component {
     }
     onSearch = getSummonerData => {
         const { summonerName } = this.state
-        XRegExp('^[0-9\\p{L} _\\.]+$').test(summonerName)
-            ? getSummonerData(summonerName)
-            : this.setState({ invalidInput: true })
+        if (XRegExp('^[0-9\\p{L} _\\.]+$').test(summonerName))
+            getSummonerData(summonerName)
+        else this.setState({ invalidInput: true })
     }
     render() {
         const { summonerName, invalidInput } = this.state
         return (
-            <SummonerDataContext.Consumer>
+            <Consumer>
                 {({ getSummonerData }) => (
                     <Fragment>
                         <SearchBar
@@ -37,7 +37,7 @@ export default class extends Component {
                         )}
                     </Fragment>
                 )}
-            </SummonerDataContext.Consumer>
+            </Consumer>
         )
     }
 }

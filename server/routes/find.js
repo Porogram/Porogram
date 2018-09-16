@@ -15,7 +15,7 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
     Promise.all([User.find(), Summoner.find()])
         .then(([users, summoners]) => res.send({ users, summoners }))
-        .catch(error => res.send(error))
+        .catch(error => res.send({ error }))
 })
 
 module.exports = router

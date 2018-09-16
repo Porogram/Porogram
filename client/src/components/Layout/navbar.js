@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
-import logo from '../../images/poro.png'
+import logo from '../../images/logo/poro.png'
 
 export default withStyles(theme => ({
     appBar: {

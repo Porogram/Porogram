@@ -3,11 +3,12 @@ const mongoose = require('mongoose')
 const summoner = require('./routes/summoner')
 const match = require('./routes/match')
 const matchlist = require('./routes/matchlist')
+const staticData = require('./routes/staticData')
+const signup = require('./routes/signup')
+const login = require('./routes/login')
 const find = require('./routes/find')
 const deleteUser = require('./routes/deleteUser')
 const deleteSummoner = require('./routes/deleteSummoner')
-const signup = require('./routes/signup')
-const login = require('./routes/login')
 
 const port = process.env.PORT || 5000
 
@@ -20,12 +21,17 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => console.log('connected to database'))
 
+// RIOT API
 app.use('/api/summoner', summoner)
 app.use('/api/match', match)
 app.use('/api/matchlist', matchlist)
+// DDRAGON API
+app.use('/api/static-data', staticData)
+// DATABASE
+app.use('/api/signup', signup)
+app.use('/api/login', login)
 app.use('/api/find', find)
 app.use('/api/user/delete', deleteUser)
 app.use('/api/summoner/delete', deleteSummoner)
-app.use('/api/signup', signup)
-app.use('/api/login', login)
+
 app.listen(port, () => console.log(`server running on port ${port}`))

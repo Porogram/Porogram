@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { SummonerDataContext } from '../../Context'
+import { Consumer } from '../../context'
 import { Failure } from '../../Errors'
 import Matches from './Matches'
+import Loading from '../../loading'
 
 export default withStyles(theme => ({
     matches: {
@@ -12,17 +13,27 @@ export default withStyles(theme => ({
         }
     }
 }))(({ classes }) => (
-    <SummonerDataContext.Consumer>
-        {({ state: { error } }) => (
-            <Fragment>
-                {'message' in error
-                ? <Failure error={error} />
-                : (
-                    <div className={classes.matches}>
-                        <Matches />
-                    </div>
-                )}
-            </Fragment>
-        )}
-    </SummonerDataContext.Consumer>
+    <Consumer>
+        {({
+            state: { champions, error, items, runes, summonerSpells, version }
+        }) => {
+            let feed
+            if (error.message) feed = <Failure error={error} />
+            else {
+                if (
+                    champions === {}
+                    || items === {}
+                    || runes === {}
+                    || summonerSpells === {}
+                    || version === ''
+                ) feed = <Loading />
+                else feed = <div className={classes.matches}><Matches /></div>
+            }
+            return (
+                <Fragment>
+                    {feed}
+                </Fragment>
+            )
+        }}
+    </Consumer>
 ))
