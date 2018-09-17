@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const jsonParser = require('body-parser').json()
-const utils = require('../utils')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const secret = require('../keys').secret
 const User = require('../models/User')
 const Summoner = require('../models/Summoner')
 
@@ -14,21 +16,31 @@ router.use((req, res, next) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
-    const { username, password } = req.body
-    console.log('username', username)
-    console.log('password', password)
+    const { password, username } = req.body
     User.findOne({ username })
-        .then(user =>
-            user
-            ? user.password === password
-                ? Summoner.findById(user.summoner)
-                    .then(summoner => {
-                        user.summoner = summoner
-                        res.send(user)
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password)
+                    .then(match => {
+                        if (match) {
+                            Summoner.findById(user.summoner)
+                                .then(summoner => {
+                                    user.summoner = summoner
+                                    res.send({
+                                        token:
+                                            jwt.sign(
+                                                JSON.stringify(user),
+                                                secret
+                                            )
+                                    })
+                                })
+                        } else
+                            res.send({
+                                error: 'username and password do not match'
+                            })
                     })
-                : res.send('username and password do not match')
-            : res.send('cannot find username'))
-        .catch(error => res.send(error))
+            } else res.send({ error: 'cannot find username' })
+        }).catch(error => res.send({ error }))
 })
 
 module.exports = router

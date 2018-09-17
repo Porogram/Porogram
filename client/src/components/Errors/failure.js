@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import dogeImage from '../../images/error-doge.jpg'
+import dogeImage from '../../images/error/error-doge.jpg'
 
 export default withStyles(() => ({
     doge: {

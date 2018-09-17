@@ -40,7 +40,7 @@ router.get('/:summonerName', (req, res) => {
             )
         ])
     ).then(([summoner, positions, championMasteries, matchlist]) =>
-        res.send({ summoner, positions, championMasteries, matchlist })
+        res.send({ championMasteries, matchlist, positions, summoner })
     ).catch(error => res.send({ error }))
 })
 

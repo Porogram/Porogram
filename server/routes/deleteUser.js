@@ -14,7 +14,7 @@ router.use((req, res, next) => {
 router.get('/:id', (req, res) => {
     User.findByIdAndDelete(req.params.id)
         .then(user => res.send(user))
-        .catch(error => res.send(error))
+        .catch(error => res.send({ error }))
 })
 
 module.exports = router

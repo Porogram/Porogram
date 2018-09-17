@@ -12,14 +12,15 @@ router.use((req, res, next) => {
 })
 
 router.post('/', jsonParser, (req, res) => {
+    const { accountId, beginIndex, endIndex } = req.body
     utils.request(
         utils.createUrl(
             '/match/v3/matchlists/by-account',
-            req.body.accountId,
-            { beginIndex: req.body.beginIndex, endIndex: req.body.endIndex }
+            accountId,
+            { beginIndex, endIndex }
         )
-    ).then(matchlist => res.send({ matchlist })
-    ).catch(error => res.send({ error }))
+    ).then(matchlist => res.send({ matchlist }))
+        .catch(error => res.send({ error }))
 })
 
 module.exports = router

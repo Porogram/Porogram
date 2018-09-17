@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Grid, ListItem, Typography } from '@material-ui/core'
-import { StaticDataContext } from '../../../../Context'
-import NotFound from '../../../../../images/not-found-doge.jpg'
+import { Consumer } from '../../../../context'
+import NotFound from '../../../../../images/error/not-found-doge.jpg'
 
 export default withStyles(theme => ({
     champion: {
@@ -35,7 +35,7 @@ export default withStyles(theme => ({
     participant: { championId, stats },
     participantIdentity: { player: { summonerName } }
 }) => (
-    <StaticDataContext.Consumer>
+    <Consumer>
         {({ baseUrl, state: { champions, items, version } }) => (
             <ListItem button>
                 <Grid alignItems="center" container>
@@ -66,5 +66,5 @@ export default withStyles(theme => ({
                 </Grid>
             </ListItem>
         )}
-    </StaticDataContext.Consumer>
+    </Consumer>
 ))

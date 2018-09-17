@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const jsonParser = require('body-parser').json()
 const utils = require('../utils')
-const User = require('../models/User')
+const Summoner = require('../models/Summoner')
 
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -12,10 +11,10 @@ router.use((req, res, next) => {
     next()
 })
 
-router.post('/', jsonParser, (req, res) => {
-    User.create(req.body)
+router.get('/:id', (req, res) => {
+    Summoner.findByIdAndDelete(req.params.id)
         .then(user => res.send(user))
-        .catch(error => res.send(error))
+        .catch(error => res.send({ error }))
 })
 
 module.exports = router
