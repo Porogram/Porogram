@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const jsonParser = require('body-parser').json()
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const secret = require('../keys').secret
 const User = require('../models/User')
@@ -19,15 +20,25 @@ router.post('/', jsonParser, (req, res) => {
     User.findOne({ username })
         .then(user => {
             if (user) {
-                if (user.password === password) {
-                    Summoner.findById(user.summoner)
-                        .then(summoner => {
-                            user.summoner = summoner
-                            res.json({
-                                token: jwt.sign(JSON.stringify(user), secret)
+                bcrypt.compare(password, user.password)
+                    .then(match => {
+                        if (match) {
+                            Summoner.findById(user.summoner)
+                                .then(summoner => {
+                                    user.summoner = summoner
+                                    res.send({
+                                        token:
+                                            jwt.sign(
+                                                JSON.stringify(user),
+                                                secret
+                                            )
+                                    })
+                                })
+                        } else
+                            res.send({
+                                error: 'username and password do not match'
                             })
-                        })
-                } else res.send({ error: 'username and password do not match' })
+                    })
             } else res.send({ error: 'cannot find username' })
         }).catch(error => res.send({ error }))
 })
