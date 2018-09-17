@@ -24,11 +24,10 @@ router.post('/', jsonParser, (req, res) => {
                 })
             } else {
                 Summoner.findOne({ name: summonerName })
-                    .then(summoner =>
-                        summoner
-                        ? Promise.resolve(summoner)
-                        : Summoner.create({ name: summonerName })
-                    ).then(summoner =>
+                    .then(summoner => {
+                        if (summoner) return Promise.resolve(summoner)
+                        else return Summoner.create({ name: summonerName })
+                    }).then(summoner =>
                         User.create({ email, password, summoner, username })
                     ).then(user => res.send(user))
             }
