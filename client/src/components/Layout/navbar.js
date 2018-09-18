@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { Consumer } from '../context'
 import logo from '../../images/logo/poro.png'
 
 export default withStyles(theme => ({
@@ -25,9 +26,13 @@ export default withStyles(theme => ({
             <Typography variant="title" color="inherit" noWrap>
                 POROGRAM
             </Typography>
-            <Link to="/">
-                <Typography variant="caption">LOGOUT</Typography>
-            </Link>
+            <Consumer>
+                {({ logout }) => (
+                    <Link onClick={logout} to="/">
+                        <Typography variant="caption">LOGOUT</Typography>
+                    </Link>
+                )}
+            </Consumer>
         </Toolbar>
     </AppBar>
 ))

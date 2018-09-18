@@ -9,10 +9,7 @@ import {
     TextField,
     Typography
 } from '@material-ui/core'
-import axios from 'axios'
-import jwt from 'jsonwebtoken'
 import { Consumer } from '../../context'
-import { setAuthorizationToken } from '../../Utils'
 
 export default withStyles(theme => ({
     button: {

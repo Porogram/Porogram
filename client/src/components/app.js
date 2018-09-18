@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { Provider } from './context'
-import { setAuthorizationToken } from './Utils'
 import PrivateRoute from './privateRoute'
 import Layout from './Layout'
 import Home from './Home'
@@ -165,7 +164,20 @@ export default class extends Component {
             }
         }).catch(error => Promise.reject(error))
     }
-    logout = () => { return this.setState({ isAuthenticated: false }) }
+    logout = () => {
+        localStorage.removeItem('jwtToken')
+        this.setAuthorizationToken(false)
+        return this.setState({
+            championMasteries: [],
+            fetchedData: false,
+            isAuthenticated: false,
+            matches: [],
+            matchlist: {},
+            moreItems: true,
+            positions: [],
+            summoner: {}
+        })
+    }
     setAuthorizationToken = token => {
         if (token)
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
