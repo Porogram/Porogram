@@ -8,11 +8,20 @@ import Recent from './recent'
 
 export default withStyles(theme => ({
     avatar: {
-        width: theme.spacing.unit * 18,
-        height: theme.spacing.unit * 18,
-        marginBottom: -theme.spacing.unit * 8,
-        marginLeft: theme.spacing.unit * 3,
-        border: '3px solid #fff'
+        [theme.breakpoints.up('md')] : {
+            width: theme.spacing.unit * 18,
+            height: theme.spacing.unit * 18,
+            marginBottom: -theme.spacing.unit * 8,
+            marginLeft: theme.spacing.unit * 3,
+            border: '3px solid #fff'
+        },
+        [theme.breakpoints.down('sm')] : {
+            width: theme.spacing.unit * 18,
+            height: theme.spacing.unit * 18,
+            marginBottom: -theme.spacing.unit * 8,
+            border: '3px solid #fff'
+        }
+
     },
     info: {
         paddingTop: theme.spacing.unit * 20
@@ -60,23 +69,22 @@ export default withStyles(theme => ({
                 >
                     {name}
                 </Typography>
-                <div className={classes.info}>
-                    <Avatar
-                        src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
-                        alt=""
-                        className={classes.avatar}
-                    />
-                    <Paper className={classes.infoPage} elevation={20}>
-                        <Grid container direction="row" justify="space-between">
-                            <ChampionMastery
-                                championMasteries={championMasteries}
-                                champions={champions}
-                            />
-                            {positions.map(position =>
+                <Grid className={classes.info} container direction="column" alignItems="center">
+                    <Grid item>
+                        <Avatar
+                            src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
+                            alt=""
+                            className={classes.avatar}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Paper className={classes.infoPage} elevation={20}>
+                            <Grid container direction="row" justify="space-between">
                                 <ChampionMastery
                                     championMasteries={championMasteries}
                                     champions={champions}
                                 />
+
                                 {positions.map(position =>
                                     <Ranked
                                         key={position.queueType}
@@ -86,10 +94,10 @@ export default withStyles(theme => ({
                                 <Recent
                                     matches={matches}
                                 />
-                            )}
-                        </Grid>
-                    </Paper>
-                </div>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                </Grid>
             </div>
         )}
     </Consumer>

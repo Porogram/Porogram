@@ -1,7 +1,11 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Paper, Typography, Grid } from '@material-ui/core'
-import { StaticDataContext } from '../../Context'
+import { Paper, Typography, Grid, Avatar } from '@material-ui/core'
+import { Consumer } from '../../context'
+import top from '../../../images/lane/top.png'
+import mid from '../../../images/lane/mid.png'
+import bot from '../../../images/lane/bot.png'
+import jungle from '../../../images/lane/jungle.png'
 
 export default withStyles((theme) => ({
     title: {
@@ -28,30 +32,69 @@ export default withStyles((theme) => ({
         lane: [],
         queue: []
     }
-    matches.map(match => {
+    matches.forEach(match => {
         data.champion.push(match.champion)
         data.lane.push(match.lane)
         data.queue.push(match.queue)
     })
-    const mostPlayed = {
-        champ: mode(data.champion)
-        lane: mode(data.lane)
-        queue: mode(data.queue)
-    }
+
 
     return (
-        <StaticDataContext.Consumer>
-            {({ state: { version, champions }, baseUrl }) => (
+        <Consumer>
+            {({ state: { version, champions }, baseUrl }) => {
+                console.log(data.lane)
+                const mostPlayed = [
+                    `${baseUrl}/cdn/${version}/img/champion/${champions[mode(data.champion)].image.full}`,
+                    mode(data.lane),
+                    mode(data.queue)
+                ]
+            return (
                 <Fragment>
                 <Paper className={classes.paper}>
                     <Typography variant="headline" className={classes.title}>Recent Stats</Typography>
                     <Grid container direction="column" justify="space-between" spacing={8}>
-                        <Grid item>
-
+                        <Grid item container direction="row" justify="space-between">
+                            <Grid item>
+                                <Typography variant="subheading">
+                                    Most Played Champ:
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="subheading">
+                                    <Avatar
+                                        src={`${mostPlayed[0]}`}
+                                    />
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="subheading">
+                                    Most Played Champ:
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="subheading">
+                                    <Avatar
+                                        src={`${mostPlayed[1]}`}
+                                    />
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="subheading">
+                                    Most Played Champ:
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="subheading">
+                                    <Avatar
+                                        src={`${baseUrl}/cdn/${version}/img/champion/${champions[mode(data.champion)].image.full}`}
+                                    />
+                                </Typography>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Paper>
             </Fragment>
         )}
-    </StaticDataContext.Consumer>
+        }
+    </Consumer>
 )})
