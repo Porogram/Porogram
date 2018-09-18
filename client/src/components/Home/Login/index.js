@@ -44,7 +44,8 @@ export default withStyles(theme => ({
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
-    onClick = (login, getSummonerData) => {
+    onClick = (e, login, getSummonerData) => {
+        e.preventDefault()
         const { password, username } = this.state
         axios.post('/api/login', { password, username: username.toLowerCase() })
             .then(({ data }) => {
@@ -106,8 +107,9 @@ export default withStyles(theme => ({
                                         <Button
                                             className={classes.button}
                                             color="primary"
-                                            onClick={() =>
+                                            onClick={e =>
                                                 this.onClick(
+                                                    e,
                                                     login,
                                                     getSummonerData
                                                 )

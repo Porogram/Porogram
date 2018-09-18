@@ -58,7 +58,8 @@ export default withStyles(theme => ({
             ? `${elapsedTime} YEAR AGO` : `${elapsedTime} YEARS AGO`
         }
     }
-    handleClick = () => {
+    handleClick = e => {
+        e.preventDefault()
         this.setState(prevState => ({ showMatch: !prevState.showMatch }))
     }
     render() {
