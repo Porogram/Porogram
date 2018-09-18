@@ -80,10 +80,10 @@ export default class extends Component {
     }
     componentDidMount() {
         if (localStorage.jwtToken) {
-            setAuthorizationToken(localStorage.jwtToken)
+            this.setAuthorizationToken(localStorage.jwtToken)
             const user = jwt.decode(localStorage.jwtToken)
             Promise.all([
-                this.login(),
+                this.setState({ isAuthenticated: true }),
                 this.getSummonerData(user.summoner.name),
                 this.getStaticData()
             ])
@@ -148,8 +148,29 @@ export default class extends Component {
                 })
             )
     }
-    login = () => { return this.setState({ isAuthenticated: true }) }
+    login = (username, password) => {
+        return axios.post(
+            '/api/login',
+            { password, username: username.toLowerCase() }
+        ).then(({ data }) => {
+            if (data.error) return Promise.resolve({ error: data.error })
+            else {
+                const token = data.token
+                localStorage.setItem('jwtToken', token)
+                this.setAuthorizationToken(token)
+                return Promise.all([
+                    jwt.decode(token),
+                    this.setState({ isAuthenticated: true })
+                ])
+            }
+        }).catch(error => Promise.reject(error))
+    }
     logout = () => { return this.setState({ isAuthenticated: false }) }
+    setAuthorizationToken = token => {
+        if (token)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        else delete axios.defaults.headers.common['Authorization']
+    }
     render() {
         return (
             <BrowserRouter>

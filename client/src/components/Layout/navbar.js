@@ -25,6 +25,9 @@ export default withStyles(theme => ({
             <Typography variant="title" color="inherit" noWrap>
                 POROGRAM
             </Typography>
+            <Link to="/">
+                <Typography variant="caption">LOGOUT</Typography>
+            </Link>
         </Toolbar>
     </AppBar>
 ))

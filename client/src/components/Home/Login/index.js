@@ -47,16 +47,10 @@ export default withStyles(theme => ({
     onClick = (e, login, getSummonerData) => {
         e.preventDefault()
         const { password, username } = this.state
-        axios.post('/api/login', { password, username: username.toLowerCase() })
-            .then(({ data }) => {
-                if (data.error) this.setState({ error: data.error })
-                else {
-                    const token = data.token
-                    localStorage.setItem('jwtToken', token)
-                    setAuthorizationToken(token)
-                    const user = jwt.decode(token)
-                    Promise.all([login(), getSummonerData(user.summoner.name)])
-                }
+        login(username, password)
+            .then(result => {
+                if (result.error) this.setState({ error: result.error })
+                else getSummonerData(result[0].summoner.name)
             }).catch(error => console.log(error))
     }
     render() {
