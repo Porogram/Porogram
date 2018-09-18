@@ -1,5 +1,7 @@
-const app = require('express')()
+const express = require('express')
+const app = express()
 const mongoose = require('mongoose')
+const path = require('path')
 const summoner = require('./routes/summoner')
 const match = require('./routes/match')
 const matchlist = require('./routes/matchlist')
@@ -12,6 +14,8 @@ const deleteSummoner = require('./routes/deleteSummoner')
 
 const port = process.env.PORT || 5000
 
+console.log(process.env)
+
 mongoose.connect(
     'mongodb://jewonoh:porogram@ec2-18-191-173-27.us-east-2.compute.amazonaws.com/porogram',
     { auth: { authdb: 'admin' }, useNewUrlParser: true }
@@ -21,6 +25,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => console.log('connected to database'))
 
+if (process.env.NODE_ENV === 'production')
+    app.use(express.static(path.join(__dirname, '../client/build')))
 // RIOT API
 app.use('/api/summoner', summoner)
 app.use('/api/match', match)

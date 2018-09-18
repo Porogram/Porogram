@@ -109,8 +109,8 @@ export default withStyles(theme => ({
             })
         } else {
             axios.post('/api/signup', {
-               username,
                password,
+               username: username.toLowerCase(),
                email: email.toLowerCase(),
                summonerName: summonerName.replace(/\s/g, '').toLowerCase()
            }).then(({ data }) => {

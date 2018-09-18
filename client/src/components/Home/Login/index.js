@@ -46,7 +46,7 @@ export default withStyles(theme => ({
     }
     onClick = (login, getSummonerData) => {
         const { password, username } = this.state
-        axios.post('/api/login', { password, username })
+        axios.post('/api/login', { password, username: username.toLowerCase() })
             .then(({ data }) => {
                 if (data.error) this.setState({ error: data.error })
                 else {
