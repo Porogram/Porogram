@@ -65,7 +65,6 @@ export default class extends Component {
         champions: {},
         championMasteries: [],
         error: {},
-        fetchedData: false,
         isAuthenticated: false,
         items: {},
         matches: [],
@@ -106,10 +105,9 @@ export default class extends Component {
         return axios.get(`/api/summoner/${summonerName}`)
             .then(({ data }) =>
                 data.error
-                ? this.setState({ error: data.error, fetchedData: true })
+                ? this.setState({ error: data.error })
                 : this.setState({
                     championMasteries: data.championMasteries,
-                    fetchedData: true,
                     matches: data.matchlist.matches,
                     matchlist: data.matchlist,
                     moreItems: (
@@ -120,8 +118,7 @@ export default class extends Component {
                 })
             ).catch(error =>
                 this.setState({
-                    error: { message: 'Failed to get summoner data' },
-                    fetchedData: true
+                    error: { message: 'Failed to get summoner data' }
                 })
             )
     }
@@ -169,7 +166,6 @@ export default class extends Component {
         this.setAuthorizationToken(false)
         return this.setState({
             championMasteries: [],
-            fetchedData: false,
             isAuthenticated: false,
             matches: [],
             matchlist: {},
