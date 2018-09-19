@@ -2,10 +2,12 @@ import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
 import { Consumer } from '../context'
-import championMastery4 from '../../images/champion-mastery/champion-mastery-4.png'
-import championMastery5 from '../../images/champion-mastery/champion-mastery-5.png'
-import championMastery6 from '../../images/champion-mastery/champion-mastery-6.png'
-import championMastery7 from '../../images/champion-mastery/champion-mastery-7.png'
+import {
+    championMastery4,
+    championMastery5,
+    championMastery6,
+    championMastery7
+} from '../../images/champion-mastery'
 
 const getMasteryImage = mastery => {
     if (mastery === '7') return <Avatar src={championMastery7}/>

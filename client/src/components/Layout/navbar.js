@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { Consumer } from '../context'
-import logo from '../../images/logo/poro.png'
+import { poro } from '../../images/logo'
 
 const ITEM_HEIGHT = 48
 
@@ -49,7 +49,7 @@ export default withStyles(theme => ({
                         {({ state: { isAuthenticated }, logout }) => (
                             <Fragment>
                                 <Link to="/" className={classes.logo}>
-                                    <img src={logo} alt="" className={classes.img} />
+                                    <img src={poro} alt="" className={classes.img} />
                                 </Link>
                                 <Typography variant="title" color="inherit" noWrap>
                                     POROGRAM

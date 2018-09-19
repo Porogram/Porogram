@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import dogeImage from '../../images/error/error-doge.jpg'
+import { technicalPoro } from '../../images/error'
 
 export default withStyles(() => ({
     doge: {
@@ -39,6 +39,6 @@ export default withStyles(() => ({
                 MESSAGE: {error.message}
             </Typography>
         )}
-        <img src={dogeImage} className={classes.doge} alt="" />
+        <img src={technicalPoro} className={classes.doge} alt="" />
     </div>
 ))

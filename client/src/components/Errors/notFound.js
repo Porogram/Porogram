@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import dogeImage from '../../images/error/not-found-doge.jpg'
+import { notFoundDoge } from '../../images/error'
 
 export default withStyles(() => ({
     doge: {
@@ -27,6 +27,6 @@ export default withStyles(() => ({
         <Typography variant="display1" className={classes.notFound}>
             we could not find that page
         </Typography>
-        <img src={dogeImage} className={classes.doge} alt="" />
+        <img src={notFoundDoge} className={classes.doge} alt="" />
     </div>
 ))
