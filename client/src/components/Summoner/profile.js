@@ -1,7 +1,7 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Avatar, Paper, Typography, Grid } from '@material-ui/core'
-import { Consumer } from '../../context'
+import { Consumer } from '../context'
 import ChampionMastery from './championMastery'
 import Ranked from './ranked'
 
