@@ -30,9 +30,11 @@ export default withStyles(theme => ({
 }))(class extends Component {
     state = { anchorEl: null }
     handleClick = e => {
+        e.preventDefault()
         this.setState({ anchorEl: e.currentTarget })
     }
-    handleClose = () => {
+    handleClose = e => {
+        e.preventDefault()
         this.setState({ anchorEl: null })
     }
     handleLogout = (e, logout) => {
