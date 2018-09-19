@@ -44,18 +44,15 @@ export default withStyles(theme => ({
             })
         )
     }
-    handleClose = () => {
-        this.props.close()
-    }
     render() {
-        const { classes, open } = this.props
+        const { classes, close, open } = this.props
         const {
             match,
             match: { participantIdentities, participants, teams },
             summonerIndex
         } = this.state
         return (
-            <Dialog onClose={this.handleClose} open={open}>
+            <Dialog onClose={e => close(e)} open={open}>
                 {'gameId' in match ? (
                     <Fragment>
                         <DialogTitle className={classes.title}>

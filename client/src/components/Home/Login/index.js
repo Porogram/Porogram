@@ -9,10 +9,7 @@ import {
     TextField,
     Typography
 } from '@material-ui/core'
-import axios from 'axios'
-import jwt from 'jsonwebtoken'
 import { Consumer } from '../../context'
-import { setAuthorizationToken } from '../../Utils'
 
 export default withStyles(theme => ({
     button: {
@@ -44,18 +41,13 @@ export default withStyles(theme => ({
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value })
     }
-    onClick = (login, getSummonerData) => {
+    onClick = (e, login, getSummonerData) => {
+        e.preventDefault()
         const { password, username } = this.state
-        axios.post('/api/login', { password, username: username.toLowerCase() })
-            .then(({ data }) => {
-                if (data.error) this.setState({ error: data.error })
-                else {
-                    const token = data.token
-                    localStorage.setItem('jwtToken', token)
-                    setAuthorizationToken(token)
-                    const user = jwt.decode(token)
-                    Promise.all([login(), getSummonerData(user.summoner.name)])
-                }
+        login(username, password)
+            .then(result => {
+                if (result.error) this.setState({ error: result.error })
+                else getSummonerData(result[0].summoner.name)
             }).catch(error => console.log(error))
     }
     render() {
@@ -106,8 +98,9 @@ export default withStyles(theme => ({
                                         <Button
                                             className={classes.button}
                                             color="primary"
-                                            onClick={() =>
+                                            onClick={e =>
                                                 this.onClick(
+                                                    e,
                                                     login,
                                                     getSummonerData
                                                 )

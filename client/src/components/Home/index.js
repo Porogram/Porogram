@@ -6,11 +6,26 @@ import Feed from './Feed'
 
 export default () => (
     <Consumer>
-        {({ state: { fetchedData, isAuthenticated } }) => {
+        {({
+            state: {
+                championMasteries,
+                isAuthenticated,
+                matches,
+                matchlist,
+                positions,
+                summoner
+            } 
+        }) => {
             let home
             if (!isAuthenticated) home = <Login />
             else {
-                if (!fetchedData) home = <Loading />
+                if (
+                    !championMasteries.length
+                    || !matches.length
+                    || matchlist === {}
+                    || !positions.length
+                    || summoner === {}
+                ) home = <Loading />
                 else home = <Feed />
             }
             return (

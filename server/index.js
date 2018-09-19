@@ -14,8 +14,6 @@ const deleteSummoner = require('./routes/deleteSummoner')
 
 const port = process.env.PORT || 5000
 
-console.log(process.env)
-
 mongoose.connect(
     'mongodb://jewonoh:porogram@ec2-18-191-173-27.us-east-2.compute.amazonaws.com/porogram',
     { auth: { authdb: 'admin' }, useNewUrlParser: true }

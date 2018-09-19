@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { Provider } from './context'
-import { setAuthorizationToken } from './Utils'
 import PrivateRoute from './privateRoute'
 import Layout from './Layout'
 import Home from './Home'
@@ -66,7 +65,6 @@ export default class extends Component {
         champions: {},
         championMasteries: [],
         error: {},
-        fetchedData: false,
         isAuthenticated: false,
         items: {},
         matches: [],
@@ -80,10 +78,10 @@ export default class extends Component {
     }
     componentDidMount() {
         if (localStorage.jwtToken) {
-            setAuthorizationToken(localStorage.jwtToken)
+            this.setAuthorizationToken(localStorage.jwtToken)
             const user = jwt.decode(localStorage.jwtToken)
             Promise.all([
-                this.login(),
+                this.setState({ isAuthenticated: true }),
                 this.getSummonerData(user.summoner.name),
                 this.getStaticData()
             ])
@@ -107,10 +105,9 @@ export default class extends Component {
         return axios.get(`/api/summoner/${summonerName}`)
             .then(({ data }) =>
                 data.error
-                ? this.setState({ error: data.error, fetchedData: true })
+                ? this.setState({ error: data.error })
                 : this.setState({
                     championMasteries: data.championMasteries,
-                    fetchedData: true,
                     matches: data.matchlist.matches,
                     matchlist: data.matchlist,
                     moreItems: (
@@ -121,8 +118,7 @@ export default class extends Component {
                 })
             ).catch(error =>
                 this.setState({
-                    error: { message: 'Failed to get summoner data' },
-                    fetchedData: true
+                    error: { message: 'Failed to get summoner data' }
                 })
             )
     }
@@ -148,8 +144,41 @@ export default class extends Component {
                 })
             )
     }
-    login = () => { return this.setState({ isAuthenticated: true }) }
-    logout = () => { return this.setState({ isAuthenticated: false }) }
+    login = (username, password) => {
+        return axios.post(
+            '/api/login',
+            { password, username: username.toLowerCase() }
+        ).then(({ data }) => {
+            if (data.error) return Promise.resolve({ error: data.error })
+            else {
+                const token = data.token
+                localStorage.setItem('jwtToken', token)
+                this.setAuthorizationToken(token)
+                return Promise.all([
+                    jwt.decode(token),
+                    this.setState({ isAuthenticated: true })
+                ])
+            }
+        }).catch(error => Promise.reject(error))
+    }
+    logout = () => {
+        localStorage.removeItem('jwtToken')
+        this.setAuthorizationToken(false)
+        return this.setState({
+            championMasteries: [],
+            isAuthenticated: false,
+            matches: [],
+            matchlist: {},
+            moreItems: true,
+            positions: [],
+            summoner: {}
+        })
+    }
+    setAuthorizationToken = token => {
+        if (token)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        else delete axios.defaults.headers.common['Authorization']
+    }
     render() {
         return (
             <BrowserRouter>

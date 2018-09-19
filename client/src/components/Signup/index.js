@@ -88,7 +88,8 @@ export default withStyles(theme => ({
                 })
         } else this.setState({ [e.target.name]: e.target.value })
     }
-    onClick = () => {
+    onClick = e => {
+        e.preventDefault()
         const { username, password, email, summonerName } = this.state
         const usernameError = this.checkUsername(username),
         passwordError = this.checkPassword(password),

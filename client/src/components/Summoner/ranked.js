@@ -1,26 +1,28 @@
 import React, { Fragment } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Paper, Typography, Grid } from '@material-ui/core'
-import Challenger from '../../../images/tier/challenger.png'
-import Master from '../../../images/tier/master.png'
-import Diamond from '../../../images/tier/diamond.png'
-import Platinum from '../../../images/tier/platinum.png'
-import Gold from '../../../images/tier/gold.png'
-import Silver from '../../../images/tier/silver.png'
-import Bronze from '../../../images/tier/bronze.png'
-import Provisional from '../../../images/tier/provisional.png'
-import Unranked from '../../../images/tier/unranked.png'
+import {
+    bronze,
+    challenger,
+    diamond,
+    gold,
+    master,
+    platinum,
+    provisional,
+    silver,
+    unranked
+} from '../../images/tier'
 
 const getTierImage = tier => {
-    if (tier === 'CHALLENGER') return <img src={Challenger} alt="" />
-    else if (tier === 'MASTER') return <img src={Master} alt="" />
-    else if (tier === 'DIAMOND') return <img src={Diamond} alt="" />
-    else if (tier === 'PLATINUM') return <img src={Platinum} alt="" />
-    else if (tier === 'GOLD') return <img src={Gold} alt="" />
-    else if (tier === 'SILVER') return <img src={Silver} alt="" />
-    else if (tier === 'BRONZE') return <img src={Bronze} alt="" />
-    else if (tier === 'PROVISIONAL') return <img src={Provisional} alt="" />
-    else return <img src={Unranked} alt="" />
+    if (tier === 'CHALLENGER') return <img src={challenger} alt="" />
+    else if (tier === 'MASTER') return <img src={master} alt="" />
+    else if (tier === 'DIAMOND') return <img src={diamond} alt="" />
+    else if (tier === 'PLATINUM') return <img src={platinum} alt="" />
+    else if (tier === 'GOLD') return <img src={gold} alt="" />
+    else if (tier === 'SILVER') return <img src={silver} alt="" />
+    else if (tier === 'BRONZE') return <img src={bronze} alt="" />
+    else if (tier === 'PROVISIONAL') return <img src={provisional} alt="" />
+    else return <img src={unranked} alt="" />
 }
 const getQueueType = queue => {
     if (queue === 'RANKED_SOLO_5x5') return 'Ranked Solo 5v5'
