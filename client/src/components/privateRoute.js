@@ -6,16 +6,8 @@ export default ({ component: Component, ...rest }) => (
     <Consumer>
         {({ state: { isAuthenticated } }) => (
             <Route {...rest} render={props => (
-                isAuthenticated ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect
-                        to={{
-                            pathname: '/',
-                            state: { from: props.location }
-                        }}
-                    />
-                )
+                isAuthenticated ? <Component {...props} />
+                : <Redirect to={{ pathname: '/' }} />
             )} />
         )}
     </Consumer>
