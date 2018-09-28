@@ -8,11 +8,11 @@ import Recent from './recent'
 
 export default withStyles(theme => ({
     avatar: {
-        [theme.breakpoints.up('md')] : {
+        [theme.breakpoints.up('sm')] : {
             width: theme.spacing.unit * 18,
             height: theme.spacing.unit * 18,
             marginBottom: -theme.spacing.unit * 8,
-            marginLeft: theme.spacing.unit * 3,
+            marginLeft: '-40vw',
             border: '3px solid #fff'
         },
         [theme.breakpoints.down('sm')] : {
@@ -28,12 +28,13 @@ export default withStyles(theme => ({
     },
     infoPage: {
         borderRadius: 0,
+        paddingTop: theme.spacing.unit * 12,
         padding: theme.spacing.unit * 8
     },
     main: {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '80vh'
+        // height: '100vh'
     },
     summonerName: {
         paddingTop: theme.spacing.unit * 8,
@@ -69,7 +70,7 @@ export default withStyles(theme => ({
                 >
                     {name}
                 </Typography>
-                <Grid className={classes.info} container direction="column" alignItems="center">
+                <Grid className={classes.info} container direction="column" alignItems="center" justify="center">
                     <Grid item>
                         <Avatar
                             src={`${baseUrl}/cdn/${version}/img/profileicon/${profileIconId}.png`}
